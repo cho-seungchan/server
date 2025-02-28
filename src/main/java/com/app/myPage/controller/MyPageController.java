@@ -1,4 +1,4 @@
-package com.app.myPage;
+package com.app.myPage.controller;
 
 
 import org.springframework.stereotype.Controller;
@@ -9,28 +9,28 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/my-page/*")
 public class MyPageController {
     @GetMapping("changePassword")
-    public void changePassword(){}
+    public void getChangePassword(){}
     @GetMapping("heart")
-    public void heart(){}
+    public void getHeart(){}
     @GetMapping("messageList_Send")
-    public void messageListSend(){}
+    public void getMessageListSend(){}
     @GetMapping("messageListReceive")
-    public void messageListReceive(){}
+    public void getMessageListReceive(){}
     @GetMapping("messageWrite")
-    public void messageWrite(){}
+    public void getMessageWrite(){}
     @GetMapping("myCourse")
-    public void myCourse(){}
+    public void getMyCourse(){}
     @GetMapping("myMain")
-    public void myMain(){}
+    public void getMyMain(){}
     @GetMapping("myPageModify")
-    public void myPageModify(){}
+    public void getMyPageModify(){}
     @GetMapping("myReply")
-    public void myReply(){}
+    public void getMyReply(){}
     @GetMapping("payContent")
-    public void payContent(){}
+    public void getPayContent(){}
     @GetMapping("recruit")
-    public void recuit(){}
+    public void getRecuit(){}
     @GetMapping("userQuit")
-    public void userQuit(){}
+    public void getUserQuit(){}
 
 }
