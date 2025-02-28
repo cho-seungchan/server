@@ -3,12 +3,12 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="../../static/css/common/header.css" />
-        <link rel="stylesheet" href="../../static/css/common/footer.css" />
-        <link rel="stylesheet" href="../../static/css/myPage/heart.css" />
+        <link rel="stylesheet" href="/css/common/header.css" />
+        <link rel="stylesheet" href="/css/common/footer.css" />
+        <link rel="stylesheet" href="/css/myPage/heart.css" />
         <link
             rel="shortcut icon"
-            href="../../static/images/common/favicon1.ico"
+            href="/images/common/favicon1.ico"
             type="image/x-icon"
         />
         <!DOCTYPE html>
@@ -21,11 +21,11 @@
                 />
                 <link
                     rel="stylesheet"
-                    href="../../static/css/common/header.css"
+                    href="/css/common/header.css"
                 />
                 <link
                     rel="stylesheet"
-                    href="../../static/css/common/footer.css"
+                    href="/css/common/footer.css"
                 />
                 <link
                     href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:300,400,500,700"
@@ -46,24 +46,6 @@
             <body class="fontLoaded">
                 <div id="app">
                     <div class="App__AppWrapper-nc5ti6-0 idXWQn">
-                        <!-- Header will be dynamically inserted here -->
-                        <div id="header-placeholder"></div>
-                        <script>
-                            // Load header.html and insert it in#header-placeholder
-                            fetch("../all/header.html")
-                                .then((response) => response.text())
-                                .then((data) => {
-                                    document.getElementById(
-                                        "header-placeholder"
-                                    ).innerHTML = data;
-                                })
-                                .catch((error) =>
-                                    console.error(
-                                        "Error loading header:",
-                                        error
-                                    )
-                                );
-                        </script>
                         <div class="mainContainer">
                             <div
                                 class="MyPurchases__PcTopWrapper-ag7quq-1 kTezqN"
@@ -83,7 +65,7 @@
                                 </header>
                             </div>
                             <!-- 찜한목록이 있을때 나올 화면 -->
-                            <!--  <img src="../../static/images/main/red.svg" alt="찜하기"/>-->
+                            <!--  <img src="/images/main/red.svg" alt="찜하기"/>-->
                             <!-- 위의 이미지가 white.svg로 바뀌게 된다면 해당 코스목록도 페이지에서 사라지게 된다 -->
                             <!-- 바로 반응하진 않고 새로고침하게되면 사라진다. -->
                             <div class="Banner__Wrapper-dlocnb-0 dIznkQ">
@@ -162,7 +144,7 @@
                                                                                         alt=" 이미지"
                                                                                         class="추천코스Image__StyledImage-v97gyx-1 VUNpz"
                                                                                         width="768"
-                                                                                        src="../../static/images/main/내장산.jpg"
+                                                                                        src="/images/main/내장산.jpg"
                                                                                     />
                                                                                     <div
                                                                                         class="commentCource"
@@ -178,7 +160,7 @@
                                                                                         class="heartButton"
                                                                                     >
                                                                                         <img
-                                                                                            src="../../static/images/main/red.svg"
+                                                                                            src="/images/main/red.svg"
                                                                                             alt="찜하기"
                                                                                         />
                                                                                     </button>
@@ -274,7 +256,7 @@
                                                                                                 80%;
                                                                                         "
                                                                                         ;=""
-                                                                                        src="../../static/images/main/sunjaryung.webp"
+                                                                                        src="/images/main/sunjaryung.webp"
                                                                                     />
                                                                                     <div
                                                                                         class="commentCource"
@@ -290,7 +272,7 @@
                                                                                         class="heartButton"
                                                                                     >
                                                                                         <img
-                                                                                            src="../../static/images/main/red.svg"
+                                                                                            src="/images/main/red.svg"
                                                                                             alt="찜하기"
                                                                                         />
                                                                                     </button>
@@ -381,7 +363,7 @@
                                                                                         alt="추천코스 이미지"
                                                                                         class="Image__StyledImage-v97gyx-1 VUNpz"
                                                                                         width="768"
-                                                                                        src="../../static/images/main/namwon.jpg"
+                                                                                        src="/images/main/namwon.jpg"
                                                                                     />
                                                                                     <div
                                                                                         class="commentCource"
@@ -397,7 +379,7 @@
                                                                                         class="heartButton"
                                                                                     >
                                                                                         <img
-                                                                                            src="../../static/images/main/red.svg"
+                                                                                            src="/images/main/red.svg"
                                                                                             alt="찜하기"
                                                                                         />
                                                                                     </button>
@@ -494,7 +476,7 @@
                                                                                                 80%;
                                                                                         "
                                                                                         ;=""
-                                                                                        src="../../static/images/main/jirisan.webp"
+                                                                                        src="/images/main/jirisan.webp"
                                                                                     />
                                                                                     <div
                                                                                         class="commentCource"
@@ -510,7 +492,7 @@
                                                                                         class="heartButton"
                                                                                     >
                                                                                         <img
-                                                                                            src="../../static/images/main/red.svg"
+                                                                                            src="/images/main/red.svg"
                                                                                             alt="찜하기"
                                                                                         />
                                                                                     </button>
@@ -552,30 +534,12 @@
                                 </div>
                             </div> -->
                         </div>
-                        <!-- Footer will be dynamically inserted here -->
-                        <div id="footer-placeholder"></div>
-                        <script>
-                            // Load footer.html and insert it into #footer-placeholder
-                            fetch("../all/footer.html")
-                                .then((response) => response.text())
-                                .then((data) => {
-                                    document.getElementById(
-                                        "footer-placeholder"
-                                    ).innerHTML = data;
-                                })
-                                .catch((error) =>
-                                    console.error(
-                                        "Error loading footer:",
-                                        error
-                                    )
-                                );
-                        </script>
                     </div>
                 </div>
                 <div id="modal-root"></div>
                 <div id="dnd-root"></div>
             </body>
-            <script src="../../static/js/myPage/heart.js"></script>
+            <script src="/js/myPage/heart.js"></script>
         </html>
     </head>
 </html>
