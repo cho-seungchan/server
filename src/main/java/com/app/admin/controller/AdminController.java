@@ -29,12 +29,6 @@ public class AdminController {
         return "/admin/userlist";
     }
 
-    @GetMapping("/addcourse")
-    public String getAddCourse(Model model) {
-        return "/admin/addcourse";
-    }
-
-
     @GetMapping("/coursewrite")
     public String getCourseWrite(Model model) {
         model.addAttribute("courseDTO", new CourseDTO());
@@ -46,5 +40,44 @@ public class AdminController {
         courseService.postCourseWrite(courseDTO);  // 관리자 아이디 처리 추가
         return "redirect:/admin/coursewrite";   // 성공시 리스트로 이동할 수 있도록 추가할 것.
     }
+
+    @GetMapping("/coursedetail")
+    public String getCourseDetail(Model model) {
+        return "/admin/coursedetail";
+    }
+
+    @GetMapping("/courselist")
+    public String getCourseList(Model model) {
+        return "/admin/courselist";
+    }
+
+    @GetMapping("/courseedit")
+    public String getCourseEdit(Model model) {
+        return "/admin/courseedit";
+    }
+
+    @GetMapping("/manageadmin")
+    public String getManageAdmin(Model model) {
+        return "/admin/manageadmin";
+    }
+
+    @GetMapping("/addnotice")
+    public String getAddNotice(Model model) {
+        return "/admin/addnotice";
+    }
+
+    @GetMapping("/announcement")
+    public String getAnnouncement(Model model) {
+        return "/admin/announcement";
+    }
+
+    @GetMapping("/report")
+    public String getReport(Model model) {
+        return "/admin/report";
+    }
+
+
+
+
 
 }
