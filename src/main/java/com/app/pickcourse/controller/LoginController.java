@@ -1,4 +1,4 @@
-package com.app.pickcourse.login.controller;
+package com.app.pickcourse.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
