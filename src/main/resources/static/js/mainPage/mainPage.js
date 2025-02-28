@@ -7,8 +7,8 @@ document.querySelectorAll(".heartButton").forEach((button) => {
         console.log(img);
         if (img) {
             img.src = img.src.includes("red.svg")
-                ? "../../static/images/main/white.svg"
-                : "../../static/images/main/red.svg";
+                ? "/images/main/white.svg"
+                : "/images/main/red.svg";
         }
     });
 });
