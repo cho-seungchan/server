@@ -3,12 +3,12 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="../../static/css/common/header.css" />
-        <link rel="stylesheet" href="../../static/css/ranking/ranking.css" />
-        <link rel="stylesheet" href="../../static/css/common/footer.css" />
+        <link rel="stylesheet" href="/css/common/header.css" />
+        <link rel="stylesheet" href="/css/ranking/ranking.css" />
+        <link rel="stylesheet" href="/css/common/footer.css" />
         <link
             rel="shortcut icon"
-            href="../../../static/images/common/favicon1.ico"
+            href="/images/common/favicon1.ico"
             type="image/x-icon"
         />
         <link
@@ -30,21 +30,7 @@
     <body class="fontLoaded">
         <div id="app">
             <div class="App__AppWrapper-nc5ti6-0 idXWQn">
-                <!-- Header will be dynamically inserted here -->
-                <div id="header-placeholder"></div>
-                <script>
-                    // Load header.html and insert it in#header-placeholder
-                    fetch("../all/header.html")
-                        .then((response) => response.text())
-                        .then((data) => {
-                            document.getElementById(
-                                "header-placeholder"
-                            ).innerHTML = data;
-                        })
-                        .catch((error) =>
-                            console.error("Error loading header:", error)
-                        );
-                </script>
+
                 <!-- 주간 베스트 -->
                 <div id="app">
                     <div class="App__AppWrapper-nc5ti6-0 idXWQn">
@@ -134,7 +120,7 @@
                                                                 height="24px"
                                                             >
                                                                 <img
-                                                                    src="../../static/images/ranking/icon1.svg"
+                                                                    src="/images/ranking/icon1.svg"
                                                                     alt="찜하기"
                                                                 />
                                                             </button>
@@ -2367,25 +2353,11 @@
                         </div>
                     </div>
                 </div>
-                <!-- Footer will be dynamically inserted here -->
-                <div id="footer-placeholder"></div>
-                <script>
-                    // Load footer.html and insert it into #footer-placeholder
-                    fetch("../all/footer.html")
-                        .then((response) => response.text())
-                        .then((data) => {
-                            document.getElementById(
-                                "footer-placeholder"
-                            ).innerHTML = data;
-                        })
-                        .catch((error) =>
-                            console.error("Error loading footer:", error)
-                        );
-                </script>
+
             </div>
         </div>
         <div id="modal-root"></div>
         <div id="dnd-root"></div>
     </body>
-    <script src="../../static/js/ranking/ranking.js"></script>
+    <script src="/js/ranking/ranking.js"></script>
 </html>
