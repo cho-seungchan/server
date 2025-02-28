@@ -3,10 +3,10 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="../../static/css/common/common.css">
-        <link rel="stylesheet" href="../../static/css/common/m_header.css"/>
-        <link rel="stylesheet" href="../../static/css/proposal/m_eco.css"/>
-        <link rel="stylesheet" href="../../static/css/common/m_footer.css"/>
+        <link rel="stylesheet" href="/css/common/common.css">
+        <link rel="stylesheet" href="/css/common/m_header.css"/>
+        <link rel="stylesheet" href="/css/proposal/m_eco.css"/>
+        <link rel="stylesheet" href="/css/common/m_footer.css"/>
 
         <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:300,400,500,700" rel="stylesheet" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
@@ -22,15 +22,6 @@
             <div class="App__AppWrapper-nc5ti6-0 idXWQn">
                     <!-- Header will be dynamically inserted here -->
                     <div id="header-placeholder"></div>
-                    <script>
-                        // Load header.html and insert it in#header-placeholder
-                        fetch("../all/header.html")
-                            .then((response) => response.text())
-                            .then((data) => {
-                                document.getElementById("header-placeholder").innerHTML = data;
-                            })
-                            .catch((error) => console.error("Error loading header:", error));
-                    </script>
     
                     <div class="ProductDetailPage__Wrapper-sc-126q1k2-0 CijWU">
                         <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block">
@@ -1868,15 +1859,6 @@
     
                     <!-- Footer will be dynamically inserted here -->
                     <div id="footer-placeholder"></div>
-                    <script>
-                        // Load footer.html and insert it into #footer-placeholder
-                        fetch("../all/footer.html")
-                            .then((response) => response.text())
-                            .then((data) => {
-                                document.getElementById("footer-placeholder").innerHTML = data;
-                            })
-                            .catch((error) => console.error("Error loading footer:", error));
-                    </script>
             </div>
     
             <div id="modal-root">
@@ -1899,15 +1881,6 @@
             <div class="App__AppWrapper-nc5ti6-0 idXWQn">
                 <!-- Header will be dynamically inserted here -->
                 <div id="header-placeholder"></div>
-                <script>
-                    // Load header.html and insert it in#header-placeholder
-                    fetch("../all/header.html")
-                        .then((response) => response.text())
-                        .then((data) => {
-                            document.querySelector("#mobile #header-placeholder").innerHTML = data;
-                        })
-                        .catch((error) => console.error("Error loading header:", error));
-                </script>
 
                 <div class="ProductDetailPage__Wrapper-sc-126q1k2-0 CijWU">
                     <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block">
@@ -3745,15 +3718,6 @@
 
                 <!-- Footer will be dynamically inserted here -->
                 <div id="footer-placeholder"></div>
-                <script>
-                    // Load footer.html and insert it into #footer-placeholder
-                    fetch("../all/footer.html")
-                        .then((response) => response.text())
-                        .then((data) => {
-                            document.querySelector("#mobile #footer-placeholder").innerHTML = data;
-                        })
-                        .catch((error) => console.error("Error loading footer:", error));
-                </script>
             </div>
 
             <div id="modal-root">
@@ -3776,7 +3740,7 @@
 
     <script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=dca5cc5ce3946cf9a7295748f1aa7d12&libraries=services"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="../../static/js/proposal/m_eco.js"></script>
+    <script src="/js/proposal/m_eco.js"></script>
     
     </script>
 </html>
