@@ -1,4 +1,4 @@
-package com.app.mainPage;
+package com.app.notice.controller;
 
 
 import org.springframework.stereotype.Controller;
@@ -7,9 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/main-page/*")
-public class MainPageController {
-    @GetMapping("mainPage")
-    public void mainPage(){}
+public class NoticeController {
 
     @GetMapping("notice")
     public void notice(){}

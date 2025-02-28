@@ -1,4 +1,4 @@
-package com.app.join;
+package com.app.join.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Slf4j
 public class JoinController {
     @GetMapping("join")
-    public void join(){}
+    public void getJoin(){}
 
     @GetMapping("join_check")
-    public void joinCheck(){}
+    public void getJoinCheck(){}
 
     @GetMapping("join_email")
-    public void joinEmail(){}
+    public void getJoinEmail(){}
 }
 
