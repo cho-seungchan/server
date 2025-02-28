@@ -3,12 +3,12 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="../../static/css/common/header.css" />
-        <link rel="stylesheet" href="../../static/css/common/footer.css" />
-        <link rel="stylesheet" href="../../static/css/login/login.css" />
+        <link rel="stylesheet" href="/css/common/header.css" />
+        <link rel="stylesheet" href="/css/common/footer.css" />
+        <link rel="stylesheet" href="/css/login/login.css" />
         <link
             rel="shortcut icon"
-            href="../../static/images/common/favicon1.ico"
+            href="/images/common/favicon1.ico"
             type="image/x-icon"
         />
 
@@ -22,15 +22,15 @@
                 />
                 <link
                     rel="stylesheet"
-                    href="../../static/css/common/header.css"
+                    href="/css/common/header.css"
                 />
                 <link
                     rel="stylesheet"
-                    href="../../static/css/feeds/write.css"
+                    href="/css/feeds/write.css"
                 />
                 <link
                     rel="stylesheet"
-                    href="../../static/css/common/footer.css"
+                    href="/css/common/footer.css"
                 />
                 <link
                     href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:300,400,500,700"
@@ -51,24 +51,6 @@
             <body class="fontLoaded">
                 <div id="app">
                     <div class="App__AppWrapper-nc5ti6-0 idXWQn">
-                        <!-- Header will be dynamically inserted here -->
-                        <div id="header-placeholder"></div>
-                        <script>
-                            // Load header.html and insert it in#header-placeholder
-                            fetch("../all/header.html")
-                                .then((response) => response.text())
-                                .then((data) => {
-                                    document.getElementById(
-                                        "header-placeholder"
-                                    ).innerHTML = data;
-                                })
-                                .catch((error) =>
-                                    console.error(
-                                        "Error loading header:",
-                                        error
-                                    )
-                                );
-                        </script>
                         <div
                             class="PageWrapper-sc-1w87j10-0 LoginPage__Wrapper-sc-1q7uxne-0 FgkIX"
                         >
@@ -134,30 +116,12 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Footer will be dynamically inserted here -->
-                        <div id="footer-placeholder"></div>
-                        <script>
-                            // Load footer.html and insert it into #footer-placeholder
-                            fetch("../all/footer.html")
-                                .then((response) => response.text())
-                                .then((data) => {
-                                    document.getElementById(
-                                        "footer-placeholder"
-                                    ).innerHTML = data;
-                                })
-                                .catch((error) =>
-                                    console.error(
-                                        "Error loading footer:",
-                                        error
-                                    )
-                                );
-                        </script>
                     </div>
                 </div>
                 <div id="modal-root"></div>
                 <div id="dnd-root"></div>
             </body>
-            <script src="../../static/js/login/login.js"></script>
+            <script src="/js/login/login.js"></script>
         </html>
     </head>
 </html>

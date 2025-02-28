@@ -3,12 +3,12 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="../../static/css/common/header.css" />
-        <link rel="stylesheet" href="../../static/css/common/footer.css" />
-        <link rel="stylesheet" href="../../static/css/myPage/myMain.css" />
+        <link rel="stylesheet" href="/css/common/header.css" />
+        <link rel="stylesheet" href="/css/common/footer.css" />
+        <link rel="stylesheet" href="/css/myPage/myMain.css" />
         <link
             rel="shortcut icon"
-            href="../../static/images/common/favicon1.ico"
+            href="/images/common/favicon1.ico"
             type="image/x-icon"
         />
         <!DOCTYPE html>
@@ -21,11 +21,11 @@
                 />
                 <link
                     rel="stylesheet"
-                    href="../../static/css/common/header.css"
+                    href="/css/common/header.css"
                 />
                 <link
                     rel="stylesheet"
-                    href="../../static/css/common/footer.css"
+                    href="/css/common/footer.css"
                 />
                 <link
                     href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:300,400,500,700"
@@ -46,24 +46,6 @@
             <body class="fontLoaded">
                 <div id="app">
                     <div class="App__AppWrapper-nc5ti6-0 idXWQn">
-                        <!-- Header will be dynamically inserted here -->
-                        <div id="header-placeholder"></div>
-                        <script>
-                            // Load header.html and insert it in#header-placeholder
-                            fetch("../all/header.html")
-                                .then((response) => response.text())
-                                .then((data) => {
-                                    document.getElementById(
-                                        "header-placeholder"
-                                    ).innerHTML = data;
-                                })
-                                .catch((error) =>
-                                    console.error(
-                                        "Error loading header:",
-                                        error
-                                    )
-                                );
-                        </script>
                         <div class="PageWrapper-sc-1w87j10-0 bScXKt">
                             <div class="mainWrap">
                                 <div class="sideWrap">
@@ -131,7 +113,7 @@
                                                     class="list_badge complete_badge"
                                                 >
                                                     <img
-                                                        src="../../static/images/myPage/1054988_running_person_walking_icon.png"
+                                                        src="/images/myPage/1054988_running_person_walking_icon.png"
                                                         alt="코스"
                                                     />
                                                     <span class="first_comment"
@@ -146,7 +128,7 @@
                                                     class="list_badge none_complete_badge"
                                                 >
                                                     <img
-                                                        src="../../static/images/myPage/9853856_angel_emoji_smiley_emoticon_icon.png"
+                                                        src="/images/myPage/9853856_angel_emoji_smiley_emoticon_icon.png"
                                                         alt="봉사"
                                                     />
                                                     <span class="first_comment"
@@ -164,7 +146,7 @@
                                                     class="list_badge none_complete_badge"
                                                 >
                                                     <img
-                                                        src="../../static/images/myPage/4830806_heart_love_smiley_icon.png"
+                                                        src="/images/myPage/4830806_heart_love_smiley_icon.png"
                                                         alt="피드"
                                                     />
                                                     <span class="first_comment"
@@ -179,7 +161,7 @@
                                                     class="list_badge none_complete_badge"
                                                 >
                                                     <img
-                                                        src="../../static/images/myPage/8725663_comment_alt_heart_icon.png"
+                                                        src="/images/myPage/8725663_comment_alt_heart_icon.png"
                                                         alt="댓글"
                                                     />
                                                     <span class="first_comment"
@@ -241,7 +223,7 @@
                                                 >
                                                     <div class="imgWrap">
                                                         <img
-                                                            src="../../static/images/main/namwon.jpg"
+                                                            src="/images/main/namwon.jpg"
                                                             alt=""
                                                         />
                                                     </div>
@@ -277,30 +259,12 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Footer will be dynamically inserted here -->
-                        <div id="footer-placeholder"></div>
-                        <script>
-                            // Load footer.html and insert it into #footer-placeholder
-                            fetch("../all/footer.html")
-                                .then((response) => response.text())
-                                .then((data) => {
-                                    document.getElementById(
-                                        "footer-placeholder"
-                                    ).innerHTML = data;
-                                })
-                                .catch((error) =>
-                                    console.error(
-                                        "Error loading footer:",
-                                        error
-                                    )
-                                );
-                        </script>
                     </div>
                 </div>
                 <div id="modal-root"></div>
                 <div id="dnd-root"></div>
             </body>
-            <script src="../../static/js/myPage/myMain.js"></script>
+            <script src="/js/myPage/myMain.js"></script>
         </html>
     </head>
 </html>
