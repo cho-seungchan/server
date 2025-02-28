@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../static/css/common/header.css" />
-    <link rel="stylesheet" href="../../static/css/proposal/read.css" />
-    <link rel="stylesheet" href="../../static/css/common/footer.css" />
+    <link rel="stylesheet" href="/css/common/header.css" />
+    <link rel="stylesheet" href="/css/proposal/read.css" />
+    <link rel="stylesheet" href="/css/common/footer.css" />
 
     <link
         href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:300,400,500,700"
@@ -29,19 +29,6 @@
     
             <!-- Header will be dynamically inserted here -->
             <div id="header-placeholder"></div>
-            <script>
-                // Load header.html and insert it in#header-placeholder
-                fetch("../all/header.html")
-                    .then((response) => response.text())
-                    .then((data) => {
-                        document.getElementById(
-                            "header-placeholder"
-                        ).innerHTML = data;
-                    })
-                    .catch((error) =>
-                        console.error("Error loading header:", error)
-                    );
-            </script>
 
             <div class="ProductDetailPage__Wrapper-sc-126q1k2-0 CijWU">
                 <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">
@@ -58,7 +45,7 @@
                             </div>
 
                             <div class="RepresentativePictureOfTour">
-                                <p><img src="../../static/images/main/namwon.jpg" alt=""></p>
+                                <p><img src="/images/main/namwon.jpg" alt=""></p>
                             </div>
 
                             <section class="ProductDetailPage__SectionContainer-sc-126q1k2-4 cGKzvC">
@@ -719,19 +706,6 @@
 
             <!-- Footer will be dynamically inserted here -->
             <div id="footer-placeholder"></div>
-            <script>
-                // Load footer.html and insert it into #footer-placeholder
-                fetch("../all/footer.html")
-                    .then((response) => response.text())
-                    .then((data) => {
-                        document.getElementById(
-                            "footer-placeholder"
-                        ).innerHTML = data;
-                    })
-                    .catch((error) =>
-                        console.error("Error loading footer:", error)
-                    );
-            </script> 
 
         </div>    
     </div>
@@ -754,5 +728,5 @@
 </body>
 
 <script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=dca5cc5ce3946cf9a7295748f1aa7d12&libraries=services"></script>
-<script src="../../static/js/proposal/read.js"></script>
+<script src="/js/proposal/read.js"></script>
 </html>

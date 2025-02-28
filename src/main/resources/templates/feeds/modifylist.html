@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../static/css/common/header.css">
-    <link rel="stylesheet" href="../../static/css/feeds/modifylist.css">
-    <link rel="stylesheet" href="../../static/css/common/footer.css">
+    <link rel="stylesheet" href="/css/common/header.css">
+    <link rel="stylesheet" href="/css/feeds/modifylist.css">
+    <link rel="stylesheet" href="/css/common/footer.css">
     
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:300,400,500,700" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
@@ -19,15 +19,6 @@
 
             <!-- Header will be dynamically inserted here -->
             <div id="header-placeholder"></div>
-            <script>
-                // Load header.html and insert it in#header-placeholder
-                fetch('../all/header.html')
-                    .then(response => response.text())
-                    .then(data => {
-                        document.getElementById('header-placeholder').innerHTML = data;
-                    })
-                    .catch(error => console.error('Error loading header:', error));
-            </script>
 
             <div class="CurrentIndex__Wrapper-sc-1w06nn3-0 iaElYN">
 
@@ -403,16 +394,7 @@
             </div>
 
             <!-- Footer will be dynamically inserted here -->
-            <div id="footer-placeholder"></div>        
-            <script>
-                // Load footer.html and insert it into #footer-placeholder
-                fetch('../all/footer.html')
-                    .then(response => response.text())
-                    .then(data => {
-                        document.getElementById('footer-placeholder').innerHTML = data;
-                    })
-                    .catch(error => console.error('Error loading footer:', error));
-            </script>
+            <div id="footer-placeholder"></div>
 
         </div>
     </div>
@@ -572,5 +554,5 @@
 
 </body>    
 
-<script src="../../static/js/feeds/modifylist.js"></script>
+<script src="/js/feeds/modifylist.js"></script>
 </html>
