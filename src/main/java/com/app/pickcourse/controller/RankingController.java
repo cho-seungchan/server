@@ -1,17 +1,18 @@
-package com.app.pickcourse.introduce.controller;
+package com.app.pickcourse.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/introduce/*")
+@RequestMapping("/ranking/*")
 @RequiredArgsConstructor
 @Slf4j
-public class IntroduceController {
-    @GetMapping("/introduce-main")
+public class RankingController {
+
+    @GetMapping("/ranking")
     public void getCustomerService() {}
+
 }

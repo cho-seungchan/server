@@ -1,4 +1,4 @@
-package com.app.pickcourse.admin.controller;
+package com.app.pickcourse.controller;
 
 import com.app.pickcourse.admin.dto.CourseDTO;
 import com.app.pickcourse.admin.service.CourseService;

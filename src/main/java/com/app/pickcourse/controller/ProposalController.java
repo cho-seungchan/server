@@ -1,4 +1,4 @@
-package com.app.pickcourse.proposal.controller;
+package com.app.pickcourse.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

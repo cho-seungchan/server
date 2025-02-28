@@ -1,4 +1,4 @@
-package com.app.pickcourse.myPage.controller;
+package com.app.pickcourse.controller;
 
 
 import org.springframework.stereotype.Controller;
