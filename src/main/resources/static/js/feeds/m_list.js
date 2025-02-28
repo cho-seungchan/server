@@ -14,7 +14,7 @@ function handleResize() {
         <span role="img" aria-label="sunglasses">😎</span><br>다른 크루들의 활동도 확인해보세요.</strong>
         <p class="WhatIsActionSheet__Description-sc-10e5q0f-2 dkImul">
         피커스에서 즐거웠고 행복했던 순간들을 후기로만 남기기엔 아쉬웠다면 피드로 다른 크루들에게 공유해 보세요. 
-        그리고 다른 크루들의 의견 및 피드도 구경하세요.</p></div><img src="../../static/images/feeds/365535eb402ce8672ce933afcebe47b9.png" 
+        그리고 다른 크루들의 의견 및 피드도 구경하세요.</p></div><img src="/images/feeds/365535eb402ce8672ce933afcebe47b9.png" 
         class="WhatIsActionSheet__ImageBanner-sc-10e5q0f-4 kYigqi"></div>
         <div class="ActionSheet__Overlay-akkdcx-1 eCzJv"></div></div>`;
 
@@ -222,7 +222,7 @@ function handleResize() {
         <span role="img" aria-label="sunglasses">😎</span><br>다른 크루들의 활동도 확인해보세요.</strong>
         <p class="WhatIsActionSheet__Description-sc-10e5q0f-2 dkImul">
         피커스에서 즐거웠고 행복했던 순간들을 후기로만 남기기엔 아쉬웠다면 피드로 다른 크루들에게 공유해 보세요. 
-        그리고 다른 크루들의 의견 및 피드도 구경하세요.</p></div><img src="../../static/images/feeds/365535eb402ce8672ce933afcebe47b9.png" 
+        그리고 다른 크루들의 의견 및 피드도 구경하세요.</p></div><img src="/images/feeds/365535eb402ce8672ce933afcebe47b9.png" 
         class="WhatIsActionSheet__ImageBanner-sc-10e5q0f-4 kYigqi"></div>
         <div class="ActionSheet__Overlay-akkdcx-1 eCzJv"></div></div>`;
 
