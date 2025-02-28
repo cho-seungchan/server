@@ -5,15 +5,15 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link
             rel="shortcut icon"
-            href="../../static/images/common/favicon1.ico"
+            href="/images/common/favicon1.ico"
             type="image/x-icon"
         />
-        <link rel="stylesheet" href="../../static/css/common/header.css" />
+        <link rel="stylesheet" href="/css/common/header.css" />
         <link
             rel="stylesheet"
-            href="../../static/css/customer-service/customer-service.css"
+            href="/css/customer-service/customer-service.css"
         />
-        <link rel="stylesheet" href="../../static/css/common/footer.css" />
+        <link rel="stylesheet" href="/css/common/footer.css" />
         <link
             href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:300,400,500,700"
             rel="stylesheet"
@@ -33,22 +33,6 @@
     <body class="fontLoaded">
         <div id="app">
             <div class="App__AppWrapper-nc5ti6-0 idXWQn">
-                <!-- Header will be dynamically inserted here -->
-                <div id="header-placeholder"></div>
-                <script>
-                    // Load header.html and insert it in#header-placeholder
-                    fetch("../all/header.html")
-                        .then((response) => response.text())
-                        .then((data) => {
-                            document.getElementById(
-                                "header-placeholder"
-                            ).innerHTML = data;
-                        })
-                        .catch((error) =>
-                            console.error("Error loading header:", error)
-                        );
-                </script>
-
                 <div class="HelpPage__Wrapper-sc-1624coo-0 bjZuQZ">
                     <section>
                         <div class="PageWrapper-sc-1w87j10-0 bScXKt">
@@ -398,22 +382,6 @@
                         </div>
                     </section>
                 </div>
-
-                <!-- Footer will be dynamically inserted here -->
-                <div id="footer-placeholder"></div>
-                <script>
-                    // Load footer.html and insert it into #footer-placeholder
-                    fetch("../all/footer.html")
-                        .then((response) => response.text())
-                        .then((data) => {
-                            document.getElementById(
-                                "footer-placeholder"
-                            ).innerHTML = data;
-                        })
-                        .catch((error) =>
-                            console.error("Error loading footer:", error)
-                        );
-                </script>
             </div>
         </div>
         <div id="modal-root" class="New__Container-sc-17rcq7-0 hidden">
@@ -501,7 +469,7 @@
         </div>
         <div id="dnd-root"></div>
     </body>
-    <script src="../../static/js/customer-service/customer-service.js"></script>
-    <script src="../../static/js/customer-service/customer-service2.js"></script>
-    <script src="../../static/js/customer-service/customer-service-modal.js"></script>
+    <script src="/js/customer-service/customer-service.js"></script>
+    <script src="/js/customer-service/customer-service2.js"></script>
+    <script src="/js/customer-service/customer-service-modal.js"></script>
 </html>
