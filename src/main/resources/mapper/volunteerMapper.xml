@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.app.pickcourse.mapper.VolunteerMapper">
+    <insert id="postAddCourse">
+        INSERT INTO TBL_VOLUNTEER
+            (ID,
+             VOLUNTEER_START_DATE,
+             VOLUNTEER_END_DATE,
+             VOLUNTEER_DEADLINE,
+             COURSE_ID)
+        VALUES
+            (SEQ_VOLUNTEER.NEXTVAL,
+             #{volunteerStartDate},
+             #{volunteerEndDate},
+             #{volunteerDeadline},
+             #{courseId})
+    </insert>
+
+    <select id="getCourseDetail" resultType="volunteerVO">
+        SELECT
+            ID,
+            VOLUNTEER_START_DATE,
+            VOLUNTEER_END_DATE,
+            VOLUNTEER_DEADLINE,
+            COURSE_ID,
+            CREATED_DATE,
+            UPDATED_DATE
+        FROM TBL_VOLUNTEER
+        WHERE COURSE_ID = #{courseId}
+    </select>
+
+    <update id="patchEditCourse">
+        UPDATE TBL_VOLUNTEER
+        SET VOLUNTEER_START_DATE        =   #{volunteerStartDate},
+            VOLUNTEER_END_DATE          =   #{volunteerEndDate},
+            VOLUNTEER_DEADLINE          =   #{volunteerDeadline},
+            UPDATED_DATE                =   SYSDATE
+        WHERE COURSE_ID                 =   #{courseId}
+    </update>
+
+</mapper>

@@ -5,9 +5,10 @@ spring:
   datasource:
     driver-class-name: oracle.jdbc.OracleDriver
     url: jdbc:oracle:thin:@//localhost:1521/XE
-    username: scott
+    username: hr
     password: 1234
 
 mybatis:
   config-location: classpath:/config/config.xml
   mapper-locations: classpath*:/mapper/*.xml
+  type-aliases-package: com.app.pickcourse.domain.**

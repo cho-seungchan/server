@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.app.pickcourse.mapper.CourseMapper">
+    <insert id="postAddCourse">
+        INSERT INTO TBL_COURSE
+            (ID,
+             COURSE_TYPE,
+             COURSE_IS_VOLUNTEER,
+             COURSE_NAME,
+             COURSE_DISTANCE,
+             COURSE_SCHEDULE,
+             COURSE_THEME,
+             COURSE_CONTENT,
+             COURSE_FILE_PATH,
+             COURSE_FILE_SIZE,
+             COURSE_FILE_NAME,
+             ADMIN_ID)
+        VALUES
+            (SEQ_COURSE.NEXTVAL,
+             #{courseType},
+             #{courseIsVolunteer},
+             #{courseName},
+             #{courseDistance},
+             #{courseSchedule},
+             #{courseTheme},
+             #{courseContent},
+             #{courseFilePath},
+             #{courseFileSize},
+             #{courseFileName},
+             #{adminId})
+    </insert>
+
+    <select id="getCourseDetail" resultType="courseVO">
+        SELECT
+            ID,
+            COURSE_TYPE,
+            COURSE_IS_VOLUNTEER,
+            COURSE_NAME,
+            COURSE_DISTANCE,
+            COURSE_SCHEDULE,
+            COURSE_THEME,
+            COURSE_CONTENT,
+            COURSE_FILE_PATH,
+            COURSE_FILE_SIZE,
+            COURSE_FILE_NAME,
+            ADMIN_ID,
+            CREATED_DATE,
+            UPDATED_DATE
+        FROM TBL_COURSE
+        WHERE ID = #{id}
+    </select>
+
+    <sql id="search">
+        <if test="search.keyWord != null">
+            <where>
+                <foreach item="type" collection="search.types" separator=" OR ">
+                    <choose>
+                        <when test="type == 'n'.toString()">
+                            COURSE_NAME LIKE '%' || #{search.keyWord} || '%'
+                        </when>
+                        <when test="type == 'w'.toString()">
+                            ADMIN_NAME LIKE '%' || #{search.keyWord} || '%'
+                        </when>
+                        <when test="type == 't'.toString()">
+                            COURSE_THEME LIKE '%' || #{search.keyWord} || '%'
+                        </when>
+                    </choose>
+                </foreach>
+            </where>
+        </if>
+    </sql>
+
+    <select id="getCourseList" resultType="courseListDTO">
+        SELECT
+            ID,
+            COURSE_TYPE,
+            COURSE_NAME,
+            COURSE_DISTANCE,
+            COURSE_SCHEDULE,
+            COURSE_THEME,
+            COURSE_CONTENT,
+            COURSE_FILE_PATH,
+            COURSE_FILE_SIZE,
+            COURSE_FILE_NAME,
+            ADMIN_ID,
+            ADMIN_NAME,
+            CREATED_DATE,
+            UPDATED_DATE
+        FROM
+                (SELECT
+                    ROWNUM R,
+                    ID,
+                    COURSE_TYPE,
+                    COURSE_NAME,
+                    COURSE_DISTANCE,
+                    COURSE_SCHEDULE,
+                    COURSE_THEME,
+                    COURSE_CONTENT,
+                    COURSE_FILE_PATH,
+                    COURSE_FILE_SIZE,
+                    COURSE_FILE_NAME,
+                    ADMIN_ID,
+                    ADMIN_NAME,
+                    CREATED_DATE,
+                    UPDATED_DATE
+                FROM
+                        (SELECT
+                            C.ID,
+                            C.COURSE_TYPE,
+                            C.COURSE_NAME,
+                            C.COURSE_DISTANCE,
+                            C.COURSE_SCHEDULE,
+                            C.COURSE_THEME,
+                            C.COURSE_CONTENT,
+                            C.COURSE_FILE_PATH,
+                            C.COURSE_FILE_SIZE,
+                            C.COURSE_FILE_NAME,
+                            C.ADMIN_ID,
+                            A.ADMIN_NAME,
+                            C.CREATED_DATE,
+                            C.UPDATED_DATE
+                        FROM   TBL_ADMIN  A
+                        JOIN   TBL_COURSE C
+                        ON     A.ID = C.ADMIN_ID
+                        <include refid="search"/>
+                        ORDER  BY A.ID DESC    ) B
+                <![CDATA[
+                WHERE  ROWNUM <= ${criteria.endRow}   )
+        WHERE  R >= #{criteria.startRow} ]]>
+    </select>
+
+    <select id="getCountAll" resultType="_int">
+        SELECT COUNT(*)
+        FROM   TBL_COURSE
+        FROM   TBL_ADMIN  A
+        JOIN   TBL_COURSE C
+        ON     A.ID = C.ADMIN_ID
+        <include refid="search"/>
+    </select>
+
+    <update id="patchCourseList">
+        UPDATE TBL_COURSE
+        SET COURSE_TYPE  = #{courseType},
+            UPDATED_DATE = SYSDATE
+        WHERE ID= #{id}
+    </update>
+
+    <update id="patchEditCourse">
+        UPDATE TBL_COURSE
+        SET COURSE_NAME         =  #{courseName},
+            COURSE_DISTANCE     =  #{courseDistance},
+            COURSE_SCHEDULE     =  #{courseSchedule},
+            COURSE_THEME        =  #{courseTheme},
+            COURSE_CONTENT      =  #{courseContent},
+            COURSE_FILE_PATH    =  #{courseFilePath},
+            COURSE_FILE_SIZE    =  #{courseFileSize},
+            COURSE_FILE_NAME    =  #{courseFileName},
+            UPDATED_DATE        =  SYSDATE
+        WHERE ID                =  #{id}
+    </update>
+</mapper>

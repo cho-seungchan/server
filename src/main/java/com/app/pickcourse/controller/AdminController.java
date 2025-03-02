@@ -1,83 +1,75 @@
 package com.app.pickcourse.controller;
 
-import com.app.pickcourse.admin.dto.CourseDTO;
-import com.app.pickcourse.admin.service.CourseService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/admin")
 @RequiredArgsConstructor
 @Slf4j
 public class AdminController {
-    private final CourseService courseService;
 
+    // 관리자 메인 페이지
     @GetMapping("/admin")
     public String getAdmin(Model model) {
         return "/admin/admin";
     }
 
-    @GetMapping("/userlist")
-    public String getUserList(Model model) {
-        return "/admin/userlist";
+    // 회원 관리 :: 회원 정지, 추방
+    @GetMapping("/memberlist")
+    public String getMemberList(Model model) {
+        return "/admin/memberlist";
     }
 
-    @GetMapping("/coursewrite")
-    public String getCourseWrite(Model model) {
-        model.addAttribute("courseDTO", new CourseDTO());
-        return "/admin/coursewrite";
-    }
-
-    @PostMapping("/coursewrite")
-    public String postCourseWrite(@ModelAttribute("coursetDTO") CourseDTO courseDTO, RedirectAttributes redirectAttributes) {
-        courseService.postCourseWrite(courseDTO);  // 관리자 아이디 처리 추가
-        return "redirect:/admin/coursewrite";   // 성공시 리스트로 이동할 수 있도록 추가할 것.
-    }
-
-    @GetMapping("/coursedetail")
-    public String getCourseDetail(Model model) {
-        return "/admin/coursedetail";
-    }
-
-    @GetMapping("/courselist")
-    public String getCourseList(Model model) {
-        return "/admin/courselist";
-    }
-
-    @GetMapping("/courseedit")
-    public String getCourseEdit(Model model) {
-        return "/admin/courseedit";
-    }
-
+    // 관리자 관리 :: 관리자 등록, 추방
     @GetMapping("/manageadmin")
     public String getManageAdmin(Model model) {
         return "/admin/manageadmin";
     }
 
+    // 코스 등록 화면
+    @GetMapping("/addcourse")
+    public String getAddCourse(Model model) {
+        return "/admin/addcourse";
+    }
+
+    // 추천 코스 목록
+    @GetMapping("/courselist")
+    public String getCourseList(Model model) {
+        return "/admin/courselist";
+    }
+
+    // 추천 코스 조회
+    @GetMapping("/coursedetail")
+    public String getCourseDetail(Model model) {
+        return "/admin/coursedetail";
+    }
+
+    // 추천 코스 수정 화면
+    @GetMapping("/editcourse")
+    public String getEditCourse(Model model) {
+        return "/admin/editcourse";
+    }
+
+    // 공지사항 등록
     @GetMapping("/addnotice")
     public String getAddNotice(Model model) {
         return "/admin/addnotice";
     }
 
-    @GetMapping("/announcement")
+    // 공지사항 수정 삭제
+    @GetMapping("/managenotice")
     public String getAnnouncement(Model model) {
-        return "/admin/announcement";
+        return "/admin/managenotice";
     }
 
     @GetMapping("/report")
     public String getReport(Model model) {
         return "/admin/report";
     }
-
-
-
-
 
 }

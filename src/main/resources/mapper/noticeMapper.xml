@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.app.pickcourse.mapper.NoticeMapper">
+    <insert id="postAddNotice">
+        INSERT INTO TBL_NOTICE
+            (ID,
+             NOTICE_NAME,
+             NOTICE_CONTENT,
+             ADMIN_ID
+            )
+        VALUES
+            (SEQ_NOTICE.NEXTVAL,
+             #{noticeName},
+             #{noticeContent},
+             #{adminId} )
+    </insert>
+
+    <sql id="search">
+        <if test="search.keyWord != null">
+            <where>
+                <foreach item="type" collection="search.types" separator=" OR ">
+                    <choose>
+                        <when test="type == 'n'.toString()">
+                            NOTICE_NAME LIKE '%' || #{search.keyWord} || '%'
+                        </when>
+                        <when test="type == 'c'.toString()">
+                            NOTICE_CONTENT LIKE '%' || #{search.keyWord} || '%'
+                        </when>
+                        <when test="type == 'w'.toString()">
+                            ADMIN_NAME  LIKE '%' || #{search.keyWord} || '%'
+                        </when>
+                    </choose>
+                </foreach>
+            </where>
+        </if>
+    </sql>
+
+    <select id="getManageNoticeList" resultType="noticeVO">
+        SELECT ID, NOTICE_NAME, NOTICE_CONTENT, ADMIN_ID, ADMIN_NAME, CREATED_DATE, UPDATED_DATE
+        FROM
+            (SELECT ROWNUM R, ID, NOTICE_NAME, NOTICE_CONTENT, ADMIN_ID, ADMIN_NAME, CREATED_DATE, UPDATED_DATE
+            FROM
+                (SELECT N.ID, N.NOTICE_NAME, N.NOTICE_CONTENT, N.ADMIN_ID, A.ADMIN_NAME, N.CREATED_DATE, N.UPDATED_DATE
+                 FROM   TBL_ADMIN   A
+                 JOIN   TBL_NOTICE  N
+                 ON     A.ID  = N.ADMIN_ID
+                 <include refid="search"/>
+                 ORDER  BY A.ID DESC )  B
+            <![CDATA[
+                    WHERE  ROWNUM <= ${criteria.endRow}   )
+        WHERE  R >= #{criteria.startRow} ]]>
+    </select>
+
+    <select id="getCountAll" resultType="_int">
+        SELECT COUNT(*)
+        FROM   TBL_ADMIN  A
+        JOIN   TBL_NOTICE N
+        ON     A.ID = N.ADMIN_ID
+        <include refid="search"/>
+    </select>
+
+    <select id="getManageNotice" resultType="noticeVO">
+        SELECT
+                ID,
+                NOTICE_NAME,
+                NOTICE_CONTENT,
+                ADMIN_ID,
+                CREATED_DATE,
+                UPDATED_DATE
+        FROM    TBL_NOTICE
+        WHERE   ID = #{id}
+    </select>
+
+    <update id="patchManageNotice">
+        UPDATE HR.TBL_NOTICE
+        SET NOTICE_CONTENT      =  #{noticeContent},
+            UPDATED_DATE        =  SYSDATE
+        WHERE ID                =  #{id}
+    </update>
+
+    <update id="deleteManageNotice">
+        DELETE
+        FROM TBL_NOTICE
+        WHERE  ID = #{id}
+    </update>
+
+</mapper>
