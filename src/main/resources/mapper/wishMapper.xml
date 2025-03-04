@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.app.pickcourse.mapper.WishMapper">
+
+    <insert id="insert">
+        INSERT INTO TBL_WISH (ID, MEMBER_ID, COURSE_ID)
+        VALUES (SEQ_WISH.NEXTVAL, #{memberId}, #{courseId})
+    </insert>
+
+    <select id="selectByMemberId">
+        SELECT ID, MEMBER_ID, COURSE_ID
+        FROM TBL_WISH WHERE MEMBER_ID = #{memberId}
+    </select>
+
+    <delete id="delete">
+        DELETE FROM TBL_WISH WHERE MEMBER_ID = #{memberId}
+    </delete>
+
+</mapper>
