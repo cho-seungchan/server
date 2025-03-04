@@ -3,7 +3,6 @@ package com.app.pickcourse.domain.vo;
 import lombok.*;
 import org.springframework.stereotype.Component;
 
-@Component
 @NoArgsConstructor
 @Getter @Setter @ToString
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
