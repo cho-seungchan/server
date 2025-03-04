@@ -8,14 +8,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/feeds")
+@RequestMapping("/feed")
 @RequiredArgsConstructor
 @Slf4j
-public class FeedsController {
+public class FeedController {
 
     @GetMapping("/list")
     public String getList(Model model) {
         return "/feeds/list";
+    }
+
+    @GetMapping("/write")
+    public String Write(Model model) {
+        return "/feeds/write";
     }
 
     @GetMapping("/mobile")
@@ -66,11 +71,6 @@ public class FeedsController {
     @GetMapping("/viewlist")
     public String ViewList(Model model) {
         return "/feeds/viewlist";
-    }
-
-    @GetMapping("/write")
-    public String Write(Model model) {
-        return "/feeds/write";
     }
 
 }
