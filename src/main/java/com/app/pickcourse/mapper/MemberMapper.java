@@ -23,4 +23,14 @@ public interface MemberMapper {
 
     // 회원 추장
     void deleteMemberList(@Param("id") Long id);
+
+    void insert(MemberVO memberVO);
+
+    void update(MemberVO memberVO);
+
+    MemberVO selectByMemberEmail(@Param("email") String email);
+
+    MemberVO selectByMemberEmailAndPassword(@Param("email") String email, @Param("password") String password );
+
+    void delete(Long id);
 }
