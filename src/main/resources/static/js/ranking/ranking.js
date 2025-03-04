@@ -8,7 +8,7 @@ document.querySelectorAll(".dXNbSn").forEach((button) => {
         if (img) {
             img.src = img.src.includes("icon1.svg")
                 ? "/images/ranking/icon2.svg"
-                : "/static/images/ranking/icon1.svg";
+                : "/images/ranking/icon1.svg";
         }
     });
 });

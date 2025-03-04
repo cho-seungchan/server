@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.app.pickcourse.mapper.AdminMapper">
+
+    <sql id="search">
+        <if test="search.keyWord != null">
+            <where>
+                <foreach item="type" collection="search.types" separator=" OR ">
+                    <choose>
+                        <when test="type == 'a'.toString()">
+                            ADMIN_ACCOUNT LIKE '%' || #{search.keyWord} || '%'
+                        </when>
+                        <when test="type == 'n'.toString()">
+                            ADMIN_NAME LIKE '%' || #{search.keyWord} || '%'
+                        </when>
+                    </choose>
+                </foreach>
+            </where>
+        </if>
+    </sql>
+
+    <select id="getManageAdminList" resultType="adminVO">
+        SELECT ID, ADMIN_ACCOUNT, ADMIN_PASSWORD, ADMIN_NAME, ADMIN_PHONE, ADMIN_EMAIL, CREATED_DATE, UPDATED_DATE
+        FROM
+            (SELECT ROWNUM R, ID, ADMIN_ACCOUNT, ADMIN_PASSWORD, ADMIN_NAME, ADMIN_PHONE, ADMIN_EMAIL, CREATED_DATE, UPDATED_DATE
+            FROM
+                (SELECT ID, ADMIN_ACCOUNT, ADMIN_PASSWORD, ADMIN_NAME, ADMIN_PHONE, ADMIN_EMAIL, CREATED_DATE, UPDATED_DATE
+                FROM    TBL_ADMIN
+                <include refid="search"/>
+                ORDER  BY ID DESC )  B
+                <![CDATA[
+            WHERE  ROWNUM <= ${criteria.endRow}   )
+        WHERE  R >= #{criteria.startRow} ]]>
+    </select>
+
+    <select id="getCountAll" resultType="_int">
+        SELECT COUNT(*)
+        FROM   TBL_ADMIN
+        <include refid="search"/>
+    </select>
+
+    <select id="postManageAdmin" resultType="adminVO">
+        INSERT INTO TBL_ADMIN
+            (ID,
+             ADMIN_ACCOUNT,
+             ADMIN_PASSWORD,
+             ADMIN_NAME,
+             ADMIN_PHONE,
+             ADMIN_EMAIL)
+        VALUES
+            (SEQ_ADMIN.NEXTVAL,
+             #{adminAccount},
+             #{adminPassword},
+             #{adminName},
+             #{adminPhone},
+             #{adminEmail})
+    </select>
+
+    <delete id="deleteManageAdmin">
+        DELETE
+        FROM    TBL_ADMIN
+        WHERE   ID = #{id}
+    </delete>
+</mapper>
