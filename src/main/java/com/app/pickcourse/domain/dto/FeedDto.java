@@ -2,7 +2,7 @@ package com.app.pickcourse.domain.dto;
 
 import com.app.pickcourse.domain.vo.FeedVO;
 import com.app.pickcourse.domain.vo.FileVO;
-import com.app.pickcourse.domain.vo.TagVO;
+import com.app.pickcourse.domain.vo.FeedTagVO;
 import lombok.*;
 
 import java.util.List;
@@ -13,6 +13,6 @@ import java.util.List;
 @ToString
 public class FeedDto {
     private FeedVO feedVO;
-    private TagVO tagVO;
+    private FeedTagVO tagVO;
     private List<FileVO> files;
 }

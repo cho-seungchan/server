@@ -7,9 +7,9 @@ import lombok.*;
 @Setter
 @ToString
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class TagVO {
+public class FeedTagVO {
     @EqualsAndHashCode.Include
     private Long id;
-    private String tagContent;
+    private String FeedTagContent;
     private Long feedId;
 }

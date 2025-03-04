@@ -8,7 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 @Slf4j
-public class FeedMapperTest {
+public class FeedMapperTests {
     @Autowired
     private FeedMapper mapper;
 
@@ -18,4 +18,5 @@ public class FeedMapperTest {
         feedVO.setFeedContent("아름다운 밤이에요test");
         mapper.postFeedWrite(feedVO);
     }
+
 }
