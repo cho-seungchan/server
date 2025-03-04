@@ -1,5 +1,6 @@
 package com.app.pickcourse.controller;
 
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -23,6 +24,16 @@ public class AdminController {
     @GetMapping("/memberlist")
     public String getMemberList(Model model) {
         return "/admin/memberlist";
+    }
+
+    @GetMapping("/userlist")
+    public String getUserList(Model model) {
+        return "/admin/userlist";
+    }
+
+    @GetMapping("/courseedit")
+    public String getCourseEdit(Model model) {
+        return "/admin/courseedit";
     }
 
     // 관리자 관리 :: 관리자 등록, 추방

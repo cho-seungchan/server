@@ -1,25 +1,17 @@
 package com.app.pickcourse.domain.vo;
 
 import lombok.*;
-
 import org.springframework.stereotype.Component;
 
 @Component
-
 @NoArgsConstructor
 @Getter @Setter @ToString
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class MemberVO {
+public class WishVO {
     @EqualsAndHashCode.Include
     private Long id;
-    private String memberEmail;
-    private String memberPassword;
-    private String memberNickname;
-    private String memberTell;
-    private String memberBirth;
-    private String memberGender;
-    private int    memberPoint;
-    private char   memberIsAct;
     private String createdDate;
     private String updatedDate;
+    private Long memberId;
+    private Long courseId;
 }

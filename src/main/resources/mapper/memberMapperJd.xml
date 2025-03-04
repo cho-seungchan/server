@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.app.pickcourse.mapper.MemberMapper">
+    <insert id="insert">
+        INSERT INTO TBL_MEMBER (ID, MEMBER_EMAIL, MEMBER_PASSWORD, MEMBER_NAME, MEMBER_PHONE,
+                                MEMBER_BIRTH, MEMBER_GENDER)
+        VALUES (SEQ_MEMBER.NEXTVAL, #{memberEmail}, #{memberPassword}, #{memberName},
+                #{memberPhone}, #{memberBirth}, #{memberGender})
+    </insert>
+
+    <select id="selectByMemberEmail">
+        SELECT ID, MEMBER_EMAIL, MEMBER_NAME, MEMBER_PHONE, MEMBER_BIRTH, MEMBER_GENDER
+        FROM TBL_MEMBER WHERE MEMBER_EMAIL = #{memberEmail}
+    </select>
+
+    <select id="selectByMemberEmailAndPassword">
+        SELECT ID, MEMBER_EMAIL, MEMBER_NAME, MEMBER_PHONE, MEMBER_BIRTH, MEMBER_GENDER
+        FROM TBL_MEMBER WHERE MEMBER_EMAIL = #{memberEmail} AND MEMBER_PASSWORD = #{memberPassword}
+    </select>
+
+    <update id="update">
+        UPDATE TBL_MEMBER
+            SET MEMBER_NAME = #{memberName}, MEMBER_PHONE = #{memberPhone}, MEMBER_BIRTH = #{memberBirth}, MEMBER_GENDER = #{memberGender}
+            WHERE ID = #{id}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM TBL_MEMBER WHERE ID = #{id}
+    </delete>
+
+</mapper>
