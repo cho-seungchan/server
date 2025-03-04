@@ -25,13 +25,13 @@
     <select id="getMemberList" resultType="memberVO">
         SELECT ID, MEMBER_EMAIL, MEMBER_PASSWORD, MEMBER_NICKNAME, MEMBER_NAME, MEMBER_TELL, MEMBER_BIRTH, MEMBER_GENDER, MEMBER_POINT, MEMBER_IS_ACT, CREATED_DATE, UPDATED_DATE
         FROM
-            (SELECT ROWNUM R, ID, MEMBER_EMAIL, MEMBER_PASSWORD, MEMBER_NICKNAME, MEMBER_NAME, MEMBER_TELL, MEMBER_BIRTH, MEMBER_GENDER, MEMBER_POINT, MEMBER_IS_ACT, CREATED_DATE, UPDATED_DATE
-            FROM
-                (SELECT ID, MEMBER_EMAIL, MEMBER_PASSWORD, MEMBER_NICKNAME, MEMBER_NAME, MEMBER_TELL, MEMBER_BIRTH, MEMBER_GENDER, MEMBER_POINT, MEMBER_IS_ACT, CREATED_DATE, UPDATED_DATE
-                FROM    TBL_MEMBER
-                <include refid="search"/>
-                ORDER  BY ID DESC )  B
-                <![CDATA[
+        (SELECT ROWNUM R, ID, MEMBER_EMAIL, MEMBER_PASSWORD, MEMBER_NICKNAME, MEMBER_NAME, MEMBER_TELL, MEMBER_BIRTH, MEMBER_GENDER, MEMBER_POINT, MEMBER_IS_ACT, CREATED_DATE, UPDATED_DATE
+        FROM
+        (SELECT ID, MEMBER_EMAIL, MEMBER_PASSWORD, MEMBER_NICKNAME, MEMBER_NAME, MEMBER_TELL, MEMBER_BIRTH, MEMBER_GENDER, MEMBER_POINT, MEMBER_IS_ACT, CREATED_DATE, UPDATED_DATE
+        FROM    TBL_MEMBER
+        <include refid="search"/>
+        ORDER  BY ID DESC )  B
+        <![CDATA[
             WHERE  ROWNUM <= ${criteria.endRow}   )
         WHERE  R >= #{criteria.startRow} ]]>
     </select>
@@ -55,5 +55,33 @@
         FROM  TBL_MEMBER
         WHERE ID           =  #{id}
     </delete>
+
+    <insert id="insert">
+        INSERT INTO TBL_MEMBER (ID, MEMBER_EMAIL, MEMBER_PASSWORD, MEMBER_NICKNAME, MEMBER_TELL,
+                                MEMBER_BIRTH, MEMBER_GENDER)
+        VALUES (SEQ_MEMBER.NEXTVAL, #{memberEmail}, #{memberPassword}, #{memberNickname},
+                #{memberTell}, #{memberBirth}, #{memberGender})
+    </insert>
+
+    <select id="selectByMemberEmail">
+        SELECT ID, MEMBER_EMAIL, MEMBER_NICKNAME, MEMBER_TELL, MEMBER_BIRTH, MEMBER_GENDER
+        FROM TBL_MEMBER WHERE MEMBER_EMAIL = #{memberEmail}
+    </select>
+
+    <select id="selectByMemberEmailAndPassword">
+        SELECT ID, MEMBER_EMAIL, MEMBER_NICKNAME, MEMBER_TELL, MEMBER_BIRTH, MEMBER_GENDER
+        FROM TBL_MEMBER WHERE MEMBER_EMAIL = #{memberEmail} AND MEMBER_PASSWORD = #{memberPassword}
+    </select>
+
+    <update id="update">
+        UPDATE TBL_MEMBER
+        SET MEMBER_NICKNAME = #{memberNickname}, MEMBER_TELL = #{memberTell}, MEMBER_BIRTH = #{memberBirth}, MEMBER_GENDER = #{memberGender}
+        WHERE ID = #{id}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM TBL_MEMBER WHERE ID = #{id}
+    </delete>
+
 
 </mapper>
