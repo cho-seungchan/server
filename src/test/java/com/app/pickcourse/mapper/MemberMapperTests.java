@@ -50,25 +50,28 @@ public class MemberMapperTests {
 
         MemberVO memberVO = new MemberVO();
 
-        memberVO.setMemberEmail("2ndtest@2ndtest.com");
+        memberVO.setMemberEmail("test@test.com");
         memberVO.setMemberPassword("1234");
-        memberVO.setMemberNickname("2ndtest");
+        memberVO.setMemberNickname("Test");
         memberVO.setMemberTell("010-1234-5678");
         memberVO.setMemberBirth("1992-12-12");
         memberVO.setMemberGender("선택안함");
-        memberMapper.insert(memberVO);
+        mapper.insert(memberVO);
     }
 
     @Test
-    public void testSelectByMemberEmail() {
-        MemberVO member =  memberMapper.selectByMemberEmail("test@test.com");
-        log.info("조회된 회원 정보: {}", member);
+    public void testSelectCountByMemberEmail(){
+        int status = mapper.selectCountByMemberEmail("test@naver.com");
+        log.info("status:{}", status);
     }
 
     @Test
-    public void testSelectByMemberEmailAndPassword() {
-        MemberVO member =  memberMapper.selectByMemberEmailAndPassword("test@test.com", "1234");
-        log.info("조회된 회원 정보: {}", member);
+    public void testSelectByMemberEmailAndMemberPassword(){
+        MemberVO memberVO = new MemberVO();
+        memberVO.setMemberEmail("test@test.com");
+        memberVO.setMemberPassword("12345");
+        MemberVO foundMember = mapper.selectByMemberEmailAndMemberPassword(memberVO).orElse(null);
+        log.info(foundMember.toString());
     }
 
     @Test
@@ -76,17 +79,17 @@ public class MemberMapperTests {
         MemberVO memberVO = new MemberVO();
 
         memberVO.setMemberNickname("홍길동");
-        memberVO.setMemberTell("test@test.co.kr");
+        memberVO.setMemberTell("010-1111-1234");
         memberVO.setMemberBirth("1919-11-11");
         memberVO.setMemberGender("남자");
         memberVO.setId(1L);
 
-        memberMapper.update(memberVO);
+        mapper.update(memberVO);
     }
 
     @Test
     public void testDelete() {
-        memberMapper.delete(21L);
+        mapper.delete(2L);
     }
 
 

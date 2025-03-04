@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 @Mapper
 public interface MemberMapper {
@@ -21,16 +22,25 @@ public interface MemberMapper {
     // 회원 정지
     void patchMemberList(@Param("id") Long id);
 
-    // 회원 추장
+    // 회원 추방
     void deleteMemberList(@Param("id") Long id);
 
-    void insert(MemberVO memberVO);
+    //    추가하기
+    public void insert(MemberVO memberVO);
 
-    void update(MemberVO memberVO);
+    //    조회(아이디/비밀번호)
+    public Optional<MemberVO> selectByMemberEmailAndMemberPassword(MemberVO memberVO);
 
-    MemberVO selectByMemberEmail(@Param("email") String email);
+    //    이메일 중복 검사
+    public int selectCountByMemberEmail(String memberEmail);
 
-    MemberVO selectByMemberEmailAndPassword(@Param("email") String email, @Param("password") String password );
+    //    조회(회원 번호)
+    public Optional<MemberVO> selectById(Long id);
 
-    void delete(Long id);
+    //    수정
+    public void update(MemberVO memberVO);
+
+    //    삭제
+    public void delete(Long id);
+
 }
