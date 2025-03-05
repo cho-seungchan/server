@@ -19,7 +19,7 @@ public class FeedMapperTests {
     public void postFeedWrite(){
         FeedDTO feedDTO = new FeedDTO();
         feedDTO.setFeedContent("아름다운 밤이에요test");
-        mapper.postFeedWrite(feedDTO);
+        mapper.postFeedWrite(feedDTO.toFeedVO());
     }
 
     @Test
@@ -39,7 +39,7 @@ public class FeedMapperTests {
         FeedDTO feedDTO = new FeedDTO();
         feedDTO.setId(51l);
         feedDTO.setFeedContent("정신 없는 낮 이에요test");
-        mapper.PostFeedModify(feedDTO);
+        mapper.PostFeedModify(feedDTO.toFeedVO());
     }
 
     @Test

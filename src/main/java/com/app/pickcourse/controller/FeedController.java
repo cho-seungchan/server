@@ -49,6 +49,11 @@ public class FeedController {
         return "/feeds/reply";
     }
 
+    @PostMapping("/reply")
+    public String postReplyList(Model model) {
+        return "/feeds/reply";
+    }
+
     @GetMapping("/review")
     public String Review(Model model) {
         return "/feeds/review";

@@ -24,7 +24,7 @@ public class RealFeedMapperTests {
     public void postFeedWrite(){
         FeedDTO feedDTO = new FeedDTO();
         feedDTO.setFeedContent("아름다운 밤이에요test");
-        feedMapper.postFeedWrite(feedDTO);
+        feedMapper.postFeedWrite(feedDTO.toFeedVO());
 
         MemberVO memberVO = new MemberVO();
         memberVO.setId(21l);
