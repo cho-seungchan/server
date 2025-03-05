@@ -32,14 +32,14 @@ public class CourseMapperTests {
         course.setCourseFilePath("C:\\temp\\course.png");
         course.setCourseFileSize("2kb");
         course.setCourseFileName("represent");
-        course.setAdminId(3l);
+        course.setAdminId(2l);
 
         mapper.postAddCourse(course);
     }
 
     @Test
     public void getCourseTest() {
-        CourseDTO courseDTO = mapper.getCourseDetail(2l);
+        CourseDTO courseDTO = mapper.getCourseDetail(2L);
         log.info(courseDTO.toString());
     }
 
