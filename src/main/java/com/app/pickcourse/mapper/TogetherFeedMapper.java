@@ -1,6 +1,6 @@
 package com.app.pickcourse.mapper;
 
-import com.app.pickcourse.domain.dto.FeedListDto;
+import com.app.pickcourse.domain.dto.FeedListDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -11,5 +11,5 @@ public interface TogetherFeedMapper {
 
     void postFeedWrite(@Param("feedId") Long feedId, @Param("memberId") Long memberId);
 
-    List<FeedListDto> getFeedList();
+    List<FeedListDTO> getFeedList();
 }

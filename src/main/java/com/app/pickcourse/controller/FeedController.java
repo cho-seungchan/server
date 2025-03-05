@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -14,22 +15,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class FeedController {
 
     @GetMapping("/list")
-    public String getList(Model model) {
+    public String getFeedList(Model model) {
         return "/feeds/list";
     }
 
     @GetMapping("/write")
-    public String Write(Model model) {
+    public String getFeedWrite(Model model) {
         return "/feeds/write";
     }
 
-    @GetMapping("/mobile")
-    public String getMobile(Model model) {
-        return "/feeds/mobile";
+    @PostMapping("/write")
+    public String postFeedWrite(Model model) {
+        return "/feeds/write";
     }
 
     @GetMapping("/modify")
-    public String Modify(Model model) {
+    public String getFeedModify(Model model) {
         return "/feeds/modify";
     }
 
@@ -71,6 +72,11 @@ public class FeedController {
     @GetMapping("/viewlist")
     public String ViewList(Model model) {
         return "/feeds/viewlist";
+    }
+
+    @GetMapping("/mobile")
+    public String getMobile(Model model) {
+        return "/feeds/mobile";
     }
 
 }

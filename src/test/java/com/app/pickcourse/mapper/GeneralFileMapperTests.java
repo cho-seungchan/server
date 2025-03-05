@@ -1,6 +1,6 @@
 package com.app.pickcourse.mapper;
 
-import com.app.pickcourse.domain.dto.FeedListDto;
+import com.app.pickcourse.domain.dto.FeedListDTO;
 import com.app.pickcourse.domain.vo.FileVO;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -35,7 +35,7 @@ public class GeneralFileMapperTests {
     @Test
     public void getFeedList(){
 
-        List<FeedListDto> feedList = GeneralfeedMapper.getFeedList();
+        List<FeedListDTO> feedList = GeneralfeedMapper.getFeedList();
         feedList.forEach(feed -> {
             feed.setFiles(mapper.getFileList(feed.getId()));
             feed.setFeedTags(feedTagMapper.getFeedList(feed.getId()));

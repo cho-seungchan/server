@@ -1,6 +1,7 @@
 package com.app.pickcourse.mapper;
 
-import com.app.pickcourse.domain.dto.FeedListDto;
+import com.app.pickcourse.domain.dto.FeedDTO;
+import com.app.pickcourse.domain.dto.FeedListDTO;
 import com.app.pickcourse.domain.vo.FeedVO;
 import com.app.pickcourse.domain.vo.MemberVO;
 import com.app.pickcourse.domain.vo.PlanVO;
@@ -21,20 +22,20 @@ public class RealFeedMapperTests {
 
     @Test
     public void postFeedWrite(){
-        FeedVO feedVO = new FeedVO();
-        feedVO.setFeedContent("아름다운 밤이에요test");
-        feedMapper.postFeedWrite(feedVO);
+        FeedDTO feedDTO = new FeedDTO();
+        feedDTO.setFeedContent("아름다운 밤이에요test");
+        feedMapper.postFeedWrite(feedDTO);
 
         MemberVO memberVO = new MemberVO();
         memberVO.setId(21l);
         PlanVO planVO = new PlanVO();
         planVO.setId(4l);
-        mapper.postFeedWrite(feedVO.getId(),memberVO.getId(),planVO.getId());
+        mapper.postFeedWrite(feedDTO.getId(),memberVO.getId(),planVO.getId());
     }
 
     @Test
     public void getFeedList(){
-        List<FeedListDto> feedList = mapper.getFeedList();
+        List<FeedListDTO> feedList = mapper.getFeedList();
         feedList.forEach(System.out::println);
     }
 }
