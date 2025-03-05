@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.app.pickcourse.mapper.FileMapper">
+    <insert id="postFeedWrite">
+        <selectKey keyProperty="id" resultType="long" order="BEFORE">
+            SELECT SEQ_FILE.NEXTVAL FROM DUAL
+        </selectKey>
+        INSERT INTO TBL_FILE
+            (ID,
+             FILE_PATH,
+             FILE_NAME,
+             FILE_SIZE )
+        VALUES
+            (#{id},
+             #{filePath},
+             #{fileName},
+             #{fileSize})
+    </insert>
+</mapper>

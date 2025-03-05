@@ -20,7 +20,7 @@ public interface CourseMapper {
     void postAddCourse(CourseVO courseVO);
 
     // 추천코스 조회
-    CourseVO getCourseDetail(@Param("id") Long id);
+    CourseDTO getCourseDetail(@Param("id") Long id);
 
     // 추천코스 목록 조회
     List<CourseListDTO> getCourseList(@Param("criteria") Criteria criteria, @Param("search") Search search);

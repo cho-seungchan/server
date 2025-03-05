@@ -3,10 +3,10 @@ package com.app.pickcourse.domain.vo;
 import lombok.*;
 import org.springframework.stereotype.Component;
 
-@Component
-@Getter @Setter
-@ToString
 @NoArgsConstructor
+@Getter
+@Setter
+@ToString
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class PlanVO {
     @EqualsAndHashCode.Include
