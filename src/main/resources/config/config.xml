@@ -4,4 +4,18 @@
     <settings>
         <setting name="mapUnderscoreToCamelCase" value="true"/>
     </settings>
+    <typeAliases>
+        <typeAlias type="com.app.pickcourse.domain.dto.CourseDTO" alias="courseDTO"/>
+        <typeAlias type="com.app.pickcourse.domain.vo.AdminVO" alias="adminVO"/>
+        <typeAlias type="com.app.pickcourse.domain.dto.CourseListDTO" alias="courseListDTO"/>
+        <typeAlias type="com.app.pickcourse.domain.vo.FeedTagVO" alias="feedTagVO"/>
+        <typeAlias type="com.app.pickcourse.domain.dto.FeedListDto" alias="feedListDto"/>
+        <typeAlias type="com.app.pickcourse.domain.vo.FileVO" alias="fileVO"/>
+        <typeAlias type="com.app.pickcourse.domain.vo.MemberVO" alias="memberVO"/>
+        <typeAlias type="com.app.pickcourse.domain.vo.NoticeVO" alias="noticeVO"/>
+        <typeAlias type="com.app.pickcourse.domain.vo.PathVO" alias="pathVO"/>
+        <typeAlias type="com.app.pickcourse.domain.vo.VolunteerExcludeVO" alias="volunteerExcludeVO"/>
+        <typeAlias type="com.app.pickcourse.domain.vo.VolunteerIncludeVO" alias="volunteerIncludeVO"/>
+        <typeAlias type="com.app.pickcourse.domain.vo.VolunteerPrepareVO" alias="volunteerPrepareVO"/>
+    </typeAliases>
 </configuration>

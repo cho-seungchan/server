@@ -49,10 +49,14 @@
         WHERE SM.SEND_MESSAGE_SENDER = #{senderId}
         ORDER BY SM.ID DESC
         ) SM
+        <![CDATA[
         WHERE ROWNUM <= #{endRow}
+        ]]>
         ) R
-        JOIN TBL_MESSAGE M ON R.ID = M.ID
+        JOIN TBL_MESSAGE M ON R.RECEIVERID = M.ID
+        <![CDATA[
         WHERE R.R >= #{startRow}
+        ]]>
     </select>
 
 
