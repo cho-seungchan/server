@@ -16,19 +16,6 @@
              #{courseId})
     </insert>
 
-    <select id="getCourseDetail" resultType="volunteerVO">
-        SELECT
-            ID,
-            VOLUNTEER_START_DATE,
-            VOLUNTEER_END_DATE,
-            VOLUNTEER_DEADLINE,
-            COURSE_ID,
-            CREATED_DATE,
-            UPDATED_DATE
-        FROM TBL_VOLUNTEER
-        WHERE COURSE_ID = #{courseId}
-    </select>
-
     <update id="patchEditCourse">
         UPDATE TBL_VOLUNTEER
         SET VOLUNTEER_START_DATE        =   #{volunteerStartDate},

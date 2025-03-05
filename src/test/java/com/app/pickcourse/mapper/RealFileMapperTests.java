@@ -18,6 +18,8 @@ public class RealFileMapperTests {
     private FileMapper fileMapper;
     @Autowired
     private RealFeedMapper realFeedMapper;
+    @Autowired
+    private FeedTagMapper feedTagMapper;
 
     @Test
     public void postFeedWrite(){
@@ -27,7 +29,7 @@ public class RealFileMapperTests {
         fileVO.setFileSize("125");
         fileMapper.postFeedWrite(fileVO);
 
-        mapper.postFeedWrite(fileVO.getId(),7l);
+        mapper.postFeedWrite(fileVO.getId(),47l);
     }
 
     @Test
@@ -36,6 +38,7 @@ public class RealFileMapperTests {
         List<FeedListDto> feedList = realFeedMapper.getFeedList();
         feedList.forEach(feed -> {
             feed.setFiles(mapper.getFileList(feed.getId()));
+            feed.setFeedTags(feedTagMapper.getFeedList(feed.getId()));
         });
         feedList.forEach(System.out::println);
 

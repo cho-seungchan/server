@@ -18,6 +18,8 @@ public class TogetherFileMapperTests {
     private FileMapper fileMapper;
     @Autowired
     private TogetherFeedMapper togetherFeedMapper;
+    @Autowired
+    private FeedTagMapper feedTagMapper;
 
     @Test
     public void postFeedWrite(){
@@ -27,7 +29,7 @@ public class TogetherFileMapperTests {
         fileVO.setFileSize("125");
         fileMapper.postFeedWrite(fileVO);
 
-        mapper.postFeedWrite(fileVO.getId(),4l);
+        mapper.postFeedWrite(fileVO.getId(),50l);
     }
 
 
@@ -37,6 +39,7 @@ public class TogetherFileMapperTests {
         List<FeedListDto> feedList = togetherFeedMapper.getFeedList();
         feedList.forEach(feed -> {
             feed.setFiles(mapper.getFileList(feed.getId()));
+            feed.setFeedTags(feedTagMapper.getFeedList(feed.getId()));
         });
         feedList.forEach(System.out::println);
 

@@ -25,7 +25,7 @@ public class GeneralFeedMapperTests {
         feedMapper.postFeedWrite(feedVO);
 
         MemberVO memberVO = new MemberVO();
-        memberVO.setId(1l);
+        memberVO.setId(21l);
         mapper.postFeedWrite(feedVO.getId(),memberVO.getId());
     }
 

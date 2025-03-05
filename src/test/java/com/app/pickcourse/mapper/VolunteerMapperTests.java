@@ -22,18 +22,8 @@ public class VolunteerMapperTests {
         volunteer.setVolunteerStartDate(String.valueOf(LocalDate.parse("2025-03-10")));
         volunteer.setVolunteerEndDate(String.valueOf(LocalDate.parse("2025-03-12")));
         volunteer.setVolunteerDeadline(String.valueOf(LocalDate.parse("2025-03-08")));
-        volunteer.setCourseId(2l);
+        volunteer.setCourseId(4l);
         mapper.postAddCourse(volunteer);
-    }
-
-    @Test
-    public void getCourseDetail() {
-        VolunteerVO volunteer = mapper.getCourseDetail(2l);
-        log.info(volunteer.toString());
-
-        CourseDTO courseDTO = new CourseDTO();
-        courseDTO.setVolunteer(volunteer);
-        log.info(courseDTO.toString());
     }
 
     @Test

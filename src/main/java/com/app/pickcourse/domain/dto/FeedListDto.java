@@ -21,4 +21,5 @@ public class FeedListDto {
     private String updateDate;
     private Long   memberId;
     private List<FileVO> files;
+    private List<FeedTagVO> feedTags;
 }

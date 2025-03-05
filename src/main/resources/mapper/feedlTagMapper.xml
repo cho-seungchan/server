@@ -10,4 +10,13 @@
                #{feedTagContent},
                #{feedId})
     </insert>
+
+    <select id="getFeedList" resultType="feedTagVO">
+        SELECT
+             ID,
+             FEED_TAG_CONTENT,
+             FEED_ID
+        FROM TBL_FEED_TAG
+        WHERE FEED_ID = #{feedId}
+    </select>
 </mapper>

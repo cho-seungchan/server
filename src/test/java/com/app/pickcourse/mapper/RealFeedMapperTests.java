@@ -26,9 +26,9 @@ public class RealFeedMapperTests {
         feedMapper.postFeedWrite(feedVO);
 
         MemberVO memberVO = new MemberVO();
-        memberVO.setId(1l);
+        memberVO.setId(21l);
         PlanVO planVO = new PlanVO();
-        planVO.setId(1l);
+        planVO.setId(4l);
         mapper.postFeedWrite(feedVO.getId(),memberVO.getId(),planVO.getId());
     }
 

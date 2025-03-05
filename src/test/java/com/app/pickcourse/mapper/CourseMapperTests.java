@@ -39,10 +39,7 @@ public class CourseMapperTests {
 
     @Test
     public void getCourseTest() {
-        CourseVO course = mapper.getCourseDetail(2l);
-        log.info(course.toString());
-        CourseDTO courseDTO = new CourseDTO();
-        courseDTO.setCourse(course);
+        CourseDTO courseDTO = mapper.getCourseDetail(2l);
         log.info(courseDTO.toString());
     }
 

@@ -12,7 +12,10 @@ import java.util.List;
 @Setter
 @ToString
 public class FeedDto {
-    private FeedVO feedVO;
-    private FeedTagVO tagVO;
+    private Long id;
+    private String feedContent;
+    private String createDate;
+    private String updateDate;
     private List<FileVO> files;
+    private List<FeedTagVO> feedTags;
 }
