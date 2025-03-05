@@ -1,8 +1,5 @@
 server:
   port: 10000
-  servlet:
-    session:
-      cookie:
 
 spring:
   datasource:
