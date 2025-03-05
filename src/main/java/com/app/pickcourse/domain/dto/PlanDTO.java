@@ -1,14 +1,20 @@
-package com.app.pickcourse.domain.vo;
+package com.app.pickcourse.domain.dto;
 
+import com.app.pickcourse.domain.vo.WriteExcludeVO;
+import com.app.pickcourse.domain.vo.WriteIncludeVO;
+import com.app.pickcourse.domain.vo.WritePrepareVO;
 import lombok.*;
 import org.springframework.stereotype.Component;
 
-@NoArgsConstructor
+import java.util.List;
+
+@Component
 @Getter
 @Setter
 @ToString
+@NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class PlanVO {
+public class PlanDTO {
     @EqualsAndHashCode.Include
     private Long id;
     private String planName;
@@ -27,4 +33,7 @@ public class PlanVO {
     private Long courseId;
     private String CreatedDate;
     private String UpdatedDate;
+    private List<WriteExcludeVO> excludeContent;
+    private List<WriteIncludeVO> includeContent;
+    private List<WritePrepareVO> prepareContent;
 }
