@@ -11,7 +11,7 @@ import java.util.List;
 @Mapper
 public interface NoticeMapper {
     // 페이지 처리를 위한 전체 공지사항 건수
-    int getCountAll(@Param("search") Search search);
+    int getCountAll(Search search);
 
     // 공지사항 등록
     void postAddNotice(NoticeVO noticeVO);
@@ -20,12 +20,12 @@ public interface NoticeMapper {
     List<NoticeVO> getManageNoticeList(@Param("criteria") Criteria criteria, @Param("search") Search search);
 
     // 공지사항 조회
-    NoticeVO getManageNotice(@Param("id") Long id);
+    NoticeVO getManageNotice(Long id);
 
     // 공지사항 수정
     void patchManageNotice(NoticeVO noticeVO);
 
     // 공지사항 삭제
-    void deleteManageNotice(@Param("id") Long id);
+    void deleteManageNotice(Long id);
 
 }

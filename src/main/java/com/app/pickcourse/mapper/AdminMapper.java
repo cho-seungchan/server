@@ -12,7 +12,7 @@ import java.util.List;
 public interface AdminMapper {
 
     // 전체 관리자 수
-    int getCountAll(@Param("search") Search search);
+    int getCountAll(Search search);
 
     // 관리자 목록 조회
     List<AdminVO> getManageAdminList(@Param("criteria") Criteria criteria, @Param("search") Search search);
@@ -21,5 +21,5 @@ public interface AdminMapper {
     void postManageAdmin(AdminVO admin);
 
     // 관리자 추방
-    void deleteManageAdmin(@Param("id") Long id);
+    void deleteManageAdmin(Long id);
 }

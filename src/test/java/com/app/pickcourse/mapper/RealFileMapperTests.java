@@ -1,5 +1,6 @@
 package com.app.pickcourse.mapper;
 
+import com.app.pickcourse.domain.dto.FeedDTO;
 import com.app.pickcourse.domain.dto.FeedListDTO;
 import com.app.pickcourse.domain.vo.FileVO;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +21,8 @@ public class RealFileMapperTests {
     private RealFeedMapper realFeedMapper;
     @Autowired
     private FeedTagMapper feedTagMapper;
+    @Autowired
+    private FeedMapper feedMapper;
 
     @Test
     public void postFeedWrite(){
@@ -43,4 +46,12 @@ public class RealFileMapperTests {
         feedList.forEach(System.out::println);
 
     }
+
+    @Test
+    public void getFeedModify(){
+        FeedDTO feedDTO = feedMapper.getFeedModify(44l);
+        feedDTO.setFiles(mapper.getFileList(feedDTO.getId()));
+        log.info("feedDTO:{}",feedDTO);
+    }
+
 }

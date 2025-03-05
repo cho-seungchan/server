@@ -21,4 +21,50 @@
         FROM TBL_FEED
         WHERE ID = #{id}
     </select>
+
+    <select id="getFeedList" resultType="feedListDto">
+        SELECT
+            f.ID,
+            f.FEED_CONTENT,
+            f.CREATE_DATE,
+            f.UPDATE_DATE,
+            COALESCE(g.MEMBER_ID, r.MEMBER_ID, t.MEMBER_ID) AS MEMBER_ID,
+            r.PLAN_ID
+        FROM TBL_FEED f
+                 LEFT JOIN TBL_GENERAL_FEED g ON g.ID = f.ID
+                 LEFT JOIN TBL_REAL_FEED r ON r.ID = f.ID
+                 LEFT JOIN TBL_TOGETHER_FEED t ON t.ID = f.ID
+        ORDER BY f.CREATE_DATE DESC
+    </select>
+
+    <select id="getFeedModifyList" resultType="feedListDto">
+        SELECT
+            f.ID,
+            f.FEED_CONTENT,
+            f.CREATE_DATE,
+            f.UPDATE_DATE,
+            COALESCE(g.MEMBER_ID, r.MEMBER_ID, t.MEMBER_ID) AS MEMBER_ID,
+            r.PLAN_ID
+        FROM TBL_FEED f
+                 LEFT JOIN TBL_GENERAL_FEED g ON g.ID = f.ID
+                 LEFT JOIN TBL_REAL_FEED r ON r.ID = f.ID
+                 LEFT JOIN TBL_TOGETHER_FEED t ON t.ID = f.ID
+        WHERE f.ID = #{id}
+        ORDER BY f.CREATE_DATE DESC
+    </select>
+
+    <update id="PostFeedModify">
+        UPDATE TBL_FEED
+        SET
+            FEED_CONTENT  =  #{feedContent},
+            UPDATE_DATE   =  SYSDATE
+        WHERE ID = #{id}
+
+    </update>
+
+    <delete id="deleteFeedModifyList">
+        DELETE
+        FROM TBL_FEED
+        WHERE ID = #{id}
+    </delete>
 </mapper>

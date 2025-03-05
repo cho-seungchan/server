@@ -38,4 +38,11 @@ public class RealFeedMapperTests {
         List<FeedListDTO> feedList = mapper.getFeedList();
         feedList.forEach(System.out::println);
     }
+
+
+    @Test
+    public void getFeedModifyList(){
+        List<FeedListDTO> list = mapper.getFeedModifyList(52l);
+        list.forEach(System.out::println);
+    }
 }

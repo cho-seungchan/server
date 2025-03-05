@@ -19,4 +19,10 @@
         FROM TBL_FEED_TAG
         WHERE FEED_ID = #{feedId}
     </select>
+
+    <delete id="postModifyFeed">
+        DELETE
+        FROM TBL_FEED_TAG
+        WHERE ID  =  #{id}
+    </delete>
 </mapper>

@@ -35,4 +35,10 @@ public class TogetherFeedMapperTests {
         List<FeedListDTO> feedList = mapper.getFeedList();
         feedList.forEach(System.out::println);
     }
+
+    @Test
+    public void getFeedModifyList(){
+        List<FeedListDTO> list = mapper.getFeedModifyList(53l);
+        list.forEach(System.out::println);
+    }
 }

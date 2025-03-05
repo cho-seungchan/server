@@ -12,4 +12,6 @@ public interface RealFeedMapper {
     void postFeedWrite(@Param("feedId") Long feedId, @Param("memberId") Long memberId, @Param("planId") Long planId);
 
     List<FeedListDTO> getFeedList();
+
+    List<FeedListDTO> getFeedModifyList(Long id);
 }

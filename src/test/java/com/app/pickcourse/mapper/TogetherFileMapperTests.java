@@ -1,8 +1,10 @@
 package com.app.pickcourse.mapper;
 
+import com.app.pickcourse.domain.dto.FeedDTO;
 import com.app.pickcourse.domain.dto.FeedListDTO;
 import com.app.pickcourse.domain.vo.FileVO;
 import lombok.extern.slf4j.Slf4j;
+import net.bytebuddy.asm.Advice;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,6 +22,8 @@ public class TogetherFileMapperTests {
     private TogetherFeedMapper togetherFeedMapper;
     @Autowired
     private FeedTagMapper feedTagMapper;
+    @Autowired
+    private FeedMapper feedMapper;
 
     @Test
     public void postFeedWrite(){
@@ -45,4 +49,10 @@ public class TogetherFileMapperTests {
 
     }
 
+    @Test
+    public void getFeedModify(){
+        FeedDTO feedDTO = feedMapper.getFeedModify(48l);
+        feedDTO.setFiles(mapper.getFileList(feedDTO.getId()));
+        log.info("feedDTO:{}",feedDTO);
+    }
 }

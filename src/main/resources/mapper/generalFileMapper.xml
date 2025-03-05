@@ -12,7 +12,6 @@
     <select id="getFileList" resultType="fileVO">
         SELECT
             g.ID,
-            g.GENERAL_FEED_ID,
             f.FILE_PATH,
             f.FILE_NAME,
             f.FILE_SIZE,
@@ -23,4 +22,5 @@
         WHERE g.GENERAL_FEED_ID = #{feedId}
         ORDER BY f.CREATE_DATE DESC
     </select>
+
 </mapper>

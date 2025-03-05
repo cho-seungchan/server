@@ -34,13 +34,18 @@ public class FeedController {
         return "/feeds/modify";
     }
 
+    @PostMapping("/modify")
+    public String postFeedModify(Model model) {
+        return "/feeds/modify";
+    }
+
     @GetMapping("/modifylist")
-    public String ModifyList(Model model) {
+    public String getFeedModifyList(Model model) {
         return "/feeds/modifylist";
     }
 
     @GetMapping("/reply")
-    public String Reply(Model model) {
+    public String getReplyList(Model model) {
         return "/feeds/reply";
     }
 

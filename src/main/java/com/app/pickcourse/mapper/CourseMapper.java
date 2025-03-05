@@ -14,13 +14,13 @@ import java.util.List;
 public interface CourseMapper {
 
     // 페이지 처리를 위한 전체 화면 갯수
-    int getCountAll(@Param("search") Search search);
+    int getCountAll(Search search);
 
     // 추천코스 등록
     void postAddCourse(CourseVO courseVO);
 
     // 추천코스 조회
-    CourseDTO getCourseDetail(@Param("id") Long id);
+    CourseDTO getCourseDetail(Long id);
 
     // 추천코스 목록 조회
     List<CourseListDTO> getCourseList(@Param("criteria") Criteria criteria, @Param("search") Search search);

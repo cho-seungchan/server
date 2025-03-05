@@ -12,4 +12,6 @@ public interface GeneralFeedMapper {
     void postFeedWrite(@Param("feedId") Long feedId, @Param("memberId") Long memberId);
 
     List<FeedListDTO> getFeedList();
+
+    List<FeedListDTO> getFeedModifyList(Long id);
 }
