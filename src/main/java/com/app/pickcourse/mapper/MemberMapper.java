@@ -43,4 +43,11 @@ public interface MemberMapper {
     //    삭제
     public void delete(Long id);
 
+//    카카오 회원가입
+    public void kakaoInsert(MemberVO memberVO);
+
+    //    조회(이메일)
+    public Optional<MemberVO> selectByMemberEmail(String memberEmail);
+
+
 }
