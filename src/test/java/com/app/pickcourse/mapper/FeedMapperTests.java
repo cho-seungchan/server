@@ -14,10 +14,14 @@ public class FeedMapperTests {
 
     @Test
     public void postFeedWrite(){
-//        FeedVO feedVO = new FeedVO();
         FeedDTO feedDTO = new FeedDTO();
         feedDTO.setFeedContent("아름다운 밤이에요test");
         mapper.postFeedWrite(feedDTO);
     }
 
+    @Test
+    public void postFeedModify(){
+        FeedDTO feedDTO = mapper.getFeedModify(51l);
+        log.info("feedDTO:{}",feedDTO);
+    }
 }

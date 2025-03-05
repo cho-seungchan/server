@@ -11,4 +11,14 @@
         VALUES(#{id},
                #{feedContent})
     </insert>
+
+    <select id="getFeedModify" resultType="feedDTO">
+        SELECT
+            ID,
+            FEED_CONTENT,
+            CREATE_DATE,
+            UPDATE_DATE
+        FROM TBL_FEED
+        WHERE ID = #{id}
+    </select>
 </mapper>
