@@ -3,7 +3,7 @@ package com.app.pickcourse.mapper;
 import com.app.pickcourse.domain.dto.CourseDTO;
 import com.app.pickcourse.domain.dto.CourseListDTO;
 import com.app.pickcourse.domain.vo.CourseVO;
-import com.app.pickcourse.domain.vo.Criteria;
+import com.app.pickcourse.domain.vo.Pagination;
 import com.app.pickcourse.domain.vo.Search;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -48,9 +48,9 @@ public class CourseMapperTests {
         Search search = new Search();
         search.setType("nwt");
         search.setKeyWord("nat");
-        Criteria criteria = new Criteria(0,mapper.getCountAll(search));
-        log.info(criteria.toString());
-        List<CourseListDTO> courseList = mapper.getCourseList(criteria, search);
+        Pagination pagination = new Pagination(0,mapper.getCountAll(search));
+        log.info(pagination.toString());
+        List<CourseListDTO> courseList = mapper.getCourseList(pagination, search);
         log.info("courseList size:" + courseList.size());
         courseList.forEach(System.out::println);
     }

@@ -1,7 +1,7 @@
 package com.app.pickcourse.mapper;
 
 import com.app.pickcourse.domain.vo.AdminVO;
-import com.app.pickcourse.domain.vo.Criteria;
+import com.app.pickcourse.domain.vo.Pagination;
 import com.app.pickcourse.domain.vo.MemberVO;
 import com.app.pickcourse.domain.vo.Search;
 import org.apache.ibatis.annotations.Mapper;
@@ -17,7 +17,7 @@ public interface MemberMapper {
     int getCountAll(Search search);
 
     // 회원 목록 조회
-    List<MemberVO> getMemberList(@Param("criteria") Criteria criteria, @Param("search") Search search);
+    List<MemberVO> getMemberList(@Param("pagination") Pagination pagination, @Param("search") Search search);
 
     // 회원 정지
     void patchMemberList(Long id);

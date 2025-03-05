@@ -1,6 +1,6 @@
 package com.app.pickcourse.mapper;
 
-import com.app.pickcourse.domain.vo.Criteria;
+import com.app.pickcourse.domain.vo.Pagination;
 import com.app.pickcourse.domain.vo.NoticeVO;
 import com.app.pickcourse.domain.vo.Search;
 import lombok.extern.slf4j.Slf4j;
@@ -31,9 +31,9 @@ public class NoticeMapperTests {
         Search search = new Search();
         search.setType("w");
         search.setKeyWord("HHH");
-        Criteria criteria = new Criteria(0, mapper.getCountAll(search));
-        List<NoticeVO> notices = mapper.getManageNoticeList(criteria, search);
-        log.info(criteria.toString());
+        Pagination pagination = new Pagination(0, mapper.getCountAll(search));
+        List<NoticeVO> notices = mapper.getManageNoticeList(pagination, search);
+        log.info(pagination.toString());
         notices.forEach(System.out::println);
         log.info("notices size :: {} ", notices.size());
     }

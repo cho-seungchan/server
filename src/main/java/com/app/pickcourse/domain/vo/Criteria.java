@@ -7,7 +7,7 @@ import lombok.ToString;
 
 @NoArgsConstructor
 @Getter @Setter @ToString
-public class Criteria {
+public class Pagination {
 	private int     page;
 	private int     pageCount;
 	private int     startPage;
@@ -18,7 +18,7 @@ public class Criteria {
 	private int     realEnd;
 	private boolean prev, next;
 	
-	public Criteria(int page, int total) {
+	public Pagination(int page, int total) {
 		this.rowCount = 10;
 		this.pageCount = 10;
 		

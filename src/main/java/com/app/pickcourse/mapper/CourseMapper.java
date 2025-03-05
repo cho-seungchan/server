@@ -3,7 +3,7 @@ package com.app.pickcourse.mapper;
 import com.app.pickcourse.domain.dto.CourseDTO;
 import com.app.pickcourse.domain.dto.CourseListDTO;
 import com.app.pickcourse.domain.vo.CourseVO;
-import com.app.pickcourse.domain.vo.Criteria;
+import com.app.pickcourse.domain.vo.Pagination;
 import com.app.pickcourse.domain.vo.Search;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -23,7 +23,7 @@ public interface CourseMapper {
     CourseDTO getCourseDetail(Long id);
 
     // 추천코스 목록 조회
-    List<CourseListDTO> getCourseList(@Param("criteria") Criteria criteria, @Param("search") Search search);
+    List<CourseListDTO> getCourseList(@Param("pagination") Pagination pagination, @Param("search") Search search);
 
     // 추천코스 타입 정하기 :: 추천화면 목록 조회 화면에서 수행
     void patchCourseList(@Param("id") Long id, @Param("courseType") String courseType);
