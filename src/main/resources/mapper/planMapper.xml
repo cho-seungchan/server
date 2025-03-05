@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.app.pickcourse.mapper.PlanMapper">
+    <insert id="insert">
+        INSERT INTO TBL_PLAN
+        (ID, PLAN_NAME, PLAN_START_DATE, PLAN_END_DATE, PLAN_DEADLINE, PLAN_MAX_PERSONNEL, PLAN_MIN_PERSONNEL, PLAN_PRICE, PLAN_START_ADDRESS,
+         PLAN_CONTENT, PLAN_FILE_PATH, PLAN_FILE_SIZE, PLAN_FILE_NAME, MEMBER_ID, COURSE_ID)
+        VALUES
+            (SEQ_PLAN.NEXTVAL, #{planName}, #{planStartDate}, #{planEndDate}, #{planDeadline}, #{planMaxPersonnel}, #{planMinPersonnel}, #{planPrice}, #{planStartAddress}
+            , #{planContent}, #{planFilePath}, #{planFileSize}, #{planFileName}, #{memberId}, #{courseId})
+    </insert>
+</mapper>
