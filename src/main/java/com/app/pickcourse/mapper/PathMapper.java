@@ -13,8 +13,8 @@ public interface PathMapper {
     void postAddCourse(PathVO pathVO);
 
     // 추천 코스 목록
-    List<PathVO> getCourseDetail(@Param("courseId") Long courseId);
+    List<PathVO> getCourseDetail(Long courseId);
 
     // 추천 코스 수정
-    void deleteEditCourse(@Param("courseId") Long courseId);
+    void deleteEditCourse(Long courseId);
 }
