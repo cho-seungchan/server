@@ -1,13 +1,6 @@
 package com.app.pickcourse.mapper;
 
 
-<<<<<<< HEAD
-import com.app.pickcourse.domain.vo.Pagination;
-
-import com.app.pickcourse.domain.dto.MemberDTO;
-
-=======
->>>>>>> f5caabea70b61680af515016a8d62aae94159ea4
 import com.app.pickcourse.domain.vo.MemberVO;
 import com.app.pickcourse.util.Pagination;
 import com.app.pickcourse.util.Search;
