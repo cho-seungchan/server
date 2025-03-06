@@ -11,5 +11,7 @@ public interface TogetherFileMapper {
 
     void postFeedWrite(@Param("fileId") Long fileId, @Param("feedId") Long feedId);
 
-    List<FileVO> getFileList(@Param("feedId") Long feedId);
+    List<FileVO> getFileList(Long feedId);
+
+
 }
