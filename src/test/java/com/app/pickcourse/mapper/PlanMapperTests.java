@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
 import java.util.Optional;
@@ -93,5 +94,24 @@ public class PlanMapperTests {
     @Test
     public void testDelete() {
         planMapper.deleteById(3L);
+    }
+
+    @Test
+    public void testSelectAllById() {
+        List<PlanVO> list = planMapper.selectAllById(1L);
+        list.forEach(System.out::println);
+
+    }
+
+    @Test
+    public void testselectRanking(){
+        List<Long> weeklyIds = planMapper.selectRankingWeekly();
+        weeklyIds.forEach(System.out::println);
+
+        List<Long> monthlyIds = planMapper.selectRankingMonthly();
+        monthlyIds.forEach(System.out::println);
+
+        List<Long> yearlyIds = planMapper.selectRankingYearly();
+        yearlyIds.forEach(System.out::println);
     }
 }

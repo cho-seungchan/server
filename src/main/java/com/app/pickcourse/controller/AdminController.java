@@ -78,9 +78,9 @@ public class AdminController {
         return "/admin/managenotice";
     }
 
-    // 신고 관리 :: 서비스 방안 정리된 후 처리 (신고 등록하는 화면이 없음)
-    @GetMapping("/report")
-    public String getReport(Model model) {
+    // 신고 관리 :: 피드 신고, 댓글 신고
+    @GetMapping("/report-list")
+    public String getReportList(Model model) {
         return "/admin/report";
     }
 

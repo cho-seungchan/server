@@ -13,6 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class RankingController {
 
     @GetMapping("/ranking")
-    public void getCustomerService() {}
+    public void getRanking() {}
 
 }
