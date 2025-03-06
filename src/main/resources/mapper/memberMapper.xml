@@ -61,6 +61,11 @@
         VALUES (SEQ_MEMBER.NEXTVAL, #{memberEmail}, #{memberPassword}, #{memberNickname}, #{memberTell}, #{memberBirth}, #{memberGender})
     </insert>
 
+    <insert id="kakaoInsert">
+        INSERT INTO TBL_MEMBER (ID, MEMBER_EMAIL, MEMBER_NICKNAME)
+        VALUES (SEQ_MEMBER.NEXTVAL, #{memberEmail}, #{memberNickname})
+    </insert>
+
     <select id="selectById">
         SELECT ID, MEMBER_EMAIL, MEMBER_PASSWORD, MEMBER_NICKNAME, MEMBER_TELL, MEMBER_BIRTH,
                MEMBER_GENDER, CREATED_DATE, UPDATED_DATE
@@ -92,6 +97,8 @@
     <delete id="delete">
         DELETE FROM TBL_MEMBER WHERE ID = #{id}
     </delete>
+
+
 
 
 </mapper>

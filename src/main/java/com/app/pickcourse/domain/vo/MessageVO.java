@@ -2,8 +2,6 @@ package com.app.pickcourse.domain.vo;
 
 import lombok.*;
 
-import java.time.LocalDateTime;
-
 @NoArgsConstructor
 @Getter @Setter @ToString
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)

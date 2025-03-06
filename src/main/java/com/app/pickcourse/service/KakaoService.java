@@ -2,8 +2,10 @@ package com.app.pickcourse.service;
 
 import com.app.pickcourse.domain.dto.MemberDTO;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
@@ -29,7 +31,7 @@ public class KakaoService {
             connection.setDoOutput(true);
 
             stringBuilder.append("grant_type=authorization_code");
-            stringBuilder.append("&client_id=c87c26c641832d92e09c529afe085195");
+            stringBuilder.append("&client_id=1f0eec6d921e399c7940b9689a7896e3");
             stringBuilder.append("&redirect_uri=http://localhost:10000/kakao/login");
             stringBuilder.append("&code=" + code);
 
@@ -102,4 +104,5 @@ public class KakaoService {
         }
         return Optional.ofNullable(memberDTO);
     }
+
 }
