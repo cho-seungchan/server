@@ -18,7 +18,7 @@
             r.ID,
             r.REPLY_CONTENT,
             r.CREATED_DATE,
-            r.UPDATE_DATE,
+            r.UPDATED_DATE,
             gr.REAL_FEED_ID,
             gr.MEMBER_ID,
             m.MEMBER_NICKNAME

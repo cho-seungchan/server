@@ -3,7 +3,7 @@ CREATE SEQUENCE SEQ_WISH;
 CREATE TABLE TBL_WISH (
                           ID NUMBER CONSTRAINT PK_WISH PRIMARY KEY,
                           CREATED_DATE DATE DEFAULT SYSDATE,
-                          UPDATE_DATE DATE DEFAULT SYSDATE,
+                          UPDATED_DATE DATE DEFAULT SYSDATE,
                           MEMBER_ID NUMBER NOT NULL,
                           COURSE_ID NUMBER NOT NULL,
                           CONSTRAINT FK_WISH_MEMBER FOREIGN KEY(MEMBER_ID)

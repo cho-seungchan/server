@@ -14,7 +14,7 @@
             g.ID,
             f.FEED_CONTENT,
             f.CREATED_DATE,
-            f.UPDATE_DATE,
+            f.UPDATED_DATE,
             g.MEMBER_ID
         FROM TBL_TOGETHER_FEED g
                  JOIN TBL_FEED f ON g.ID = f.ID
@@ -26,7 +26,7 @@
             g.ID,
             f.FEED_CONTENT,
             f.CREATED_DATE,
-            f.UPDATE_DATE,
+            f.UPDATED_DATE,
             g.MEMBER_ID
         FROM TBL_TOGETHER_FEED g
                  JOIN TBL_FEED f ON g.ID = f.ID

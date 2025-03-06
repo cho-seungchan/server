@@ -16,7 +16,7 @@
             f.FILE_NAME,
             f.FILE_SIZE,
             f.CREATED_DATE,
-            f.UPDATE_DATE
+            f.UPDATED_DATE
         FROM TBL_GENERAL_FILE g
                  JOIN TBL_FILE f ON g.ID = f.ID
         WHERE g.GENERAL_FEED_ID = #{feedId}

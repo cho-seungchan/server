@@ -17,7 +17,7 @@
             ID,
             FEED_CONTENT,
             CREATED_DATE,
-            UPDATE_DATE
+            UPDATED_DATE
         FROM TBL_FEED
         WHERE ID = #{id}
     </select>
@@ -27,7 +27,7 @@
             f.ID,
             f.FEED_CONTENT,
             f.CREATED_DATE,
-            f.UPDATE_DATE,
+            f.UPDATED_DATE,
             COALESCE(g.MEMBER_ID, r.MEMBER_ID, t.MEMBER_ID) AS MEMBER_ID,
             r.PLAN_ID
         FROM TBL_FEED f
@@ -42,7 +42,7 @@
             f.ID,
             f.FEED_CONTENT,
             f.CREATED_DATE,
-            f.UPDATE_DATE,
+            f.UPDATED_DATE,
             COALESCE(g.MEMBER_ID, r.MEMBER_ID, t.MEMBER_ID) AS MEMBER_ID,
             r.PLAN_ID
         FROM TBL_FEED f
@@ -57,7 +57,7 @@
         UPDATE TBL_FEED
         SET
             FEED_CONTENT  =  #{feedContent},
-            UPDATE_DATE   =  SYSDATE
+            UPDATED_DATE   =  SYSDATE
         WHERE ID = #{id}
 
     </update>

@@ -70,7 +70,12 @@ public class FeedController {
     }
 
     @GetMapping("/review-modify")
-    public String ReviewModify(Model model) {
+    public String getReviewModify(Model model) {
+        return "/feeds/reviewmodify";
+    }
+
+    @PostMapping("/review-modify")
+    public String postReviewModify(Model model) {
         return "/feeds/reviewmodify";
     }
 
