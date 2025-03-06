@@ -51,7 +51,7 @@
             V.VOLUNTEER_END_DATE,
             V.VOLUNTEER_DEADLINE
         FROM TBL_COURSE C
-        JOIN TBL_VOLUNTEER V
+        LEFT OUTER JOIN TBL_VOLUNTEER V
         ON   C.ID = V.COURSE_ID
         WHERE C.ID = #{id}
     </select>

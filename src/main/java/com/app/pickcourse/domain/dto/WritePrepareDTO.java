@@ -3,6 +3,8 @@ package com.app.pickcourse.domain.dto;
 import lombok.*;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 @Getter
 @Setter
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Component;
 public class WritePrepareDTO {
     @EqualsAndHashCode.Include
     private Long id;
-    private String[] prepareContent;
+    private List<String> prepareContent;
     private Long planId;
+
 }
