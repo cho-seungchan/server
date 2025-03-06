@@ -83,10 +83,4 @@ public class FeedController {
     public String getTourList(Model model) {
         return "/feeds/tourlist";
     }
-
-//    @GetMapping("/mobile")
-//    public String getMobile(Model model) {
-//        return "/feeds/mobile";
-//    }
-
 }
