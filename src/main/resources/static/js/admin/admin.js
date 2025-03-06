@@ -167,3 +167,16 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 });
+
+// 2025.03.03 조승찬 추가
+// 클릭시 글자 크기 농도 변하도록 설정
+document.querySelectorAll(".MenuItems_submenu__YTg3N").forEach((menus) => {
+    menus.addEventListener("click", menu => {
+        document.querySelectorAll(".MenuItems_submenu__YTg3N").forEach(e=>{
+            e.classList.remove("checked");
+        })
+        menu.target.classist.add("checked");
+    })
+})
+
+// 2025.03.03 조승찬 추가

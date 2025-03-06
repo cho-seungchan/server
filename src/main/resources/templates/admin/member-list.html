@@ -376,6 +376,9 @@
                                                         <div class="nicknameDiv">
                                                             Nickname
                                                         </div>
+                                                        <div class="nameDiv">
+                                                            Name
+                                                        </div>
                                                         <div class="phoneDiv">
                                                             Phone
                                                         </div>
@@ -403,6 +406,8 @@
                                                                 <div class="emailDiv" th:text="*{memberEmail}">
                                                                 </div>
                                                                 <div class="nicknameDiv" th:text="*{memberNickname}">
+                                                                </div>
+                                                                <div class="nameDiv" th:text="*{memberName}">
                                                                 </div>
                                                                 <div class="phoneDiv" th:text="*{memberTell}">
                                                                 </div>
@@ -450,7 +455,7 @@
 <!--                                                    검색 처리 -->
                                                     <div>
                                                         <form th:action="@{/admin/member-list}" name="searchForm">
-                                                            <input type="hidden" name="page" th:value="1"   class="adminList">  <!--검색시 1페이지부터 시작하도록 -->
+                                                            <input type="hidden" name="page" th:value="0"   class="adminList">  <!--검색시 1페이지부터 시작하도록 -->
                                                             <div class="fields">
                                                                 <div class="field">
                                                                     <div id="searchWrap">
@@ -469,11 +474,13 @@
                                                                         </div>
                                                                         <select name="type" class="custom-select">
 <!--                                                                            <option value="">검색 기준</option>-->
-                                                                            <option value="eknt" th:selected="${search.type == 'ekt'}">전체</option>
+                                                                            <option value="eknt" th:selected="${search.type == 'eknt'}">전체</option>
                                                                             <option value="e" th:selected="${search.type == 'e'}">eMail</option>
                                                                             <option value="k" th:selected="${search.type == 'k'}">Nickname</option>
+                                                                            <option value="n" th:selected="${search.type == 'n'}">Name</option>
                                                                             <option value="t" th:selected="${search.type == 't'}">Phone</option>
                                                                             <option value="ek" th:selected="${search.type == 'ek'}">eMail 또는 Nickname</option>
+                                                                            <option value="kn" th:selected="${search.type == 'kn'}">Nickname 또는 Name</option>
                                                                         </select>
                                                                         <input type="text" name="keyWord" th:value="${search.keyWord}">
                                                                         <a class="search button primary icon solid fa-search">검색</a>

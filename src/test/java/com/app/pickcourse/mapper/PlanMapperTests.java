@@ -34,7 +34,8 @@ public class PlanMapperTests {
         Optional<MemberVO> loginMember = memberMapper.selectByMemberEmailAndMemberPassword(member);
         member = loginMember.orElse(new MemberVO());
 
-        CourseDTO readCourse = courseMapper.getCourseDetail(2L);
+        Optional<CourseDTO> readCourse = courseMapper.getCourseDetail(2L);
+        CourseDTO course = readCourse.orElseThrow(() -> new RuntimeException("Course not found"));
 
         PlanVO planVO = new PlanVO();
 
@@ -50,7 +51,7 @@ public class PlanMapperTests {
         planVO.setPlanFileSize("파일크기3");
         planVO.setPlanFilePath("파일경로3");
         planVO.setMemberId(member.getId());
-        planVO.setCourseId(readCourse.getId());
+        planVO.setCourseId(course.getId());
         planVO.setPlanContent("내용3");
 
         planMapper.insert(planVO);

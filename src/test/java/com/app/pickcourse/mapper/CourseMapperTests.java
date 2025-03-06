@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
+import java.util.Optional;
 
 @SpringBootTest
 @Slf4j
@@ -39,8 +40,9 @@ public class CourseMapperTests {
 
     @Test
     public void getCourseTest() {
-        CourseDTO courseDTO = mapper.getCourseDetail(2L);
-        log.info(courseDTO.toString());
+        Optional<CourseDTO> courseDTO = mapper.getCourseDetail(258L);
+        CourseDTO course = courseDTO.orElseThrow(() -> new RuntimeException("CourseDTO not found"));
+        log.info(course.toString());
     }
 
     @Test

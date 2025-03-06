@@ -35,15 +35,15 @@ public class AdminController {
         return "/admin/admin";
     }
 
-    // 회원 관리 목록 조회
-    @GetMapping("/member-list")
-    public String getMemberList(Pagination pagination, Search search, Model model) {
-
-        List<MemberVO> members = adminService.getMemberList(pagination, search);
-        model.addAttribute("members", members);
-        return "/admin/member-list";
-    }
-
+//    // 회원 관리 목록 조회
+//    @GetMapping("/member-list")
+//    public String getMemberList(Pagination pagination, Search search, Model model) {
+//
+//        List<MemberVO> members = adminService.getMemberList(pagination, search);
+//        model.addAttribute("members", members);
+//        return "/admin/member-list";
+//    }
+//
 //    // 회원 정지
 //    @PostMapping("/member-list-pause")
 //    public String patchMemberListpause(@RequestParam("selectedIds") String selectedIds,
@@ -67,18 +67,18 @@ public class AdminController {
 //        adminService.patchMemberListRestart(selectedIds);
 //        return new RedirectView("redirect:/admin/member-list?page=" +page+"&type="+type+"&keyWord="+keyWord+"&isAct="+isAct);
 //    }
-
-    // 회원 추방
-    @PostMapping("/member-list-delete")
-    public String deleteMemberList(@RequestParam("selectedIds") String selectedIds,
-                                   @RequestParam("page") String page,
-                                   @RequestParam("type") String type,
-                                   @RequestParam("keyWord") String keyWord,
-                                   @RequestParam("isAct") String isAct,
-                                   RedirectAttributes redirectAttributes) {
-        adminService.deleteMemberList(selectedIds);
-        return "redirect:/admin/member-list?page=" +page+"&type="+type+"&keyWord="+keyWord+"&isAct="+isAct;
-    }
+//
+//    // 회원 추방
+//    @PostMapping("/member-list-delete")
+//    public String deleteMemberList(@RequestParam("selectedIds") String selectedIds,
+//                                   @RequestParam("page") String page,
+//                                   @RequestParam("type") String type,
+//                                   @RequestParam("keyWord") String keyWord,
+//                                   @RequestParam("isAct") String isAct,
+//                                   RedirectAttributes redirectAttributes) {
+//        adminService.deleteMemberList(selectedIds);
+//        return "redirect:/admin/member-list?page=" +page+"&type="+type+"&keyWord="+keyWord+"&isAct="+isAct;
+//    }
 
     // 관리자 관리 화면 :: 목록 조회
     @GetMapping("/manage-admin-list")

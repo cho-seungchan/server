@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
+import java.util.Optional;
 
 @SpringBootTest
 @Slf4j
@@ -49,9 +50,10 @@ public class GeneralFileMapperTests {
 
     @Test
     public void getFeedModify(){
-        FeedDTO feedDTO = feedMapper.getFeedModify(42l);
-        feedDTO.setFiles(mapper.getFileList(feedDTO.getId()));
-        log.info("feedDTO:{}",feedDTO);
+        Optional<FeedDTO> feedDTO = feedMapper.getFeedModify(42l);
+        FeedDTO feed = feedDTO.orElseThrow(() -> new RuntimeException("FeedDTO not found"));
+        feed.setFiles(mapper.getFileList(feed.getId()));
+        log.info("feedDTO:{}",feed);
     }
 
 }

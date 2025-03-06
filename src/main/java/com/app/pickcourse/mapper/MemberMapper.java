@@ -13,7 +13,7 @@ import java.util.Optional;
 public interface MemberMapper {
 
     // 전체 회원 수
-    int getCountAll(Search search);
+    int getCountAll(@Param("search") Search search);
 
     // 회원 목록 조회
     List<MemberVO> getMemberList(@Param("pagination") Pagination pagination, @Param("search") Search search);

@@ -3,8 +3,8 @@ package com.app.pickcourse.service;
 import com.app.pickcourse.domain.vo.AdminVO;
 import com.app.pickcourse.domain.vo.MemberVO;
 import com.app.pickcourse.exception.DuplicateException;
-import com.app.pickcourse.mapper.AdminMapper;
-import com.app.pickcourse.mapper.MemberMapper;
+import com.app.pickcourse.repository.AdminDAO;
+import com.app.pickcourse.repository.MemberDAO;
 import com.app.pickcourse.util.Pagination;
 import com.app.pickcourse.util.Search;
 import lombok.RequiredArgsConstructor;
@@ -20,23 +20,21 @@ import java.util.stream.Collectors;
 @Slf4j
 public class AdminService {
 
-    private final AdminMapper adminMapper;
-    private final MemberMapper memberMapper;
+    private final AdminDAO adminDAO;
+    private final MemberDAO memberDAO;
 
     public List<AdminVO> getManageAdminList(Pagination pagination, Search search) {
-        log.info("count: {}", adminMapper.getCountAll(search));
-        pagination.create(adminMapper.getCountAll(search));
-        log.info("들어옴~!");
-        return adminMapper.getManageAdminList(pagination, search);
+        pagination.create(adminDAO.getCountAll(search));
+        return adminDAO.getManageAdminList(pagination, search);
     }
 
     public void postManageAdminList(AdminVO adminVO) throws DuplicateException {
         // 중복 체크
-        if (adminMapper.isAdminAccount(adminVO.getAdminAccount()) > 0){
+        if (adminDAO.isAdminAccount(adminVO.getAdminAccount()) > 0){
             throw new DuplicateException("adim account  "+adminVO.getAdminAccount()+"  already exist !!!");
         }
 
-        adminMapper.postManageAdminList(adminVO);
+        adminDAO.postManageAdminList(adminVO);
     }
 
     public void deleteManageAdminList(String selectedIds) {
@@ -46,23 +44,23 @@ public class AdminService {
 
         log.info("before for each ");
         idList.forEach(adminId -> {
-            adminMapper.deleteManageAdminList(adminId);
+            adminDAO.deleteManageAdminList(adminId);
             log.info("during for each ");
         });
         log.info("after for each ");
     }
 
-    public List<MemberVO> getMemberList(Pagination pagination, Search search) {
-        pagination.create(memberMapper.getCountAll(search));
-        return memberMapper.getMemberList(pagination, search);
-    }
-
+//    public List<MemberVO> getMemberList(Pagination pagination, Search search) {
+//        pagination.create(memberDAO.getCountAll(search));
+//        return memberDAO.getMemberList(pagination, search);
+//    }
+//
 //    public void patchMemberListPause(String selectedIds) {
 //        List<Long> idList = Arrays.asList(selectedIds.split(",")).stream().
 //                map(Long::parseLong).collect(Collectors.toList());
 //
 //        idList.forEach(memberId -> {
-//            memberMapper.patchMemberListPause(memberId);
+//            memberDAO.patchMemberListPause(memberId);
 //        });
 //    }
 //
@@ -71,17 +69,17 @@ public class AdminService {
 //                map(Long::parseLong).collect(Collectors.toList());
 //
 //        idList.forEach(memberId -> {
-//            memberMapper.patchMemberListRestart(memberId);
+//            memberDAO.patchMemberListRestart(memberId);
 //        });
 //    }
-
-    public void deleteMemberList(String selectedIds) {
-        List<Long> idList = Arrays.asList(selectedIds.split(",")).stream().
-                map(Long::parseLong).collect(Collectors.toList());
-
-        idList.forEach(memberId -> {
-            memberMapper.deleteMemberList(memberId);
-        });
-
-    }
+//
+//    public void deleteMemberList(String selectedIds) {
+//        List<Long> idList = Arrays.asList(selectedIds.split(",")).stream().
+//                map(Long::parseLong).collect(Collectors.toList());
+//
+//        idList.forEach(memberId -> {
+//            memberDAO.deleteMemberList(memberId);
+//        });
+//
+//    }
 }

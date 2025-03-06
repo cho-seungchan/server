@@ -60,48 +60,24 @@ document.addEventListener("DOMContentLoaded", function () {
 
     //"저장" 버튼 클릭 시 입력값을 리스트에 추가
     saveBtn.addEventListener("click", function () {
-        const id = document.querySelector(".inputId").value.trim();
         const account = document.querySelector(".inputAccount").value.trim();
         const name = document.querySelector(".inputName").value.trim();
         const phone = document.querySelector(".inputPhone").value.trim();
         const email = document.querySelector(".inputEmail").value.trim();
 
-        if (!id || !account || !name || !phone || !email) {
+        if (!account || !name || !phone || !email) {
             alert("모든 정보를 입력해주세요!");
             return;
         }
 
-        //새로운 리스트 항목 추가
-        const newListItem = document.createElement("li");
-        newListItem.innerHTML = `
-            <div class="userListDiv">
-                <label><input type="checkbox" class="usersCheckbox"></label>
-                <div class="idDiv">${id}</div>
-                <div class="accountDiv">${account}</div>
-                <div class="nameDiv">${name}</div>
-                <div class="phoneDiv">${phone}</div>
-                <div class="emailDiv">${email}</div>
-            </div>
-        `;
-
-        userListContainer.appendChild(newListItem);
-
-        //입력값 초기화
-        document.querySelector(".inputId").value = "";
-        document.querySelector(".inputAccount").value = "";
-        document.querySelector(".inputName").value = "";
-        document.querySelector(".inputPhone").value = "";
-        document.querySelector(".inputEmail").value = "";
-
-        // 입력창 숨기기
-        inputRow.classList.add("hidden");
-
-        // 전체 선택 상태 업데이트
-        updateCheckboxAllState();
+        document.forms["inputForm"].submit();
     });
 
+    // 2025.03.02 조승찬 추가
     // "관리자 추방" 버튼 클릭 시 체크된 항목 삭제
-    deleteBtn.addEventListener("click", function () {
+    deleteBtn.addEventListener("click", function (e) {
+        e.preventDefault(); // 기본 폼 제출 막기
+
         const selectedUsers = document.querySelectorAll(
             ".usersCheckbox:checked"
         );
@@ -111,11 +87,43 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        selectedUsers.forEach((checkbox) => {
-            checkbox.closest("li").remove();
+        const selectedIds = Array.from(selectedUsers).map(checkbox => {
+            // 체크박스의 부모 요소에서 idDiv 값을 찾습니다.
+            const userDiv = checkbox.closest('.userListDiv');
+            const idDiv = userDiv.querySelector('.idDiv');
+            return idDiv.textContent.trim();
         });
 
-        //삭제 후 전체 선택 상태 업데이트
-        setTimeout(updateCheckboxAllState, 0);
+        document.getElementById("selectedIds").value = selectedIds.join(',');
+        document.querySelector("form[name=deleteForm]").submit();
+
+    });
+    // 2025.03.02 조승찬 추가
+    // "관리자 추방" 버튼 클릭 시 체크된 항목 삭제
+});
+
+// 2025.03.02 조승찬 추가
+// 검색 조건
+document.querySelector(".search").addEventListener("click", e =>{
+    e.preventDefault();
+    console.log("here !!!")
+    document.querySelector("form[name=searchForm]").submit();
+})
+
+// 페이징 처리
+document.addEventListener("DOMContentLoaded", function () { // HTML이 로드된 후 실행되도록 보장
+    document.querySelector(".pagination-container").addEventListener("click", function (e) {
+        const pageLink = e.target.closest(".change-page"); // 가장 가까운 .change-page 요소 찾기
+        if (!pageLink) return; // 클릭한 요소가 .change-page가 아니면 무시
+
+        e.preventDefault(); // 기본 이벤트 막기
+
+        const pageValue = pageLink.getAttribute("href"); // href 값 가져오기
+        if (pageValue) {
+            // document.querySelector("input[name=page]").value = pageValue; // input[name=page] 값 변경
+            document.querySelector(".adminList").value = pageValue;
+            document.forms["searchForm"].submit(); // 폼 제출
+        }
     });
 });
+// 2025.03.02 조승찬 추가
