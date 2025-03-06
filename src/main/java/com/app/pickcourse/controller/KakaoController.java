@@ -26,7 +26,8 @@ public class KakaoController {
     public RedirectView login(String code){
         String token = kakaoService.getKakaoAccessToken(code);
         Optional<MemberDTO> foundInfo = kakaoService.getKakaoInfo(token);
-
+        log.info("foundInfo:{}", foundInfo);
+        log.info("token:{}", token);
         MemberDTO memberDTO = foundInfo.orElseThrow(() -> {
             throw new RuntimeException();
         });

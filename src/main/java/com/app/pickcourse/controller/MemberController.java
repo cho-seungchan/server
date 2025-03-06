@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/member/*")
+@RequestMapping("/join/*")
 @RequiredArgsConstructor
 public class MemberController {
     private final MemberService memberService;
@@ -24,4 +24,10 @@ public class MemberController {
 
     @GetMapping("login")
     public void goToJoinForm(){}
+
+    @GetMapping("join_check")
+    public void getJoinCheck(){}
+
+    @GetMapping("join_email")
+    public void getJoinEmail(){}
 }
