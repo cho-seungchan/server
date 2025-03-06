@@ -6,4 +6,20 @@
         (ID, EXCLUDE_CONTENT, PLAN_ID)
         VALUES(SEQ_WRITE_EXCLUDE.NEXTVAL, #{excludeContent}, #{planId})
     </insert>
+
+    <select id="selectByPlanId" resultType="writeExcludeVO">
+        SELECT * FROM TBL_WRITE_EXCLUDE
+        WHERE PLAN_ID = #{planId}
+    </select>
+
+    <update id="update">
+        UPDATE TBL_WRITE_EXCLUDE
+        SET EXCLUDE_CONTENT = #{excludeContent}
+        WHERE PLAN_ID = #{planId} AND ID = #{id}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM TBL_WRITE_EXCLUDE
+        WHERE ID = #{id}
+    </delete>
 </mapper>

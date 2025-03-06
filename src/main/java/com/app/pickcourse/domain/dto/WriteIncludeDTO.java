@@ -1,7 +1,10 @@
 package com.app.pickcourse.domain.dto;
 
+import com.app.pickcourse.domain.vo.WriteIncludeVO;
 import lombok.*;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 @Getter @Setter @ToString
@@ -10,6 +13,6 @@ import org.springframework.stereotype.Component;
 public class WriteIncludeDTO {
     @EqualsAndHashCode.Include
     private Long id;
-    private String[] includeContent;
+    private List<WriteIncludeVO> includeContent;
     private Long planId;
 }

@@ -22,7 +22,7 @@
         WHERE ID = #{id}
     </select>
 
-    <select id="getFeedList" resultType="feedListDto">
+    <select id="getFeedList" resultType="feedListDTO">
         SELECT
             f.ID,
             f.FEED_CONTENT,
@@ -37,7 +37,7 @@
         ORDER BY f.CREATED_DATE DESC
     </select>
 
-    <select id="getFeedModifyList" resultType="feedListDto">
+    <select id="getFeedModifyList" resultType="feedListDTO">
         SELECT
             f.ID,
             f.FEED_CONTENT,

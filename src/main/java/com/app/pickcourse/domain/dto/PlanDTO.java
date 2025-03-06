@@ -1,5 +1,6 @@
 package com.app.pickcourse.domain.dto;
 
+import com.app.pickcourse.domain.vo.ScheduleVO;
 import com.app.pickcourse.domain.vo.WriteExcludeVO;
 import com.app.pickcourse.domain.vo.WriteIncludeVO;
 import com.app.pickcourse.domain.vo.WritePrepareVO;
@@ -33,7 +34,10 @@ public class PlanDTO {
     private Long courseId;
     private String CreatedDate;
     private String UpdatedDate;
-    private List<WriteExcludeVO> excludeContent;
-    private List<WriteIncludeVO> includeContent;
-    private List<WritePrepareVO> prepareContent;
+    private List<WriteExcludeVO> excludeContents;
+    private List<WriteIncludeVO> includeContents;
+    private List<WritePrepareVO> prepareContents;
+    private List<ScheduleVO> shceduleContents;
+    private String memberName;
+    private int memberAge;
 }

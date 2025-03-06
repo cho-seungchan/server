@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.app.pickcourse.mapper.ScheduleMapper">
+    <insert id="insert">
+        INSERT INTO TBL_SCHEDULE
+        (ID, SCHEDULE_CONTENT, PLAN_ID)
+        VALUES(SEQ_SCHEDULE.NEXTVAL, #{scheduleContent}, #{planId})
+    </insert>
+
+    <select id="selectByPlanId" resultType="scheduleVO">
+        SELECT * FROM TBL_SCHEDULE
+    </select>
+
+    <update id="update">
+        UPDATE TBL_SCHEDULE
+        SET SCHEDULE_CONTENT = #{scheduleContent}
+        WHERE ID = #{id} AND PLAN_ID = #{planId}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM TBL_SCHEDULE
+        WHERE ID = #{id}
+    </delete>
+</mapper>

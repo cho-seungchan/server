@@ -6,11 +6,13 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
+
 @SpringBootTest
 @Slf4j
 public class WriteExcludeMapperTests {
     @Autowired
-    private WriteExcludeMapper mapper;
+    private WriteExcludeMapper writeExcludeMapper;
 
     @Test
     public void testInsert() {
@@ -19,6 +21,32 @@ public class WriteExcludeMapperTests {
         exclude.setExcludeContent("내용2");
         exclude.setPlanId(1L);
 
-        mapper.insert(exclude);
+        writeExcludeMapper.insert(exclude);
+    }
+
+    @Test
+    public void testSelectAll() {
+        WriteExcludeVO exclude = new WriteExcludeVO();
+
+        List<WriteExcludeVO> foundWriteExclude = writeExcludeMapper.selectByPlanId(2L);
+        log.info(foundWriteExclude.toString());
+    }
+
+    @Test
+    public void testUpdate() {
+        WriteExcludeVO exclude = new WriteExcludeVO();
+
+        exclude.setPlanId(1L);
+        exclude.setExcludeContent("변경된내용1");
+        exclude.setId(2L);
+
+        writeExcludeMapper.update(exclude);
+    }
+
+    @Test
+    public void testDelete() {
+        WriteExcludeVO exclude = new WriteExcludeVO();
+
+        writeExcludeMapper.delete(2L);
     }
 }

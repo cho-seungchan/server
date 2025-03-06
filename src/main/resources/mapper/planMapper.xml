@@ -9,4 +9,37 @@
             (SEQ_PLAN.NEXTVAL, #{planName}, #{planStartDate}, #{planEndDate}, #{planDeadline}, #{planMaxPersonnel}, #{planMinPersonnel}, #{planPrice}, #{planStartAddress}
             , #{planContent}, #{planFilePath}, #{planFileSize}, #{planFileName}, #{memberId}, #{courseId})
     </insert>
+
+    <select id="selectAll" resultType="planVO">
+        SELECT * FROM TBL_PLAN
+    </select>
+
+    <select id="selectById" resultType="planDTO">
+        SELECT * FROM TBL_PLAN
+        WHERE ID = #{id}
+    </select>
+
+    <update id="update">
+        UPDATE TBL_PLAN
+        SET
+            PLAN_NAME = #{planName},
+            PLAN_START_DATE = #{planStartDate},
+            PLAN_END_DATE = #{planEndDate},
+            PLAN_DEADLINE = #{planDeadline},
+            PLAN_MAX_PERSONNEL = #{planMaxPersonnel},
+            PLAN_MIN_PERSONNEL = #{planMinPersonnel},
+            PLAN_PRICE = #{planPrice},
+            PLAN_START_ADDRESS = #{planStartAddress},
+            PLAN_CONTENT = #{planContent},
+            PLAN_FILE_PATH = #{planFilePath},
+            PLAN_FILE_SIZE = #{planFileSize},
+            PLAN_FILE_NAME = #{planFileName},
+            UPDATED_DATE = #{updatedDate}
+        WHERE ID = #{id}
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM TBL_PLAN
+        WHERE ID = #{id}
+    </delete>
 </mapper>
