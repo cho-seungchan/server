@@ -1,5 +1,6 @@
 package com.app.pickcourse.domain.dto;
 
+import com.app.pickcourse.domain.vo.WritePrepareVO;
 import lombok.*;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +15,7 @@ import java.util.List;
 public class WritePrepareDTO {
     @EqualsAndHashCode.Include
     private Long id;
-    private List<String> prepareContent;
+    private List<WritePrepareVO> prepareContent;
     private Long planId;
 
 }

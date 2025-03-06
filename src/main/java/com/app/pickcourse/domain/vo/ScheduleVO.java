@@ -1,18 +1,15 @@
-package com.app.pickcourse.domain.dto;
+package com.app.pickcourse.domain.vo;
 
-import com.app.pickcourse.domain.vo.WriteExcludeVO;
 import lombok.*;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
 
 @Component
 @Getter @Setter @ToString
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class WriteExcludeDTO {
+public class ScheduleVO {
     @EqualsAndHashCode.Include
     private Long id;
-    private List<WriteExcludeVO> excludeContent;
+    private String scheduleContent;
     private Long planId;
 }

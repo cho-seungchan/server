@@ -6,11 +6,13 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
+
 @SpringBootTest
 @Slf4j
 public class WritePrepareMapperTests {
     @Autowired
-    private WritePrepareMapper mapper;
+    private WritePrepareMapper writePrepareMapper;
 
     @Test
     public void testInsert() {
@@ -19,6 +21,28 @@ public class WritePrepareMapperTests {
         writePrepareVO.setPlanId(1L);
         writePrepareVO.setPrepareContent("테스트제목2");
 
-        mapper.insert(writePrepareVO);
+        writePrepareMapper.insert(writePrepareVO);
+    }
+
+    @Test
+    public void testSelectAll() {
+        List<WritePrepareVO> foundWritePrepare = writePrepareMapper.selectByPlanId(1L);
+        log.info(foundWritePrepare.toString());
+    }
+
+    @Test
+    public void testUpdate() {
+        WritePrepareVO writePrepareVO = new WritePrepareVO();
+
+        writePrepareVO.setId(4L);
+        writePrepareVO.setPlanId(1L);
+        writePrepareVO.setPrepareContent("변경된내용1");
+
+        writePrepareMapper.update(writePrepareVO);
+    }
+
+    @Test
+    public void testDelete() {
+        writePrepareMapper.delete(4L);
     }
 }

@@ -1,11 +1,10 @@
 package com.app.pickcourse.mapper;
 
-import com.app.pickcourse.domain.vo.Pagination;
 import com.app.pickcourse.domain.vo.NoticeVO;
-import com.app.pickcourse.domain.vo.Search;
+import com.app.pickcourse.util.Pagination;
+import com.app.pickcourse.util.Search;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.shadow.com.univocity.parsers.common.input.LineSeparatorDetector;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -31,7 +30,7 @@ public class NoticeMapperTests {
         Search search = new Search();
         search.setType("w");
         search.setKeyWord("HHH");
-        Pagination pagination = new Pagination(0, mapper.getCountAll(search));
+        Pagination pagination = new Pagination();
         List<NoticeVO> notices = mapper.getManageNoticeList(pagination, search);
         log.info(pagination.toString());
         notices.forEach(System.out::println);

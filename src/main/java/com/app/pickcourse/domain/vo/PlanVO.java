@@ -25,6 +25,6 @@ public class PlanVO {
     private String planFileName;
     private Long memberId;
     private Long courseId;
-    private String CreatedDate;
-    private String UpdatedDate;
+    private String createdDate;
+    private String updatedDate;
 }
