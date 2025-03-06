@@ -30,4 +30,30 @@ public class CourseDTO {
     List<VolunteerExcludeVO> volunteerExcludes;
     List<VolunteerIncludeVO> volunteerIncludes;
     List<VolunteerPrepareVO> volunteerPrepares;
+
+    public CourseVO toCourseVO() {
+        CourseVO courseVO = new CourseVO();
+        courseVO.setId(id);
+        courseVO.setCourseType(courseType);
+        courseVO.setCourseIsVolunteer(courseIsVolunteer);
+        courseVO.setCourseName(courseName);
+        courseVO.setCourseDistance(courseDistance);
+        courseVO.setCourseSchedule(courseSchedule);
+        courseVO.setCourseTheme(courseTheme);
+        courseVO.setCourseContent(courseContent);
+        courseVO.setCourseFilePath(courseFilePath);
+        courseVO.setCourseFileSize(courseFileSize);
+        courseVO.setCourseFileName(courseFileName);
+        courseVO.setAdminId(adminId);
+        return courseVO;
+    }
+
+    public VolunteerVO toVolunteerVO() {
+        VolunteerVO volunteerVO = new VolunteerVO();
+        volunteerVO.setId(volunteerId);
+        volunteerVO.setVolunteerStartDate(volunteerStartDate);
+        volunteerVO.setVolunteerEndDate(volunteerEndDate);
+        volunteerVO.setVolunteerDeadline(volunteerDeadline);
+        return volunteerVO;
+    }
 }

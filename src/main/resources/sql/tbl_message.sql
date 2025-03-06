@@ -1,4 +1,7 @@
+
+
 -- SELECT SEQ_MESSAGE.CURRVAL FROM DUAL; -- 인설트에 들어가는 VO
+
 
 -- 메세지 슈퍼키
 CREATE TABLE TBL_MESSAGE(

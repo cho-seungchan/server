@@ -1,7 +1,7 @@
 package com.app.pickcourse.mapper;
 
 import com.app.pickcourse.domain.vo.AdminVO;
-import com.app.pickcourse.domain.vo.Criteria;
+import com.app.pickcourse.domain.vo.Pagination;
 import com.app.pickcourse.domain.vo.NoticeVO;
 import com.app.pickcourse.domain.vo.Search;
 import lombok.extern.slf4j.Slf4j;
@@ -22,9 +22,9 @@ public class AdminMapperTests {
         Search search = new Search();
         search.setType("a");
         search.setKeyWord("KANG");
-        Criteria criteria = new Criteria(0, mapper.getCountAll(search));
-        List<AdminVO> notices = mapper.getManageAdminList(criteria, search);
-        log.info(criteria.toString());
+        Pagination pagination = new Pagination(0, mapper.getCountAll(search));
+        List<AdminVO> notices = mapper.getManageAdminList(pagination, search);
+        log.info(pagination.toString());
         notices.forEach(System.out::println);
         log.info("notices size :: {} ", notices.size());
     }

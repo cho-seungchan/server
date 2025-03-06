@@ -32,8 +32,8 @@
         <include refid="search"/>
         ORDER  BY ID DESC )  B
         <![CDATA[
-            WHERE  ROWNUM <= ${criteria.endRow}   )
-        WHERE  R >= #{criteria.startRow} ]]>
+            WHERE  ROWNUM <= ${pagination.endRow}   )
+        WHERE  R >= #{pagination.startRow} ]]>
     </select>
 
     <select id="getCountAll" resultType="_int">

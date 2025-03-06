@@ -14,12 +14,20 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-public class FeedListDto {
+public class FeedListDTO {
     private Long id;
     private String feedContent;
     private String createDate;
     private String updateDate;
     private Long   memberId;
+    private Long   planId;
     private List<FileVO> files;
     private List<FeedTagVO> feedTags;
+
+    public FeedVO toFeedVO() {
+        FeedVO feedVO = new FeedVO();
+        feedVO.setId(id);
+        feedVO.setFeedContent(feedContent);
+        return feedVO;
+    }
 }

@@ -1,7 +1,7 @@
 package com.app.pickcourse.mapper;
 
 
-import com.app.pickcourse.domain.vo.Criteria;
+import com.app.pickcourse.domain.vo.Pagination;
 import com.app.pickcourse.domain.vo.MemberVO;
 import com.app.pickcourse.domain.vo.Search;
 import lombok.extern.slf4j.Slf4j;
@@ -26,11 +26,11 @@ public class MemberMapperTests {
         Search search = new Search();
         search.setType("e");
         search.setKeyWord("3");
-        Criteria criteria = new Criteria(0, mapper.getCountAll(search));
-        List<MemberVO> memberList = mapper.getMemberList(criteria, search);
+        Pagination pagination = new Pagination(0, mapper.getCountAll(search));
+        List<MemberVO> memberList = mapper.getMemberList(pagination, search);
         memberList.forEach(System.out::println);
         log.info("memberList size: {}", memberList.size());
-        log.info("criteria: {}", criteria);
+        log.info("pagination: {}", pagination);
     }
 
     @Test

@@ -1,8 +1,6 @@
 package com.app.pickcourse.domain.dto;
 
-import com.app.pickcourse.domain.vo.FeedVO;
 import com.app.pickcourse.domain.vo.FileVO;
-import com.app.pickcourse.domain.vo.FeedTagVO;
 import lombok.*;
 
 import java.util.List;
@@ -11,11 +9,13 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-public class FeedDto {
+public class ReviewDTO {
     private Long id;
     private String feedContent;
     private String createDate;
     private String updateDate;
+    private int    realStar;
+    private Long   memberId;
+    private Long   planId;
     private List<FileVO> files;
-    private List<FeedTagVO> feedTags;
 }

@@ -13,8 +13,8 @@ public interface VolunteerPrepareMapper {
     void postAddCourse(VolunteerPrepareVO volunteerPrepareVO);
 
     // 추천 코스 목록
-    List<VolunteerPrepareVO> getCourseDetail(@Param("courseId") Long courseId);
+    List<VolunteerPrepareVO> getCourseDetail(Long courseId);
 
     // 추천 코스 수정 :: 모두 삭제 후 모두 등록
-    void deleteEditCourse(@Param("courseId") Long courseId);
+    void deleteEditCourse(Long courseId);
 }

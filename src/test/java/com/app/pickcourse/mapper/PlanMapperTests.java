@@ -1,7 +1,6 @@
 package com.app.pickcourse.mapper;
 
 import com.app.pickcourse.domain.dto.CourseDTO;
-import com.app.pickcourse.domain.vo.CourseVO;
 import com.app.pickcourse.domain.vo.MemberVO;
 import com.app.pickcourse.domain.vo.PlanVO;
 import lombok.extern.slf4j.Slf4j;

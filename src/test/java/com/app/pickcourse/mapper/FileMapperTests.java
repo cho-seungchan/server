@@ -22,4 +22,10 @@ public class FileMapperTests {
         mapper.postFeedWrite(fileVO);
     }
 
+    @Test
+    public void deleteFeedModify(){
+        // super key 삭제
+        mapper.deleteModifyFeed(52l);
+    }
+
 }
