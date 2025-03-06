@@ -19,4 +19,8 @@ public class RealStarMapperTests {
         mapper.postFeedWrite(47l, 4);
     }
 
+    @Test
+    public void postReviewModify(){
+        mapper.postReviewModify(3,47l);
+    }
 }

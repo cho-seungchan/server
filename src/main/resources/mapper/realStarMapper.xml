@@ -10,4 +10,10 @@
                #{realStar},
                #{feedId})
     </insert>
+
+    <update id="postReviewModify">
+        UPDATE TBL_REAL_STAR
+        SET REAL_STAR      = #{realStar}
+        WHERE REAL_FEED_ID = #{feedId}
+    </update>
 </mapper>

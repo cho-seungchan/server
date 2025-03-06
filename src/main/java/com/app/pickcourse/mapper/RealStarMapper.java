@@ -8,4 +8,5 @@ public interface RealStarMapper {
 
     void postFeedWrite(@Param("feedId") Long feedId, @Param("realStar") int realStar);
 
+    void postReviewModify(@Param("realStar") int realStar, @Param("feedId") Long feedId);
 }

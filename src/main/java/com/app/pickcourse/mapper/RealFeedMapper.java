@@ -18,4 +18,6 @@ public interface RealFeedMapper {
     List<FeedListDTO> getFeedModifyList(Long id);
 
     List<ReviewDTO>  getReviewList(Long memberId);
+
+    ReviewDTO getReviewModify(Long id);
 }

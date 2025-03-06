@@ -53,4 +53,20 @@
         WHERE    r.MEMBER_ID = #{memberId}
     </select>
 
+    <select id="getReviewModify" resultType="reviewDTO">
+        SELECT   f.ID,
+                 f.FEED_CONTENT,
+                 f.CREATED_DATE,
+                 f.UPDATED_DATE,
+                 s.REAL_STAR,
+                 r.MEMBER_ID,
+                 r.PLAN_ID
+        FROM     TBL_FEED f
+                     JOIN     TBL_REAL_FEED r
+                              ON       f.ID = r.ID
+                     LEFT JOIN     TBL_REAL_STAR s
+                                   ON       f.ID  =  s.REAL_FEED_ID
+        WHERE    f.ID = #{id}
+    </select>
+
 </mapper>

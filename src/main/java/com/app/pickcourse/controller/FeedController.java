@@ -79,19 +79,14 @@ public class FeedController {
         return "/feeds/reviewmodify";
     }
 
-    @GetMapping("/tourlist")
-    public String TourList(Model model) {
+    @GetMapping("/tour-list")
+    public String getTourList(Model model) {
         return "/feeds/tourlist";
     }
 
-    @GetMapping("/viewlist")
-    public String ViewList(Model model) {
-        return "/feeds/viewlist";
-    }
-
-    @GetMapping("/mobile")
-    public String getMobile(Model model) {
-        return "/feeds/mobile";
-    }
+//    @GetMapping("/mobile")
+//    public String getMobile(Model model) {
+//        return "/feeds/mobile";
+//    }
 
 }

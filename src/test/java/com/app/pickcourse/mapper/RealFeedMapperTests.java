@@ -42,7 +42,7 @@ public class RealFeedMapperTests {
 
     @Test
     public void getFeedModifyList(){
-        List<FeedListDTO> list = mapper.getFeedModifyList(52l);
+        List<FeedListDTO> list = mapper.getFeedModifyList(47l);
         list.forEach(System.out::println);
     }
 
@@ -50,5 +50,11 @@ public class RealFeedMapperTests {
     public void getReviewList(){
         List<ReviewDTO> list = mapper.getReviewList(21l);
         list.forEach(System.out::println);
+    }
+
+    @Test
+    public void getReviewModify(){
+        ReviewDTO reviewDTO = mapper.getReviewModify(46l);
+        log.info("reviewDTO:{}",reviewDTO);
     }
 }
