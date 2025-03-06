@@ -1,7 +1,7 @@
 package com.app.pickcourse.mapper;
 
 import com.app.pickcourse.domain.dto.CourseDTO;
-import com.app.pickcourse.domain.vo.CourseVO;
+import com.app.pickcourse.domain.dto.PlanDTO;
 import com.app.pickcourse.domain.vo.MemberVO;
 import com.app.pickcourse.domain.vo.PlanVO;
 import lombok.extern.slf4j.Slf4j;
@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
 import java.util.Optional;
 
 @SpringBootTest
@@ -52,5 +53,45 @@ public class PlanMapperTests {
         planVO.setPlanContent("내용3");
 
         planMapper.insert(planVO);
+    }
+
+    @Test
+    public void testSelectAll() {
+        List<PlanVO> foundAll = planMapper.selectAll();
+        log.info(foundAll.toString());
+    }
+
+    @Test
+    public void testSelectById() {
+        Optional<PlanDTO> foundPlanDTO = planMapper.selectById(1L);
+        foundPlanDTO.ifPresent(plan -> log.info(plan.toString()));
+    }
+
+    @Test
+    public void testUpdate() {
+       PlanDTO planDTO = new PlanDTO();
+
+       planDTO.setId(1L);
+        planDTO.setPlanName("변경된제목1");
+        planDTO.setPlanStartDate("2025-03-08");
+        planDTO.setPlanEndDate("2025-03-20");
+        planDTO.setPlanDeadline("2025-03-07");
+        planDTO.setPlanMaxPersonnel(20);
+        planDTO.setPlanMinPersonnel(4);
+        planDTO.setPlanPrice(10000);
+        planDTO.setPlanStartAddress("변경된주소1");
+        planDTO.setPlanContent("변경된내용1");
+        planDTO.setPlanFilePath("변경된경로1");
+        planDTO.setPlanFileSize("변경된크기1");
+        planDTO.setPlanFileName("변경된이름1");
+        planDTO.setUpdatedDate("2025-03-06");
+
+       planMapper.update(planDTO);
+
+    }
+
+    @Test
+    public void testDelete() {
+        planMapper.deleteById(3L);
     }
 }

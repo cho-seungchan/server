@@ -17,5 +17,11 @@
         <typeAlias type="com.app.pickcourse.domain.vo.VolunteerExcludeVO" alias="volunteerExcludeVO"/>
         <typeAlias type="com.app.pickcourse.domain.vo.VolunteerIncludeVO" alias="volunteerIncludeVO"/>
         <typeAlias type="com.app.pickcourse.domain.vo.VolunteerPrepareVO" alias="volunteerPrepareVO"/>
+        <typeAlias type="com.app.pickcourse.domain.vo.WriteExcludeVO" alias="writeExcludeVO"/>
+        <typeAlias type="com.app.pickcourse.domain.vo.WriteIncludeVO" alias="writeIncludeVO"/>
+        <typeAlias type="com.app.pickcourse.domain.vo.WritePrepareVO" alias="writePrepareVO"/>
+        <typeAlias type="com.app.pickcourse.domain.dto.PlanDTO" alias="planDTO"/>
+        <typeAlias type="com.app.pickcourse.domain.vo.PlanVO" alias="planVO"/>
+        <typeAlias type="com.app.pickcourse.domain.vo.ScheduleVO" alias="scheduleVO"/>
     </typeAliases>
 </configuration>
