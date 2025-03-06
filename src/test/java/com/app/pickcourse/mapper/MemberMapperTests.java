@@ -1,9 +1,9 @@
 package com.app.pickcourse.mapper;
 
 
-import com.app.pickcourse.domain.vo.Pagination;
 import com.app.pickcourse.domain.vo.MemberVO;
-import com.app.pickcourse.domain.vo.Search;
+import com.app.pickcourse.util.Pagination;
+import com.app.pickcourse.util.Search;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ public class MemberMapperTests {
         Search search = new Search();
         search.setType("e");
         search.setKeyWord("3");
-        Pagination pagination = new Pagination(0, mapper.getCountAll(search));
+        Pagination pagination = new Pagination();
         List<MemberVO> memberList = mapper.getMemberList(pagination, search);
         memberList.forEach(System.out::println);
         log.info("memberList size: {}", memberList.size());

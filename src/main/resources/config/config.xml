@@ -9,7 +9,7 @@
         <typeAlias type="com.app.pickcourse.domain.vo.AdminVO" alias="adminVO"/>
         <typeAlias type="com.app.pickcourse.domain.dto.CourseListDTO" alias="courseListDTO"/>
         <typeAlias type="com.app.pickcourse.domain.vo.FeedTagVO" alias="feedTagVO"/>
-        <typeAlias type="com.app.pickcourse.domain.dto.FeedListDto" alias="feedListDto"/>
+        <typeAlias type="com.app.pickcourse.domain.dto.FeedListDTO" alias="feedListDTO"/>
         <typeAlias type="com.app.pickcourse.domain.vo.FileVO" alias="fileVO"/>
         <typeAlias type="com.app.pickcourse.domain.vo.MemberVO" alias="memberVO"/>
         <typeAlias type="com.app.pickcourse.domain.vo.NoticeVO" alias="noticeVO"/>

@@ -1,9 +1,8 @@
 package com.app.pickcourse.mapper;
 
-import com.app.pickcourse.domain.vo.AdminVO;
-import com.app.pickcourse.domain.vo.Pagination;
 import com.app.pickcourse.domain.vo.MemberVO;
-import com.app.pickcourse.domain.vo.Search;
+import com.app.pickcourse.util.Pagination;
+import com.app.pickcourse.util.Search;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

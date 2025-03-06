@@ -1,10 +1,7 @@
 package com.app.pickcourse.mapper;
 
 import com.app.pickcourse.domain.dto.CourseDTO;
-<<<<<<< HEAD
 import com.app.pickcourse.domain.dto.PlanDTO;
-=======
->>>>>>> 5a29b24152abd68344f06aa3a83dbdc8d62c8325
 import com.app.pickcourse.domain.vo.MemberVO;
 import com.app.pickcourse.domain.vo.PlanVO;
 import lombok.extern.slf4j.Slf4j;

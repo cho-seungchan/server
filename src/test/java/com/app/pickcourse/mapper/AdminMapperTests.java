@@ -1,9 +1,8 @@
 package com.app.pickcourse.mapper;
 
 import com.app.pickcourse.domain.vo.AdminVO;
-import com.app.pickcourse.domain.vo.Pagination;
-import com.app.pickcourse.domain.vo.NoticeVO;
-import com.app.pickcourse.domain.vo.Search;
+import com.app.pickcourse.util.Pagination;
+import com.app.pickcourse.util.Search;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +21,7 @@ public class AdminMapperTests {
         Search search = new Search();
         search.setType("a");
         search.setKeyWord("KANG");
-        Pagination pagination = new Pagination(0, mapper.getCountAll(search));
+        Pagination pagination = new Pagination();
         List<AdminVO> notices = mapper.getManageAdminList(pagination, search);
         log.info(pagination.toString());
         notices.forEach(System.out::println);
