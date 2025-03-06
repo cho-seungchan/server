@@ -16,6 +16,7 @@ public class FeedDTO {
     private String feedContent;
     private String createDate;
     private String updateDate;
+    private int    realStar;  // 리얼 후기 별점
     private List<FileVO> files;
     private List<FeedTagVO> feedTags;
 

@@ -17,7 +17,7 @@
         SELECT
             r.ID,
             r.REPLY_CONTENT,
-            r.CREATE_DATE,
+            r.CREATED_DATE,
             r.UPDATE_DATE,
             gr.REAL_FEED_ID,
             gr.MEMBER_ID,
@@ -28,7 +28,7 @@
         JOIN  TBL_MEMBER m
         ON    gr.MEMBER_ID = m.ID
         WHERE gr.REAL_FEED_ID   = #{feedId}
-        ORDER BY r.CREATE_DATE DESC
+        ORDER BY r.CREATED_DATE DESC
     </select>
 
 </mapper>

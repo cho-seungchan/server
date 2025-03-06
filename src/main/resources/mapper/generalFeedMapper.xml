@@ -13,24 +13,24 @@
         SELECT
             g.ID,
             f.FEED_CONTENT,
-            f.CREATE_DATE,
+            f.CREATED_DATE,
             f.UPDATE_DATE,
             g.MEMBER_ID
         FROM TBL_GENERAL_FEED g
                  JOIN TBL_FEED f ON g.ID = f.ID
-        ORDER BY f.CREATE_DATE DESC
+        ORDER BY f.CREATED_DATE DESC
     </select>
 
     <select id="getFeedModifyList" resultType="feedListDto">
         SELECT
             g.ID,
             f.FEED_CONTENT,
-            f.CREATE_DATE,
+            f.CREATED_DATE,
             f.UPDATE_DATE,
             g.MEMBER_ID
         FROM TBL_GENERAL_FEED g
                  JOIN TBL_FEED f ON g.ID = f.ID
         WHERE g.ID = #{id}
-        ORDER BY f.CREATE_DATE DESC
+        ORDER BY f.CREATED_DATE DESC
     </select>
 </mapper>

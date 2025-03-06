@@ -15,12 +15,12 @@
             f.FILE_PATH,
             f.FILE_NAME,
             f.FILE_SIZE,
-            f.CREATE_DATE,
+            f.CREATED_DATE,
             f.UPDATE_DATE
         FROM TBL_TOGETHER_FILE g
                  JOIN TBL_FILE f ON g.ID = f.ID
         WHERE g.TOGETHER_FEED_ID = #{feedId}
-        ORDER BY f.CREATE_DATE DESC
+        ORDER BY f.CREATED_DATE DESC
     </select>
 
 </mapper>

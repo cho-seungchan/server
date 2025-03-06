@@ -39,7 +39,7 @@ public class FeedController {
         return "/feeds/modify";
     }
 
-    @GetMapping("/modifylist")
+    @GetMapping("/modify-list")
     public String getFeedModifyList(Model model) {
         return "/feeds/modifylist";
     }
@@ -54,24 +54,24 @@ public class FeedController {
         return "/feeds/reply";
     }
 
-    @GetMapping("/review")
-    public String Review(Model model) {
-        return "/feeds/review";
+    @GetMapping("/review-write")
+    public String ReviewWrite(Model model) {
+        return "/feeds/reviewwrite";
     }
 
-    @GetMapping("/reviewlist")
-    public String ReviewList(Model model) {
+    @PostMapping("/review-write")
+    public String postReviewWrite(Model model) {
+        return "/feeds/reviewwrite";
+    }
+
+    @GetMapping("/review-list")
+    public String getReviewList(Model model) {
         return "/feeds/reviewlist";
     }
 
-    @GetMapping("/reviewmodify")
+    @GetMapping("/review-modify")
     public String ReviewModify(Model model) {
         return "/feeds/reviewmodify";
-    }
-
-    @GetMapping("/reviewwrite")
-    public String ReviewWrite(Model model) {
-        return "/feeds/reviewwrite";
     }
 
     @GetMapping("/tourlist")

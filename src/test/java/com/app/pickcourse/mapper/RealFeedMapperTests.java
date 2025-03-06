@@ -2,6 +2,7 @@ package com.app.pickcourse.mapper;
 
 import com.app.pickcourse.domain.dto.FeedDTO;
 import com.app.pickcourse.domain.dto.FeedListDTO;
+import com.app.pickcourse.domain.dto.ReviewDTO;
 import com.app.pickcourse.domain.vo.FeedVO;
 import com.app.pickcourse.domain.vo.MemberVO;
 import com.app.pickcourse.domain.vo.PlanVO;
@@ -39,10 +40,15 @@ public class RealFeedMapperTests {
         feedList.forEach(System.out::println);
     }
 
-
     @Test
     public void getFeedModifyList(){
         List<FeedListDTO> list = mapper.getFeedModifyList(52l);
+        list.forEach(System.out::println);
+    }
+
+    @Test
+    public void getReviewList(){
+        List<ReviewDTO> list = mapper.getReviewList(21l);
         list.forEach(System.out::println);
     }
 }

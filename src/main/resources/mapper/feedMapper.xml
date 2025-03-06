@@ -16,7 +16,7 @@
         SELECT
             ID,
             FEED_CONTENT,
-            CREATE_DATE,
+            CREATED_DATE,
             UPDATE_DATE
         FROM TBL_FEED
         WHERE ID = #{id}
@@ -26,7 +26,7 @@
         SELECT
             f.ID,
             f.FEED_CONTENT,
-            f.CREATE_DATE,
+            f.CREATED_DATE,
             f.UPDATE_DATE,
             COALESCE(g.MEMBER_ID, r.MEMBER_ID, t.MEMBER_ID) AS MEMBER_ID,
             r.PLAN_ID
@@ -34,14 +34,14 @@
                  LEFT JOIN TBL_GENERAL_FEED g ON g.ID = f.ID
                  LEFT JOIN TBL_REAL_FEED r ON r.ID = f.ID
                  LEFT JOIN TBL_TOGETHER_FEED t ON t.ID = f.ID
-        ORDER BY f.CREATE_DATE DESC
+        ORDER BY f.CREATED_DATE DESC
     </select>
 
     <select id="getFeedModifyList" resultType="feedListDto">
         SELECT
             f.ID,
             f.FEED_CONTENT,
-            f.CREATE_DATE,
+            f.CREATED_DATE,
             f.UPDATE_DATE,
             COALESCE(g.MEMBER_ID, r.MEMBER_ID, t.MEMBER_ID) AS MEMBER_ID,
             r.PLAN_ID
@@ -50,7 +50,7 @@
                  LEFT JOIN TBL_REAL_FEED r ON r.ID = f.ID
                  LEFT JOIN TBL_TOGETHER_FEED t ON t.ID = f.ID
         WHERE f.ID = #{id}
-        ORDER BY f.CREATE_DATE DESC
+        ORDER BY f.CREATED_DATE DESC
     </select>
 
     <update id="PostFeedModify">
@@ -67,4 +67,5 @@
         FROM TBL_FEED
         WHERE ID = #{id}
     </delete>
+
 </mapper>

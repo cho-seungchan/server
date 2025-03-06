@@ -1,17 +1,21 @@
 package com.app.pickcourse.domain.dto;
 
+import com.app.pickcourse.domain.vo.FileVO;
 import lombok.*;
+
+import java.util.List;
 
 @NoArgsConstructor
 @Getter
 @Setter
 @ToString
-public class ReplyDTO {
+public class ReviewDTO {
     private Long id;
-    private String replyContent;
+    private String feedContent;
     private String createDate;
     private String updateDate;
-    private Long   feedId;
+    private int    realStar;
     private Long   memberId;
-    private String memberNickname;
+    private Long   planId;
+    private List<FileVO> files;
 }
