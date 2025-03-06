@@ -14,7 +14,7 @@ public class MemberDAO {
 
     //    추가
     public void save(MemberVO memberVO){
-        memberMapper.insert(memberVO);
+        memberMapper.kakaoInsert(memberVO);
     }
 
     //    조회(이메일)

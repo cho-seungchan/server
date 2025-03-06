@@ -1,6 +1,7 @@
 package com.app.pickcourse.mapper;
 
 
+import com.app.pickcourse.domain.dto.MemberDTO;
 import com.app.pickcourse.domain.vo.Criteria;
 import com.app.pickcourse.domain.vo.MemberVO;
 import com.app.pickcourse.domain.vo.Search;
@@ -91,6 +92,7 @@ public class MemberMapperTests {
     public void testDelete() {
         mapper.delete(2L);
     }
+
 
 
 
