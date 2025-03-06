@@ -10,9 +10,6 @@
                         <when test="type == 'e'.toString()">
                             MEMBER_EMAIL LIKE '%' || #{search.keyWord} || '%'
                         </when>
-                        <when test="type == 'n'.toString()">
-                            MEMBER_NAME LIKE '%' || #{search.keyWord} || '%'
-                        </when>
                         <when test="type == 'k'.toString()">
                             MEMBER_NICKNAME LIKE '%' || #{search.keyWord} || '%'
                         </when>
