@@ -1,3 +1,4 @@
+CREATE SEQUENCE SEQ_PLAN;
 create table TBL_PLAN
 (
     ID NUMBER constraint PK_PLAN primary key,

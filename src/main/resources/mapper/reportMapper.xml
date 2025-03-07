@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.app.pickcourse.mapper.ReportMapper">
+    <insert id="saveReport">
+        <selectKey keyProperty="id" resultType="long" order="BEFORE">
+            SELECT SEQ_REPORT.NEXTVAL FROM DUAL
+        </selectKey>
+        INSERT INTO TBL_REPORT
+               (ID)
+        VALUES(#{id})
+    </insert>
+
+     <select id="getReportList" resultType="reportVO">
+         SELECT
+             COALESCE(fr.ID, rr.ID) AS id,
+             COALESCE(fr.REPORTED_ID, rr.REPORTED_ID) AS reportedId,
+             COALESCE(fr.MEMBER_ID, rr.MEMBER_ID) AS memberId,
+             COALESCE(fr.CREATED_DATE, rr.CREATED_DATE) AS createDate,
+             COALESCE(fr.UPDATED_DATE, rr.UPDATED_DATE) AS updateDate
+         FROM TBL_FEED_REPORT fr
+                  FULL OUTER JOIN TBL_REPLY_REPORT rr ON fr.ID = rr.ID
+         ORDER BY COALESCE(fr.UPDATED_DATE, rr.UPDATED_DATE) DESC
+     </select>
+</mapper>

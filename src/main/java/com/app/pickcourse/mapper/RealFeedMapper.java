@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 @Mapper
 public interface RealFeedMapper {
@@ -19,5 +20,5 @@ public interface RealFeedMapper {
 
     List<ReviewDTO>  getReviewList(Long memberId);
 
-    ReviewDTO getReviewModify(Long id);
+    Optional<ReviewDTO> getReviewModify(Long id);
 }

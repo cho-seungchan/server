@@ -9,18 +9,19 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 @Mapper
 public interface CourseMapper {
 
     // 페이지 처리를 위한 전체 화면 갯수
-    int getCountAll(Search search);
+    int getCountAll(@Param("search") Search search);
 
     // 추천코스 등록
     void postAddCourse(CourseVO courseVO);
 
     // 추천코스 조회
-    CourseDTO getCourseDetail(Long id);
+    Optional<CourseDTO> getCourseDetail(Long id);
 
     // 추천코스 목록 조회
     List<CourseListDTO> getCourseList(@Param("pagination") Pagination pagination, @Param("search") Search search);

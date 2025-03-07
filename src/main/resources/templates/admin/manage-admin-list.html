@@ -168,7 +168,7 @@
                                         >
                                             <a
                                                 class="MenuItems_submenu__YTg3N"
-                                                href=""
+                                                href="/admin/member-list"
                                                 >회원 목록</a
                                             ><a
                                                 class="MenuItems_submenu__YTg3N"
@@ -291,7 +291,7 @@
                                         >
                                             <a
                                                 class="MenuItems_submenu__YTg3N"
-                                                href="/studio/reward/337882/funding/plan"
+                                                href="/admin/manage-admin-list"
                                                 >관리자 목록</a
                                             >
                                         </div>
@@ -331,12 +331,22 @@
                                                 >
                                                     <h3>관리자</h3>
                                                 </div>
-                                                <button class="manageBtn">
-                                                    관리자 등록
-                                                </button>
-                                                <button class="deleteBtn">
-                                                    관리자 추방
-                                                </button>
+
+<!--                                                2025.03.02 조승찬 -->
+<!--                                                관리자 추방시 현재 페이지 유지 -->
+                                                <form th:action="@{/admin/manage-admin-list-delete}" name="deleteForm" method="post">
+                                                    <input type="hidden" name="selectedIds" id="selectedIds" value="" />
+                                                    <input type="hidden" name="page" th:value="${pagination.page}"  class="adminDelete">
+                                                    <input type="hidden" name="type" th:value="${search.type}"  class="adminDelete">
+                                                    <input type="hidden" name="keyWord" th:value="${search.keyWord}"  class="adminDelete">
+                                                    <button class="manageBtn" type="button">
+                                                        관리자 등록
+                                                    </button>
+                                                    <button class="deleteBtn" type="button">
+                                                        관리자 추방
+                                                    </button>
+                                                </form>
+<!--                                                2025.03.02-->
 
                                                 <ul
                                                     class="NoticePage__NoticeListWrapper"
@@ -357,189 +367,169 @@
                                                             Account
                                                         </div>
                                                         <div class="nameDiv">
-                                                            이름
+                                                            Name
                                                         </div>
                                                         <div class="phoneDiv">
-                                                            휴대폰 번호
+                                                            Phone
                                                         </div>
                                                         <div class="emailDiv">
-                                                            E-mail
+                                                            eMail
                                                         </div>
                                                     </div>
 
-                                                    <li>
-                                                        <div
-                                                            class="userListDiv"
-                                                        >
-                                                            <label class="">
-                                                                <input
-                                                                    type="checkbox"
-                                                                    class="usersCheckbox"
-                                                                />
-                                                            </label>
-                                                            <div class="idDiv">
-                                                                000001
-                                                            </div>
+<!--                                                    2025.03.02 조승찬-->
+<!--                                                    조회 -->
+                                                    <th:block th:each="admin:${admins}">
+                                                        <li>
                                                             <div
-                                                                class="accountDiv"
+                                                                    class="userListDiv" th:object="${admin}"
                                                             >
-                                                                newbienewibe12
+                                                                <label class="">
+                                                                    <input
+                                                                            type="checkbox"
+                                                                            class="usersCheckbox"
+                                                                    />
+                                                                </label>
+                                                                <div class="idDiv"  th:text="*{id}">
+                                                                </div>
+                                                                <div
+                                                                        class="accountDiv" th:text="*{adminAccount}"
+                                                                >
+                                                                </div>
+                                                                <div
+                                                                        class="nameDiv" th:text="*{adminName}"
+                                                                >
+                                                                </div>
+                                                                <div
+                                                                        class="phoneDiv" th:text="*{adminPhone}"
+                                                                >
+                                                                </div>
+                                                                <div
+                                                                        class="emailDiv" th:text="*{adminEmail}"
+                                                                >
+                                                                </div>
                                                             </div>
-                                                            <div
-                                                                class="nameDiv"
-                                                            >
-                                                                박정근
-                                                            </div>
-                                                            <div
-                                                                class="phoneDiv"
-                                                            >
-                                                                010-1234-5678
-                                                            </div>
-                                                            <div
-                                                                class="emailDiv"
-                                                            >
-                                                                newbienewbie@imnewbie.new
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div
-                                                            class="userListDiv"
-                                                        >
-                                                            <label class="">
-                                                                <input
-                                                                    type="checkbox"
-                                                                    class="usersCheckbox"
-                                                                />
-                                                            </label>
-                                                            <div class="idDiv">
-                                                                000002
-                                                            </div>
-                                                            <div
-                                                                class="accountDiv"
-                                                            >
-                                                                newbienewibe12
-                                                            </div>
-                                                            <div
-                                                                class="nameDiv"
-                                                            >
-                                                                박정근
-                                                            </div>
-                                                            <div
-                                                                class="phoneDiv"
-                                                            >
-                                                                010-1234-5678
-                                                            </div>
-                                                            <div
-                                                                class="emailDiv"
-                                                            >
-                                                                newbienewbie@imnewbie.new
-                                                            </div>
-                                                        </div>
-                                                    </li>
+                                                        </li>
+                                                    </th:block>
+<!--                                                    2025.03.02-->
+
                                                 </ul>
-                                                <div class="inputRow hidden">
-                                                    <input
-                                                        type="text"
-                                                        class="inputId"
-                                                        placeholder="ID"
-                                                    />
-                                                    <input
-                                                        type="text"
-                                                        class="inputAccount"
-                                                        placeholder="Account"
-                                                    />
-                                                    <input
-                                                        type="text"
-                                                        class="inputName"
-                                                        placeholder="이름"
-                                                    />
-                                                    <input
-                                                        type="text"
-                                                        class="inputPhone"
-                                                        placeholder="휴대폰 번호"
-                                                    />
-                                                    <input
-                                                        type="text"
-                                                        class="inputEmail"
-                                                        placeholder="E-mail"
-                                                    />
-                                                    <button
-                                                        class="btn saveBtn1"
-                                                    >
-                                                        저장
-                                                    </button>
-                                                    <button
-                                                        class="btn cancelBtn"
-                                                    >
-                                                        취소
-                                                    </button>
-                                                </div>
+<!--                                                2025.03.02 조승찬-->
+<!--                                                관리자 등록 -->
+                                                <form th:action="@{/admin/manage-admin-list}" method="post" id="writeForm" name="inputForm">
+                                                    <div class="inputRow hidden">
+                                                        <input
+                                                                type="text"
+                                                                class="inputAccount"
+                                                                placeholder="Account" name="adminAccount"
+                                                        />
+                                                        <input
+                                                                type="text"
+                                                                class="inputPassword"
+                                                                placeholder="1234" name="adminPassword"
+                                                        />
+                                                        <input
+                                                                type="text"
+                                                                class="inputName"
+                                                                placeholder="Name" name="adminName"
+                                                        />
+                                                        <input
+                                                                type="text"
+                                                                class="inputPhone"
+                                                                placeholder="Phone" name="adminPhone"
+                                                        />
+                                                        <input
+                                                                type="text"
+                                                                class="inputEmail"
+                                                                placeholder="E-mail" name="adminEmail"
+                                                        />
+                                                        <button
+                                                                class="btn saveBtn1"
+                                                                type="button"
+                                                        >
+                                                            저장
+                                                        </button>
+                                                        <button
+                                                                class="btn cancelBtn"
+                                                                type="button"
+                                                        >
+                                                            취소
+                                                        </button>
+                                                    </div>
+                                                    <!-- 예외 메시지 출력 -->
+                                                    <div th:if="${errorMessage}" class="error-message" id="error-message">
+                                                        <p th:text="${errorMessage}"></p>
+                                                    </div>
+
+                                                </form>
+<!--                                                2025.03.02-->
+
                                                 <footer
                                                     class="Wrapper__PaginationWrapper-fk4uv4-0 hBVRcD"
                                                 >
-                                                    <div
-                                                        class="PaginationButtonGroup__PrevButtonWrapper-x0iffd-0 gIsDDT"
-                                                    >
-                                                        <button
-                                                            width="40px"
-                                                            height="40px"
-                                                            font-size="18px"
-                                                            disabled=""
-                                                            class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 iItkLq"
-                                                        >
-                                                            <img
-                                                                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath fill='%23FFF' fill-opacity='0' fill-rule='nonzero' d='M0 0h40v40H0z'/%3E %3Cpath stroke='%23DDD' stroke-width='1.5' d='M16 16l4 4-4 4M21 16l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E"
-                                                                class="PaginationButtonGroup__Icon-x0iffd-2 jVxRns"
-                                                            /></button
-                                                        ><button
-                                                            width="40px"
-                                                            height="40px"
-                                                            font-size="18px"
-                                                            disabled=""
-                                                            class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 iItkLq"
-                                                        >
-                                                            <img
-                                                                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath fill='none' d='M0 0h40v40H0z'/%3E %3Cpath stroke='%23DDD' stroke-width='1.5' d='M18 16l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E"
-                                                                class="PaginationButtonGroup__Icon-x0iffd-2 jVxRns"
-                                                            />
-                                                        </button>
+
+<!--                                                    2025.03.02 조승찬 -->
+                                                    <!--페이징 처리-->
+                                                    <div class="paging-wrap">
+                                                        <div class="pagination-container">
+<!--                                                             <a class="change-page" th:if="${pagination.prev}" th:href="@{/admin/manage-admin-list(page=${pagination.startPage - 1})}">-->
+                                                             <a class="change-page" th:if="${pagination.prev}" th:href="${pagination.startPage - 1}">
+                                                                <button class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 iItkLq">
+                                                                    <img
+                                                                            src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath fill='none' d='M0 0h40v40H0z'/%3E %3Cpath stroke='%23DDD' stroke-width='1.5' d='M18 16l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E"
+                                                                            class="PaginationButtonGroup__Icon-x0iffd-2 jVxRns"
+                                                                    />
+                                                                </button>
+                                                            </a>
+                                                            <th:block th:each="page:${#numbers.sequence(pagination.startPage, pagination.endPage)}">
+<!--                                                                <a class="change-page" th:if="${pagination.page != page}" th:href="@{/admin/manage-admin-list(page=${page})}"><code th:text="${page}"></code></a>-->
+                                                                <a class="change-page" th:if="${pagination.page != page}" th:href="${page}"><code th:text="${page}"></code></a>
+                                                                <code th:unless="${pagination.page != page}" th:text="${page}"></code>
+                                                            </th:block>
+<!--                                                            <a class="change-page" th:if="${pagination.next}" th:href="@{/admin/manage-admin-list(page=${pagination.endPage + 1})}">-->
+                                                            <a class="change-page" th:if="${pagination.next}" th:href="${pagination.endPage + 1}">
+                                                                <button class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 iItkLq" >
+                                                                    <img
+                                                                            src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath fill='none' d='M0 0h40v40H0z'/%3E %3Cpath stroke='%23DDD' stroke-width='1.5' d='M18 16l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E"
+                                                                            class="PaginationButtonGroup__Icon-x0iffd-2 dQqQMu"
+                                                                    />
+                                                                </button>
+                                                            </a>
+                                                        </div>
                                                     </div>
-                                                    <button
-                                                        width="40px"
-                                                        height="40px"
-                                                        color="#3397ff"
-                                                        font-size="18px"
-                                                        font-weight="bold"
-                                                        class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 RPlDq"
-                                                    >
-                                                        1
-                                                    </button>
-                                                    <div
-                                                        class="PaginationButtonGroup__NextButtonWrapper-x0iffd-1 eNIHag"
-                                                    >
-                                                        <button
-                                                            width="40px"
-                                                            height="40px"
-                                                            font-size="18px"
-                                                            class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 iItkLq"
-                                                        >
-                                                            <img
-                                                                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath fill='none' d='M0 0h40v40H0z'/%3E %3Cpath stroke='%23DDD' stroke-width='1.5' d='M18 16l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E"
-                                                                class="PaginationButtonGroup__Icon-x0iffd-2 dQqQMu"
-                                                            /></button
-                                                        ><button
-                                                            width="40px"
-                                                            height="40px"
-                                                            font-size="18px"
-                                                            class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 iItkLq"
-                                                        >
-                                                            <img
-                                                                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath fill='%23FFF' fill-opacity='0' fill-rule='nonzero' d='M0 0h40v40H0z'/%3E %3Cpath stroke='%23DDD' stroke-width='1.5' d='M16 16l4 4-4 4M21 16l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E"
-                                                                class="PaginationButtonGroup__Icon-x0iffd-2 dQqQMu"
-                                                            />
-                                                        </button>
+<!--                                                    2025.03.02 조승찬-->
+
+<!--                                                    2025.03.02 조승찬-->
+<!--                                                    검색 처리 -->
+                                                    <div>
+                                                        <form th:action="@{/admin/manage-admin-list}" name="searchForm">
+                                                            <input type="hidden" name="page" th:value="1"   class="adminList">  <!--검색시 1페이지부터 시작하도록 -->
+<!--                                                            <input type="hidden" name="type" th:value="${search.type}">  다음 페이지에서도 검색 기준 유지-->
+<!--                                                            <input type="hidden" name="keyWord" th:value="${search.keyWord}">  다음 페이지에서도 검색어 유지-->
+                                                            <div class="fields">
+                                                                <div class="field">
+                                                                    <div id="searchWrap">
+                                                                        <select name="type" class="custom-select">
+<!--                                                                            <option value="">검색 기준</option>-->
+                                                                            <option value="anpe" th:selected="${search.type == 'anpe'}">전체</option>
+                                                                            <option value="a" th:selected="${search.type == 'a'}">Account</option>
+                                                                            <option value="n" th:selected="${search.type == 'n'}">Name</option>
+                                                                            <option value="p" th:selected="${search.type == 'p'}">Phone</option>
+                                                                            <option value="e" th:selected="${search.type == 'e'}">eMail</option>
+                                                                            <option value="an" th:selected="${search.type == 'an'}">Account 또는 Name</option>
+                                                                            <option value="ae" th:selected="${search.type == 'ae'}">Account 또는 eMail</option>
+                                                                            <option value="ne" th:selected="${search.type == 'ne'}">Name 또는 eMail</option>
+                                                                        </select>
+                                                                        <input type="text" name="keyWord" th:value="${search.keyWord}">
+                                                                        <a class="search button primary icon solid fa-search">검색</a>
+                                                                        <!--	스크립트없이 바로 전송					<a class="search button primary icon solid fa-search" href="javascript:void(0);" onclick="document.forms['searchForm'].submit();">검색</a>-->
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </form>
                                                     </div>
+<!--                                                    2025.03.02 조승찬 -->
+
                                                 </footer>
                                             </div>
                                         </div>

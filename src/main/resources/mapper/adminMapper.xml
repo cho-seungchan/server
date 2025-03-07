@@ -13,6 +13,12 @@
                         <when test="type == 'n'.toString()">
                             ADMIN_NAME LIKE '%' || #{search.keyWord} || '%'
                         </when>
+                        <when test="type == 'p'.toString()">
+                            ADMIN_PHONE LIKE '%' || #{search.keyWord} || '%'
+                        </when>
+                        <when test="type == 'e'.toString()">
+                            ADMIN_EMAIL LIKE '%' || #{search.keyWord} || '%'
+                        </when>
                     </choose>
                 </foreach>
             </where>
@@ -39,7 +45,7 @@
         <include refid="search"/>
     </select>
 
-    <select id="postManageAdmin" resultType="adminVO">
+    <select id="postManageAdminList" resultType="adminVO">
         INSERT INTO TBL_ADMIN
             (ID,
              ADMIN_ACCOUNT,
@@ -56,7 +62,13 @@
              #{adminEmail})
     </select>
 
-    <delete id="deleteManageAdmin">
+    <select id="isAdminAccount" resultType="_int">
+        SELECT COUNT(*)
+        FROM   TBL_ADMIN
+        WHERE  ADMIN_ACCOUNT = #{adminAccount}
+    </select>
+
+    <delete id="deleteManageAdminList">
         DELETE
         FROM    TBL_ADMIN
         WHERE   ID = #{id}

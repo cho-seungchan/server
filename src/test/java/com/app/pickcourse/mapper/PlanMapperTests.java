@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
 import java.util.Optional;
@@ -33,7 +34,8 @@ public class PlanMapperTests {
         Optional<MemberVO> loginMember = memberMapper.selectByMemberEmailAndMemberPassword(member);
         member = loginMember.orElse(new MemberVO());
 
-        CourseDTO readCourse = courseMapper.getCourseDetail(2L);
+        Optional<CourseDTO> readCourse = courseMapper.getCourseDetail(2L);
+        CourseDTO course = readCourse.orElseThrow(() -> new RuntimeException("Course not found"));
 
         PlanVO planVO = new PlanVO();
 
@@ -49,7 +51,7 @@ public class PlanMapperTests {
         planVO.setPlanFileSize("파일크기3");
         planVO.setPlanFilePath("파일경로3");
         planVO.setMemberId(member.getId());
-        planVO.setCourseId(readCourse.getId());
+        planVO.setCourseId(course.getId());
         planVO.setPlanContent("내용3");
 
         planMapper.insert(planVO);
@@ -93,5 +95,24 @@ public class PlanMapperTests {
     @Test
     public void testDelete() {
         planMapper.deleteById(3L);
+    }
+
+    @Test
+    public void testSelectAllById() {
+        List<PlanVO> list = planMapper.selectAllById(1L);
+        list.forEach(System.out::println);
+
+    }
+
+    @Test
+    public void testselectRanking(){
+        List<Long> weeklyIds = planMapper.selectRankingWeekly();
+        weeklyIds.forEach(System.out::println);
+
+        List<Long> monthlyIds = planMapper.selectRankingMonthly();
+        monthlyIds.forEach(System.out::println);
+
+        List<Long> yearlyIds = planMapper.selectRankingYearly();
+        yearlyIds.forEach(System.out::println);
     }
 }
