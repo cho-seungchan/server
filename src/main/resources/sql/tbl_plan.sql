@@ -1,3 +1,4 @@
+CREATE SEQUENCE SEQ_PLAN;
 create table TBL_PLAN
 (
     ID NUMBER constraint PK_PLAN primary key,
@@ -14,9 +15,9 @@ create table TBL_PLAN
     PLAN_FILE_SIZE     VARCHAR2(2000),
     PLAN_FILE_NAME     VARCHAR2(2000),
     MEMBER_ID NUMBER not null
-    constraint FK_PLAN_MEMBER
-    references TBL_MEMBER
-    on delete cascade,
+        constraint FK_PLAN_MEMBER
+            references TBL_MEMBER
+                on delete cascade,
     COURSE_ID NUMBER not null
         constraint FK_PLAN_COURSE
             references TBL_COURSE
@@ -25,12 +26,17 @@ create table TBL_PLAN
     UPDATED_DATE       DATE default SYSDATE
 );
 
-SELECT * FROM TBL_PLAN;
-SELECT * FROM TBL_MEMBER;
-SELECT * FROM TBL_COURSE;
-SELECT * FROM TBL_ADMIN;
-SELECT * FROM TBL_WRITE_EXCLUDE;
-SELECT * FROM TBL_WRITE_INCLUDE;
+SELECT * FROM TBL_PLAN
+ORDER BY ID DESC;
+SELECT * FROM TBL_WRITE_PREPARE
+ORDER BY ID DESC;
+SELECT * FROM TBL_SCHEDULE
+    ORDER BY ID DESC ;
+
+DROP TABLE TBL_PLAN;
+DROP SEQUENCE SEQ_PLAN;
+SELECT SEQ_PLAN.NEXTVAL FROM DUAL
+
 
 -- SELECT
 --     P.ID,

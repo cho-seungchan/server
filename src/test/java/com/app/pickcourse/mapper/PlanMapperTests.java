@@ -25,16 +25,6 @@ public class PlanMapperTests {
 //    계획 추가
     @Test
     public void testInsert() {
-        MemberVO member = new MemberVO();
-
-        member.setMemberEmail("test1@test.com");
-        member.setMemberPassword("1234");
-
-        Optional<MemberVO> loginMember = memberMapper.selectByMemberEmailAndMemberPassword(member);
-        member = loginMember.orElse(new MemberVO());
-
-        CourseDTO readCourse = courseMapper.getCourseDetail(2L);
-
         PlanVO planVO = new PlanVO();
 
         planVO.setPlanName("제목3");
@@ -48,11 +38,12 @@ public class PlanMapperTests {
         planVO.setPlanFileName("파일이름3");
         planVO.setPlanFileSize("파일크기3");
         planVO.setPlanFilePath("파일경로3");
-        planVO.setMemberId(member.getId());
-        planVO.setCourseId(readCourse.getId());
+        planVO.setMemberId(1L);
+        planVO.setCourseId(1L);
         planVO.setPlanContent("내용3");
 
         planMapper.insert(planVO);
+        log.info(planVO.toString());
     }
 
     @Test

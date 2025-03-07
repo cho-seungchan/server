@@ -1,10 +1,13 @@
 package com.app.pickcourse.controller;
 
+import com.app.pickcourse.domain.dto.PlanDTO;
+import com.app.pickcourse.service.PlanService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 @Slf4j
 public class ProposalController {
+    private final PlanService planService;
 
     @GetMapping("/eco")
     public String getEco(Model model) {
@@ -64,7 +68,18 @@ public class ProposalController {
     }
 
     @GetMapping("/write")
-    public String getWrite(Model model) {
+    public String getWrite(PlanDTO planDTO) {
         return "/proposal/write";
     }
+
+    @PostMapping("/write")
+    public String writePlan(PlanDTO planDTO) {
+        log.info("planDTO: {}", planDTO.toString());
+        planDTO.setMemberId(1L);
+        planDTO.setCourseId(1L);
+        planService.writePlan(planDTO);
+
+        return "/proposal/modifylist";
+    }
+
 }
