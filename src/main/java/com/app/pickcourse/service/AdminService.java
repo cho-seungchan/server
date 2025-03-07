@@ -42,44 +42,42 @@ public class AdminService {
         List<Long> idList = Arrays.asList(selectedIds.split(",")).
                 stream().map(Long::parseLong).collect(Collectors.toList());
 
-        log.info("before for each ");
         idList.forEach(adminId -> {
             adminDAO.deleteManageAdminList(adminId);
-            log.info("during for each ");
         });
-        log.info("after for each ");
     }
 
-//    public List<MemberVO> getMemberList(Pagination pagination, Search search) {
-//        pagination.create(memberDAO.getCountAll(search));
-//        return memberDAO.getMemberList(pagination, search);
-//    }
-//
-//    public void patchMemberListPause(String selectedIds) {
-//        List<Long> idList = Arrays.asList(selectedIds.split(",")).stream().
-//                map(Long::parseLong).collect(Collectors.toList());
-//
-//        idList.forEach(memberId -> {
-//            memberDAO.patchMemberListPause(memberId);
-//        });
-//    }
-//
-//    public void patchMemberListRestart(String selectedIds) {
-//        List<Long> idList = Arrays.asList(selectedIds.split(",")).stream().
-//                map(Long::parseLong).collect(Collectors.toList());
-//
-//        idList.forEach(memberId -> {
-//            memberDAO.patchMemberListRestart(memberId);
-//        });
-//    }
-//
-//    public void deleteMemberList(String selectedIds) {
-//        List<Long> idList = Arrays.asList(selectedIds.split(",")).stream().
-//                map(Long::parseLong).collect(Collectors.toList());
-//
-//        idList.forEach(memberId -> {
-//            memberDAO.deleteMemberList(memberId);
-//        });
-//
-//    }
+    public List<MemberVO> getMemberList(Pagination pagination, Search search) {
+        pagination.create(memberDAO.getCountAll(search));
+        return memberDAO.getMemberList(pagination, search);
+    }
+
+    public void patchMemberListPause(String selectedIds) {
+        List<Long> idList = Arrays.asList(selectedIds.split(",")).stream().
+                map(Long::parseLong).collect(Collectors.toList());
+
+        idList.forEach(memberId -> {
+            memberDAO.patchMemberListPause(memberId);
+        });
+    }
+
+    public void patchMemberListRestart(String selectedIds) {
+        List<Long> idList = Arrays.asList(selectedIds.split(",")).stream().
+                map(Long::parseLong).collect(Collectors.toList());
+
+
+        idList.forEach(memberId -> {
+            memberDAO.patchMemberListRestart(memberId);
+        });
+    }
+
+    public void deleteMemberList(String selectedIds) {
+        List<Long> idList = Arrays.asList(selectedIds.split(",")).stream().
+                map(Long::parseLong).collect(Collectors.toList());
+
+        idList.forEach(memberId -> {
+            memberDAO.deleteMemberList(memberId);
+        });
+
+    }
 }

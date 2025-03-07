@@ -52,6 +52,10 @@ document.addEventListener("DOMContentLoaded", function () {
     //회원 정지, 정지 해제, 회원 추방 버튼 클릭시
     function setFormAction(action) {
         const selectedUsers = document.querySelectorAll(".usersCheckbox:checked");
+        if (selectedUsers == null || selectedUsers.length == 0){
+            alert("체크 박스를 선택 해 주세요!");
+            return;
+        }
         const selectedIds = Array.from(selectedUsers).map(checkbox => {
             const userDiv = checkbox.closest(".userListDiv");
             const idDiv = userDiv.querySelector(".idDiv");

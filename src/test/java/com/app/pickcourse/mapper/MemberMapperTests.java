@@ -35,7 +35,7 @@ public class MemberMapperTests {
 
     @Test
     public void postMemberListTest() {
-        mapper.patchMemberList(3l);
+        mapper.patchMemberListPause(3l);
     }
 
     @Test
@@ -50,9 +50,9 @@ public class MemberMapperTests {
 
         MemberVO memberVO = new MemberVO();
 
-        memberVO.setMemberEmail("test@test.com");
+        memberVO.setMemberEmail("hhh1");
         memberVO.setMemberPassword("1234");
-        memberVO.setMemberNickname("Test");
+        memberVO.setMemberNickname("hhh1");
         memberVO.setMemberTell("010-1234-5678");
         memberVO.setMemberBirth("1992-12-12");
         memberVO.setMemberGender("선택안함");

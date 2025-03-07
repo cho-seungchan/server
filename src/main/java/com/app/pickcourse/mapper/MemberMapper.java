@@ -15,11 +15,14 @@ public interface MemberMapper {
     // 전체 회원 수
     int getCountAll(@Param("search") Search search);
 
+    // 회원 정지
+    void patchMemberListPause(@Param("id") Long id);
+
+    // 회원 정지 해제
+    void patchMemberListRestart(@Param("id") Long id);
+
     // 회원 목록 조회
     List<MemberVO> getMemberList(@Param("pagination") Pagination pagination, @Param("search") Search search);
-
-    // 회원 정지
-    void patchMemberList(Long id);
 
     // 회원 추방
     void deleteMemberList(Long id);

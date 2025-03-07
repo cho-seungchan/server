@@ -5,6 +5,7 @@
     <sql id="search">
         <if test="search.keyWord != null">
             <where>
+                (
                 <foreach item="type" collection="search.types" separator=" OR ">
                     <choose>
                         <when test="type == 'e'.toString()">
@@ -13,8 +14,12 @@
                         <when test="type == 'k'.toString()">
                             MEMBER_NICKNAME LIKE '%' || #{search.keyWord} || '%'
                         </when>
+                        <when test="type == 't'.toString()">
+                            MEMBER_TELL LIKE '%' || #{search.keyWord} || '%'
+                        </when>
                     </choose>
                 </foreach>
+                )
             </where>
         </if>
     </sql>
@@ -39,10 +44,18 @@
         <include refid="search"/>
     </select>
 
-    <update id="patchMemberList">
+    <update id="patchMemberListPause">
         UPDATE    TBL_MEMBER
         SET
             MEMBER_IS_ACT  =  'N' ,
+            UPDATED_DATE   =  SYSDATE
+        WHERE ID           =  #{id}
+    </update>
+
+    <update id="patchMemberListRestart">
+        UPDATE    TBL_MEMBER
+        SET
+            MEMBER_IS_ACT  =  'Y' ,
             UPDATED_DATE   =  SYSDATE
         WHERE ID           =  #{id}
     </update>
