@@ -9,7 +9,7 @@
              VOLUNTEER_DEADLINE,
              COURSE_ID)
         VALUES
-            (SEQ_VOLUNTEER.NEXTVAL,
+            (#{id},
              #{volunteerStartDate},
              #{volunteerEndDate},
              #{volunteerDeadline},

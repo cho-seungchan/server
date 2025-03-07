@@ -324,12 +324,12 @@ fileParentDiv.addEventListener("click", (e) => {
 // 선택파일의 이미지(x)를 눌렀을 때 전체 dev 삭제 :: 동적으로 생성된 요소일 때는 부모 요소에 위임
 
 // ✅ 1. 카카오 지도 설정
-var mapContainer = document.getElementById("map"),
+let mapContainer = document.getElementById("map"),
     mapOption = {
         center: new kakao.maps.LatLng(35.409476, 127.396059),
         level: 9,
     };
-var map = new kakao.maps.Map(mapContainer, mapOption);
+let map = new kakao.maps.Map(mapContainer, mapOption);
 
 let tourSpots = [];
 let geocoder = new kakao.maps.services.Geocoder();
@@ -771,3 +771,10 @@ function handleTempSaveClick() {
 //  기존 이벤트 리스너 제거 후 다시 추가하여 중복 실행 방지
 tempSaveButton.removeEventListener("click", handleTempSaveClick);
 tempSaveButton.addEventListener("click", handleTempSaveClick);
+
+// 2025.03.07 조승찬 추가
+// 저장 버튼 클릭시
+document.querySelector(".Button_children__NzZlO").addEventListener("click", (button) => {
+    document['addCourse-form'].submit();
+})
+

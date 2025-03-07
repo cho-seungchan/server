@@ -1,6 +1,7 @@
 package com.app.pickcourse.controller;
 
 
+import com.app.pickcourse.domain.dto.CourseDTO;
 import com.app.pickcourse.domain.vo.AdminVO;
 import com.app.pickcourse.domain.vo.MemberVO;
 import com.app.pickcourse.exception.DuplicateException;
@@ -11,10 +12,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -47,10 +45,10 @@ public class AdminController {
     // 회원 정지
     @PostMapping("/member-list-pause")
     public String patchMemberListpause(@RequestParam("selectedIds") String selectedIds,
-                                       @RequestParam("page") String page,
-                                       @RequestParam("type") String type,
-                                       @RequestParam("keyWord") String keyWord,
-                                       @RequestParam("isAct") String isAct,
+                                       @RequestParam(value = "page", required = false) String page,
+                                       @RequestParam(value = "type", required = false) String type,
+                                       @RequestParam(value = "keyWord", required = false) String keyWord,
+                                       @RequestParam(value = "isAct", required = false) String isAct,
                                        RedirectAttributes redirectAttributes) {
         adminService.patchMemberListPause(selectedIds);
         return "redirect:/admin/member-list?page=" +page+"&type="+type+"&keyWord="+keyWord+"&isAct="+isAct;
@@ -59,10 +57,10 @@ public class AdminController {
     // 회원 정지 해제
     @PostMapping("/member-list-restart")
     public String patchMemberListRestart(@RequestParam("selectedIds") String selectedIds,
-                                               @RequestParam("page") String page,
-                                               @RequestParam("type") String type,
-                                               @RequestParam("keyWord") String keyWord,
-                                               @RequestParam("isAct") String isAct,
+                                               @RequestParam(value = "page", required = false) String page,
+                                               @RequestParam(value = "type", required = false) String type,
+                                               @RequestParam(value = "keyWord", required = false) String keyWord,
+                                               @RequestParam(value = "isAct", required = false) String isAct,
                                                RedirectAttributes redirectAttributes) {
         adminService.patchMemberListRestart(selectedIds);
         return "redirect:/admin/member-list?page=" +page+"&type="+type+"&keyWord="+keyWord+"&isAct="+isAct;
@@ -71,10 +69,10 @@ public class AdminController {
     // 회원 추방
     @PostMapping("/member-list-delete")
     public String deleteMemberList(@RequestParam("selectedIds") String selectedIds,
-                                   @RequestParam("page") String page,
-                                   @RequestParam("type") String type,
-                                   @RequestParam("keyWord") String keyWord,
-                                   @RequestParam("isAct") String isAct,
+                                   @RequestParam(value = "page", required = false) String page,
+                                   @RequestParam(value = "type", required = false) String type,
+                                   @RequestParam(value = "keyWord", required = false) String keyWord,
+                                   @RequestParam(value = "isAct", required = false) String isAct,
                                    RedirectAttributes redirectAttributes) {
         adminService.deleteMemberList(selectedIds);
         return "redirect:/admin/member-list?page=" +page+"&type="+type+"&keyWord="+keyWord+"&isAct="+isAct;
@@ -103,9 +101,9 @@ public class AdminController {
     // 관리자 관리 화면 :: 삭제
     @PostMapping("/manage-admin-list-delete")
     public String deleteManageAdminList(@RequestParam("selectedIds") String selectedIds,
-                                        @RequestParam("page") String page,
-                                        @RequestParam("type") String type,
-                                        @RequestParam("keyWord") String keyWord,
+                                        @RequestParam(value = "page", required = false) String page,
+                                        @RequestParam(value = "type", required = false) String type,
+                                        @RequestParam(value = "keyWord", required = false) String keyWord,
                                         RedirectAttributes redirectAttributes) {
         adminService.deleteManageAdminList(selectedIds);
         return "redirect:/admin/manage-admin-list?page=" + page + "&type=" + type + "&keyWord=" + keyWord;
@@ -119,8 +117,9 @@ public class AdminController {
 
     // 코스 등록
     @PostMapping("/add-course")
-    public String saveAddCourse(Model model) {
-        return "/admin/add-course";
+    @ResponseBody
+    public void postAddCourse(CourseDTO courseDTO) {
+        adminService.postAddCourse(courseDTO);
     }
 
     // 추천 코스 목록

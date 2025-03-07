@@ -4,27 +4,27 @@
     <insert id="postAddCourse">
         INSERT INTO TBL_VOLUNTEER_INCLUDE
         (ID,
-         VOLUNTEER_INCLUDE_CONTENT,
-         COURSE_ID
+         INCLUDE_CONTENT,
+         VOLUNTEER_ID
         )
         VALUES
             (SEQ_VOLUNTEER_INCLUDE.NEXTVAL,
-             #{volunteerIncludeContent},
-             #{courseId})
+             #{includeContent},
+             #{volunteerId})
     </insert>
 
     <select id="getCourseDetail" resultType="volunteerIncludeVO">
         SELECT ID,
-               VOLUNTEER_INCLUDE_CONTENT,
-               COURSE_ID,
+               INCLUDE_CONTENT,
+               VOLUNTEER_ID,
                CREATED_DATE,
                UPDATED_DATE
         FROM TBL_VOLUNTEER_INCLUDE
-        WHERE COURSE_ID = #{courseId}
+        WHERE VOLUNTEER_ID = #{volunteerId}
     </select>
 
     <delete id="deleteEditCourse">
         DELETE FROM TBL_VOLUNTEER_INCLUDE
-        WHERE COURSE_ID = ${courseId}
+        WHERE VOLUNTEER_ID = #{volunteerId}
     </delete>
 </mapper>

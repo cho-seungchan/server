@@ -1,4 +1,3 @@
-CREATE SEQUENCE SEQ_VOLUNTEER;
 CREATE TABLE TBL_VOLUNTEER(
                               ID NUMBER CONSTRAINT PK__VOLUNTEER PRIMARY KEY,
                               VOLUNTEER_START_DATE DATE NOT NULL,
@@ -7,7 +6,7 @@ CREATE TABLE TBL_VOLUNTEER(
                               COURSE_ID NUMBER NOT NULL,
                               CREATED_DATE DATE DEFAULT SYSDATE,
                               UPDATED_DATE DATE DEFAULT SYSDATE,
-                              CONSTRAINT FK_VOLUNTEER_COURSE FOREIGN KEY(COURSE_ID)
+                              CONSTRAINT FK_VOLUNTEER_COURSE FOREIGN KEY(ID)
                                   REFERENCES TBL_COURSE(ID)  ON DELETE CASCADE
 );
 COMMENT ON COLUMN TBL_VOLUNTEER.ID IS '봉사 일정의 고유 ID (기본 키)';

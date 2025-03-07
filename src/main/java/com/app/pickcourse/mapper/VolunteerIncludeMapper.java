@@ -10,7 +10,7 @@ import java.util.List;
 public interface VolunteerIncludeMapper {
 
     // 추천 코스 등록, 추천 코스 수정 :: 봉사코스 일 경우
-    void postAddCourse(VolunteerIncludeVO volunteerIncludeVO);
+    void postAddCourse(String Content, Long CourseId);
 
     // 추천 코스 목록
     List<VolunteerIncludeVO> getCourseDetail(Long courseId);
