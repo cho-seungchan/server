@@ -19,7 +19,7 @@ public class MemberController {
 
     @PostMapping("join")
     public void join(MemberDTO memberDTO){
-        memberService.join(memberDTO);
+        memberService.kakaoJoin(memberDTO);
     }
 
     @GetMapping("login")

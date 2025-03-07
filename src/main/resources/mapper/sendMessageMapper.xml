@@ -2,67 +2,24 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.app.pickcourse.mapper.SendMessageMapper">
 
-    <!-- 보낸 쪽지함에 저장 -->
-    <insert id="insertSendMessage">
-        INSERT INTO TBL_SEND_MESSAGE (ID, SEND_MESSAGE_RECEIVER, SEND_MESSAGE_SENDER)
-        VALUES (#{messageId}, #{receiverId}, #{senderId})
+    <!-- 보낸 메시지 저장 -->
+    <insert id="insertSendMessage" parameterType="sendMessageVO">
+        INSERT INTO TBL_SEND_MESSAGE (ID, RECEIVER_ID, SENDER_ID)
+        VALUES (#{id}, #{receiverId}, #{senderId})
     </insert>
 
-    <!--보낸 쪽지 전체 조회 -->
-    <select id="selectMessageBySenderId" resultType="com.app.pickcourse.domain.dto.SendMessageDTO">
-        SELECT
-            sm.ID AS messageId,
-            sm.SEND_MESSAGE_SENDER AS senderId,
-            s.MEMBER_EMAIL AS senderEmail,
-            s.MEMBER_NICKNAME AS senderNickname,
-            sm.SEND_MESSAGE_RECEIVER AS receiverId,
-            r.MEMBER_EMAIL AS receiverEmail,
-            r.MEMBER_NICKNAME AS receiverNickname,
-            m.MESSAGE_ALL_CONTENT AS content,
-            m.MESSAGE_ALL_DATE AS sendDate
+
+    <!-- 보낸 메시지 조회 -->
+    <select id="selectSendMessageById" parameterType="Long" resultType="sendMessageVO">
+        SELECT sm.ID AS messageId, sm.SENDER_ID AS senderId, sm.RECEIVER_ID AS receiverId,
+               m.MESSAGE_ALL_CONTENT AS content, m.MESSAGE_ALL_DATE AS sendDate
         FROM TBL_SEND_MESSAGE sm
                  JOIN TBL_MESSAGE m ON sm.ID = m.ID
-                 JOIN TBL_MEMBER s ON sm.SEND_MESSAGE_SENDER = s.ID
-                 JOIN TBL_MEMBER r ON sm.SEND_MESSAGE_RECEIVER = r.ID
-        WHERE sm.SEND_MESSAGE_SENDER = #{senderId}
-        ORDER BY m.MESSAGE_ALL_DATE DESC
+        WHERE sm.ID = #{messageId}
     </select>
 
-    <select id="selectSentMessagesAll" resultType="com.app.pickcourse.domain.dto.SendMessageDTO">
-        SELECT
-        R.*,
-        M.MESSAGE_ALL_CONTENT AS content,
-        M.MESSAGE_ALL_DATE AS sendDate
-        FROM (
-        SELECT ROWNUM R, SM.*
-        FROM (
-        SELECT SM.ID AS messageId,
-        SM.SEND_MESSAGE_SENDER AS senderId,
-        S.MEMBER_EMAIL AS senderEmail,
-        S.MEMBER_NICKNAME AS senderNickname,
-        SM.SEND_MESSAGE_RECEIVER AS receiverId,
-        R.MEMBER_EMAIL AS receiverEmail,
-        R.MEMBER_NICKNAME AS receiverNickname
-        FROM TBL_SEND_MESSAGE SM
-        JOIN TBL_MEMBER S ON SM.SEND_MESSAGE_SENDER = S.ID
-        JOIN TBL_MEMBER R ON SM.SEND_MESSAGE_RECEIVER = R.ID
-        WHERE SM.SEND_MESSAGE_SENDER = #{senderId}
-        ORDER BY SM.ID DESC
-        ) SM
-        <![CDATA[
-        WHERE ROWNUM <= #{endRow}
-        ]]>
-        ) R
-        JOIN TBL_MESSAGE M ON R.RECEIVERID = M.ID
-        <![CDATA[
-        WHERE R.R >= #{startRow}
-        ]]>
-    </select>
-
-
-    <!--보낸 쪽지 삭제 -->
-    <delete id="deleteSentMessage">
-        DELETE FROM TBL_SEND_MESSAGE WHERE ID = #{messageId}
+    <delete id="deleteSendMessageById">
+        DELETE FROM TBL_SEND_MESSAGE WHERE ID = #{id}
     </delete>
 
 </mapper>
