@@ -16,6 +16,10 @@ public class MemberService {
     private final MemberDAO memberDAO;
 
     //    회원가입
+    public void kakaoJoin(MemberDTO memberDTO){
+        memberDAO.kakaoSave(memberDTO.toVO());
+    }
+
     public void join(MemberDTO memberDTO){
         memberDAO.save(memberDTO.toVO());
     }
@@ -24,4 +28,21 @@ public class MemberService {
     public Optional<MemberVO> getMember(String memberEmail) {
         return memberDAO.findByMemberEmail(memberEmail);
     }
+
+    public void update(MemberDTO memberDTO){
+        memberDAO.set(memberDTO.toVO());
+    }
+
+    // 회원 삭제
+    public void delete(MemberDTO memberDTO) {
+        memberDAO.delete(memberDTO.toVO());
+    }
+
+    // 이메일 로그인
+    public Optional<MemberVO> login(MemberVO memberVO) {
+        return memberDAO.findByMemberEmailAndPassword(memberVO);
+    }
+
+
+
 }

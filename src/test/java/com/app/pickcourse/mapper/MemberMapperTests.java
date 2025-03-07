@@ -69,7 +69,7 @@ public class MemberMapperTests {
     public void testSelectByMemberEmailAndMemberPassword(){
         MemberVO memberVO = new MemberVO();
         memberVO.setMemberEmail("test@test.com");
-        memberVO.setMemberPassword("12345");
+        memberVO.setMemberPassword("1234");
         MemberVO foundMember = mapper.selectByMemberEmailAndMemberPassword(memberVO).orElse(null);
         log.info(foundMember.toString());
     }
@@ -89,7 +89,7 @@ public class MemberMapperTests {
 
     @Test
     public void testDelete() {
-        mapper.delete(2L);
+        mapper.delete(23L);
     }
 
 
