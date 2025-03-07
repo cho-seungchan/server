@@ -113,9 +113,15 @@ public class AdminController {
     }
 
     // 코스 등록 화면
-    @GetMapping("/addcourse")
+    @GetMapping("/add-course")
     public String getAddCourse(Model model) {
-        return "/admin/addcourse";
+        return "/admin/add-course";
+    }
+
+    // 코스 등록
+    @PostMapping("/add-course")
+    public String saveAddCourse(Model model) {
+        return "/admin/add-course";
     }
 
     // 추천 코스 목록

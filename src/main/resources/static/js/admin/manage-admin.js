@@ -104,9 +104,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // 2025.03.02 조승찬 추가
 // 검색 조건
-document.querySelector(".search").addEventListener("click", e =>{
+document.querySelector("a.search").addEventListener("click", e =>{
     e.preventDefault();
-    console.log("here !!!")
     document.querySelector("form[name=searchForm]").submit();
 })
 

@@ -504,8 +504,8 @@
                                                     <div>
                                                         <form th:action="@{/admin/manage-admin-list}" name="searchForm">
                                                             <input type="hidden" name="page" th:value="1"   class="adminList">  <!--검색시 1페이지부터 시작하도록 -->
-<!--                                                            <input type="hidden" name="type" th:value="${search.type}">-->
-<!--                                                            <input type="hidden" name="keyWord" th:value="${search.keyWord}">-->
+<!--                                                            <input type="hidden" name="type" th:value="${search.type}">  다음 페이지에서도 검색 기준 유지-->
+<!--                                                            <input type="hidden" name="keyWord" th:value="${search.keyWord}">  다음 페이지에서도 검색어 유지-->
                                                             <div class="fields">
                                                                 <div class="field">
                                                                     <div id="searchWrap">
@@ -522,6 +522,7 @@
                                                                         </select>
                                                                         <input type="text" name="keyWord" th:value="${search.keyWord}">
                                                                         <a class="search button primary icon solid fa-search">검색</a>
+                                                                        <!--	스크립트없이 바로 전송					<a class="search button primary icon solid fa-search" href="javascript:void(0);" onclick="document.forms['searchForm'].submit();">검색</a>-->
                                                                     </div>
                                                                 </div>
                                                             </div>
