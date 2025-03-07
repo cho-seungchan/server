@@ -34,7 +34,7 @@ public class KakaoController {
 
         Optional<MemberVO> foundMember = memberService.getMember(memberDTO.getMemberEmail());
         if(!foundMember.isPresent()){
-            memberService.join(memberDTO);
+            memberService.kakaoJoin(memberDTO);
         }
 
         session.setAttribute("member", memberDTO);
