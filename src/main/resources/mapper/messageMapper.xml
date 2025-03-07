@@ -24,4 +24,14 @@
         DELETE FROM TBL_MESSAGE WHERE ID = #{messageId}
     </delete>
 
+    <!-- 메세지 전체 조회 -->
+    <select id="selectAllMessages" resultType="messageVO">
+        SELECT * FROM TBL_MESSAGE
+    </select>
+
+    <!-- 이메일로 아이디 조회 -->
+    <select id="selectIdByEmail" parameterType="String" resultType="Long">
+        SELECT ID FROM TBL_MEMBER WHERE MEMBER_EMAIL = #{email}
+    </select>
+
 </mapper>

@@ -22,4 +22,8 @@
         DELETE FROM TBL_SEND_MESSAGE WHERE ID = #{id}
     </delete>
 
+    <select id="selectSendMessagesBySenderId" parameterType="Long" resultType="SendMessageVO">
+        SELECT * FROM TBL_SEND_MESSAGE WHERE SENDER_ID = #{senderId}
+    </select>
+
 </mapper>
