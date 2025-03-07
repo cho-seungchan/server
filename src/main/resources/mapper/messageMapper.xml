@@ -3,21 +3,25 @@
 <mapper namespace="com.app.pickcourse.mapper.MessageMapper">
 
     <!-- 메시지 저장 -->
-    <insert id="insertMessage" useGeneratedKeys="true" keyProperty="messageId" keyColumn="ID">
+    <insert id="insertMessage">
+        <selectKey keyProperty="id" resultType="Long" order="BEFORE">
+            SELECT SEQ_MESSAGE.NEXTVAL FROM DUAL
+        </selectKey>
         INSERT INTO TBL_MESSAGE (ID, MESSAGE_ALL_CONTENT, MESSAGE_ALL_DATE)
-        VALUES (SEQ_MESSAGE.NEXTVAL, #{content}, SYSDATE)
+        VALUES (#{id}, #{content}, SYSDATE)
     </insert>
 
+
     <!-- 메시지 조회 -->
-    <select id="selectMessageById" resultType="com.app.pickcourse.domain.vo.MessageVO">
+    <select id="selectMessageById" parameterType="Long" resultType="messageVO">
         SELECT ID AS messageId, MESSAGE_ALL_CONTENT AS content, MESSAGE_ALL_DATE AS messageDate
         FROM TBL_MESSAGE
         WHERE ID = #{messageId}
     </select>
 
-    <!-- 메시지 조회 -->
-    <select id="selectLastInsertedId" resultType="Long">
-        SELECT SEQ_MESSAGE.CURRVAL FROM DUAL
-    </select>
+    <!-- 메시지 삭제 -->
+    <delete id="deleteMessageById" parameterType="Long">
+        DELETE FROM TBL_MESSAGE WHERE ID = #{messageId}
+    </delete>
 
 </mapper>

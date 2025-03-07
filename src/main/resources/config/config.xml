@@ -23,5 +23,12 @@
         <typeAlias type="com.app.pickcourse.domain.dto.PlanDTO" alias="planDTO"/>
         <typeAlias type="com.app.pickcourse.domain.vo.PlanVO" alias="planVO"/>
         <typeAlias type="com.app.pickcourse.domain.vo.ScheduleVO" alias="scheduleVO"/>
+        <typeAlias type="com.app.pickcourse.domain.vo.MessageVO" alias="messageVO"/>
+        <typeAlias type="com.app.pickcourse.domain.vo.ReceiveMessageFileVO" alias="receiveMessageFileVO"/>
+        <typeAlias type="com.app.pickcourse.domain.vo.SendMessageFileVO" alias="sendMessageFileVO"/>
+        <typeAlias type="com.app.pickcourse.domain.dto.ReceiveMessageDTO" alias="receiveMessageDTO"/>
+        <typeAlias type="com.app.pickcourse.domain.dto.SendMessageDTO" alias="sendMessageDTO"/>
+        <typeAlias type="com.app.pickcourse.domain.vo.ReceiveMessageVO" alias="receiveMessageVO"/>
+        <typeAlias type="com.app.pickcourse.domain.vo.SendMessageVO" alias="sendMessageVO"/>
     </typeAliases>
 </configuration>
