@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
+import java.util.Optional;
 
 @SpringBootTest
 @Slf4j
@@ -39,7 +40,8 @@ public class NoticeMapperTests {
 
     @Test
     public void getManageNotice() {
-        NoticeVO notice = mapper.getManageNotice(7l);
+        Optional<NoticeVO> noticeDTO = mapper.getManageNotice(7l);
+        NoticeVO notice = noticeDTO.orElseThrow(() -> new RuntimeException("NoticeDTO not found"));
         log.info(notice.toString());
     }
 

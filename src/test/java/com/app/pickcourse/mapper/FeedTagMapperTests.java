@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Optional;
+
 @SpringBootTest
 @Slf4j
 public class FeedTagMapperTests {
@@ -25,9 +27,10 @@ public class FeedTagMapperTests {
 
     @Test
     public void getFeedModify(){
-        FeedDTO feedDTO = feedMapper.getFeedModify(51l);
-        feedDTO.setFeedTags(mapper.getFeedList(feedDTO.getId()));
-        log.info("feedDTO:{}",feedDTO);
+        Optional<FeedDTO> feedDTO = feedMapper.getFeedModify(51l);
+        FeedDTO feed = feedDTO.orElseThrow(() -> new RuntimeException("FeedDTO not found"));
+        feed.setFeedTags(mapper.getFeedList(feed.getId()));
+        log.info("feedDTO:{}",feed);
     }
 
     @Test

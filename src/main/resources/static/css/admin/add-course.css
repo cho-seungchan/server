@@ -435,7 +435,7 @@ a {
     /* height: 0; */
     overflow-y: hidden;
 }
-.MenuItems_submenuContainer__ZDZlO 
+.MenuItems_submenuContainer__ZDZlO
 .MenuItems_submenu__YTg3N {
     display: block;
     background-color: #f9fafb;
@@ -468,7 +468,7 @@ a {
 }
 @media screen and (min-width: 1096px) {
     .AppLayout_container__YWFhM .AppLayout_main__NDI4Y .AppLayout_contents__YmI3N
-     {
+    {
         position: relative;
         flex: 1;
         box-shadow: -2px 0px 0px -1px #0000000f;
@@ -807,19 +807,19 @@ address, em, var {
 
 .AppNavbarLayout_container__NmY5O {
     transition: transform 0.3s ease-in-out;
-    transform: translateX(0); 
+    transform: translateX(0);
 }
 
 .AppNavbarLayout_container__NmY5O.active {
-    transform: translateX(-100%); 
+    transform: translateX(-100%);
 }
 
 .AppLayout_contents__YmI3N {
     transition: transform 0.3s ease-in-out;
-    transform: translateX(0); 
+    transform: translateX(0);
 }
 .AppLayout_contents__YmI3N.active {
-    transform: translateX(-15%); 
+    transform: translateX(-15%);
 
 }
 .AppLayout_expandNavButton__NTEwM {
@@ -840,4 +840,20 @@ address, em, var {
 .AppLayout_contents__Nzg1Z {
     transition: transform 0.3s ease-in-out;
     transform: translateX(0);
+}
+
+ /*
+ 25.03.03 조승찬 추가
+ 클릭시 글자 크기 및 농도 변경
+ */
+.MenuItems_submenu__YTg3N:hover {
+    font-weight: bold;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.MenuItems_submenu__YTg3N.clicked {
+    font-weight: bold;
+    font-size: 16px;
+    transition: all 0.3s ease;
 }

@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
+import java.util.Optional;
 
 @SpringBootTest
 @Slf4j
@@ -54,7 +55,8 @@ public class RealFeedMapperTests {
 
     @Test
     public void getReviewModify(){
-        ReviewDTO reviewDTO = mapper.getReviewModify(46l);
-        log.info("reviewDTO:{}",reviewDTO);
+        Optional<ReviewDTO> reviewDTO = mapper.getReviewModify(46l);
+        ReviewDTO review = reviewDTO.orElseThrow(() -> new RuntimeException("ReviewDTO not found"));
+        log.info("reviewDTO:{}",review);
     }
 }
