@@ -163,7 +163,7 @@
                                     >회원 목록</a
                                     ><a
                                         class="MenuItems_submenu__YTg3N"
-                                        href="/studio/reward/337882/funding/screening"
+                                        href="/admin/report-list"
                                 >신고 목록</a
                                 >
                                 </div>
@@ -196,8 +196,8 @@
                                 >
                                     <a
                                             class="MenuItems_submenu__YTg3N"
-                                            href="/studio/reward/337882/funding/plan"
-                                    >공지 사항</a
+                                            href="/admin/notice-list"
+                                    >공지 목록</a
                                     >
                                 </div>
                                 <a
@@ -227,6 +227,12 @@
                                 <div
                                         class="MenuItems_submenuContainer__ZDZlO MenuItems_show__ZmI3M Menulist2"
                                 >
+<!--                            25.03.08 조승찬  json(restController) 방식으로 처리하기 위해 분기를 스크립트에서 작성-->
+                                    <a
+                                            class="MenuItems_submenu__YTg3N adminCourseList"
+                                            href="/admin/course-list"
+                                    >코스 목록</a
+                                    >
                                     <a
                                             class="MenuItems_submenu__YTg3N"
                                             href="/studio/reward/337882/funding/plan"
@@ -356,10 +362,10 @@
                                                             </div>
                                                             <a
                                                                     class="FundingPageMenuList_buttonWrapper__N2VmM"
-                                                                    href="/studio/reward/337882/funding/screening"
+                                                                    href="/admin/report-list"
                                                             ><span
                                                             >신고
-                                                                            관리</span
+                                                                            목록</span
                                                             ></a
                                                             >
                                                         </div>
@@ -521,4 +527,6 @@
 </div>
 </body>
 <script src="/js/admin/admin.js"></script>
+<!-- jQuery 라이브러리 포함 -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </html>

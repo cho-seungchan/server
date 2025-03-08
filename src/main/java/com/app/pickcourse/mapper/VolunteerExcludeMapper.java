@@ -10,11 +10,11 @@ import java.util.List;
 public interface VolunteerExcludeMapper {
 
     // 추천 코스 등록, 추천 코스 수정 :: 봉사코스 일 경우
-    void postAddCourse(String Content, Long CourseId);
+    void postAddCourse(@Param("content") String content, @Param("volunteerId") Long volunteerId);
 
     // 추천 코스 목록
-    List<VolunteerExcludeVO> getCourseDetail(Long courseId);
+    List<String> getCourseDetail(Long volunteerId);
 
     // 추천 코스 수정 :: 모두 삭제 후 모두 등록
-    void deleteEditCourse(Long courseId);
+    void deleteEditCourse(Long volunteerId);
 }

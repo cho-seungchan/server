@@ -147,3 +147,10 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
+
+// export function addClickEventToElement(elementId, callback) {
+//     const element = document.getElementById(elementId);
+//     if (element) {
+//         element.addEventListener('click', callback);
+//     }
+// }

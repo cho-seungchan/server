@@ -20,16 +20,16 @@
              ADMIN_ID)
         VALUES
             (#{id},
-             #{courseType},
+             #{courseType,jdbcType=CHAR},
              #{courseIsVolunteer},
              #{courseName},
              #{courseDistance},
              #{courseSchedule},
              #{courseTheme},
              #{courseContent},
-             #{courseFilePath},
-             #{courseFileSize},
-             #{courseFileName},
+             #{courseFilePath,jdbcType=VARCHAR},
+             #{courseFileSize,jdbcType=VARCHAR},
+             #{courseFileName,jdbcType=VARCHAR},
              #{adminId})
     </insert>
 
@@ -67,11 +67,14 @@
                         <when test="type == 'n'.toString()">
                             COURSE_NAME LIKE '%' || #{search.keyWord} || '%'
                         </when>
-                        <when test="type == 'w'.toString()">
+                        <when test="type == 'a'.toString()">
                             ADMIN_NAME LIKE '%' || #{search.keyWord} || '%'
                         </when>
                         <when test="type == 't'.toString()">
                             COURSE_THEME LIKE '%' || #{search.keyWord} || '%'
+                        </when>
+                        <when test="type == 'p'.toString()">
+                            COURSE_TYPE LIKE '%' || #{search.keyWord} || '%'
                         </when>
                     </choose>
                 </foreach>

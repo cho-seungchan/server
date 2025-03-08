@@ -9,23 +9,19 @@
         )
         VALUES
             (SEQ_VOLUNTEER_PREPARE.NEXTVAL,
-             #{prepareContent},
+             #{content},
              #{volunteerId})
     </insert>
 
 
-    <select id="getCourseDetail" resultType="volunteerPrepareVO">
-        SELECT ID,
-               PREPARE_CONTENT,
-               VOLUNTEER_ID,
-               CREATED_DATE,
-               UPDATED_DATE
+    <select id="getCourseDetail" resultType="String">
+        SELECT PREPARE_CONTENT
         FROM TBL_VOLUNTEER_PREPARE
-        WHERE VOLUNTEER_ID =  #{prepareContent}
+        WHERE VOLUNTEER_ID =  #{volunteerId}
     </select>
 
     <delete id="deleteEditCourse">
         DELETE FROM TBL_VOLUNTEER_PREPARE
-        WHERE VOLUNTEER_ID = ${courseId}
+        WHERE VOLUNTEER_ID = #{volunteerId}
     </delete>
 </mapper>

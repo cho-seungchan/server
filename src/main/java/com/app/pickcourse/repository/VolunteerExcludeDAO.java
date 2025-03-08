@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 public class VolunteerExcludeDAO {
     private final VolunteerExcludeMapper volunteerExcludeMapper;
 
-    public void postAddCourse(String excludeContent, Long id) {
-        volunteerExcludeMapper.postAddCourse(excludeContent, id);
+    public void postAddCourse(String content, Long volunteerId) {
+        volunteerExcludeMapper.postAddCourse(content, volunteerId);
     }
 }

@@ -2,6 +2,7 @@ package com.app.pickcourse.controller;
 
 
 import com.app.pickcourse.domain.dto.CourseDTO;
+import com.app.pickcourse.domain.dto.CourseListDTO;
 import com.app.pickcourse.domain.vo.AdminVO;
 import com.app.pickcourse.domain.vo.MemberVO;
 import com.app.pickcourse.exception.DuplicateException;
@@ -10,13 +11,17 @@ import com.app.pickcourse.util.Pagination;
 import com.app.pickcourse.util.Search;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.servlet.view.RedirectView;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/admin")
@@ -110,22 +115,39 @@ public class AdminController {
     }
 
     // 코스 등록 화면
+    // <a href="/admin/add-course.html" > html에서 직접 이동시키려면
+    // src/main/resources/static/admin 에 html 파일이 존재해야 함
     @GetMapping("/add-course")
-    public String getAddCourse(Model model) {
-        return "/admin/add-course";
+    @ResponseBody
+    public ModelAndView getAddCourse(Model model) {
+        return new ModelAndView("/admin/add-course.html");
     }
 
     // 코스 등록
     @PostMapping("/add-course")
     @ResponseBody
     public void postAddCourse(CourseDTO courseDTO) {
+        log.info("postAddCourse controller : {}",courseDTO.toString());
         adminService.postAddCourse(courseDTO);
     }
 
     // 추천 코스 목록
-    @GetMapping("/courselist")
-    public String getCourseList(Model model) {
-        return "/admin/courselist";
+    @GetMapping("/acourse-list")
+    public String getCourseListHtml(Pagination pagination, Search search, Model model) {
+        return "/admin/course-list";
+    }
+
+    // 추천 코스 목록 (api)
+    @GetMapping("/api/acourse-list")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> getCourseList(Pagination pagination, Search search) {
+        List<CourseListDTO> list = adminService.getCourseList(pagination,search);
+
+        Map<String, Object> response = new HashMap<String, Object>();
+        response.put("courses", list);
+        response.put("pagenation", pagination);
+        response.put("search", search);
+        return ResponseEntity.ok(response);
     }
 
     // 추천 코스 조회

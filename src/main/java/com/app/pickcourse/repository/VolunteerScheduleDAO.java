@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 public class VolunteerScheduleDAO {
     private final VolunteerScheduleMapper volunteerScheduleMapper;
 
-    public void postAddCourse(VolunteerScheduleVO volunteerScheduleVO) {
-        volunteerScheduleMapper.postAddCourse(volunteerScheduleVO);
+    public void postAddCourse(String content, Long volunteerId) {
+        volunteerScheduleMapper.postAddCourse(content, volunteerId);
     }
 }

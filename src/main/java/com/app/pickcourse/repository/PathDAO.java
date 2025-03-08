@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 @RequiredArgsConstructor
 public class PathDAO {
-    private final PathDAO pathDAO;
     private final PathMapper pathMapper;
 
     public void postAddCourse(PathVO path) {

@@ -9,16 +9,12 @@
         )
         VALUES
             (SEQ_VOLUNTEER_INCLUDE.NEXTVAL,
-             #{includeContent},
+             #{content},
              #{volunteerId})
     </insert>
 
-    <select id="getCourseDetail" resultType="volunteerIncludeVO">
-        SELECT ID,
-               INCLUDE_CONTENT,
-               VOLUNTEER_ID,
-               CREATED_DATE,
-               UPDATED_DATE
+    <select id="getCourseDetail" resultType="String">
+        SELECT INCLUDE_CONTENT
         FROM TBL_VOLUNTEER_INCLUDE
         WHERE VOLUNTEER_ID = #{volunteerId}
     </select>

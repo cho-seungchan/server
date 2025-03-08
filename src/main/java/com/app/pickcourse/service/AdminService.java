@@ -1,14 +1,10 @@
 package com.app.pickcourse.service;
 
 import com.app.pickcourse.domain.dto.CourseDTO;
+import com.app.pickcourse.domain.dto.CourseListDTO;
 import com.app.pickcourse.domain.vo.AdminVO;
 import com.app.pickcourse.domain.vo.MemberVO;
-import com.app.pickcourse.domain.vo.VolunteerScheduleVO;
 import com.app.pickcourse.exception.DuplicateException;
-import com.app.pickcourse.mapper.PathMapper;
-import com.app.pickcourse.mapper.VolunteerExcludeMapper;
-import com.app.pickcourse.mapper.VolunteerMapper;
-import com.app.pickcourse.mapper.VolunteerPrepareMapper;
 import com.app.pickcourse.repository.*;
 import com.app.pickcourse.util.Pagination;
 import com.app.pickcourse.util.Search;
@@ -97,16 +93,18 @@ public class AdminService {
     public void postAddCourse(CourseDTO courseDTO) {
 
         // 코스정보 입력
-            courseDAO.postAddCourse(courseDTO.toCourseVO());
+        courseDTO.setAdminId(4l);
+        courseDAO.postAddCourse(courseDTO);
+        log.info("postAddCourse service : {}",courseDTO.toString());
 
-        if (courseDTO.getCourseIsVolunteer().equals("Y")){
+        if (courseDTO.getCourseIsVolunteer().equals('Y')){
 
             // 봉사코스 정보 입력
             volunteerDAO.postAddCourse(courseDTO.toVolunteerVO());
 
             // 일일 계획 입력
-            courseDTO.getVolunteerSchedules().forEach(volunteerSchedule -> {
-                volunteerScheduleDAO.postAddCourse(volunteerSchedule);
+            courseDTO.getScheduleContents().forEach(scheduleContent -> {
+                volunteerScheduleDAO.postAddCourse(scheduleContent, courseDTO.getId());
             });
         }
 
@@ -132,4 +130,8 @@ public class AdminService {
         });
     }
 
+    public List<CourseListDTO> getCourseList(Pagination pagination, Search search) {
+        pagination.create(courseDAO.getCountAll(search));
+        return courseDAO.getCourseList(pagination,search);
+    }
 }

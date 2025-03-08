@@ -9,8 +9,18 @@
             )
         VALUES
             (SEQ_VOLUNTEER_SCHEDULE.NEXTVAL,
-             #{scheduleContent},
+             #{content,jdbcType=VARCHAR},
              #{volunteerId})
     </insert>
 
+    <select id="getCourseDetail" resultType="String">
+        SELECT SCHEDULE_CONTENT
+        FROM TBL_VOLUNTEER_SCHEDULE
+        WHERE VOLUNTEER_ID =  #{volunteerId}
+    </select>
+
+    <delete id="deleteEditCourse">
+        DELETE FROM TBL_VOLUNTEER_SCHEDULE
+        WHERE VOLUNTEER_ID = #{volunteerId}
+    </delete>
 </mapper>

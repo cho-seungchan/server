@@ -30,11 +30,10 @@ public class CourseDTO {
     List<String>              excludeContents;
     List<String>              includeContents;
     List<String>              prepareContents;
-    List<VolunteerScheduleVO> volunteerSchedules;
+    List<String>              scheduleContents;
 
     public CourseVO toCourseVO() {
         CourseVO courseVO = new CourseVO();
-        courseVO.setId(id);
         courseVO.setCourseType(courseType);
         courseVO.setCourseIsVolunteer(courseIsVolunteer);
         courseVO.setCourseName(courseName);

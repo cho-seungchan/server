@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 public class VolunteerIncludeDAO {
     private final VolunteerIncludeMapper volunteerIncludeMapper;
 
-    public void postAddCourse(String includeContent, Long id) {
-        volunteerIncludeMapper.postAddCourse(includeContent,id);
+    public void postAddCourse(String content, Long volunteerId) {
+        volunteerIncludeMapper.postAddCourse(content,volunteerId);
     }
 }

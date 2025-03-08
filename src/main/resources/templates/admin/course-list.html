@@ -3,27 +3,24 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>픽커스 관리자 회원 관리</title>
+        <title>픽커스 관리자 코스 목록</title>
         <style>
             @font-face {
                 font-family: "pickers";
-                src: url(../../static/css/admin/NotoSansKR-VariableFont_wght.ttf)
+                src: url(/css/admin/NotoSansKR-VariableFont_wght.ttf)
                     format("ttf");
             }
         </style>
         <link
             rel="stylesheet"
-            href="/css/admin/user-list2.css"
+            href="/css/admin/course-list.css"
         />
-        <link
-            rel="stylesheet"
-            href="/css/admin/admin-notice2.css"
-        />
+
         <link
             rel="stylesheet"
             href="/css/admin/add-course.css"
         />
-        <link rel="stylesheet" href="/css/admin/user-list.css" />
+
         <link
             rel="shortcut icon"
             href="/images/common/favicon1.ico"
@@ -205,8 +202,8 @@
                                         >
                                             <a
                                                 class="MenuItems_submenu__YTg3N"
-                                                href="/studio/reward/337882/funding/plan"
-                                                >공지 사항</a
+                                                href="/admin/notice-list"
+                                                >공지 목록</a
                                             >
                                         </div>
                                         <a
@@ -236,6 +233,11 @@
                                         <div
                                             class="MenuItems_submenuContainer__ZDZlO MenuItems_show__ZmI3M Menulist2"
                                         >
+                                            <a
+                                                    class="MenuItems_submenu__YTg3N"
+                                                    href="/admin/course-list"
+                                            >코스 목록</a
+                                            >
                                             <a
                                                 class="MenuItems_submenu__YTg3N"
                                                 href="/studio/reward/337882/funding/plan"
@@ -300,6 +302,7 @@
                             </div>
                         </div>
                     </nav>
+                    <!-- 여기에 넣기 -->
                     <div
                         id="AppLayout_Contents"
                         class="AppLayout_contents__YmI3N"
@@ -319,172 +322,86 @@
                                 >
                                     <div class="FundingPage_content__NjFjY">
                                         <div class="Funding_wrapper__YzViZ">
-                                            <div
-                                                class="Fade__Wrapper-sc-1s0ipfq-0 koasSX ulWrap"
-                                                style="
+                                            <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX ulWrap" style="
                                                     opacity: 1;
                                                     display: block;
-                                                "
-                                            >
-                                                <div
-                                                    class="Center__Wrapper-sc-19p29je-0 hcLOFI"
-                                                >
-                                                        <h3>회원 관리</h3>
-                                                    </div>
+                                                " >
+                                                <div class="Center__Wrapper-sc-19p29je-0 hcLOFI" >
+                                                    <h3>코스 목록</h3>
+                                                </div>
+                                                <div class="topsearchandbtn">
+                                                    <form class="SearchForm">
+                                                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='none' viewBox='0 0 24 24'%3E %3Cpath stroke='%23AAA' stroke-width='2' d='M11 17c3.314 0 6-2.686 6-6s-2.686-6-6-6-6 2.686-6 6 2.686 6 6 6zM15 15l4.95 4.95'/%3E %3C/svg%3E" alt="" class="SearchImg" />
+                                                        <input type="search" placeholder="ID, 이름, 주소 또는 코스 타입을 입력하세요." class="SearchInput" value="" />
+                                                    </form>
 
-<!--                                                    2025.03.03 -->
-<!--                                                    회원 정보 변경 시 현재 위치 유지 -->
-                                                <form name="changeForm" method="post">
-                                                    <input type="hidden" name="selectedIds" id="selectedIds" value="" />
-                                                    <input type="hidden" name="page" th:value="${pagination.page}"  class="changeMember">
-                                                    <input type="hidden" name="type" th:value="${search.type}"  class="changeMember">
-                                                    <input type="hidden" name="keyWord" th:value="${search.keyWord}"  class="changeMember">
-                                                    <input type="hidden" name="isAct" th:value="${search.isAct}"  class="changeMember">
-
-                                                    <button type="button"  class="pauseBtn" >
-                                                        회원 정지
-                                                    </button>
-                                                    <button type="button"  class="restartBtn" >
-                                                        정지 취소
-                                                    </button>
-                                                    <button type="button"  class="expelBtn" >
-                                                        회원 추방
-                                                    </button>
-                                                </form>
-<!--                                                2025.03.03 조승찬 -->
-                                                <ul
-                                                    class="NoticePage__NoticeListWrapper"
-                                                >
-                                                    <div
-                                                        class="mainUserListDiv"
-                                                    >
+                                                    <select class="selectCourseOpt" >
+                                                        <option
+                                                            value="" disabled selected  > 코스 목록 </option>
+                                                        <option value="A 코스"> A 코스 </option>
+                                                        <option value="B 코스"> B 코스 </option>
+                                                        <option value="C 코스"> C 코스 </option>
+                                                        <option value="D 코스"> D 코스 </option>
+                                                        <option value="N/A"> N/A </option>
+                                                    </select>
+                                                    <button class="selectCourseBtn">코스 선택</button>
+                                                </div>
+                                                <ul class="NoticePage__NoticeListWrapper" >
+                                                    <div class="mainUserListDiv" >
                                                         <label class="">
-                                                            <input
-                                                                type="checkbox"
-                                                                class="checkboxall"
-                                                            />
+                                                            <input type="checkbox" class="checkboxall" />
                                                         </label>
-                                                        <div class="idDiv">
-                                                            #ID
-                                                        </div>
-                                                        <div class="actDiv">
-                                                            Act
-                                                        </div>
-                                                        <div class="emailDiv">
-                                                            E-mail
-                                                        </div>
-                                                        <div class="nicknameDiv">
-                                                            Nickname
-                                                        </div>
-                                                        <div class="phoneDiv">
-                                                            Phone
-                                                        </div>
-                                                        <div class="pointDiv">
-                                                            Point
-                                                        </div>
+                                                        <div class="courseIdDiv" > #COURSE ID </div>
+                                                        <div class="adminNameDiv" > Admin Name </div>
+                                                        <div class="courseNameDiv" > Course Name </div>
+                                                        <div class="courseAddressDiv" > Course Theme </div>
+                                                        <div class="courseTypeDiv" > Course Type </div>
                                                     </div>
-<!--                                                    2025.03.03 조승찬 -->
-<!--                                                    조회 처리 -->
-                                                    <th:block th:each="member:${members}">
-                                                        <li>
-                                                            <div
-                                                                    class="userListDiv"  th:object="${member}"
-                                                            >
-                                                                <label class="">
-                                                                    <input
-                                                                            type="checkbox"
-                                                                            class="usersCheckbox"
-                                                                    />
-                                                                </label>
-                                                                <div class="idDiv" th:text="*{id}">
-                                                                </div>
-                                                                <div class="actDiv" th:text="*{memberIsAct}">
-                                                                </div>
-                                                                <div class="emailDiv" th:text="*{memberEmail}">
-                                                                </div>
-                                                                <div class="nicknameDiv" th:text="*{memberNickname}">
-                                                                </div>
-                                                                <div class="phoneDiv" th:text="*{memberTell}">
-                                                                </div>
-                                                                <div class="pointDiv" th:text="*{memberPoint}">
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                    </th:block>
-<!--                                                    2025.03.03 조승찬 -->
-
+<!--                                                    2025.03.08 조승찬 추가 -->
+                                                    <div class="courseList-container">
+<!--                                                        코스 목록 여기 생성 -->
+                                                    </div>
                                                 </ul>
-                                                <footer
-                                                    class="Wrapper__PaginationWrapper-fk4uv4-0 hBVRcD"
-                                                >
-<!--                                                    2025.03.03 조승찬  -->
-<!--                                                    페이지 처리   -->
+                                                <button class="addCourseBtn">
+                                                    코스 등록
+                                                </button>
+                                                <footer class="Wrapper__PaginationWrapper-fk4uv4-0 hBVRcD" >
+<!--                                                    2025.03.08 조승찬 -->
                                                     <div class="paging-wrap">
                                                         <div class="pagination-container">
-                                                            <!--                                                             <a class="change-page" th:if="${pagination.prev}" th:href="@{/admin/manage-admin-list(page=${pagination.startPage - 1})}">-->
-                                                            <a class="change-page" th:if="${pagination.prev}" th:href="${pagination.startPage - 1}">
-                                                                <button class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 iItkLq">
-                                                                    <img
-                                                                            src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath fill='none' d='M0 0h40v40H0z'/%3E %3Cpath stroke='%23DDD' stroke-width='1.5' d='M18 16l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E"
-                                                                            class="PaginationButtonGroup__Icon-x0iffd-2 jVxRns"
-                                                                    />
-                                                                </button>
-                                                            </a>
-                                                            <th:block th:each="page:${#numbers.sequence(pagination.startPage, pagination.endPage)}">
-                                                                <!--                                                                <a class="change-page" th:if="${pagination.page != page}" th:href="@{/admin/manage-admin-list(page=${page})}"><code th:text="${page}"></code></a>-->
-                                                                <a class="change-page" th:if="${pagination.page != page}" th:href="${page}"><code th:text="${page}"></code></a>
-                                                                <code th:unless="${pagination.page != page}" th:text="${page}"></code>
-                                                            </th:block>
-                                                            <!--                                                            <a class="change-page" th:if="${pagination.next}" th:href="@{/admin/manage-admin-list(page=${pagination.endPage + 1})}">-->
-                                                            <a class="change-page" th:if="${pagination.next}" th:href="${pagination.endPage + 1}">
-                                                                <button class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 iItkLq" >
-                                                                    <img
-                                                                            src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath fill='none' d='M0 0h40v40H0z'/%3E %3Cpath stroke='%23DDD' stroke-width='1.5' d='M18 16l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E"
-                                                                            class="PaginationButtonGroup__Icon-x0iffd-2 dQqQMu"
-                                                                    />
-                                                                </button>
-                                                            </a>
+<!--                                                        페이지 번호 여기 생성-->
                                                         </div>
                                                     </div>
+<!--                                                    2025.03.08 조승찬 -->
 
+<!--                                                    2025.03.08 조승찬 -->
 <!--                                                    검색 처리 -->
+                                                    <!-- 검색 폼 -->
                                                     <div>
-                                                        <form th:action="@{/admin/member-list}" name="searchForm">
-                                                            <input type="hidden" name="page" th:value="1"   class="adminList">  <!--검색시 1페이지부터 시작하도록 -->
+                                                        <form name="searchForm">
+                                                            <input type="hidden" name="page" class="courseList">
                                                             <div class="fields">
                                                                 <div class="field">
                                                                     <div id="searchWrap">
-                                                                        <div class="activityWrap">
-                                                                            <label>
-                                                                                <input type="radio" name="isAct" class="isAct" value="" checked>전체
-                                                                            </label>
-                                                                            <br>
-                                                                            <label>
-                                                                                <input type="radio" name="isAct" class="isAct" value="Y">활동
-                                                                            </label>
-                                                                            <br>
-                                                                            <label>
-                                                                                <input type="radio" name="isAct" class="isAct" value="N">정지
-                                                                            </label>
-                                                                        </div>
                                                                         <select name="type" class="custom-select">
-<!--                                                                            <option value="">검색 기준</option>-->
-                                                                            <option value="eknt" th:selected="${search.type == 'ekt'}">전체</option>
-                                                                            <option value="e" th:selected="${search.type == 'e'}">eMail</option>
-                                                                            <option value="k" th:selected="${search.type == 'k'}">Nickname</option>
-                                                                            <option value="t" th:selected="${search.type == 't'}">Phone</option>
-                                                                            <option value="ek" th:selected="${search.type == 'ek'}">eMail 또는 Nickname</option>
+                                                                            <option value="">검색 기준</option>
+                                                                            <option value="natp">전 체</option>
+                                                                            <option value="n">Course Name</option>
+                                                                            <option value="a">Admin Name</option>
+                                                                            <option value="t">Course Theme</option>
+                                                                            <option value="p">Course Type</option>
                                                                         </select>
-                                                                        <input type="text" name="keyWord" th:value="${search.keyWord}">
+                                                                        <input type="text" name="keyWord">
                                                                         <a class="search button primary icon solid fa-search">검색</a>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </form>
                                                     </div>
-<!--                                                    2025.03.03 조승찬 -->
+                                                    <!--                                                    2025.03.02 조승찬 -->
 
                                                 </footer>
+
                                             </div>
                                         </div>
                                     </div>
@@ -502,8 +419,7 @@
             </div>
         </div>
     </body>
-    <script th:inline="javascript">
-        const isActValue = `[[${search.isAct}]]`;
-    </script>
-    <script src="/js/admin/user-list.js"></script>
+    <script src="/js/admin/course-list-event.js"></script>
+    <script src="/js/admin/course-list-layout.js"></script>
+    <script src="/js/admin/course-list.service.js"></script>
 </html>

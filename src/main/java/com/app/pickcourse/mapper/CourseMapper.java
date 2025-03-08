@@ -18,7 +18,7 @@ public interface CourseMapper {
     int getCountAll(@Param("search") Search search);
 
     // 추천코스 등록
-    void postAddCourse(CourseVO courseVO);
+    void postAddCourse(CourseDTO courseDTO);
 
     // 추천코스 조회
     Optional<CourseDTO> getCourseDetail(Long id);

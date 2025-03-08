@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 public class VolunteerPrepareDAO {
     private final VolunteerPrepareMapper volunteerPrepareMapper;
 
-    public void postAddCourse(String prepareContent, Long id) {
-
+    public void postAddCourse(String content, Long volunteerId) {
+        volunteerPrepareMapper.postAddCourse(content, volunteerId);
     }
 }
