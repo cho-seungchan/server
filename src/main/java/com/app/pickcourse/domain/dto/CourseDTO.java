@@ -9,7 +9,7 @@ import java.util.List;
 @Getter @Setter @ToString
 public class CourseDTO {
     private Long              id;
-    private Character         courseType;
+    private String            courseType;
     private Character         courseIsVolunteer;
     private String            courseName;
     private String            courseDistance;

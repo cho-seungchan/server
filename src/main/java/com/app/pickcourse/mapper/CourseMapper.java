@@ -26,9 +26,13 @@ public interface CourseMapper {
     // 추천코스 목록 조회
     List<CourseListDTO> getCourseList(@Param("pagination") Pagination pagination, @Param("search") Search search);
 
-    // 추천코스 타입 정하기 :: 추천화면 목록 조회 화면에서 수행
-    void patchCourseList(@Param("id") Long id, @Param("courseType") String courseType);
-
     // 추천코스 수정
     void patchEditCourse(CourseVO courseVO);
+
+    // 추천코스 타입 정하기 :: 기존에 같은 타입으로 등록된 코스의 타입 클리어
+    void patchCourseListExpire(@Param("courseType") String courseType);
+
+    // 추천코스 타입 정하기 :: 정해진 타입으로 코스 세팅
+    void patchCourseListRegist(@Param("id") Long id, @Param("courseType") String courseType);
+
 }

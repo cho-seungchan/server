@@ -1,3 +1,4 @@
+// 2025.02.24 조승찬
 package com.app.pickcourse.controller;
 
 
@@ -114,40 +115,45 @@ public class AdminController {
         return "redirect:/admin/manage-admin-list?page=" + page + "&type=" + type + "&keyWord=" + keyWord;
     }
 
-    // 코스 등록 화면
+    // 코스 작성 화면
     // <a href="/admin/add-course.html" > html에서 직접 이동시키려면
     // src/main/resources/static/admin 에 html 파일이 존재해야 함
     @GetMapping("/add-course")
-    @ResponseBody
-    public ModelAndView getAddCourse(Model model) {
-        return new ModelAndView("/admin/add-course.html");
+    public String getAddCourse(Model model) {
+        return "/admin/add-course";
     }
 
-    // 코스 등록
+    // 신규 코스 작성
     @PostMapping("/add-course")
-    @ResponseBody
-    public void postAddCourse(CourseDTO courseDTO) {
-        log.info("postAddCourse controller : {}",courseDTO.toString());
+    public String postAddCourse(CourseDTO courseDTO, Model model) {
         adminService.postAddCourse(courseDTO);
-    }
-
-    // 추천 코스 목록
-    @GetMapping("/acourse-list")
-    public String getCourseListHtml(Pagination pagination, Search search, Model model) {
-        return "/admin/course-list";
+        return "redirect:/admin/add-course";
     }
 
     // 추천 코스 목록 (api)
-    @GetMapping("/api/acourse-list")
+    @GetMapping("/course-list")
     @ResponseBody
     public ResponseEntity<Map<String, Object>> getCourseList(Pagination pagination, Search search) {
         List<CourseListDTO> list = adminService.getCourseList(pagination,search);
+        list.forEach(System.out::println);
 
         Map<String, Object> response = new HashMap<String, Object>();
         response.put("courses", list);
-        response.put("pagenation", pagination);
+        response.put("pagination", pagination);
         response.put("search", search);
         return ResponseEntity.ok(response);
+    }
+
+    // 추천코스 목록에서 A ~ D 코스 혹은 봉사 코스로 등록
+    @PatchMapping("/course-list")
+    @ResponseBody
+    public ResponseEntity<String> patchCourseList(@RequestBody Map<String, String> reqData) {
+        // 받은 데이터 확인 (디버깅용)
+        System.out.println("Course Request: " + reqData.get("courseId")+" "+reqData.get("courseType"));
+
+        adminService.patchCourseList(reqData.get("courseId"),reqData.get("courseType").trim());
+        // 처리 결과 반환
+        return ResponseEntity.ok("Course list fetched successfully!");
     }
 
     // 추천 코스 조회

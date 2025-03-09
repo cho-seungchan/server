@@ -651,122 +651,9 @@ function handleSaveClick() {
             return;
         }
 
-
-    //     // 모든 입력창 비활성화 (저장 시)
-    //     allInputs.forEach((input) => {
-    //         input.disabled = true;
-    //         input.style.backgroundColor = "rgba(211, 211, 211, 0.5)";
-    //         input.style.cursor = "not-allowed";
-    //     });
-    //
-    //     // 삭제 버튼 비활성화 (주소 태그 삭제 방지)
-    //     disableDeleteButtons(true);
-    //
-    //     // "추천 코스 작성" → "추천 코스 조회"로 변경
-    //     courseTitle.textContent = "추천 코스 조회";
-    //
-    //     // "추천 코스를 소개해 주세요." 문구 제거
-    //     courseDescription.style.display = "none";
-    //
-    //     // "수정" 모드로 변경
-    //     saveButton.querySelector(".Button_children__NzZlO").textContent =
-    //         "수정";
-    //
-    //     // "임시 저장" 버튼 숨기기
-    //     tempSaveButton.style.display = "none";
-    // } else {
-    //     // "수정" 버튼 클릭 시 모든 입력 필드 활성화
-    //     allInputs.forEach((input) => {
-    //         input.disabled = false;
-    //         input.style.backgroundColor = "";
-    //         input.style.cursor = "text";
-    //     });
-    //
-    //     // 삭제 버튼 활성화 (주소 태그 삭제 가능)
-    //     disableDeleteButtons(false);
-    //
-    //     // "추천 코스 수정"으로 변경
-    //     courseTitle.textContent = "추천 코스 수정";
-    //
-    //     // "추천 코스를 소개해 주세요." 문구 다시 표시
-    //     courseDescription.style.display = "block";
-    //
-    //     // 버튼을 다시 "저장"으로 변경
-    //     saveButton.querySelector(".Button_children__NzZlO").textContent =
-    //         "저장";
-    //
-    //     // "임시 저장" 버튼 다시 표시
-    //     tempSaveButton.style.display = "block";
     }
 }
 
-// "삭제 버튼" 비활성화/활성화 함수
-// function disableDeleteButtons(disable) {
-//     document.querySelectorAll(".destination-tag .delete-btn").forEach((btn) => {
-//         if (disable) {
-//             btn.style.pointerEvents = "none"; // 삭제 버튼 클릭 불가능하게 설정
-//             btn.style.opacity = "0.5"; // 버튼이 흐리게 보이도록 조정
-//             btn.style.cursor = "not-allowed";
-//         } else {
-//             btn.style.pointerEvents = "auto"; // 삭제 버튼 클릭 가능하게 설정
-//             btn.style.opacity = "1";
-//             btn.style.cursor = "pointer";
-//         }
-//     });
-// }
-
-// 페이지 로드 시 초기 상태 설정
-// disableDeleteButtons(false);
-
-// // 삭제되었어도 수정 버튼이 항상 눌릴 수 있도록 보장
-// saveButton.disabled = false;
-// saveButton.style.opacity = "1";
-// saveButton.style.cursor = "pointer";
-//
-// // "임시 저장" 버튼 클릭 이벤트 함수
-// function handleTempSaveClick() {
-//     // console.log("현재 버튼 상태:", tempSaveButton.textContent.trim());
-//
-//     if (tempSaveButton.textContent.trim() === "임시 저장") {
-//         // console.log("임시 저장 실행");
-//
-//         // 모든 입력 필드를 비활성화 (임시 저장 시)
-//         allInputs.forEach((input) => {
-//             input.setAttribute("disabled", "true"); // 비활성화
-//             input.style.backgroundColor = "rgba(211, 211, 211, 0.5)";
-//             input.style.cursor = "not-allowed";
-//         });
-//
-//         //  "임시 저장" 버튼을 "계속 작성"으로 변경
-//         tempSaveButton.innerHTML = `<span><span class="Button_children__NzZlO">계속 작성</span></span>`;
-//
-//         //  "저장" 버튼 비활성화 (임시 저장 상태에서는 저장 불가능)
-//         saveButton.setAttribute("disabled", "true");
-//         saveButton.style.opacity = "0.5";
-//         saveButton.style.cursor = "not-allowed";
-//     } else {
-//         // console.log(" 계속 작성 실행");
-//
-//         // 모든 입력 필드를 다시 활성화
-//         allInputs.forEach((input) => {
-//             input.removeAttribute("disabled"); // 활성화
-//             input.style.backgroundColor = "";
-//             input.style.cursor = "text";
-//         });
-//
-//         //  "계속 작성" 버튼을 다시 "임시 저장"으로 변경
-//         tempSaveButton.innerHTML = `<span><span class="Button_children__NzZlO">임시 저장</span></span>`;
-//
-//         //  "저장" 버튼 다시 활성화
-//         saveButton.removeAttribute("disabled");
-//         saveButton.style.opacity = "1";
-//         saveButton.style.cursor = "pointer";
-//     }
-// }
-
-// //  기존 이벤트 리스너 제거 후 다시 추가하여 중복 실행 방지
-// tempSaveButton.removeEventListener("click", handleTempSaveClick);
-// tempSaveButton.addEventListener("click", handleTempSaveClick);
 
 // 2025.03.07 조승찬 추가
 // 체크 박스 클릭시
@@ -798,7 +685,7 @@ document.addEventListener("DOMContentLoaded", function () { // HTML이 로드된
         // 포함사항 입력
         document.querySelectorAll(".includeContent").forEach((e,i) => {
             const input = document.createElement("input");
-            input.type = "text"
+            input.type = "hidden"
             input.name = `includeContents[${i}]`
             input.value = e.textContent;;
             document['addCourse-form'].appendChild(input);
@@ -806,7 +693,7 @@ document.addEventListener("DOMContentLoaded", function () { // HTML이 로드된
         // 불포함 사항 입력
         document.querySelectorAll(".excludeContent").forEach((e,i) => {
             const input = document.createElement("input");
-            input.type = "text"
+            input.type = "hidden"
             input.name = `excludeContents[${i}]`
             input.value = e.textContent;;
             document['addCourse-form'].appendChild(input);
@@ -814,7 +701,7 @@ document.addEventListener("DOMContentLoaded", function () { // HTML이 로드된
         // 준비물 입력
         document.querySelectorAll(".prepareContent").forEach((e,i) => {
             const input = document.createElement("input");
-            input.type = "text"
+            input.type = "hidden"
             input.name = `prepareContents[${i}]`
             input.value = e.textContent;;
             document['addCourse-form'].appendChild(input);
@@ -822,7 +709,7 @@ document.addEventListener("DOMContentLoaded", function () { // HTML이 로드된
         // 스케쥴 입력
         document.querySelectorAll(".kmqQeBdetail").forEach( (e,i) => {
             const input = document.createElement("input");
-            input.type = "text"
+            input.type = "hidden"
             input.name = `scheduleContents[${i}]`
             input.value = `${e.value}`;
             document['addCourse-form'].appendChild(input);
@@ -830,13 +717,13 @@ document.addEventListener("DOMContentLoaded", function () { // HTML이 로드된
         // 여행 코스 입력
         tourSpots.forEach((e,i) => {
             const inputName = document.createElement("input");
-            inputName.type = "text"
+            inputName.type = "hidden"
             inputName.name = `paths[${i}].pathName`
             inputName.value = `${e.title}`;
             document['addCourse-form'].appendChild(inputName);
 
             const inputAddress = document.createElement("input");
-            inputAddress.type = "text"
+            inputAddress.type = "hidden"
             inputAddress.name = `paths[${i}].pathAddress`
             inputAddress.value = `${e.address}`;
             document['addCourse-form'].appendChild(inputAddress);

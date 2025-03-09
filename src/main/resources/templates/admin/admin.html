@@ -20,6 +20,11 @@
             href="/images/common/favicon1.ico"
             type="image/x-icon"
     />
+    <link
+            rel="stylesheet"
+            href="/css/admin/course-list.css"
+    />
+
 </head>
 <body>
 <div id="root">
@@ -33,6 +38,7 @@
                     <button
                             class="StudioLogo_logo__MTE4Z"
                             type="button"
+                            onclick="window.location.href='/'"
                             aria-label="로고 버튼"
                     ></button>
                 </div>
@@ -230,7 +236,6 @@
 <!--                            25.03.08 조승찬  json(restController) 방식으로 처리하기 위해 분기를 스크립트에서 작성-->
                                     <a
                                             class="MenuItems_submenu__YTg3N adminCourseList"
-                                            href="/admin/course-list"
                                     >코스 목록</a
                                     >
                                     <a
@@ -297,10 +302,7 @@
                     </div>
                 </div>
             </nav>
-            <div
-                    id="AppLayout_Contents"
-                    class="AppLayout_contents__YmI3N"
-            >
+            <div id="AppLayout_Contents" class="AppLayout_contents__YmI3N">
                 <main class="FundingPage_container__NDhmM">
                     <div
                             id="FundingPage_Content"
@@ -526,7 +528,11 @@
     </div>
 </div>
 </body>
-<script src="/js/admin/admin.js"></script>
 <!-- jQuery 라이브러리 포함 -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/js/admin/admin.js"></script>
+<script src="/js/admin/course-list-layout-base.js"></script>
+<script src="/js/admin/course-list-layout-add.js"></script>
+<script src="/js/admin/course-list-event.js"></script>
+<script src="/js/admin/course-list-service.js"></script>
 </html>

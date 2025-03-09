@@ -73,8 +73,8 @@
                         <when test="type == 't'.toString()">
                             COURSE_THEME LIKE '%' || #{search.keyWord} || '%'
                         </when>
-                        <when test="type == 'p'.toString()">
-                            COURSE_TYPE LIKE '%' || #{search.keyWord} || '%'
+                        <when test="type == 'u'.toString()">
+                            (COURSE_TYPE LIKE '%코스%')
                         </when>
                     </choose>
                 </foreach>
@@ -135,7 +135,7 @@
                         JOIN   TBL_COURSE C
                         ON     A.ID = C.ADMIN_ID
                         <include refid="search"/>
-                        ORDER  BY A.ID DESC    ) B
+                        ORDER  BY C.ID DESC    ) B
                 <![CDATA[
                 WHERE  ROWNUM <= ${pagination.endRow}   )
         WHERE  R >= #{pagination.startRow} ]]>
@@ -143,18 +143,24 @@
 
     <select id="getCountAll" resultType="_int">
         SELECT COUNT(*)
-        FROM   TBL_COURSE
         FROM   TBL_ADMIN  A
         JOIN   TBL_COURSE C
         ON     A.ID = C.ADMIN_ID
         <include refid="search"/>
     </select>
 
-    <update id="patchCourseList">
+    <update id="patchCourseListRegist">
         UPDATE TBL_COURSE
         SET COURSE_TYPE  = #{courseType},
             UPDATED_DATE = SYSDATE
         WHERE ID= #{id}
+    </update>
+
+    <update id="patchCourseListExpire">
+        UPDATE TBL_COURSE
+        SET COURSE_TYPE  = '',
+            UPDATED_DATE = SYSDATE
+        WHERE COURSE_TYPE  = #{courseType}
     </update>
 
     <update id="patchEditCourse">

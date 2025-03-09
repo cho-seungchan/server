@@ -103,9 +103,11 @@ public class AdminService {
             volunteerDAO.postAddCourse(courseDTO.toVolunteerVO());
 
             // 일일 계획 입력
-            courseDTO.getScheduleContents().forEach(scheduleContent -> {
-                volunteerScheduleDAO.postAddCourse(scheduleContent, courseDTO.getId());
-            });
+            if (courseDTO.getScheduleContents() != null){
+                courseDTO.getScheduleContents().forEach(scheduleContent -> {
+                    volunteerScheduleDAO.postAddCourse(scheduleContent, courseDTO.getId());
+                });
+            }
         }
 
         // 경로 입력
@@ -115,23 +117,35 @@ public class AdminService {
         });
 
         // 불포함 사항 입력
-        courseDTO.getExcludeContents().forEach(excludeContent -> {
-            volunteerExcludeDAO.postAddCourse(excludeContent, courseDTO.getId());
-        });
+        if (courseDTO.getExcludeContents() != null){
+            courseDTO.getExcludeContents().forEach(excludeContent -> {
+                volunteerExcludeDAO.postAddCourse(excludeContent, courseDTO.getId());
+            });
+        }
 
         // 포함 사항 입력
-        courseDTO.getIncludeContents().forEach(includeContent -> {
-           volunteerIncludeDAO.postAddCourse(includeContent, courseDTO.getId());
-        });
+        if (courseDTO.getIncludeContents() != null){
+            courseDTO.getIncludeContents().forEach(includeContent -> {
+                volunteerIncludeDAO.postAddCourse(includeContent, courseDTO.getId());
+            });
+        }
 
         // 준비물 입력
-        courseDTO.getPrepareContents().forEach(prepareContent -> {
-            volunteerPrepareDAO.postAddCourse(prepareContent, courseDTO.getId());
-        });
+        if (courseDTO.getPrepareContents() != null){
+            courseDTO.getPrepareContents().forEach(prepareContent -> {
+                volunteerPrepareDAO.postAddCourse(prepareContent, courseDTO.getId());
+            });
+        }
+
     }
 
     public List<CourseListDTO> getCourseList(Pagination pagination, Search search) {
         pagination.create(courseDAO.getCountAll(search));
         return courseDAO.getCourseList(pagination,search);
+    }
+
+    public void patchCourseList(String courseId, String courseType) {
+        courseDAO.patchCourseListExpire(courseType);
+        courseDAO.patchCourseListRegist(Long.parseLong(courseId), courseType);
     }
 }

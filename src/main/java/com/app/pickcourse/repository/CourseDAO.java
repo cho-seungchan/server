@@ -27,4 +27,12 @@ public class CourseDAO {
     public List<CourseListDTO> getCourseList(Pagination pagination, Search search) {
         return courseMapper.getCourseList(pagination,search);
     }
+
+    public void patchCourseListExpire(String courseType) {
+        courseMapper.patchCourseListExpire(courseType);
+    }
+
+    public void patchCourseListRegist(Long id, String courseType) {
+        courseMapper.patchCourseListRegist(id, courseType);
+    }
 }
