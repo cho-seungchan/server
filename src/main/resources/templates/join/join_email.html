@@ -40,19 +40,23 @@
                                     <h3>회원가입</h3>
                                 </div>
                                 <form
-                                    autocomplete="false"
+                                        action="/join/join_email" method="post" th:object="${memberDTO}"
                                     class="Form__RegisterPageForm-sc-1l5lis6-0 fLECcs"
                                 >
                                     <div>
                                         <input
+                                            th:field="*{memberEmail}" required
                                             type="text"
                                             name="email"
                                             placeholder="아이디 (이메일)"
                                             class="Form__Input-sc-1quypp7-1 iRBMai inputEmail"
                                         />
+                                        <p th:if="${errorMessage}" class="bViOzS">[[${errorMessage}]]</p>
+
                                     </div>
                                     <div>
                                         <input
+                                            th:field="*{memberPassword}" required
                                             type="password"
                                             name="password"
                                             placeholder="비밀번호"

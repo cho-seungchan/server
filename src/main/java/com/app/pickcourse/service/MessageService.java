@@ -8,6 +8,7 @@ import com.app.pickcourse.domain.vo.SendMessageVO;
 import com.app.pickcourse.mapper.MessageMapper;
 import com.app.pickcourse.mapper.ReceiveMessageMapper;
 import com.app.pickcourse.mapper.SendMessageMapper;
+import com.app.pickcourse.repository.MemberDAO;
 import com.app.pickcourse.repository.MessageDAO;
 import com.app.pickcourse.repository.ReceiveMessageDAO;
 import com.app.pickcourse.repository.SendMessageDAO;
@@ -25,6 +26,7 @@ public class MessageService {
     private final MessageDAO messageDAO; // 슈퍼키 DAO
     private final SendMessageDAO sendMessageDAO; // 보낸 메시지 DAO
     private final ReceiveMessageDAO receiveMessageDAO; // 받은 메시지 DAO
+    private final MemberDAO memberDAO;
 
     // 메세지 보내기
     public void sendMessage(SendMessageDTO sendMessageDTO) {
@@ -53,7 +55,7 @@ public class MessageService {
     }
 
     // 보낸 메세지 조회
-    public List<SendMessageVO> findSendMessageBySenderId(Long senderId) {
+    public List<SendMessageDTO> findSendMessageBySenderId(Long senderId) {
         return sendMessageDAO.findBySenderId(senderId);
     }
 
@@ -70,5 +72,16 @@ public class MessageService {
     // 슈퍼키 메세지 삭제
     public void deleteMessageById(Long id) {
         messageDAO.delete(id);
+    }
+
+
+    // ID로 이메일을 찾고 이메일로 메시지 전송
+    public void sendMessageByEmail(SendMessageDTO sendMessageDTO) {
+        Long receiverId = memberDAO.findIdByEmail(sendMessageDTO.getReceiverEmail())
+                .orElseThrow(() -> new RuntimeException("해당 이메일을 가진 사용자가 없습니다."));
+
+        sendMessageDTO.setReceiverId(receiverId);
+
+        sendMessage(sendMessageDTO);
     }
 }

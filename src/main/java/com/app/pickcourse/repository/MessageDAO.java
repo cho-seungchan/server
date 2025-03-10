@@ -13,7 +13,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class MessageDAO {
     private final MessageMapper messageMapper;
-    private final MemberMapper memberMapper;
+
 
     // 메시지 저장 (슈퍼키)
     public void save(MessageVO messageVO) {
@@ -35,8 +35,5 @@ public class MessageDAO {
         return messageMapper.selectAllMessages();
     }
 
-    // 이메일로 아이디 조회
-    public Optional<Long> findIdByEmail(String email) {
-        return memberMapper.selectIdByEmail(email);
-    }
+
 }

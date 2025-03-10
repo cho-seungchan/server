@@ -2,9 +2,11 @@ package com.app.pickcourse.service;
 
 import com.app.pickcourse.domain.dto.ReceiveMessageDTO;
 import com.app.pickcourse.domain.dto.SendMessageDTO;
+import com.app.pickcourse.domain.vo.MemberVO;
 import com.app.pickcourse.domain.vo.MessageVO;
 import com.app.pickcourse.domain.vo.ReceiveMessageVO;
 import com.app.pickcourse.domain.vo.SendMessageVO;
+import com.app.pickcourse.repository.MemberDAO;
 import com.app.pickcourse.repository.MessageDAO;
 import com.app.pickcourse.repository.ReceiveMessageDAO;
 import com.app.pickcourse.repository.SendMessageDAO;
@@ -14,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
+import java.util.Optional;
 
 @SpringBootTest
 @Slf4j
@@ -33,6 +36,8 @@ public class MessageServiceTests {
 
     private SendMessageDTO sendMessageDTO;
     private ReceiveMessageDTO receiveMessageDTO;
+    @Autowired
+    private MemberDAO memberDAO;
 
     @Test
     public void testSendMessage() {
@@ -48,7 +53,7 @@ public class MessageServiceTests {
 
         messageService.sendMessage(sendMessageDTO);
 
-        List<SendMessageVO> sentMessages = sendMessageDAO.findBySenderId(sendMessageDTO.getSenderId());
+        List<SendMessageDTO> sentMessages = sendMessageDAO.findBySenderId(sendMessageDTO.getSenderId());
         log.info("보낸 메시지 조회 성공: {}", sentMessages);
 
         List<ReceiveMessageDTO> receivedMessages = receiveMessageDAO.findByReceiverId(sendMessageDTO.getReceiverId());
@@ -75,11 +80,11 @@ public class MessageServiceTests {
 
     @Test
     public void selectSendMessageBySenderId() {
-        List<SendMessageVO> sendMessages = sendMessageDAO.findBySenderId(1L);
+        List<SendMessageDTO> sendMessages = sendMessageDAO.findBySenderId(1L);
 
         if (!sendMessages.isEmpty()) {
             log.info("총 {}개의 보낸 메시지 조회 성공!", sendMessages.size());
-            for (SendMessageVO message : sendMessages) {
+            for (SendMessageDTO message : sendMessages) {
                 log.info("메시지 ID: {}, 받은 사람 ID: {}, 내용: {}",
                         message.getId(), message.getReceiverId(), message.getContent());
             }
@@ -95,7 +100,7 @@ public class MessageServiceTests {
 
         messageService.deleteSendMessageById(id);
 
-        List<SendMessageVO> leftMessages = sendMessageDAO.findBySenderId(1L);
+        List<SendMessageDTO> leftMessages = sendMessageDAO.findBySenderId(1L);
         log.info("남은 보낸 메시지: {}", leftMessages);
     }
 
@@ -120,6 +125,25 @@ public class MessageServiceTests {
         log.info("남은 메세지: {}", leftMessages);
     }
 
+//
+    @Test
+    public void testSendMessageByEmail() {
+        Optional<Long> receiverId = memberDAO.findIdByEmail("test@test.com");
+        Optional<Long> senderId = memberDAO.findIdByEmail("dao@test.com");
+
+        if (receiverId.isEmpty()) {
+            throw new RuntimeException("받는 사람 이메일을 찾을 수 없습니다.");
+        }
+
+        SendMessageDTO sendMessageDTO = new SendMessageDTO();
+        sendMessageDTO.setSenderId(senderId.get());
+        sendMessageDTO.setReceiverId(receiverId.get());
+        sendMessageDTO.setContent("이메일로 메시지 보내기 테스트");
+
+        messageService.sendMessage(sendMessageDTO);
+
+        log.info("메시지 전송 성공: {}", sendMessageDTO);
+    }
 
 }
 

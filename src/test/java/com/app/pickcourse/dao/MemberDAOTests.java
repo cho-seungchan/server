@@ -1,5 +1,6 @@
 package com.app.pickcourse.dao;
 
+import com.app.pickcourse.domain.dto.MemberDTO;
 import com.app.pickcourse.domain.vo.MemberVO;
 import com.app.pickcourse.repository.MemberDAO;
 import lombok.extern.slf4j.Slf4j;
@@ -17,6 +18,8 @@ public class MemberDAOTests {
     private MemberDAO memberDAO;
     @Autowired
     private MemberVO memberVO;
+    @Autowired
+    private MemberDTO memberDTO;
 
     @Test
     public void saveTest() {

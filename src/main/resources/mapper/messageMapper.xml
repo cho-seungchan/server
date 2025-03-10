@@ -29,9 +29,6 @@
         SELECT * FROM TBL_MESSAGE
     </select>
 
-    <!-- 이메일로 아이디 조회 -->
-    <select id="selectIdByEmail" parameterType="String" resultType="Long">
-        SELECT ID FROM TBL_MEMBER WHERE MEMBER_EMAIL = #{email}
-    </select>
+
 
 </mapper>

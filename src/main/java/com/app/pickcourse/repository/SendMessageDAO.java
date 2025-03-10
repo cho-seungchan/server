@@ -19,7 +19,7 @@ public class SendMessageDAO {
     }
 
     // 보낸 메시지 조회 (보낸 사람 기준)
-    public List<SendMessageVO> findBySenderId(Long senderId) {
+    public List<SendMessageDTO> findBySenderId(Long senderId) {
         return sendMessageMapper.selectSendMessagesBySenderId(senderId);
     }
 
