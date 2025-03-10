@@ -50,11 +50,14 @@ public class PlanMapperTests {
         planVO.setPlanFileName("파일이름3");
         planVO.setPlanFileSize("파일크기3");
         planVO.setPlanFilePath("파일경로3");
+        planVO.setMemberId(1L);
+        planVO.setCourseId(1L);
         planVO.setMemberId(member.getId());
         planVO.setCourseId(course.getId());
         planVO.setPlanContent("내용3");
 
         planMapper.insert(planVO);
+        log.info(planVO.toString());
     }
 
     @Test
@@ -98,6 +101,15 @@ public class PlanMapperTests {
     }
 
     @Test
+    public void testSelectByMemberId() {
+        PlanDTO planDTO = new PlanDTO();
+        MemberVO memberVO = new MemberVO();
+
+        memberVO.setId(1L);
+
+        planDTO.setMemberId(memberVO.getId());
+
+    }
     public void testSelectAllById() {
         List<PlanVO> list = planMapper.selectAllById(1L);
         list.forEach(System.out::println);

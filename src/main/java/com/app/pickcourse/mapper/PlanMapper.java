@@ -2,6 +2,7 @@ package com.app.pickcourse.mapper;
 
 import com.app.pickcourse.domain.dto.PlanDTO;
 import com.app.pickcourse.domain.vo.PlanVO;
+import com.app.pickcourse.util.Pagination;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

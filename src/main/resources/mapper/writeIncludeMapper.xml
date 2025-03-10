@@ -15,7 +15,7 @@
     <update id="update">
         UPDATE TBL_WRITE_INCLUDE
         SET INCLUDE_CONTENT = #{includeContent}
-        WHERE ID = #{id} AND PLAN_ID = #{planId}
+        WHERE ID = #{id}
     </update>
 
     <delete id="delete">

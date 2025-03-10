@@ -9,12 +9,13 @@
 
     <select id="selectByPlanId" resultType="scheduleVO">
         SELECT * FROM TBL_SCHEDULE
+        WHERE PLAN_ID = #{planID}
     </select>
 
     <update id="update">
         UPDATE TBL_SCHEDULE
         SET SCHEDULE_CONTENT = #{scheduleContent}
-        WHERE ID = #{id} AND PLAN_ID = #{planId}
+        WHERE ID = #{id}
     </update>
 
     <delete id="delete">

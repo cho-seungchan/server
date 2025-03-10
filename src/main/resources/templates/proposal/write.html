@@ -27,17 +27,20 @@
                             <h3>여행 계획 작성</h3>
                         </div>
                         <!-- <div class="WriteRecruitePage__Divider-bnh5u-2 hgZork"></div> -->
+                        <form action="/proposal/write" method="post" th:object="${planDTO}" name="write-form">
                         <div>
                             <div class="SocialRecruiteTagsContainer__SocialRecruiteTagsWrapper-sc-2762su-0 bmexYY">
-                                <input placeholder="여행명"
+                                <input type = "text" placeholder="여행명"
                                 class="SocialRecruiteTagsContainer__SocialRecruiteTagsInput-sc-2762su-1 gcqwwh name"
-                                value=>
+                                th:field="*{planName}">
                                 <div class="DurationOfTourContainer">
-                                    <input type="date" placeholder="시작일"
+                                    <input type="date" placeholder="시작일" th:field="*{planStartDate}"
                                     class="SocialRecruiteTagsContainer__SocialRecruiteTagsInput-sc-2762su-1 gcqwwh
-                                    startdate" value=><span>~</span><input type="date" placeholder="종료일"
+                                    startdate" value=><span>~</span>
+                                    <input type="date" placeholder="종료일" th:field="*{planEndDate}"
                                     class="SocialRecruiteTagsContainer__SocialRecruiteTagsInput-sc-2762su-1 gcqwwh
-                                    enddate" value=><span>마감일</span><input type="date" placeholder="모집 마감일"
+                                    enddate" value=><span>마감일</span>
+                                    <input type="date" placeholder="모집 마감일" th:field="*{planDeadline}"
                                     class="SocialRecruiteTagsContainer__SocialRecruiteTagsInput-sc-2762su-1 gcqwwh
                                     deadline" value=><button
                                         type="button"
@@ -50,14 +53,14 @@
                                     </button>
                                 </div>
                                 <div class="NumberOfPerson">
-                                    <input placeholder="모집 인원"
+                                    <input placeholder="모집 인원" th:field="*{planMaxPersonnel}"
                                     class="SocialRecruiteTagsContainer__SocialRecruiteTagsInput-sc-2762su-1 gcqwwh max"
-                                    value=> <input placeholder="최소 출발 인원"
+                                    value=> <input placeholder="최소 출발 인원" th:field="*{planMinPersonnel}"
                                     class="SocialRecruiteTagsContainer__SocialRecruiteTagsInput-sc-2762su-1 gcqwwh min"
                                     value=><input
-                                        placeholder="비용"
+                                        placeholder="비용" th:field="*{planPrice}"
                                         class="SocialRecruiteTagsContainer__SocialRecruiteTagsInput-sc-2762su-1 gcqwwh cost"
-                                        value=""
+                                        value=
                                     />
                                 </div>
                             </div>
@@ -69,16 +72,19 @@
                                 <div class="bmexYYinput">
                                     <input
                                         placeholder="포함 사항 (0/10)"
+                                        id="includeContent"
                                         class="SocialRecruiteTagsContainer__SocialRecruiteTagsInput-sc-2762su-1 gcqwwh include"
                                         value=""
                                     />
                                     <input
                                         placeholder="불포함 사항 (0/10)"
+                                        id="excludeContent"
                                         class="SocialRecruiteTagsContainer__SocialRecruiteTagsInput-sc-2762su-1 gcqwwh exclude"
                                         value=""
                                     />
                                     <input
                                         placeholder="준비물 (0/10)"
+                                        id="prepareContent"
                                         class="SocialRecruiteTagsContainer__SocialRecruiteTagsInput-sc-2762su-1 gcqwwh prepare"
                                         value=""
                                     />
@@ -92,39 +98,38 @@
                                 </section>
                             </div>
                         </div>
-
                         <div class="GatheringPlace">
                             <input
-                                placeholder="주소를 입력하세요"
+                                placeholder="주소를 입력하세요" th:field="*{planStartAddress}"
                                 class="SocialRecruiteTagsContainer__SocialRecruiteTagsInput-sc-2762su-1 gcqwwh gather"
                                 value=""
                             />
                         </div>
-
                         <div class="WriteRecruitePage__Divider-bnh5u-2 hgZork"></div>
                         <div class="Textarea__Wrapper-sc-1b9phu6-0 iFxPyq">
                             <textarea
                                 placeholder="이 모임의 매력 포인트, 이벤트, 기타 유의 사항, 전하고 싶은 마음 등을 적어보세요"
+                                th:field="*{planContent}"
                                 maxlength="1200"
                                 class="Textarea__StyledTextarea-sc-1b9phu6-1 kmqQeB"
                             ></textarea>
                             <p class="Textarea__Count-sc-1b9phu6-2 jvAusQ">0 / 1200 (추천 글자수: 30자 이내)</p>
                         </div>
                         <div class="WriteRecruitePage__Divider-bnh5u-2 hgZork"></div>
-
                         <div class="WriteRecruitePage__Divider-bnh5u-2 hgZork" style="margin-bottom: 20px"></div>
                         <div class="ImageUploadSection__Wrapper-sc-12o1z5n-0 kutLeL">
                             <div>
                                 <label class="InputImageReview__Wrapper-sc-1oapt4s-0 ipbuZD">
-                                    <input type="file" accept=".jpg, .jpeg, .png" />
+                                    <input type="file" accept=".jpg, .jpeg, .png" value="" th:feild="*{planFilePath}"/>
                                     <span> 사진 첨부하기</span>
                                 </label>
                                 <div class="ImageList-sc-9v1mt2-0 hGJMVS"></div>
                             </div>
                         </div>
                         <div class="Footer__ButtonWrapper-sc-1kxogbb-0 jULzvQ">
-                            <button width="290px" color="white" class="Button-bqxlp0-0 jwcODp">저장하기</button>
+                            <button type="button" width="290px" color="white" class="Button-bqxlp0-0 jwcODp saveButton">저장하기</button>
                         </div>
+                        </form>
                     </div>
                 </div>
 
@@ -144,7 +149,6 @@
         </div>
         <div id="dnd-root"></div>
     </body>
-
     <script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=dca5cc5ce3946cf9a7295748f1aa7d12&libraries=services"></script>
     <script src="/js/proposal/write.js"></script>
 </html>
