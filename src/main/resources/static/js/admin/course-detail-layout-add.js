@@ -11,35 +11,39 @@ function addCourseDetail(course) {
     // 봉사 코스일 경우
     if (course.courseIsVolunteer == `Y`) {
         // 시작일, 종료일, 모집 마감일 생성
-        document.querySelector(".DurationOfTourContainer hidden").innerHTML = `
-        <input type="date" placeholder="시작일"
-               className="SocialRecruiteTagsContainer__SocialRecruiteTagsInput-sc-2762su-1 gcqwwh startdate" value="${course.volunteerStartDate}"
-               style="/>
-        <span>~</span>
-        <input type="date" placeholder="종료일"
-               className="SocialRecruiteTagsContainer__SocialRecruiteTagsInput-sc-2762su-1 gcqwwh enddate" value="${course.volunteerEndDate}"
-               style="/>
-        <span>마감일</span>
-        <input type="date" placeholder="모집 마감일"
-               className="SocialRecruiteTagsContainer__SocialRecruiteTagsInput-sc-2762su-1 gcqwwh deadline" value="${course.volunteerDeadline}"
-               style="/>
-        <button type="button" className="CurrentProfile__MoreButton-sc-1u92qay-6 FvtMb">
-            <img
-                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='17' viewBox='0 0 4 17'%3E %3Cpath fill='%23999' fill-rule='evenodd' d='M1.57 14a1.5 1.5 0 110 3 1.5 1.5 0 010-3zm0-7a1.5 1.5 0 110 3 1.5 1.5 0 010-3zm0-7a1.5 1.5 0 110 3 1.5 1.5 0 010-3z'/%3E %3C/svg%3E"
-                alt="더보기"/>
-        </button>
+        document.querySelector(".DurationOfTourContainer").innerHTML = `
+            <input type="date" placeholder="시작일" class="SocialRecruiteTagsContainer__SocialRecruiteTagsInput-sc-2762su-1 gcqwwh startdate"/> 
+            <span>~</span >
+            <input type="date" placeholder="종료일" class="SocialRecruiteTagsContainer__SocialRecruiteTagsInput-sc-2762su-1 gcqwwh enddate"/>
+            <span >마감일</span >
+            <input type="date" placeholder="모집 마감일" class="SocialRecruiteTagsContainer__SocialRecruiteTagsInput-sc-2762su-1 gcqwwh deadline"/>
+<!--            <button type="button" class="CurrentProfile__MoreButton-sc-1u92qay-6 FvtMb" >-->
+<!--                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='17' viewBox='0 0 4 17'%3E %3Cpath fill='%23999' fill-rule='evenodd' d='M1.57 14a1.5 1.5 0 110 3 1.5 1.5 0 010-3zm0-7a1.5 1.5 0 110 3 1.5 1.5 0 010-3zm0-7a1.5 1.5 0 110 3 1.5 1.5 0 010-3z'/%3E %3C/svg%3E" alt="더보기"/>-->
+<!--            </button>-->
         `;
 
-        // 포함, 불포함, 준비물 생성
+        const formatStartDate = course.volunteerStartDate.split(" ")[0];
+        const formatEndDate = course.volunteerEndDate.split(" ")[0];
+        const formatDeadlinDate = course.volunteerDeadline.split(" ")[0];
+        document.querySelector(".gcqwwh.startdate").value = formatStartDate;
+        document.querySelector(".gcqwwh.enddate").value = formatEndDate;
+        document.querySelector(".gcqwwh.deadline").value = formatDeadlinDate;
+
+        // 포함, 불포함, 준비물 입력창 생성
         document.querySelector(".bmexYYinput").innerHTML = `
             <input placeholder="포함 사항 (0/10)"
-                   className="SocialRecruiteTagsContainer__SocialRecruiteTagsInput-sc-2762su-1 gcqwwh include"/>
+                   class="SocialRecruiteTagsContainer__SocialRecruiteTagsInput-sc-2762su-1 gcqwwh include"/>
             <input placeholder="불포함 사항 (0/10)"
-                   className="SocialRecruiteTagsContainer__SocialRecruiteTagsInput-sc-2762su-1 gcqwwh exclude"/>
+                   class="SocialRecruiteTagsContainer__SocialRecruiteTagsInput-sc-2762su-1 gcqwwh exclude"/>
             <input placeholder="준비물 (0/10)"
-                   className="SocialRecruiteTagsContainer__SocialRecruiteTagsInput-sc-2762su-1 gcqwwh prepare"/>
+                   class="SocialRecruiteTagsContainer__SocialRecruiteTagsInput-sc-2762su-1 gcqwwh prepare"/>
         `;
 
+        // 안내문 생성
+        const newParagraph = document.createElement('p');
+        newParagraph.className = 'Textarea__Count-sc-1b9phu6-2 jvAusQ';
+        newParagraph.textContent = '입력 후 엔터를 누르면 태그가 생성되요';
+        document.querySelector(".bmexYYinput").insertAdjacentElement('afterend', newParagraph);
 
         // 포함 사항 생성
         if (course.includeContents.length > 0) {
@@ -52,17 +56,25 @@ function addCourseDetail(course) {
                                       <div class="Stuff__StuffContainer-sc-8zlrc8-0 iXEvmI"></div>`;
 
             parentDiv = bDBbNifirst.querySelector(".iXEvmI");
-            course.prepaContents.forEach(e => {
+            course.includeContents.forEach(e => {
                 const firstchildDiv = document.createElement("div");
                 firstchildDiv.className = "Tag__RoundTag-sxb61j-1 jXxsiv";
-                firstchildDiv.innerHTML = `<span>${e.includeContent}</span>
+                firstchildDiv.innerHTML = `<span>${e}</span>
                      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'%3E %3Cg fill='none' fill-rule='nonzero' stroke='%23999' stroke-linecap='square'%3E %3Cpath d='M11.828 6.172l-5.656 5.656M11.828 11.828L6.172 6.172'/%3E %3C/g%3E %3C/svg%3E" alt="delete tags item">`;
                 parentDiv.appendChild(firstchildDiv);
             });
 
-            const gcqwwhinclude = document.querySelector(".gcqwwh.include");
-            gcqwwhinclude.value = "";
-            gcqwwhinclude.placeholder = `포함 사항 (${course.includeContents.length}/10)`;
+            // 동적 생성 완료시까지 대기 후 실행
+            const observer = new MutationObserver((mutationsList, observer) => {
+                const includeElement = document.querySelector(".gcqwwh.include");
+                if (includeElement) {
+                    includeElement.placeholder = `포함 사항 (${course.includeContents.length}/10)`;
+                    observer.disconnect(); // 감지가 끝나면 연결 해제
+                }
+            });
+
+            // 감시할 부모 요소 지정 (예: body)
+            observer.observe(document.body, { childList: true, subtree: true });
         }
 
         // 불포함 사항 생성
@@ -79,57 +91,67 @@ function addCourseDetail(course) {
             course.excludeContents.forEach(e => {
                 const secondchildDiv = document.createElement("div");
                 secondchildDiv.className = "Tag__RoundTag-sxb61j-1 jXxsiv";
-                secondchildDiv.innerHTML = `<span>${e.excludeContent}</span>
+                secondchildDiv.innerHTML = `<span>${e}</span>
                  <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'%3E %3Cg fill='none' fill-rule='nonzero' stroke='%23999' stroke-linecap='square'%3E %3Cpath d='M11.828 6.172l-5.656 5.656M11.828 11.828L6.172 6.172'/%3E %3C/g%3E %3C/svg%3E" alt="delete tags item">`;
                 parentDiv.appendChild(secondchildDiv);
             });
 
-            const gcqwwhinclude = document.querySelector(".gcqwwh.exclude");
-            gcqwwhinclude.value = "";
-            gcqwwhinclude.placeholder = `포함 사항 (${course.excludeContents.length}/10)`;
+            // 동적 생성 완료시까지 대기 후 실행
+            const observer = new MutationObserver((mutationsList, observer) => {
+                const excludeElement = document.querySelector(".gcqwwh.exclude");
+                if (excludeElement) {
+                    excludeElement.placeholder = `불포함 사항 (${course.excludeContents.length}/10)`;
+                    observer.disconnect(); // 감지가 끝나면 연결 해제
+                }
+            });
+
+            // 감시할 부모 요소 지정 (예: body)
+            observer.observe(document.body, { childList: true, subtree: true });
         }
 
         // 준비물 생성
-        if (course.prepaContents.length > 0) {
+        if (course.prepareContents.length > 0) {
             const bDBbNithird = document.querySelector(".bDBbNithird");
             bDBbNithird.innerHTML = `<header class="Article__Header-sc-1mmkltm-0 gScFGo">
                                     <hgroup>
-                                        <h2 class="Article__Title-sc-1mmkltm-1 bZNoYF">불포함 사항</h2>
+                                        <h2 class="Article__Title-sc-1mmkltm-1 bZNoYF">준비물</h2>
                                     </hgroup>
                                   </header>
                                   <div class="Stuff__StuffContainer-sc-8zlrc8-0 iXEvmI"></div>`;
 
             parentDiv = bDBbNithird.querySelector(".iXEvmI");
-            course.prepaContents.forEach(e => {
+            course.prepareContents.forEach(e => {
                 const thirdchildDiv = document.createElement("div");
                 thirdchildDiv.className = "Tag__RoundTag-sxb61j-1 jXxsiv";
-                thirdchildDiv.innerHTML = `<span>${e.prepaContent}</span>
+                thirdchildDiv.innerHTML = `<span>${e}</span>
                  <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'%3E %3Cg fill='none' fill-rule='nonzero' stroke='%23999' stroke-linecap='square'%3E %3Cpath d='M11.828 6.172l-5.656 5.656M11.828 11.828L6.172 6.172'/%3E %3C/g%3E %3C/svg%3E" alt="delete tags item">`;
                 parentDiv.appendChild(thirdchildDiv);
             });
 
-            const gcqwwhinclude = document.querySelector(".gcqwwh.prepare");
-            gcqwwhinclude.value = "";
-            gcqwwhinclude.placeholder = `포함 사항 (${course.prepareContents.length}/10)`;
+            // 동적 생성 완료시까지 대기 후 실행
+            const observer = new MutationObserver((mutationsList, observer) => {
+                const prepareElement = document.querySelector(".gcqwwh.prepare");
+                if (prepareElement) {
+                    prepareElement.placeholder = `불포함 사항 (${course.prepareContents.length}/10)`;
+                    observer.disconnect(); // 감지가 끝나면 연결 해제
+                }
+            });
+
+            // 감시할 부모 요소 지정 (예: body)
+            observer.observe(document.body, { childList: true, subtree: true });
         }
 
     }
 
     // 기타 정보 생성
     document.querySelector(".NumberOfPerson").innerHTML = `
-        <input placeholder="총 거리" className="SocialRecruiteTagsContainer__SocialRecruiteTagsInput-sc-2762su-1 gcqwwh max" 
+        <input placeholder="총 거리" class="SocialRecruiteTagsContainer__SocialRecruiteTagsInput-sc-2762su-1 gcqwwh max" 
                value="${course.courseDistance}"/>
-        <input placeholder="일정" className="SocialRecruiteTagsContainer__SocialRecruiteTagsInput-sc-2762su-1 gcqwwh min"
+        <input placeholder="일정" class="SocialRecruiteTagsContainer__SocialRecruiteTagsInput-sc-2762su-1 gcqwwh min"
                value="${course.courseSchedule}"/>
-        <input placeholder="테마" className="SocialRecruiteTagsContainer__SocialRecruiteTagsInput-sc-2762su-1 gcqwwh cost"
-               value="${course.courseTheme}" style="background-color: rgba( 211, 211, 211, 0.5 );"/>
+        <input placeholder="테마" class="SocialRecruiteTagsContainer__SocialRecruiteTagsInput-sc-2762su-1 gcqwwh cost"
+               value="${course.courseTheme}"/>
     `;
-
-
-
-
-
-
 
     // 경로 정보 생성
     if (course.paths.length > 0) {
@@ -168,8 +190,8 @@ function addCourseDetail(course) {
 
     // 내용 생성
     document.querySelector(".StorySummaryField_container__MWQ0N").innerHTML = `
-        <textarea maxLength="1000" placeholder="내용 입력" className="Textarea_textarea__MWJjO" 
-            value="${course.courseContent}"> </textarea>
+        <textarea maxLength="1000" placeholder="내용 입력" class="Textarea_textarea__MWJjO">${course.courseContent} </textarea>
+        <p class="StorySummaryField_text__ZTEzY" > ${course.courseContent.length}/1000 </p>
     `;
 
 };

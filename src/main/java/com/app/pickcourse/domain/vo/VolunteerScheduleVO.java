@@ -10,7 +10,6 @@ import lombok.*;
 public class VolunteerScheduleVO {
     @EqualsAndHashCode.Include
     private Long id;
-    private int scheduleDay;
     private String scheduleContent;
     private Long volunteerId;
 }

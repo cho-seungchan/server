@@ -50,7 +50,6 @@ function createCourseDetail() {
                                             <div class="bmexYYinput" >
 <!--                                           봉사코스 일 경우 포함 불포함 준비물 생성-->
                                             </div>
-                                            <p class="Textarea__Count-sc-1b9phu6-2 jvAusQ" > 입력 후 엔터를 누르면 태그가 생성되요 </p>
                                             <section class="ProductDetailPage__SectionContainer-sc-126q1k2-4 bDBbNi" >
                                                 <article class="bDBbNifirst" ></article>
 <!--                                                포함 사항 생성-->
@@ -103,7 +102,6 @@ function createCourseDetail() {
                                 <div class="Section_content__Mzc4M" >
                                     <div class="StorySummaryField_container__MWQ0N" >
 <!--                                    내용 생성 -->
-                                        <p class="StorySummaryField_text__ZTEzY" > 0/1000 </p>
                                     </div>
                                 </div>
                             </div>
