@@ -2,6 +2,7 @@ package com.app.pickcourse.mapper;
 
 import com.app.pickcourse.domain.dto.PlanDTO;
 import com.app.pickcourse.domain.vo.PlanVO;
+import com.app.pickcourse.util.Pagination;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -22,4 +23,7 @@ public interface PlanMapper {
 
 //    삭제
     public void deleteById(Long Id);
+
+//    MEMBER ID로 조회
+    public List<PlanDTO> selectByMemberId(Pagination pagination, Long memberId);
 }

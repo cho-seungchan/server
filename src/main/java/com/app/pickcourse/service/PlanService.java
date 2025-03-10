@@ -3,14 +3,17 @@ package com.app.pickcourse.service;
 import com.app.pickcourse.domain.dto.PlanDTO;
 import com.app.pickcourse.domain.vo.PlanVO;
 import com.app.pickcourse.repository.*;
+import com.app.pickcourse.util.Pagination;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
-//@Transactional(rollbackFor = Exception.class)
+@Transactional(rollbackFor = Exception.class)
 @Slf4j
 public class PlanService {
     private final PlanDAO planDAO;
@@ -45,5 +48,10 @@ public class PlanService {
         log.info("check2 {}", planDTO.getPlanContent());
 
     }
+//    나의 여행 계획 목록
+
+    public List<PlanDTO> findMyPlan(Pagination pagination, Long memberId) {
+        return planDAO.findByMemberId(pagination, memberId);
+    };
 
 }

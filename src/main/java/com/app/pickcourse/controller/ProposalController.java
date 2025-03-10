@@ -79,7 +79,7 @@ public class ProposalController {
         planDTO.setCourseId(1L);
         planService.writePlan(planDTO);
 
-        return "/proposal/modifylist";
+        return "redirect:/proposal/modifylist";
     }
 
 }

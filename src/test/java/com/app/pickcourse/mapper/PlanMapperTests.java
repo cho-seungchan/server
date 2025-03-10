@@ -85,4 +85,15 @@ public class PlanMapperTests {
     public void testDelete() {
         planMapper.deleteById(3L);
     }
+
+    @Test
+    public void testSelectByMemberId() {
+        PlanDTO planDTO = new PlanDTO();
+        MemberVO memberVO = new MemberVO();
+
+        memberVO.setId(1L);
+
+        planDTO.setMemberId(memberVO.getId());
+
+    }
 }

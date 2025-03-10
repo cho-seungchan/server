@@ -4,6 +4,7 @@ import com.app.pickcourse.domain.dto.PlanDTO;
 import com.app.pickcourse.domain.vo.PlanVO;
 import com.app.pickcourse.mapper.PlanMapper;
 import com.app.pickcourse.mapper.ScheduleMapper;
+import com.app.pickcourse.util.Pagination;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -14,7 +15,6 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class PlanDAO {
     private final PlanMapper planMapper;
-    private final ScheduleMapper scheduleMapper;
 //  추가
     public void save(PlanVO planVO) {
         planMapper.insert(planVO);
@@ -35,4 +35,9 @@ public class PlanDAO {
     public void delete(Long id) {
         planMapper.deleteById(id);
     }
+
+//    MEMBER ID로 조회
+    public List<PlanDTO> findByMemberId(Pagination pagination, Long memberId) {
+        return planMapper.selectByMemberId(pagination, memberId);
+    };
 }

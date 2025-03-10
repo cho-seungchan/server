@@ -98,6 +98,7 @@ kebabmenu.addEventListener("click", () => {
             <textarea data-index=${i} placeholder="상세 일정을 적어보세요 (아래 사진첨부로 대체 가능)"
             maxlength="1200"  class="Textarea__StyledTextarea-sc-1b9phu6-1 kmqQeBdetail detaleContent"></textarea>
             <p class="Textarea__Count-sc-1b9phu6-2 jvAusQdetail">0 / 1200</p>`;
+
     }
 
     numberOfPerson.parentNode.insertBefore(detailOfDateContainer, numberOfPerson);
@@ -107,12 +108,12 @@ kebabmenu.addEventListener("click", () => {
     document.querySelector(".DetailOfDateContainer").addEventListener("input", (e) => {
         if (e.target.classList.contains("kmqQeBdetail")) {
             e.target.nextElementSibling.textContent = `${e.target.value.length} / 1200 (추천 글자수: 30자 이내)`;
-            schedules.push(e.target.value);
-            console.log(schedules);
+            scheduleText = e.target.value;
         }
     });
-    // textarea에 글자 입력시 입력된 글자 수 보여주기
 });
+
+
 // 케밥버튼을 눌러서  시작일 부터 종료일까지 상세 일정 입력
 
 // 포함 사항 불포함 사항 준비물 입력시 태그 생성
@@ -405,17 +406,14 @@ button.addEventListener("click", () => {
 
 
     texts = collectTexts(tagClassName);
-    console.log(texts.length);
 
     tagClassName = `.Tag__RoundTag-sxb61j-1.eMLPLA`;
 
     texts = collectTexts(tagClassName);
-    console.log(texts.length);
 
     tagClassName = `.Tag__RoundTag-sxb61j-1.eISlhn`;
 
     texts = collectTexts(tagClassName);
-    console.log(texts.length);
 
     let max = parseInt(document.querySelector(".gcqwwh.max").value, 10);
     let min = parseInt(document.querySelector(".gcqwwh.min").value, 10);
@@ -447,6 +445,15 @@ button.addEventListener("click", () => {
         input.value = prepare;
         document['write-form'].appendChild(input);
     })
+    const textareas = document.querySelectorAll("textarea[data-index]")
+
+    textareas.forEach((textarea) => {
+        const index = textarea.getAttribute('data-index'); // data-index 값
+        const value = textarea.value; // 입력된 텍스트
+        schedules.push(value);
+        console.log(schedules);
+    })
+
     schedules.forEach((schedule, i) => {
         const input = document.createElement("input");
         input.type = "text";
@@ -454,6 +461,7 @@ button.addEventListener("click", () => {
         input.value = schedule;
         document['write-form'].appendChild(input);
     })
+
     document['write-form'].submit();
 });
 
