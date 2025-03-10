@@ -49,6 +49,11 @@ public class MemberDAO {
         return memberMapper.selectByMemberEmail(memberEmail);
     }
 
+    // 이메일로 아이디 조회
+    public Optional<Long> findIdByEmail(String email) {
+        return memberMapper.selectIdByEmail(email);
+    }
+
 //    로그인
     public Optional<MemberVO> findByMemberEmailAndPassword(MemberVO memberVO){
         return memberMapper.selectByMemberEmailAndMemberPassword(memberVO);

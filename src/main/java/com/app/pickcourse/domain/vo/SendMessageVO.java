@@ -19,4 +19,5 @@ public class SendMessageVO {
 
     private String messageDate;
     private String sendDate;
+
 }

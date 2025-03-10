@@ -68,8 +68,8 @@ public class MemberMapperTests {
     @Test
     public void testSelectByMemberEmailAndMemberPassword(){
         MemberVO memberVO = new MemberVO();
-        memberVO.setMemberEmail("test@test.com");
-        memberVO.setMemberPassword("1234");
+        memberVO.setMemberEmail("qwe@123.com");
+        memberVO.setMemberPassword("qwe12341234");
         MemberVO foundMember = mapper.selectByMemberEmailAndMemberPassword(memberVO).orElse(null);
         log.info(foundMember.toString());
     }

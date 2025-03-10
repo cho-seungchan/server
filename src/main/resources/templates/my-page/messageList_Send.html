@@ -64,294 +64,40 @@
                                     </div>
                                 </header>
                             </div>
-                            <!-- 페이지가 바뀌면 변경될 div -->
-                            <div class="listContainer">
-                                <div class="listWrap showDiv" id="div1">
-                                    <ul class="NoticePage__NoticeListWrapper">
-                                        <div class="mainUserListDiv">
-                                            <div class="postDiv">받은사람</div>
-                                            <div class="contentDiv">내용</div>
-                                            <div class="HeadernameDiv">
-                                                보낸날짜
-                                            </div>
-                                        </div>
-                                        <li>
-                                            <div class="userListDiv">
-                                                <div class="postList">
-                                                    <a href="">
-                                                        <span> 정도영 </span>
-                                                    </a>
-                                                </div>
-                                                <div class="contentHidden">
-                                                    <span
-                                                        style="cursor: pointer"
-                                                        class="hiddenText"
-                                                        >불멍하는 발바닥 따수와
-                                                        보이네요ㅋㅋㅋ 저도 꼭
-                                                        테스트해봐서 ...이
-                                                        찍혔으면 좋겠어요
-                                                    </span>
-                                                </div>
 
-                                                <div class="comentMessage">
-                                                    <span> 2025.01.22 </span>
-                                                </div>
-                                            </div>
-                                            <div
-                                                font-size="14px"
-                                                class="NoticeEntity__Content-sc-1x9h6uc-5 kOSXdV showList"
-                                                style="display: none"
-                                            >
-                                                <span></span>
-                                                <button
-                                                    class="answeraButton appearButton"
-                                                >
-                                                    답장
-                                                </button>
-                                                <button
-                                                    class="deleteButton appearButton"
-                                                >
-                                                    삭제
-                                                </button>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <!-- 읽었을때 readMessage클래스 추가 -->
-                                            <div
-                                                class="userListDiv readMessage"
-                                            >
+                        <!-- 여기에 넣기 -->
+                            <div class="listContainer">
+                                <div class="listWrap showDiv">
+                                    <ul class="NoticePage__NoticeListWrapper">
+                                        <div class="mainUserListDiv">
+                                            <div class="postDiv">받는 사람</div>
+                                            <div class="contentDiv">내용</div>
+                                            <div class="HeadernameDiv">보낸 날짜</div>
+                                        </div>
+                                        <li th:each="message : ${sentMessages}">
+                                            <div class="userListDiv">
                                                 <div class="postList">
                                                     <a href="">
-                                                        <span> 조승찬 </span>
+                                                        <span th:text="${message.receiverNickname}">받는 사람</span>
                                                     </a>
                                                 </div>
                                                 <div class="contentHidden">
-                                                    <span
-                                                        style="cursor: pointer"
-                                                        class="hiddenText readMessage"
-                                                        >오늘 한명이 가버렸는데
-                                                        아쉽네요 :(
-                                                    </span>
+                                                    <span style="cursor: pointer" class="hiddenText" th:text="${message.content}">내용</span>
                                                 </div>
                                                 <div class="comentMessage">
-                                                    <span> 2025.02.13 </span>
+                                                    <span th:text="${message.sendDate}"></span>
                                                 </div>
                                             </div>
-                                            <div
-                                                font-size="14px"
-                                                class="NoticeEntity__Content-sc-1x9h6uc-5 kOSXdV showList"
-                                                style="display: none"
-                                            >
+                                            <div class="NoticeEntity__Content-sc-1x9h6uc-5 kOSXdV showList" style="display: none">
                                                 <span></span>
-                                                <button
-                                                    class="answeraButton appearButton"
-                                                >
-                                                    답장
-                                                </button>
-                                                <button
-                                                    class="deleteButton appearButton"
-                                                >
-                                                    삭제
-                                                </button>
+                                                <button class="answeraButton appearButton">답장</button>
+                                                <button class="deleteButton appearButton">삭제</button>
                                             </div>
                                         </li>
                                     </ul>
                                 </div>
                             </div>
-                            <div class="listContainer">
-                                <div
-                                    id="div2"
-                                    class="listWrap hiddenDiv"
-                                    style="display: none"
-                                >
-                                    <ul class="NoticePage__NoticeListWrapper">
-                                        <div class="mainUserListDiv">
-                                            <div class="postDiv">받은사람</div>
-                                            <div class="contentDiv">내용</div>
-                                            <div class="HeadernameDiv">
-                                                보낸날짜
-                                            </div>
-                                        </div>
-                                        <li>
-                                            <div class="userListDiv">
-                                                <div class="postList">
-                                                    <a href="">
-                                                        <span>
-                                                            정도영 바낌1
-                                                        </span>
-                                                    </a>
-                                                </div>
-                                                <div class="contentHidden">
-                                                    <span
-                                                        style="cursor: pointer"
-                                                        class="hiddenText"
-                                                        >불멍하는 발바닥 따수와
-                                                        보이네요ㅋㅋㅋ 저도 꼭
-                                                        테스트해봐서 ...이
-                                                        찍혔으면 좋겠어요
-                                                    </span>
-                                                </div>
-                                                <div class="comentMessage">
-                                                    <span> 2025.01.22 </span>
-                                                </div>
-                                            </div>
-                                            <div
-                                                font-size="14px"
-                                                class="NoticeEntity__Content-sc-1x9h6uc-5 kOSXdV showList"
-                                                style="display: none"
-                                            >
-                                                <span></span>
-                                                <button
-                                                    class="answeraButton appearButton"
-                                                >
-                                                    답장
-                                                </button>
-                                                <button
-                                                    class="deleteButton appearButton"
-                                                >
-                                                    삭제
-                                                </button>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div
-                                                class="userListDiv readMessage"
-                                            >
-                                                <div class="postList">
-                                                    <a href="">
-                                                        <span> 조승찬 </span>
-                                                    </a>
-                                                </div>
-                                                <div class="contentHidden">
-                                                    <span
-                                                        style="cursor: pointer"
-                                                        class="hiddenText readMessage"
-                                                        >오늘 한명이 가버렸는데
-                                                        아쉽네요 :(
-                                                    </span>
-                                                </div>
-                                                <div class="comentMessage">
-                                                    <span> 2025.02.13 </span>
-                                                </div>
-                                            </div>
-                                            <div
-                                                font-size="14px"
-                                                class="NoticeEntity__Content-sc-1x9h6uc-5 kOSXdV showList"
-                                                style="display: none"
-                                            >
-                                                <span></span>
-                                                <button
-                                                    class="answeraButton appearButton"
-                                                >
-                                                    답장
-                                                </button>
-                                                <button
-                                                    class="deleteButton appearButton"
-                                                >
-                                                    삭제
-                                                </button>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="listContainer">
-                                <div
-                                    id="div3"
-                                    class="listWrap hiddenDiv"
-                                    style="display: none"
-                                >
-                                    <ul class="NoticePage__NoticeListWrapper">
-                                        <div class="mainUserListDiv">
-                                            <div class="postDiv">받은사람</div>
-                                            <div class="contentDiv">내용</div>
-                                            <div class="HeadernameDiv">
-                                                보낸날짜
-                                            </div>
-                                        </div>
-                                        <li>
-                                            <div class="userListDiv">
-                                                <div class="postList">
-                                                    <a href="">
-                                                        <span>
-                                                            정도영 바낌2
-                                                        </span>
-                                                    </a>
-                                                </div>
-                                                <div class="contentHidden">
-                                                    <span
-                                                        style="cursor: pointer"
-                                                        class="hiddenText"
-                                                        >불멍하는 발바닥 따수와
-                                                        보이네요ㅋㅋㅋ 저도 꼭
-                                                        테스트해봐서 ...이
-                                                        찍혔으면 좋겠어요
-                                                    </span>
-                                                </div>
 
-                                                <div class="comentMessage">
-                                                    <span> 2025.01.22 </span>
-                                                </div>
-                                            </div>
-                                            <div
-                                                font-size="14px"
-                                                class="NoticeEntity__Content-sc-1x9h6uc-5 kOSXdV showList"
-                                                style="display: none"
-                                            >
-                                                <span></span>
-                                                <button
-                                                    class="answeraButton appearButton"
-                                                >
-                                                    답장
-                                                </button>
-                                                <button
-                                                    class="deleteButton appearButton"
-                                                >
-                                                    삭제
-                                                </button>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div
-                                                class="userListDiv readMessage"
-                                            >
-                                                <div class="postList">
-                                                    <a href="">
-                                                        <span> 조승찬 </span>
-                                                    </a>
-                                                </div>
-                                                <div class="contentHidden">
-                                                    <span
-                                                        style="cursor: pointer"
-                                                        class="hiddenText readMessage"
-                                                        >나와라요
-                                                    </span>
-                                                </div>
-                                                <div class="comentMessage">
-                                                    <span> 2025.02.13 </span>
-                                                </div>
-                                            </div>
-                                            <div
-                                                font-size="14px"
-                                                class="NoticeEntity__Content-sc-1x9h6uc-5 kOSXdV showList"
-                                                style="display: none"
-                                            >
-                                                <span></span>
-                                                <button
-                                                    class="answeraButton appearButton"
-                                                >
-                                                    답장
-                                                </button>
-                                                <button
-                                                    class="deleteButton appearButton"
-                                                >
-                                                    삭제
-                                                </button>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
                             <footer
                                 class="Wrapper__PaginationWrapper-fk4uv4-0 hBVRcD"
                             >
