@@ -99,95 +99,46 @@
                             </div>
 
                             <footer
-                                class="Wrapper__PaginationWrapper-fk4uv4-0 hBVRcD"
+                                    class="Wrapper__PaginationWrapper-fk4uv4-0 hBVRcD"
                             >
-                                <div
-                                    class="PaginationButtonGroup__PrevButtonWrapper-x0iffd-0 gIsDDT"
-                                >
-                                    <button
-                                        width="40px"
-                                        height="40px"
-                                        font-size="18px"
-                                        disabled=""
-                                        class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 iItkLq"
-                                    >
-                                        <img
-                                            src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath fill='%23FFF' fill-opacity='0' fill-rule='nonzero' d='M0 0h40v40H0z'/%3E %3Cpath stroke='%23DDD' stroke-width='1.5' d='M16 16l4 4-4 4M21 16l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E"
-                                            class="PaginationButtonGroup__Icon-x0iffd-2 jVxRns"
-                                        /></button
-                                    ><button
-                                        width="40px"
-                                        height="40px"
-                                        font-size="18px"
-                                        disabled=""
-                                        class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 iItkLq"
-                                    >
-                                        <img
-                                            src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath fill='none' d='M0 0h40v40H0z'/%3E %3Cpath stroke='%23DDD' stroke-width='1.5' d='M18 16l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E"
-                                            class="PaginationButtonGroup__Icon-x0iffd-2 jVxRns"
-                                        />
+                                <div class="PaginationButtonGroup__PrevButtonWrapper-x0iffd-0 gIsDDT">
+                                    <!-- '<<' 맨 처음 페이지로 이동 -->
+                                    <button th:if="${pagination.page > 1}"
+                                            th:onclick="|location.href='@{/my-page/messageList_Send(page=1)}'|"
+                                            class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 iItkLq">
+                                        &laquo;
+                                    </button>
+
+                                    <!-- '<' 이전 페이지 -->
+                                    <button th:if="${pagination.prev}"
+                                            th:onclick="|location.href='@{/my-page/messageList_Send(page=${pagination.page - 1})}'|"
+                                            class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 iItkLq">
+                                        &lt;
                                     </button>
                                 </div>
-                                <button
-                                    data-target="div1"
-                                    ;
-                                    width="40px"
-                                    height="40px"
-                                    color="#3397ff"
-                                    font-size="18px"
-                                    font-weight="bold"
-                                    class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 emphasis buttonAll thisButton"
-                                >
-                                    1
-                                </button>
-                                <!-- 게시글이 화면에 나오게 하는 게시글보다 많아지면 추가할 button태그-->
-                                <button
-                                    data-target="div2"
-                                    ;
-                                    width="40px"
-                                    height="40px"
-                                    color="black"
-                                    font-size="18px"
-                                    font-weight="normal"
-                                    class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 emphasis buttonAll anotherButton"
-                                >
-                                    2
-                                </button>
-                                <button
-                                    data-target="div3"
-                                    ;
-                                    width="40px"
-                                    height="40px"
-                                    color="black"
-                                    font-size="18px"
-                                    font-weight="normal"
-                                    class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 emphasis buttonAll anotherButton"
-                                >
-                                    3
-                                </button>
-                                <div
-                                    class="PaginationButtonGroup__NextButtonWrapper-x0iffd-1 eNIHag"
-                                >
-                                    <button
-                                        width="40px"
-                                        height="40px"
-                                        font-size="18px"
-                                        class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 garfld"
-                                    >
-                                        <img
-                                            src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath d='M18 0H0v18h18z'/%3E %3Cpath stroke='%23000' stroke-width='1.5' d='M7 5l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E"
-                                            class="PaginationButtonGroup__Icon-x0iffd-2 dQqQMu"
-                                        /></button
-                                    ><button
-                                        width="40px"
-                                        height="40px"
-                                        font-size="18px"
-                                        class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 garfld"
-                                    >
-                                        <img
-                                            src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Crect width='40' height='40' fill='%23FFF' fill-opacity='0' fill-rule='nonzero' rx='20'/%3E %3Cg stroke='%23000' stroke-width='1.5'%3E %3Cpath d='M16 16l4 4-4 4M21 16l4 4-4 4'/%3E %3C/g%3E %3C/g%3E %3C/svg%3E"
-                                            class="PaginationButtonGroup__Icon-x0iffd-2 dQqQMu"
-                                        />
+
+                                <!-- 페이지 번호 버튼 -->
+                                <th:block th:each="num : ${#numbers.sequence(pagination.startPage, pagination.endPage)}">
+                                    <button th:text="${num}"
+                                            th:onclick="|location.href='@{/my-page/messageList_Send(page=${num})}'|"
+                                            th:classappend="${pagination.page == num} ? 'emphasis' : ''"
+                                            class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0">
+                                    </button>
+                                </th:block>
+
+                                <div class="PaginationButtonGroup__NextButtonWrapper-x0iffd-1 eNIHag">
+                                    <!-- '>' 다음 페이지 -->
+                                    <button th:if="${pagination.next}"
+                                            th:onclick="|location.href='@{/my-page/messageList_Send(page=${pagination.page + 1})}'|"
+                                            class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 iItkLq">
+                                        &gt;
+                                    </button>
+
+                                    <!-- '>>' 마지막 페이지로 이동 -->
+                                    <button th:if="${pagination.page < pagination.realEnd}"
+                                            th:onclick="|location.href='@{/my-page/messageList_Send(page=${pagination.realEnd})}'|"
+                                            class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 iItkLq">
+                                        &raquo;
                                     </button>
                                 </div>
                             </footer>
