@@ -1,6 +1,9 @@
+// 2025.02.24 조승찬
 package com.app.pickcourse.controller;
 
 
+import com.app.pickcourse.domain.dto.CourseDTO;
+import com.app.pickcourse.domain.dto.CourseListDTO;
 import com.app.pickcourse.domain.vo.AdminVO;
 import com.app.pickcourse.domain.vo.MemberVO;
 import com.app.pickcourse.exception.DuplicateException;
@@ -9,16 +12,17 @@ import com.app.pickcourse.util.Pagination;
 import com.app.pickcourse.util.Search;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.servlet.view.RedirectView;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/admin")
@@ -47,10 +51,10 @@ public class AdminController {
     // 회원 정지
     @PostMapping("/member-list-pause")
     public String patchMemberListpause(@RequestParam("selectedIds") String selectedIds,
-                                       @RequestParam("page") String page,
-                                       @RequestParam("type") String type,
-                                       @RequestParam("keyWord") String keyWord,
-                                       @RequestParam("isAct") String isAct,
+                                       @RequestParam(value = "page", required = false) String page,
+                                       @RequestParam(value = "type", required = false) String type,
+                                       @RequestParam(value = "keyWord", required = false) String keyWord,
+                                       @RequestParam(value = "isAct", required = false) String isAct,
                                        RedirectAttributes redirectAttributes) {
         adminService.patchMemberListPause(selectedIds);
         return "redirect:/admin/member-list?page=" +page+"&type="+type+"&keyWord="+keyWord+"&isAct="+isAct;
@@ -59,10 +63,10 @@ public class AdminController {
     // 회원 정지 해제
     @PostMapping("/member-list-restart")
     public String patchMemberListRestart(@RequestParam("selectedIds") String selectedIds,
-                                               @RequestParam("page") String page,
-                                               @RequestParam("type") String type,
-                                               @RequestParam("keyWord") String keyWord,
-                                               @RequestParam("isAct") String isAct,
+                                               @RequestParam(value = "page", required = false) String page,
+                                               @RequestParam(value = "type", required = false) String type,
+                                               @RequestParam(value = "keyWord", required = false) String keyWord,
+                                               @RequestParam(value = "isAct", required = false) String isAct,
                                                RedirectAttributes redirectAttributes) {
         adminService.patchMemberListRestart(selectedIds);
         return "redirect:/admin/member-list?page=" +page+"&type="+type+"&keyWord="+keyWord+"&isAct="+isAct;
@@ -71,10 +75,10 @@ public class AdminController {
     // 회원 추방
     @PostMapping("/member-list-delete")
     public String deleteMemberList(@RequestParam("selectedIds") String selectedIds,
-                                   @RequestParam("page") String page,
-                                   @RequestParam("type") String type,
-                                   @RequestParam("keyWord") String keyWord,
-                                   @RequestParam("isAct") String isAct,
+                                   @RequestParam(value = "page", required = false) String page,
+                                   @RequestParam(value = "type", required = false) String type,
+                                   @RequestParam(value = "keyWord", required = false) String keyWord,
+                                   @RequestParam(value = "isAct", required = false) String isAct,
                                    RedirectAttributes redirectAttributes) {
         adminService.deleteMemberList(selectedIds);
         return "redirect:/admin/member-list?page=" +page+"&type="+type+"&keyWord="+keyWord+"&isAct="+isAct;
@@ -103,30 +107,53 @@ public class AdminController {
     // 관리자 관리 화면 :: 삭제
     @PostMapping("/manage-admin-list-delete")
     public String deleteManageAdminList(@RequestParam("selectedIds") String selectedIds,
-                                        @RequestParam("page") String page,
-                                        @RequestParam("type") String type,
-                                        @RequestParam("keyWord") String keyWord,
+                                        @RequestParam(value = "page", required = false) String page,
+                                        @RequestParam(value = "type", required = false) String type,
+                                        @RequestParam(value = "keyWord", required = false) String keyWord,
                                         RedirectAttributes redirectAttributes) {
         adminService.deleteManageAdminList(selectedIds);
         return "redirect:/admin/manage-admin-list?page=" + page + "&type=" + type + "&keyWord=" + keyWord;
     }
 
-    // 코스 등록 화면
+    // 코스 작성 화면
+    // <a href="/admin/add-course.html" > html에서 직접 이동시키려면
+    // src/main/resources/static/admin 에 html 파일이 존재해야 함
     @GetMapping("/add-course")
     public String getAddCourse(Model model) {
         return "/admin/add-course";
     }
 
-    // 코스 등록
+    // 신규 코스 작성
     @PostMapping("/add-course")
-    public String saveAddCourse(Model model) {
-        return "/admin/add-course";
+    public String postAddCourse(CourseDTO courseDTO, Model model) {
+        adminService.postAddCourse(courseDTO);
+        return "redirect:/admin/add-course";
     }
 
-    // 추천 코스 목록
-    @GetMapping("/courselist")
-    public String getCourseList(Model model) {
-        return "/admin/courselist";
+    // 추천 코스 목록 (api)
+    @GetMapping("/course-list")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> getCourseList(Pagination pagination, Search search) {
+        List<CourseListDTO> list = adminService.getCourseList(pagination,search);
+        list.forEach(System.out::println);
+
+        Map<String, Object> response = new HashMap<String, Object>();
+        response.put("courses", list);
+        response.put("pagination", pagination);
+        response.put("search", search);
+        return ResponseEntity.ok(response);
+    }
+
+    // 추천코스 목록에서 A ~ D 코스 혹은 봉사 코스로 등록
+    @PatchMapping("/course-list")
+    @ResponseBody
+    public ResponseEntity<String> patchCourseList(@RequestBody Map<String, String> reqData) {
+        // 받은 데이터 확인 (디버깅용)
+        System.out.println("Course Request: " + reqData.get("courseId")+" "+reqData.get("courseType"));
+
+        adminService.patchCourseList(reqData.get("courseId"),reqData.get("courseType").trim());
+        // 처리 결과 반환
+        return ResponseEntity.ok("Course list fetched successfully!");
     }
 
     // 추천 코스 조회

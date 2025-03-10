@@ -18,25 +18,22 @@ public class VolunteerPrepareMapperTests {
 
     @Test
     void postAddCourse() {
-        VolunteerPrepareVO volunteerPrepare = new VolunteerPrepareVO();
-        volunteerPrepare.setVolunteerPrepareContent("towels");
-        volunteerPrepare.setCourseId(2l);
-        mapper.postAddCourse(volunteerPrepare);
+        mapper.postAddCourse("towels", 129l);
     }
 
 
     @Test
     public void getCourseDetail() {
-        List<VolunteerPrepareVO> volunteerPrepare = mapper.getCourseDetail(2l);
+        List<String> volunteerPrepare = mapper.getCourseDetail(129l);
         volunteerPrepare.forEach(System.out::println);
 
         CourseDTO courseDTO = new CourseDTO();
-        courseDTO.setVolunteerPrepares(volunteerPrepare);
+        courseDTO.setPrepareContents(volunteerPrepare);
         log.info(courseDTO.toString());
     }
 
     @Test
     public void deleteEditCourse() {
-        mapper.deleteEditCourse(2l);
+        mapper.deleteEditCourse(129l);
     }
 }

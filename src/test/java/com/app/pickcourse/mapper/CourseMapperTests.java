@@ -22,7 +22,7 @@ public class CourseMapperTests {
 
     @Test
     public void postAddCourseTest() {
-        CourseVO course = new CourseVO();
+        CourseDTO course = new CourseDTO();
         course.setCourseType(' ');
         course.setCourseIsVolunteer('Y');
         course.setCourseName("남원");
@@ -59,7 +59,7 @@ public class CourseMapperTests {
 
     @Test
     public void patchCourseListTest() {
-        mapper.patchCourseList(10l, "B");
+        mapper.patchCourseListRegist(10l, "B");
     }
 
     @Test

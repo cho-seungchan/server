@@ -1,10 +1,11 @@
 package com.app.pickcourse.service;
 
+import com.app.pickcourse.domain.dto.CourseDTO;
+import com.app.pickcourse.domain.dto.CourseListDTO;
 import com.app.pickcourse.domain.vo.AdminVO;
 import com.app.pickcourse.domain.vo.MemberVO;
 import com.app.pickcourse.exception.DuplicateException;
-import com.app.pickcourse.repository.AdminDAO;
-import com.app.pickcourse.repository.MemberDAO;
+import com.app.pickcourse.repository.*;
 import com.app.pickcourse.util.Pagination;
 import com.app.pickcourse.util.Search;
 import lombok.RequiredArgsConstructor;
@@ -17,11 +18,19 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+//@Transactional(rollbackFor = Exception.class)
 @Slf4j
 public class AdminService {
 
     private final AdminDAO adminDAO;
     private final MemberDAO memberDAO;
+    private final CourseDAO courseDAO;
+    private final VolunteerDAO volunteerDAO;
+    private final PathDAO pathDAO;
+    private final VolunteerExcludeDAO volunteerExcludeDAO;
+    private final VolunteerIncludeDAO volunteerIncludeDAO;
+    private final VolunteerPrepareDAO volunteerPrepareDAO;
+    private final VolunteerScheduleDAO volunteerScheduleDAO;
 
     public List<AdminVO> getManageAdminList(Pagination pagination, Search search) {
         pagination.create(adminDAO.getCountAll(search));
@@ -79,5 +88,64 @@ public class AdminService {
             memberDAO.deleteMemberList(memberId);
         });
 
+    }
+
+    public void postAddCourse(CourseDTO courseDTO) {
+
+        // 코스정보 입력
+        courseDTO.setAdminId(4l);
+        courseDAO.postAddCourse(courseDTO);
+        log.info("postAddCourse service : {}",courseDTO.toString());
+
+        if (courseDTO.getCourseIsVolunteer().equals('Y')){
+
+            // 봉사코스 정보 입력
+            volunteerDAO.postAddCourse(courseDTO.toVolunteerVO());
+
+            // 일일 계획 입력
+            if (courseDTO.getScheduleContents() != null){
+                courseDTO.getScheduleContents().forEach(scheduleContent -> {
+                    volunteerScheduleDAO.postAddCourse(scheduleContent, courseDTO.getId());
+                });
+            }
+        }
+
+        // 경로 입력
+        courseDTO.getPaths().forEach(path -> {
+            path.setCourseId(courseDTO.getId());
+            pathDAO.postAddCourse(path);
+        });
+
+        // 불포함 사항 입력
+        if (courseDTO.getExcludeContents() != null){
+            courseDTO.getExcludeContents().forEach(excludeContent -> {
+                volunteerExcludeDAO.postAddCourse(excludeContent, courseDTO.getId());
+            });
+        }
+
+        // 포함 사항 입력
+        if (courseDTO.getIncludeContents() != null){
+            courseDTO.getIncludeContents().forEach(includeContent -> {
+                volunteerIncludeDAO.postAddCourse(includeContent, courseDTO.getId());
+            });
+        }
+
+        // 준비물 입력
+        if (courseDTO.getPrepareContents() != null){
+            courseDTO.getPrepareContents().forEach(prepareContent -> {
+                volunteerPrepareDAO.postAddCourse(prepareContent, courseDTO.getId());
+            });
+        }
+
+    }
+
+    public List<CourseListDTO> getCourseList(Pagination pagination, Search search) {
+        pagination.create(courseDAO.getCountAll(search));
+        return courseDAO.getCourseList(pagination,search);
+    }
+
+    public void patchCourseList(String courseId, String courseType) {
+        courseDAO.patchCourseListExpire(courseType);
+        courseDAO.patchCourseListRegist(Long.parseLong(courseId), courseType);
     }
 }

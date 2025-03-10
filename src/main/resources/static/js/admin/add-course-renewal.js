@@ -103,7 +103,7 @@ kebabmenu.addEventListener("click", () => {
         Math.floor((endDateConv - startDateConv) / (1000 * 60 * 60 * 24)) + 1;
     for (let i = 0; i < days; i++) {
         detailOfDateContainer.innerHTML += ` <p>${i + 1}일차 계획서</p>
-            <textarea data-index=${i} placeholder="상세 일정을 적어보세요 (아래 사진첨부로 대체 가능)"
+            <textarea data-index=${i} placeholder="상세 일정을 적어보세요"
             maxlength="1200"  class="Textarea__StyledTextarea-sc-1b9phu6-1 kmqQeBdetail"></textarea>
             <p class="Textarea__Count-sc-1b9phu6-2 jvAusQdetail">0 / 1200</p>`;
     }
@@ -154,7 +154,7 @@ gcqwwhinclude.addEventListener("keyup", (e) => {
         parentDiv = bDBbNifirst.querySelector(".iXEvmI");
         const firstchildDiv = document.createElement("div");
         firstchildDiv.className = "Tag__RoundTag-sxb61j-1 jXxsiv";
-        firstchildDiv.innerHTML = `<span>#${gcqwwhinclude.value}</span>
+        firstchildDiv.innerHTML = `<span class="includeContent">#${gcqwwhinclude.value}</span>
                      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'%3E %3Cg fill='none' fill-rule='nonzero' stroke='%23999' stroke-linecap='square'%3E %3Cpath d='M11.828 6.172l-5.656 5.656M11.828 11.828L6.172 6.172'/%3E %3C/g%3E %3C/svg%3E" alt="delete tags item">`;
         parentDiv.appendChild(firstchildDiv);
         gcqwwhinclude.value = "";
@@ -182,7 +182,7 @@ gcqwwhexclude.addEventListener("keyup", (e) => {
         parentDiv = bDBbNisecond.querySelector(".iXEvmI");
         const secondchildDiv = document.createElement("div");
         secondchildDiv.className = "Tag__RoundTag-sxb61j-1 eMLPLA";
-        secondchildDiv.innerHTML = `<span>#${gcqwwhexclude.value}</span>
+        secondchildDiv.innerHTML = `<span class="excludeContent">#${gcqwwhexclude.value}</span>
                      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'%3E %3Cg fill='none' fill-rule='nonzero' stroke='%23999' stroke-linecap='square'%3E %3Cpath d='M11.828 6.172l-5.656 5.656M11.828 11.828L6.172 6.172'/%3E %3C/g%3E %3C/svg%3E" alt="delete tags item">`;
         parentDiv.appendChild(secondchildDiv);
         gcqwwhexclude.value = "";
@@ -210,7 +210,7 @@ gcqwwhprepare.addEventListener("keyup", (e) => {
         parentDiv = bDBbNithird.querySelector(".iXEvmI");
         const thirdchildDiv = document.createElement("div");
         thirdchildDiv.className = "Tag__RoundTag-sxb61j-1 eISlhn";
-        thirdchildDiv.innerHTML = `<span>#${gcqwwhprepare.value}</span>
+        thirdchildDiv.innerHTML = `<span class="prepareContent">#${gcqwwhprepare.value}</span>
                      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'%3E %3Cg fill='none' fill-rule='nonzero' stroke='%23999' stroke-linecap='square'%3E %3Cpath d='M11.828 6.172l-5.656 5.656M11.828 11.828L6.172 6.172'/%3E %3C/g%3E %3C/svg%3E" alt="delete tags item">`;
         parentDiv.appendChild(thirdchildDiv);
         gcqwwhprepare.value = "";
@@ -273,16 +273,13 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     volunteerBox.addEventListener("change", function () {
-        console.log("체크박스 상태:", this.checked); // 콘솔에서 체크 상태 확인
 
         if (this.checked) {
             durationContainer.classList.remove("hidden");
             durationContainer1.classList.remove("hidden");
-            console.log("컨테이너 표시됨");
         } else {
             durationContainer.classList.add("hidden");
             durationContainer1.classList.add("hidden");
-            console.log("컨테이너 숨겨짐");
         }
     });
 });
@@ -324,12 +321,12 @@ fileParentDiv.addEventListener("click", (e) => {
 // 선택파일의 이미지(x)를 눌렀을 때 전체 dev 삭제 :: 동적으로 생성된 요소일 때는 부모 요소에 위임
 
 // ✅ 1. 카카오 지도 설정
-var mapContainer = document.getElementById("map"),
+let mapContainer = document.getElementById("map"),
     mapOption = {
         center: new kakao.maps.LatLng(35.409476, 127.396059),
         level: 9,
     };
-var map = new kakao.maps.Map(mapContainer, mapOption);
+let map = new kakao.maps.Map(mapContainer, mapOption);
 
 let tourSpots = [];
 let geocoder = new kakao.maps.services.Geocoder();
@@ -609,15 +606,15 @@ saveButton.addEventListener("click", handleSaveClick);
 function handleSaveClick() {
     if (saveButton.textContent.trim() === "저장") {
         let missingFields = [];
-        if (saveButton.textContent.trim() === "저장") {
-            // "더보기 버튼" 비활성화 (봉사 코스 관련)
-            moreButton.style.pointerEvents = "none";
-            moreButton.style.opacity = "0.5";
-        } else {
-            // "수정" 버튼 클릭 시 "더보기 버튼" 다시 활성화
-            moreButton.style.pointerEvents = "auto";
-            moreButton.style.opacity = "1";
-        }
+        // if (saveButton.textContent.trim() === "저장") {
+        //     // "더보기 버튼" 비활성화 (봉사 코스 관련)
+        //     moreButton.style.pointerEvents = "none";
+        //     moreButton.style.opacity = "0.5";
+        // } else {
+        //     // "수정" 버튼 클릭 시 "더보기 버튼" 다시 활성화
+        //     moreButton.style.pointerEvents = "auto";
+        //     moreButton.style.opacity = "1";
+        // }
 
         // 필수 입력 체크
         requiredInputs.forEach((input) => {
@@ -654,120 +651,86 @@ function handleSaveClick() {
             return;
         }
 
-        console.log("모든 필수 입력 완료");
-
-        // 모든 입력창 비활성화 (저장 시)
-        allInputs.forEach((input) => {
-            input.disabled = true;
-            input.style.backgroundColor = "rgba(211, 211, 211, 0.5)";
-            input.style.cursor = "not-allowed";
-        });
-
-        // 삭제 버튼 비활성화 (주소 태그 삭제 방지)
-        disableDeleteButtons(true);
-
-        // "추천 코스 작성" → "추천 코스 조회"로 변경
-        courseTitle.textContent = "추천 코스 조회";
-
-        // "추천 코스를 소개해 주세요." 문구 제거
-        courseDescription.style.display = "none";
-
-        // "수정" 모드로 변경
-        saveButton.querySelector(".Button_children__NzZlO").textContent =
-            "수정";
-
-        // "임시 저장" 버튼 숨기기
-        tempSaveButton.style.display = "none";
-    } else {
-        // "수정" 버튼 클릭 시 모든 입력 필드 활성화
-        allInputs.forEach((input) => {
-            input.disabled = false;
-            input.style.backgroundColor = "";
-            input.style.cursor = "text";
-        });
-
-        // 삭제 버튼 활성화 (주소 태그 삭제 가능)
-        disableDeleteButtons(false);
-
-        // "추천 코스 수정"으로 변경
-        courseTitle.textContent = "추천 코스 수정";
-
-        // "추천 코스를 소개해 주세요." 문구 다시 표시
-        courseDescription.style.display = "block";
-
-        // 버튼을 다시 "저장"으로 변경
-        saveButton.querySelector(".Button_children__NzZlO").textContent =
-            "저장";
-
-        // "임시 저장" 버튼 다시 표시
-        tempSaveButton.style.display = "block";
     }
 }
 
-// "삭제 버튼" 비활성화/활성화 함수
-function disableDeleteButtons(disable) {
-    document.querySelectorAll(".destination-tag .delete-btn").forEach((btn) => {
-        if (disable) {
-            btn.style.pointerEvents = "none"; // 삭제 버튼 클릭 불가능하게 설정
-            btn.style.opacity = "0.5"; // 버튼이 흐리게 보이도록 조정
-            btn.style.cursor = "not-allowed";
-        } else {
-            btn.style.pointerEvents = "auto"; // 삭제 버튼 클릭 가능하게 설정
-            btn.style.opacity = "1";
-            btn.style.cursor = "pointer";
-        }
+
+// 2025.03.07 조승찬 추가
+// 체크 박스 클릭시
+document.querySelector(".volunteerBox").addEventListener("change", e => {
+    document.querySelector("#courseIsVolunteer").value = e.target.checked ? 'Y' : 'N';
+})
+
+// 제목 textarea에 글자 입력시 입력된 글자 수 보여주기
+document
+    .querySelector(".Input_input__M2Q3Y.Input_lg__MDE4M")
+    .addEventListener("input", (e) => {
+        document.querySelector(".HelperMessage_helperMessage__ZTRkO").textContent = `${e.target.value.length}/40`;
     });
-}
+// textarea에 글자 입력시 입력된 글자 수 보여주기
 
-// 페이지 로드 시 초기 상태 설정
-disableDeleteButtons(false);
+// 코스요약 textarea에 글자 입력시 입력된 글자 수 보여주기
+document
+    .querySelector(".Textarea_textarea__MWJjO")
+    .addEventListener("input", (e) => {
+        document.querySelector(".StorySummaryField_text__ZTEzY").textContent = `${e.target.value.length}/1000`;
+    });
+// textarea에 글자 입력시 입력된 글자 수 보여주기
 
-// 삭제되었어도 수정 버튼이 항상 눌릴 수 있도록 보장
-saveButton.disabled = false;
-saveButton.style.opacity = "1";
-saveButton.style.cursor = "pointer";
+document.addEventListener("DOMContentLoaded", function () { // HTML이 로드된 후 실행되도록 보장
 
-// "임시 저장" 버튼 클릭 이벤트 함수
-function handleTempSaveClick() {
-    console.log("현재 버튼 상태:", tempSaveButton.textContent.trim());
+// 저장 버튼 클릭시
+    document.querySelector(".Button_children__NzZlO").addEventListener("click", (button) => {
 
-    if (tempSaveButton.textContent.trim() === "임시 저장") {
-        console.log("임시 저장 실행");
+        // 포함사항 입력
+        document.querySelectorAll(".includeContent").forEach((e,i) => {
+            const input = document.createElement("input");
+            input.type = "hidden"
+            input.name = `includeContents[${i}]`
+            input.value = e.textContent;;
+            document['addCourse-form'].appendChild(input);
+        })
+        // 불포함 사항 입력
+        document.querySelectorAll(".excludeContent").forEach((e,i) => {
+            const input = document.createElement("input");
+            input.type = "hidden"
+            input.name = `excludeContents[${i}]`
+            input.value = e.textContent;;
+            document['addCourse-form'].appendChild(input);
+        })
+        // 준비물 입력
+        document.querySelectorAll(".prepareContent").forEach((e,i) => {
+            const input = document.createElement("input");
+            input.type = "hidden"
+            input.name = `prepareContents[${i}]`
+            input.value = e.textContent;;
+            document['addCourse-form'].appendChild(input);
+        })
+        // 스케쥴 입력
+        document.querySelectorAll(".kmqQeBdetail").forEach( (e,i) => {
+            const input = document.createElement("input");
+            input.type = "hidden"
+            input.name = `scheduleContents[${i}]`
+            input.value = `${e.value}`;
+            document['addCourse-form'].appendChild(input);
+        })
+        // 여행 코스 입력
+        tourSpots.forEach((e,i) => {
+            const inputName = document.createElement("input");
+            inputName.type = "hidden"
+            inputName.name = `paths[${i}].pathName`
+            inputName.value = `${e.title}`;
+            document['addCourse-form'].appendChild(inputName);
 
-        // 모든 입력 필드를 비활성화 (임시 저장 시)
-        allInputs.forEach((input) => {
-            input.setAttribute("disabled", "true"); // 비활성화
-            input.style.backgroundColor = "rgba(211, 211, 211, 0.5)";
-            input.style.cursor = "not-allowed";
-        });
+            const inputAddress = document.createElement("input");
+            inputAddress.type = "hidden"
+            inputAddress.name = `paths[${i}].pathAddress`
+            inputAddress.value = `${e.address}`;
+            document['addCourse-form'].appendChild(inputAddress);
+        })
 
-        //  "임시 저장" 버튼을 "계속 작성"으로 변경
-        tempSaveButton.innerHTML = `<span><span class="Button_children__NzZlO">계속 작성</span></span>`;
+        document['addCourse-form'].submit();
+    })
 
-        //  "저장" 버튼 비활성화 (임시 저장 상태에서는 저장 불가능)
-        saveButton.setAttribute("disabled", "true");
-        saveButton.style.opacity = "0.5";
-        saveButton.style.cursor = "not-allowed";
-    } else {
-        console.log(" 계속 작성 실행");
+});
 
-        // 모든 입력 필드를 다시 활성화
-        allInputs.forEach((input) => {
-            input.removeAttribute("disabled"); // 활성화
-            input.style.backgroundColor = "";
-            input.style.cursor = "text";
-        });
-
-        //  "계속 작성" 버튼을 다시 "임시 저장"으로 변경
-        tempSaveButton.innerHTML = `<span><span class="Button_children__NzZlO">임시 저장</span></span>`;
-
-        //  "저장" 버튼 다시 활성화
-        saveButton.removeAttribute("disabled");
-        saveButton.style.opacity = "1";
-        saveButton.style.cursor = "pointer";
-    }
-}
-
-//  기존 이벤트 리스너 제거 후 다시 추가하여 중복 실행 방지
-tempSaveButton.removeEventListener("click", handleTempSaveClick);
-tempSaveButton.addEventListener("click", handleTempSaveClick);
