@@ -5,7 +5,6 @@ function createCourseList() {
     baseContainer.innerHTML = ``;
 
     baseContainer.innerHTML = `
-    <div id="AppLayout_Contents" class="AppLayout_contents__YmI3N" >
        <main class="FundingPage_container__NDhmM">
            <div id="FundingPage_Content" class="FundingPage_box__OGY3N" >
                <section>
@@ -99,6 +98,5 @@ function createCourseList() {
                </section>
            </div>
        </main>
-   </div>
    `;
 };

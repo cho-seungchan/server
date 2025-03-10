@@ -398,7 +398,7 @@ p, label {
     background-color: #fff;
 }
 
-.courseIdDiv, .adminNameDiv, .courseNameDiv, .courseAddressDiv, .courseTypeDiv {
+.courseIdDiv, .courseadminNameDiv, .courseNameDiv, .courseAddressDiv, .courseTypeDiv {
     flex: 1;
     text-align: center;
 }
@@ -735,7 +735,7 @@ form[name="deleteForm"] button:hover {
     justify-self: center;
 }
 
-.userListDiv .adminNameDiv,
+.userListDiv .courseadminNameDiv,
 .userListDiv .courseNameDiv,
 .userListDiv .courseThemeDiv {
     text-align: left;

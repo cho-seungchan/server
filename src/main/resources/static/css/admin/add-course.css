@@ -869,3 +869,12 @@ address, em, var {
     font-size: 16px;
     transition: all 0.3s ease;
 }
+
+.AppLayout_contents__YmI3N.active {
+    transition: transform 0.3s ease-in-out;
+    transform: translateX(-15%);
+}
+.AppLayout_contents__YmI3N {
+    transition: transform 0.3s ease-in-out;
+    transform: translateX(0);
+}

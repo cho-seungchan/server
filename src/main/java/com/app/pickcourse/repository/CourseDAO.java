@@ -35,4 +35,8 @@ public class CourseDAO {
     public void patchCourseListRegist(Long id, String courseType) {
         courseMapper.patchCourseListRegist(id, courseType);
     }
+
+    public CourseDTO getCourseDetail(Long id) {
+        return courseMapper.getCourseDetail(id).orElseThrow(() -> new RuntimeException("Course Detail Not Found"));
+    }
 }

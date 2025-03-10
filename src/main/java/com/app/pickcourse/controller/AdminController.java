@@ -126,6 +126,7 @@ public class AdminController {
     // 신규 코스 작성
     @PostMapping("/add-course")
     public String postAddCourse(CourseDTO courseDTO, Model model) {
+        log.info(courseDTO.toString());
         adminService.postAddCourse(courseDTO);
         return "redirect:/admin/add-course";
     }
@@ -157,12 +158,16 @@ public class AdminController {
     }
 
     // 추천 코스 조회
-    @GetMapping("/coursedetail")
-    public String getCourseDetail(Model model) {
-        return "/admin/coursedetail";
+    @GetMapping("/course-detail/{id}")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> getCourseDetail(@PathVariable("id") Long id) {
+        CourseDTO courseDTO = adminService.getCourseDetail(id);
+        Map<String,Object> response = new HashMap<String, Object>();
+        response.put("course", courseDTO);
+        return ResponseEntity.ok(response);
     }
 
-    // 추천 코스 수정 화면
+    // 추천 코스 수정 화면 :: PutMapping
     @GetMapping("/editcourse")
     public String getEditCourse(Model model) {
         return "/admin/editcourse";

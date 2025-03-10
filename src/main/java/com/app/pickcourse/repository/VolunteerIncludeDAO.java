@@ -5,6 +5,8 @@ import com.app.pickcourse.mapper.VolunteerIncludeMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 @RequiredArgsConstructor
 public class VolunteerIncludeDAO {
@@ -12,5 +14,9 @@ public class VolunteerIncludeDAO {
 
     public void postAddCourse(String content, Long volunteerId) {
         volunteerIncludeMapper.postAddCourse(content,volunteerId);
+    }
+
+    public List<String> getCourseDetail(Long id) {
+        return volunteerIncludeMapper.getCourseDetail(id);
     }
 }

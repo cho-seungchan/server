@@ -93,7 +93,7 @@ public class AdminService {
     public void postAddCourse(CourseDTO courseDTO) {
 
         // 코스정보 입력
-        courseDTO.setAdminId(4l);
+        courseDTO.setAdminId(11l);
         courseDAO.postAddCourse(courseDTO);
         log.info("postAddCourse service : {}",courseDTO.toString());
 
@@ -147,5 +147,15 @@ public class AdminService {
     public void patchCourseList(String courseId, String courseType) {
         courseDAO.patchCourseListExpire(courseType);
         courseDAO.patchCourseListRegist(Long.parseLong(courseId), courseType);
+    }
+
+    public CourseDTO getCourseDetail(Long id) {
+        CourseDTO courseDTO = courseDAO.getCourseDetail(id);
+        courseDTO.setPaths(pathDAO.getCourseDetail(id));
+        courseDTO.setExcludeContents(volunteerExcludeDAO.getCourseDetail(id));
+        courseDTO.setIncludeContents(volunteerIncludeDAO.getCourseDetail(id));
+        courseDTO.setPrepareContents(volunteerPrepareDAO.getCourseDetail(id));
+        courseDTO.setScheduleContents(volunteerScheduleDAO.getCourseDetail(id));
+        return courseDTO;
     }
 }
