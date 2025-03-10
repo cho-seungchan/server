@@ -12,7 +12,6 @@ public class VolunteerVO {
     private String volunteerStartDate;
     private String volunteerEndDate;
     private String volunteerDeadline;
-    private Long   courseId;
     private String createdDate;
     private String updatedDate;
 }

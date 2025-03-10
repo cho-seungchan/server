@@ -1,7 +1,6 @@
 package com.app.pickcourse.mapper;
 
 import com.app.pickcourse.domain.dto.CourseDTO;
-import com.app.pickcourse.domain.vo.VolunteerExcludeVO;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,24 +10,24 @@ import java.util.List;
 
 @SpringBootTest
 @Slf4j
-public class VolunteerExcludeMapperTests {
+public class VolunteerScheduleMapperTests {
+
     @Autowired
-    private VolunteerExcludeMapper mapper;
+    private VolunteerScheduleMapper mapper;
 
     @Test
-    public void postAddCourse() {
-
-        mapper.postAddCourse("money", 129l);
-
+    void postAddCourse() {
+        mapper.postAddCourse("07:00 work", 129l);
     }
+
 
     @Test
     public void getCourseDetail() {
-        List<String> excludeContents = mapper.getCourseDetail(129l);
-        excludeContents.forEach(System.out::println);
+        List<String> volunteerSchedule = mapper.getCourseDetail(129l);
+        volunteerSchedule.forEach(System.out::println);
 
         CourseDTO courseDTO = new CourseDTO();
-        courseDTO.setExcludeContents(excludeContents);
+        courseDTO.setScheduleContents(volunteerSchedule);
         log.info(courseDTO.toString());
     }
 

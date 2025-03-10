@@ -19,20 +19,20 @@ public class VolunteerMapperTests {
     @Test
     public void postAddCourse() {
         VolunteerVO volunteer = new VolunteerVO();
+        volunteer.setId(129l);
         volunteer.setVolunteerStartDate(String.valueOf(LocalDate.parse("2025-03-10")));
         volunteer.setVolunteerEndDate(String.valueOf(LocalDate.parse("2025-03-12")));
         volunteer.setVolunteerDeadline(String.valueOf(LocalDate.parse("2025-03-08")));
-        volunteer.setCourseId(4l);
         mapper.postAddCourse(volunteer);
     }
 
     @Test
     public void patchEditCourse() {
         VolunteerVO volunteer = new VolunteerVO();
+        volunteer.setId(129l);
         volunteer.setVolunteerStartDate(String.valueOf(LocalDate.parse("2025-03-15")));
         volunteer.setVolunteerEndDate(String.valueOf(LocalDate.parse("2025-03-20")));
         volunteer.setVolunteerDeadline(String.valueOf(LocalDate.parse("2025-03-10")));
-        volunteer.setCourseId(2l);
         mapper.patchEditCourse(volunteer);
     }
 }

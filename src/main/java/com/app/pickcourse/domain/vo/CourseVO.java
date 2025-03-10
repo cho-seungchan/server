@@ -9,7 +9,7 @@ public class CourseVO {
     @EqualsAndHashCode.Include
     private Long      id;
 
-    private Character courseType;
+    private String    courseType;
     private Character courseIsVolunteer;
     private String    courseName;
     private String    courseDistance;

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>픽커스 관리자</title>
+    <title>피커스 관리자</title>
     <style>
         @font-face {
             font-family: "pickers";
@@ -20,6 +20,11 @@
             href="/images/common/favicon1.ico"
             type="image/x-icon"
     />
+    <link
+            rel="stylesheet"
+            href="/css/admin/course-list.css"
+    />
+
 </head>
 <body>
 <div id="root">
@@ -33,6 +38,7 @@
                     <button
                             class="StudioLogo_logo__MTE4Z"
                             type="button"
+                            onclick="window.location.href='/'"
                             aria-label="로고 버튼"
                     ></button>
                 </div>
@@ -163,7 +169,7 @@
                                     >회원 목록</a
                                     ><a
                                         class="MenuItems_submenu__YTg3N"
-                                        href="/studio/reward/337882/funding/screening"
+                                        href="/admin/report-list"
                                 >신고 목록</a
                                 >
                                 </div>
@@ -196,8 +202,8 @@
                                 >
                                     <a
                                             class="MenuItems_submenu__YTg3N"
-                                            href="/studio/reward/337882/funding/plan"
-                                    >공지 사항</a
+                                            href="/admin/notice-list"
+                                    >공지 목록</a
                                     >
                                 </div>
                                 <a
@@ -227,6 +233,11 @@
                                 <div
                                         class="MenuItems_submenuContainer__ZDZlO MenuItems_show__ZmI3M Menulist2"
                                 >
+<!--                            25.03.08 조승찬  json(restController) 방식으로 처리하기 위해 분기를 스크립트에서 작성-->
+                                    <a
+                                            class="MenuItems_submenu__YTg3N adminCourseList"
+                                    >코스 목록</a
+                                    >
                                     <a
                                             class="MenuItems_submenu__YTg3N"
                                             href="/studio/reward/337882/funding/plan"
@@ -291,10 +302,7 @@
                     </div>
                 </div>
             </nav>
-            <div
-                    id="AppLayout_Contents"
-                    class="AppLayout_contents__YmI3N"
-            >
+            <div id="AppLayout_Contents" class="AppLayout_contents__YmI3N">
                 <main class="FundingPage_container__NDhmM">
                     <div
                             id="FundingPage_Content"
@@ -334,7 +342,7 @@
                                                             </div>
                                                             <a
                                                                     class="FundingPageMenuList_buttonWrapper__N2VmM"
-                                                                    href=""
+                                                                    href="/admin/member-list"
                                                             ><span
                                                             >회원
                                                                             목록</span
@@ -356,10 +364,10 @@
                                                             </div>
                                                             <a
                                                                     class="FundingPageMenuList_buttonWrapper__N2VmM"
-                                                                    href="/studio/reward/337882/funding/screening"
+                                                                    href="/admin/report-list"
                                                             ><span
                                                             >신고
-                                                                            관리</span
+                                                                            목록</span
                                                             ></a
                                                             >
                                                         </div>
@@ -400,7 +408,7 @@
                                                             </div>
                                                             <a
                                                                     class="FundingPageMenuList_buttonWrapper__N2VmM"
-                                                                    href="/studio/reward/337882/funding/condition"
+                                                                    href="/admin/add-course"
                                                             ><span
                                                             >추가
                                                                             하기</span
@@ -422,10 +430,9 @@
                                                             </div>
                                                             <a
                                                                     class="FundingPageMenuList_buttonWrapper__N2VmM"
-                                                                    href="/studio/reward/337882/funding/policy"
+                                                                    href="/admin/manage-admin-list"
                                                             ><span
-                                                            >추가
-                                                                            하기</span
+                                                            >관리자 목록</span
                                                             ></a
                                                             >
                                                         </div>
@@ -442,8 +449,8 @@
                                                 >
                                                             <span
                                                             ><span
-                                                                    class="Button_children__NDY1Y"
-                                                            >픽커스로
+                                                                    class="Button_children__NDY1Y" onclick="window.location.href='/'"
+                                                            >피커스로
                                                                     이동</span
                                                             ></span
                                                             >
@@ -514,13 +521,18 @@
             </div>
             <button
                     type="button"
-                    class="AppLayout_expandNavButton__NTEwM AppLayout_expand__MmRhM"
-            >
-                <i class="AppLayout_icon__MTIxN"></i>
+                    class="AppLayout_expandNavButton__NTEwM AppLayout_expand__MmRhM" >
+                <i class="AppLayout_icon__MTIxN" ></i>
             </button>
         </div>
     </div>
 </div>
 </body>
+<!-- jQuery 라이브러리 포함 -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="/js/admin/admin.js"></script>
+<script src="/js/admin/course-list-layout-base.js"></script>
+<script src="/js/admin/course-list-layout-add.js"></script>
+<script src="/js/admin/course-list-event.js"></script>
+<script src="/js/admin/course-list-service.js"></script>
 </html>
