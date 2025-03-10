@@ -139,6 +139,13 @@ button, html [type="button"], [type="reset"], [type="submit"] {
     font-size: 16px;
     margin-top: 44px;
 }
+.bViOzS {
+    margin-bottom: 6px;
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: -0.36px;
+    color: rgb(222, 28, 34);
+}
 
 input::placeholder {
     color: rgb(209, 209, 209);
