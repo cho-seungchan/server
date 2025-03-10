@@ -21,4 +21,5 @@ public class MemberVO {
     private char   memberIsAct;
     private String createdDate;
     private String updatedDate;
+
 }
