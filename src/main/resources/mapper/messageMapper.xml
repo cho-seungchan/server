@@ -24,4 +24,11 @@
         DELETE FROM TBL_MESSAGE WHERE ID = #{messageId}
     </delete>
 
+    <!-- 메세지 전체 조회 -->
+    <select id="selectAllMessages" resultType="messageVO">
+        SELECT * FROM TBL_MESSAGE
+    </select>
+
+
+
 </mapper>

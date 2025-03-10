@@ -16,7 +16,7 @@ public interface SendMessageMapper {
     SendMessageVO selectSendMessageById(Long messageId);
 
     // 보낸 메시지 목록 조회
-    List<SendMessageVO> selectSendMessagesBySenderId(Long senderId);
+    List<SendMessageDTO> selectSendMessagesBySenderId(Long senderId);
 
     // 보낸 메시지 삭제
     void deleteSendMessageById(Long messageId);

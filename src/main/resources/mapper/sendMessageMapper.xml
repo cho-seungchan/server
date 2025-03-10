@@ -10,7 +10,7 @@
 
 
     <!-- 보낸 메시지 조회 -->
-    <select id="selectSendMessageById" parameterType="Long" resultType="sendMessageVO">
+    <select id="selectSendMessageById" parameterType="Long" resultType="sendMessageDTO">
         SELECT sm.ID AS messageId, sm.SENDER_ID AS senderId, sm.RECEIVER_ID AS receiverId,
                m.MESSAGE_ALL_CONTENT AS content, m.MESSAGE_ALL_DATE AS sendDate
         FROM TBL_SEND_MESSAGE sm
@@ -21,5 +21,20 @@
     <delete id="deleteSendMessageById">
         DELETE FROM TBL_SEND_MESSAGE WHERE ID = #{id}
     </delete>
+
+    <select id="selectSendMessagesBySenderId" parameterType="Long" resultType="sendMessageDTO">
+        SELECT
+            SM.ID AS ID,
+            SM.SENDER_ID AS SENDER_ID,
+            SM.RECEIVER_ID AS RECEIVER_ID,
+            M.MEMBER_NICKNAME AS RECEIVER_NICKNAME,
+            MSG.MESSAGE_ALL_CONTENT AS CONTENT,
+            TO_CHAR(MSG.MESSAGE_ALL_DATE, 'YYYY.MM.DD') AS SEND_DATE
+        FROM TBL_SEND_MESSAGE SM
+                 JOIN TBL_MESSAGE MSG ON SM.ID = MSG.ID
+                 JOIN TBL_MEMBER M ON SM.RECEIVER_ID = M.ID
+        WHERE SM.SENDER_ID = #{sender_id}
+        ORDER BY MSG.MESSAGE_ALL_DATE DESC
+    </select>
 
 </mapper>
