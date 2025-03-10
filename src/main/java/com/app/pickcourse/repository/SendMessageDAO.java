@@ -27,4 +27,15 @@ public class SendMessageDAO {
     public void delete(Long id) {
         sendMessageMapper.deleteSendMessageById(id);
     }
+
+
+    // 보낸 메시지 조회
+    public List<SendMessageDTO> findBySenderIdWithPagination(Long senderId, int startRow, int rowCount) {
+        return sendMessageMapper.findBySenderIdWithPagination(senderId, startRow, rowCount);
+    }
+
+    // 보낸 메시지 개수 조회
+    public int countBySenderId(Long senderId) {
+        return sendMessageMapper.countBySenderId(senderId);
+    }
 }
