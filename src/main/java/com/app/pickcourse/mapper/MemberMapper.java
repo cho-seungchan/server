@@ -54,5 +54,8 @@ public interface MemberMapper {
     // 이메일로 사용자 ID 조회
     Optional<Long> selectIdByEmail(String email);
 
+    // 닉네임 중복검사
+    public Optional<MemberVO> findByNickname(String nickname);
+
 
 }
