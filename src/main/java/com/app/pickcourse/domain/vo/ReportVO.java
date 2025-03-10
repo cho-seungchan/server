@@ -10,6 +10,8 @@ import lombok.*;
 public class ReportVO {
     @EqualsAndHashCode.Include
     private Long id;
+    private Long reportedId;
+    private Long memberId;
     private String createDate;
     private String updateDate;
 }

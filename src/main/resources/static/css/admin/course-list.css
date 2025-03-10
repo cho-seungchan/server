@@ -153,17 +153,16 @@ article, aside, details, figcaption, figure, footer, header, main, menu, nav, se
  }
  
 
-.hBVRcD {
-    display: flex
-;
-    -webkit-box-pack: center;
-    justify-content: center;
-    -webkit-box-flex: 0;
-    flex: 0 0 auto;
-    width: 100%;
-    padding: 30px 0px;
-    background-color: white;
-}
+/*.hBVRcD {*/
+/*    display: flex;*/
+/*    -webkit-box-pack: center;*/
+/*    justify-content: center;*/
+/*    -webkit-box-flex: 0;*/
+/*    flex: 0 0 auto;*/
+/*    width: 100%;*/
+/*    padding: 30px 0px;*/
+/*    background-color: white;*/
+/*}*/
 
 .gIsDDT {
     display: flex
@@ -193,25 +192,6 @@ button, html [type="button"], [type="reset"], [type="submit"] {
 
 button {
     cursor: pointer;
-}
-
-.iItkLq {
-    width: 40px;
-    height: 40px;
-    line-height: normal;
-    padding: 0px;
-    background-color: white;
-    text-align: center;
-    cursor: not-allowed;
-    border-radius: 50%;
-    font-size: 18px;
-    display: flex
-;
-    -webkit-box-pack: center;
-    justify-content: center;
-    -webkit-box-align: center;
-    align-items: center;
-    outline: none;
 }
 
 button:disabled {
@@ -297,30 +277,30 @@ p, label {
     border-radius: 8px;
 }
 
-.selectCourseOpt {
-    cursor: pointer;
-    position: relative;
-    left: 55%;
-    margin-bottom: 17px;
-    text-align: center;
-    text-align-last: center;
-}
+/*.selectCourseOpt {*/
+/*    cursor: pointer;*/
+/*    position: relative;*/
+/*    left: 85.5%;*/
+/*    margin-bottom: 17px;*/
+/*    text-align: center;*/
+/*    text-align-last: center;*/
+/*}*/
 
 
-.selectCourseBtn {
-    width: 83px;
-    white-space: nowrap;
-    overflow-x: auto;
-    line-height: 40px;
-    padding: 0 10px;
-    font-size: 14px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    margin-bottom: 15px;
-    overflow: hidden;
-    position: relative;
-    left: 55.3%;
-}
+/*.selectCourseBtn {*/
+/*    width: 83px;*/
+/*    white-space: nowrap;*/
+/*    overflow-x: auto;*/
+/*    line-height: 40px;*/
+/*    padding: 0 10px;*/
+/*    font-size: 14px;*/
+/*    border: 1px solid #ccc;*/
+/*    border-radius: 4px;*/
+/*    margin-bottom: 15px;*/
+/*    overflow: hidden;*/
+/*    position: relative;*/
+/*    left: 84.5%;*/
+/*}*/
 .manageBtn {
     width: 100px;
     white-space: nowrap;
@@ -539,3 +519,225 @@ p, label {
     margin: 0px;
 }
 
+/*2025.03.09 조승찬 추가 */
+/*페이징 및 검색 처리 부분*/
+.hBVRcD {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 0 0 auto;
+    width: 100%;
+    padding: 30px 0px;
+    background-color: white;
+}
+
+.pagination-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+.change-page code,
+.change-page + code {
+    margin: 0 10px;
+    font-size: 16px;
+}
+
+.ButtonPage__StyledButton-k07u44-0 {
+    width: 60px; /* 버튼 너비 */
+    height: 60px; /* 버튼 높이 */
+    font-size: 24px; /* 폰트 크기 */
+    background-color: #333; /* 버튼 배경색을 진하게 변경 */
+    color: #fff; /* 버튼 텍스트 색상 */
+    border: none; /* 테두리 제거 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.iItkLq {
+    width: 40px;
+    height: 40px;
+    line-height: normal;
+    padding: 0px;
+    background-color: white;
+    text-align: center;
+    cursor: not-allowed;
+    border-radius: 50%;
+    font-size: 18px;
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    outline: none;
+}
+
+.PaginationButtonGroup__Icon-x0iffd-2 {
+    filter: brightness(0.5); /* 이미지 색상 진하게 조정 */
+}
+
+#searchWrap {
+    display: flex;
+    align-items: center;
+    border: 1px solid #e0e0e0;  /* 전체 검색창 테두리 */
+    border-radius: 5px;  /* 둥근 모서리 */
+    padding: 5px 10px;
+    transition: border-color 0.3s ease-in-out;
+}
+
+#searchWrap:hover {
+    border-color: #b0b0b0;  /* 마우스 오버 시 테두리 색상 변화 */
+}
+
+.activityWrap {
+    border: 1px solid #e0e0e0;  /* form 테두리 */
+    border-radius: 5px;  /* 둥근 모서리 */
+    padding: 10px;
+    margin-right: 25px;
+    height: 35px;
+    align-items: center;
+}
+
+.activityWrap:hover {
+    border-color: #b0b0b0;  /* 마우스 오버 시 테두리 색상 변화 */
+}
+
+.activityWrap {
+    display: flex;
+    justify-content: space-between; /
+gap: 10px;
+}
+
+.activityWrap label {
+    margin: 0;
+}
+
+.custom-select {
+    border: 1px solid #e0e0e0;  /* select 테두리 */
+    border-radius: 5px;  /* 둥근 모서리 */
+    padding: 5px;
+    transition: border-color 0.3s ease-in-out;
+}
+
+.custom-select:hover {
+    border-color: #b0b0b0;  /* 마우스 오버 시 테두리 색상 변화 */
+}
+
+select, input[type="text"] {
+    border: 1px solid #d0d0d0;  /* 기본 테두리 색상 */
+    border-radius: 5px;  /* 둥근 모서리 */
+    padding: 5px 10px;
+    margin-right: 10px;
+    transition: border-color 0.3s ease-in-out;
+}
+
+select:focus, input[type="text"]:focus {
+    border-color: #007bff;  /* 포커스 시 파란색 테두리 */
+    outline: none;  /* 기본 포커스 스타일 제거 */
+}
+
+.search.button {
+    background-color: #007bff;  /* 버튼 배경색 */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.search.button:hover {
+    background-color: #0056b3;  /* 버튼 hover 시 색상 변화 */
+}
+
+.search.button.primary.icon.solid.fa-search {
+    font-size: 16px;
+    margin-left: 10px;
+}
+.custom-select {
+    margin-right: 25px;
+}
+.error-message{
+    margin-top: 25px;
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+    color: red;
+}
+
+form[name="changeForm"] button:hover {
+    background-color: #ccc; /* 버튼 hover 효과 */
+}
+form[name="deleteForm"] button:hover {
+    background-color: #ccc; /* 버튼 hover 효과 */
+}
+.topsearch-wrap {
+    display: flex; /* 내부 요소를 가로로 정렬 */
+    align-items: center; /* 세로 가운데 정렬 */
+    justify-content: flex-end; /* 내부 요소를 오른쪽 정렬 */
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    padding: 5px 10px;
+    transition: border-color 0.3s ease-in-out;
+    margin-left: 83.5%;
+}
+
+.selectCourseOpt {
+    cursor: pointer;
+    margin-right: 10px; /* 버튼과 선택박스 사이 간격 */
+    text-align: center;
+    text-align-last: center;
+}
+
+.selectCourseBtn {
+    width: 83px;
+    white-space: nowrap;
+    overflow-x: auto;
+    line-height: 40px;
+    padding: 0 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+/**************************/
+.NoticePage__NoticeListWrapper {
+    width: 100%;
+}
+
+.mainUserListDiv, .userListDiv {
+    display: grid;
+    grid-template-columns: 50px 100px 200px 500px 350px 100px;
+    align-items: center;
+    text-align: center;
+    border-bottom: 1px solid #ccc; /* 구분선 */
+    padding: 10px 0;
+}
+
+.mainUserListDiv {
+    font-weight: bold;
+    background-color: #f8f8f8; /* 타이틀 배경색 */
+}
+
+.userListDiv {
+    background-color: #fff;
+}
+
+.userListDiv:hover {
+    background-color: #f1f1f1; /* 마우스 오버 시 강조 */
+}
+
+/* 체크박스 정렬 */
+.checkboxall, .usersCheckbox {
+    justify-self: center;
+}
+
+.userListDiv .adminNameDiv,
+.userListDiv .courseNameDiv,
+.userListDiv .courseThemeDiv {
+    text-align: left;
+    padding-left: 10px; /* 여백 추가 */
+}

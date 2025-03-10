@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
 import java.util.Optional;
@@ -25,6 +26,20 @@ public class PlanMapperTests {
 //    계획 추가
     @Test
     public void testInsert() {
+<<<<<<< HEAD
+=======
+        MemberVO member = new MemberVO();
+
+        member.setMemberEmail("test1@test.com");
+        member.setMemberPassword("1234");
+
+        Optional<MemberVO> loginMember = memberMapper.selectByMemberEmailAndMemberPassword(member);
+        member = loginMember.orElse(new MemberVO());
+
+        Optional<CourseDTO> readCourse = courseMapper.getCourseDetail(2L);
+        CourseDTO course = readCourse.orElseThrow(() -> new RuntimeException("Course not found"));
+
+>>>>>>> e36c78bc36fed1e02c93512d90133408f84e26e7
         PlanVO planVO = new PlanVO();
 
         planVO.setPlanName("제목3");
@@ -38,8 +53,13 @@ public class PlanMapperTests {
         planVO.setPlanFileName("파일이름3");
         planVO.setPlanFileSize("파일크기3");
         planVO.setPlanFilePath("파일경로3");
+<<<<<<< HEAD
         planVO.setMemberId(1L);
         planVO.setCourseId(1L);
+=======
+        planVO.setMemberId(member.getId());
+        planVO.setCourseId(course.getId());
+>>>>>>> e36c78bc36fed1e02c93512d90133408f84e26e7
         planVO.setPlanContent("내용3");
 
         planMapper.insert(planVO);
@@ -87,6 +107,7 @@ public class PlanMapperTests {
     }
 
     @Test
+<<<<<<< HEAD
     public void testSelectByMemberId() {
         PlanDTO planDTO = new PlanDTO();
         MemberVO memberVO = new MemberVO();
@@ -96,4 +117,23 @@ public class PlanMapperTests {
         planDTO.setMemberId(memberVO.getId());
 
     }
+=======
+    public void testSelectAllById() {
+        List<PlanVO> list = planMapper.selectAllById(1L);
+        list.forEach(System.out::println);
+
+    }
+
+    @Test
+    public void testselectRanking(){
+        List<Long> weeklyIds = planMapper.selectRankingWeekly();
+        weeklyIds.forEach(System.out::println);
+
+        List<Long> monthlyIds = planMapper.selectRankingMonthly();
+        monthlyIds.forEach(System.out::println);
+
+        List<Long> yearlyIds = planMapper.selectRankingYearly();
+        yearlyIds.forEach(System.out::println);
+    }
+>>>>>>> e36c78bc36fed1e02c93512d90133408f84e26e7
 }

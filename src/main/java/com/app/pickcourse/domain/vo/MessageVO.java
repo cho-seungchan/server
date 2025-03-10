@@ -8,9 +8,9 @@ import lombok.*;
 public class MessageVO {
 
     @EqualsAndHashCode.Include
-    private Long messageId;  // TBL_MESSAGE의 ID
+    private Long id;  // TBL_MESSAGE의 ID
 
     private String content;  // 메시지 내용
 
-    private String messageDate;  // 메시지 생성 날짜
+    private String createdDate;  // 메시지 생성 날짜
 }

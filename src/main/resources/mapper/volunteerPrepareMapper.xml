@@ -4,28 +4,24 @@
     <insert id="postAddCourse">
         INSERT INTO TBL_VOLUNTEER_PREPARE
         (ID,
-         VOLUNTEER_PREPARE_CONTENT,
-         COURSE_ID
+         PREPARE_CONTENT,
+         VOLUNTEER_ID
         )
         VALUES
             (SEQ_VOLUNTEER_PREPARE.NEXTVAL,
-             #{volunteerPrepareContent},
-             #{courseId})
+             #{content},
+             #{volunteerId})
     </insert>
 
 
-    <select id="getCourseDetail" resultType="volunteerPrepareVO">
-        SELECT ID,
-               VOLUNTEER_PREPARE_CONTENT,
-               COURSE_ID,
-               CREATED_DATE,
-               UPDATED_DATE
+    <select id="getCourseDetail" resultType="String">
+        SELECT PREPARE_CONTENT
         FROM TBL_VOLUNTEER_PREPARE
-        WHERE COURSE_ID = #{courseId}
+        WHERE VOLUNTEER_ID =  #{volunteerId}
     </select>
 
     <delete id="deleteEditCourse">
         DELETE FROM TBL_VOLUNTEER_PREPARE
-        WHERE COURSE_ID = ${courseId}
+        WHERE VOLUNTEER_ID = #{volunteerId}
     </delete>
 </mapper>

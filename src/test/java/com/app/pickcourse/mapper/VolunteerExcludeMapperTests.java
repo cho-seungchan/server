@@ -17,26 +17,23 @@ public class VolunteerExcludeMapperTests {
 
     @Test
     public void postAddCourse() {
-        VolunteerExcludeVO volunteerExclude = new VolunteerExcludeVO();
 
-        volunteerExclude.setVolunteerExcludeContent("money");
-        volunteerExclude.setCourseId(2l);
-        mapper.postAddCourse(volunteerExclude);
+        mapper.postAddCourse("money", 129l);
 
     }
 
     @Test
     public void getCourseDetail() {
-        List<VolunteerExcludeVO> volunteerExclude = mapper.getCourseDetail(2l);
-        volunteerExclude.forEach(System.out::println);
+        List<String> excludeContents = mapper.getCourseDetail(129l);
+        excludeContents.forEach(System.out::println);
 
         CourseDTO courseDTO = new CourseDTO();
-        courseDTO.setVolunteerExcludes(volunteerExclude);
+        courseDTO.setExcludeContents(excludeContents);
         log.info(courseDTO.toString());
     }
 
     @Test
     public void deleteEditCourse() {
-        mapper.deleteEditCourse(2l);
+        mapper.deleteEditCourse(129l);
     }
 }

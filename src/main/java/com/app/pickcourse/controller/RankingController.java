@@ -1,3 +1,4 @@
+// 2025.02.24 조승찬
 package com.app.pickcourse.controller;
 
 import lombok.RequiredArgsConstructor;
@@ -13,6 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class RankingController {
 
     @GetMapping("/ranking")
-    public void getCustomerService() {}
+    public void getRanking() {}
 
 }

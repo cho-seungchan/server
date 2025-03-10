@@ -7,11 +7,14 @@ import lombok.*;
 @Setter
 @ToString
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class ReplyRepostVO {
+public class SendMessageFileVO {
+
     @EqualsAndHashCode.Include
     private Long id;
-    private Long replyId;
-    private Long memberId;
-    private String createDate;
-    private String updateDate;
+
+    private Long sendMessageId;
+    private Long fileId;
+
+
+
 }

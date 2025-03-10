@@ -2,72 +2,32 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.app.pickcourse.mapper.ReceiveMessageMapper">
 
-    <!-- 보낸 쪽지함에 저장 -->
-    <insert id="insertReceiveMessage">
-        INSERT INTO TBL_RECEIVE_MESSAGE (ID, RECEIVE_MESSAGE_RECEIVER, RECEIVE_MESSAGE_SENDER, RECEIVE_MESSAGE_CHECK)
-        VALUES (#{messageId}, #{receiverId}, #{senderId}, 'FALSE')
+    <!-- 받은 메시지 저장 -->
+    <insert id="insertReceiveMessage" parameterType="receiveMessageVO">
+        INSERT INTO TBL_RECEIVE_MESSAGE (ID, RECEIVER_ID, SENDER_ID)
+        VALUES (#{id}, #{receiverId}, #{senderId})
     </insert>
 
-
-    <!-- 받은 쪽지 전체 조회 -->
-    <select id="selectMessageByReceiverId" resultType="com.app.pickcourse.domain.dto.ReceiveMessageDTO">
+    <!-- 받은 메시지 조회 -->
+    <select id="selectReceiveMessagesByReceiverId" parameterType="Long" resultType="receiveMessageDTO">
         SELECT
-            rm.ID AS messageId,
-            rm.RECEIVE_MESSAGE_RECEIVER AS receiverId,
-            r.MEMBER_EMAIL AS receiverEmail,
-            r.MEMBER_NICKNAME AS receiverNickname,
-            rm.RECEIVE_MESSAGE_SENDER AS senderId,
-            s.MEMBER_EMAIL AS senderEmail,
-            s.MEMBER_NICKNAME AS senderNickname,
-            m.MESSAGE_ALL_CONTENT AS content,
-            m.MESSAGE_ALL_DATE AS receiveDate,
-            rm.RECEIVE_MESSAGE_CHECK AS isChecked
-        FROM TBL_RECEIVE_MESSAGE rm
-                 JOIN TBL_MESSAGE m ON rm.ID = m.ID
-                 JOIN TBL_MEMBER r ON rm.RECEIVE_MESSAGE_RECEIVER = r.ID
-                 JOIN TBL_MEMBER s ON rm.RECEIVE_MESSAGE_SENDER = s.ID
-        WHERE rm.RECEIVE_MESSAGE_RECEIVER = #{receiverId}
-        ORDER BY m.MESSAGE_ALL_DATE DESC
-    </select>
-
-    <select id="selectReceivedMessagesAll" resultType="com.app.pickcourse.domain.dto.ReceiveMessageDTO">
-        SELECT
-        R.*,
-        M.MESSAGE_ALL_CONTENT AS content,
-        M.MESSAGE_ALL_DATE AS receiveDate
-        FROM (
-        SELECT ROWNUM R, RM.*
-        FROM (
-        SELECT RM.ID AS messageId,
-        RM.RECEIVE_MESSAGE_RECEIVER AS receiverId,
-        R.MEMBER_EMAIL AS receiverEmail,
-        R.MEMBER_NICKNAME AS receiverNickname,
-        RM.RECEIVE_MESSAGE_SENDER AS senderId,
-        S.MEMBER_EMAIL AS senderEmail,
-        S.MEMBER_NICKNAME AS senderNickname,
-        RM.RECEIVE_MESSAGE_CHECK AS isChecked
+            RM.ID AS ID,
+            RM.RECEIVER_ID AS RECEIVER_ID,
+            RM.SENDER_ID AS SENDER_ID,
+            RM.RECEIVE_MESSAGE_CHECK AS ISCHECKED,
+            M.MESSAGE_ALL_CONTENT AS CONTENT,
+            M.MESSAGE_ALL_DATE AS RECEIVE_DATE,
+            SENDER.MEMBER_EMAIL AS SENDEREMAIL,
+            SENDER.MEMBER_NICKNAME AS SENDERNICKNAME
         FROM TBL_RECEIVE_MESSAGE RM
-        JOIN TBL_MEMBER R ON RM.RECEIVE_MESSAGE_RECEIVER = R.ID
-        JOIN TBL_MEMBER S ON RM.RECEIVE_MESSAGE_SENDER = S.ID
-        WHERE RM.RECEIVE_MESSAGE_RECEIVER = #{receiverId}
-        ORDER BY RM.ID DESC
-        ) RM
-        <![CDATA[
-        WHERE ROWNUM <= #{endRow}
-        ]]>
-        ) R
-        JOIN TBL_MESSAGE M ON R.RECEIVERID = M.ID
-        <![CDATA[
-        WHERE R.R >= #{startRow}
-        ]]>
+                 JOIN TBL_MESSAGE M ON RM.ID = M.ID
+                 JOIN TBL_MEMBER SENDER ON RM.SENDER_ID = SENDER.ID
+        WHERE rm.RECEIVER_ID = #{receiverId}
     </select>
 
-
-
-
-    <!-- 받은 쪽지 삭제 -->
-    <delete id="deleteReceivedMessage">
-        DELETE FROM TBL_RECEIVE_MESSAGE WHERE ID = #{messageId}
+    <delete id="deleteReceiveMessageById">
+        DELETE FROM TBL_RECEIVE_MESSAGE WHERE ID = #{id}
     </delete>
+
 
 </mapper>

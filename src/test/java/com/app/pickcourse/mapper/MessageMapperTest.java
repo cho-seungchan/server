@@ -23,52 +23,33 @@ public class MessageMapperTest {
     @Autowired
     private SendMessageMapper sendMapper;
 
-    @Test
-    public void testSelectReceivedMessages() {
-        Long receiverId = 3L; // 받은 사람 ID (테스트 계정)
 
-        // 받은 쪽지 조회
-        List<ReceiveMessageDTO> receivedMessages = receiveMapper.selectMessageByReceiverId(receiverId);
 
-        // 로그 출력
-        if (!receivedMessages.isEmpty()) {
-            log.info("받은 쪽지 조회 성공! 총 {}개의 메시지", receivedMessages.size());
-            for (ReceiveMessageDTO message : receivedMessages) {
-                log.info("메시지 ID: {}, 보낸 사람: {}, 내용: {}",
-                        message.getMessageId(), message.getSenderNickname(), message.getContent());
-            }
-        } else {
-            log.info("받은 쪽지가 없습니다.");
-        }
-    }
-
-//  메세지 보내기
     @Test
     public void testSendMessage() {
-        //메시지 보내기
         SendMessageDTO sendMessageDTO = new SendMessageDTO();
-        sendMessageDTO.setSenderId(1L);
-        sendMessageDTO.setSenderEmail("2ndtest@2ndtest.com");
-        sendMessageDTO.setSenderNickname("홍길동");
-        sendMessageDTO.setReceiverId(3L);
-        sendMessageDTO.setReceiverEmail("test@test.com");
-        sendMessageDTO.setReceiverNickname("Test");
-        sendMessageDTO.setContent("안녕못해요");
+        sendMessageDTO.setSenderId(3L);
+        sendMessageDTO.setSenderEmail("test@test.com");
+        sendMessageDTO.setSenderNickname("test");
+        sendMessageDTO.setReceiverId(1L);
+        sendMessageDTO.setReceiverEmail("2ndtest@2ndtest.com");
+        sendMessageDTO.setReceiverNickname("홍길동");
+        sendMessageDTO.setContent("테스트 대성공");
 
-        //TBL_MESSAGE(슈퍼키)에 먼저 메시지 저장
+        // 먼저 메시지를 저장하고 ID를 가져옴
         MessageVO messageVO = new MessageVO();
         messageVO.setContent(sendMessageDTO.getContent());
-        messageMapper.insertMessage(messageVO);
+        messageMapper.insertMessage(messageVO); //슈퍼키 테이블 저장
 
-        //생성된 messageId 설정
-        sendMessageDTO.setMessageId(messageVO.getMessageId());
+        // 메시지 ID 설정
+        sendMessageDTO.setId(messageVO.getId());
 
-        //보낸 쪽지함에 저장 (TBL_SEND_MESSAGE)
-        sendMapper.insertSendMessage(sendMessageDTO);
+        // 보낸 메시지 테이블에 저장
+        sendMapper.insertSendMessage(sendMessageDTO.toVO());
 
-        //받은 쪽지함에도 저장 (TBL_RECEIVE_MESSAGE)
+        // 받은 메시지 처리
         ReceiveMessageDTO receiveMessageDTO = new ReceiveMessageDTO();
-        receiveMessageDTO.setMessageId(sendMessageDTO.getMessageId());
+        receiveMessageDTO.setId(sendMessageDTO.getId());
         receiveMessageDTO.setSenderId(sendMessageDTO.getSenderId());
         receiveMessageDTO.setSenderEmail(sendMessageDTO.getSenderEmail());
         receiveMessageDTO.setSenderNickname(sendMessageDTO.getSenderNickname());
@@ -77,15 +58,34 @@ public class MessageMapperTest {
         receiveMessageDTO.setReceiverNickname(sendMessageDTO.getReceiverNickname());
         receiveMessageDTO.setContent(sendMessageDTO.getContent());
 
-        receiveMapper.insertReceiveMessage(receiveMessageDTO);
-
-        //로그 출력
-        log.info("보낸 쪽지 저장 완료! ID: {}", sendMessageDTO.getMessageId());
-        log.info("받은 쪽지 저장 완료! ID: {}", receiveMessageDTO.getMessageId());
+        receiveMapper.insertReceiveMessage(receiveMessageDTO.toVO());
     }
 
     @Test
-    public void testReceiveMessageDelete() {
+    public void testSelectReceivedMessages() {
+        Long receiverId = 1L; // 받은 사람 ID (테스트 계정)
+
+        // 받은 쪽지 조회
+        List<ReceiveMessageDTO> receivedMessages = receiveMapper.selectReceiveMessagesByReceiverId(receiverId);
+
+        // 로그 출력
+        if (!receivedMessages.isEmpty()) {
+            log.info("받은 쪽지 조회 성공! 총 {}개의 메시지", receivedMessages.size());
+            for (ReceiveMessageDTO message : receivedMessages) {
+                log.info("메시지 ID: {}, 보낸 사람: {}, 내용: {}",
+                        message.getId(), message.getSenderNickname(), message.getContent());
+            }
+        } else {
+            log.info("받은 쪽지가 없습니다.");
+        }
+    }
+
+    @Test
+    public void testDeleteReceiveMessageById() {
+        Long id = 3L;
+
+        receiveMapper.deleteReceiveMessageById(id);
+
 
     }
 

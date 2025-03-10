@@ -18,24 +18,21 @@ public class VolunteerIncludeMapperTests {
 
     @Test
     public void postAddCourse() {
-        VolunteerIncludeVO volunteerInclude = new VolunteerIncludeVO();
-        volunteerInclude.setVolunteerIncludeContent("meal");
-        volunteerInclude.setCourseId(2l);
-        mapper.postAddCourse(volunteerInclude);
+        mapper.postAddCourse("meal", 129l);
     }
 
     @Test
     public void getCourseDetail() {
-        List<VolunteerIncludeVO> volunteerInclude = mapper.getCourseDetail(2l);
+        List<String> volunteerInclude = mapper.getCourseDetail(129l);
         volunteerInclude.forEach(System.out::println);
 
         CourseDTO courseDTO = new CourseDTO();
-        courseDTO.setVolunteerIncludes(volunteerInclude);
+        courseDTO.setIncludeContents(volunteerInclude);
         log.info(courseDTO.toString());
     }
 
     @Test
     public void deleteEditCourse() {
-        mapper.deleteEditCourse(2l);
+        mapper.deleteEditCourse(129l);
     }
 }

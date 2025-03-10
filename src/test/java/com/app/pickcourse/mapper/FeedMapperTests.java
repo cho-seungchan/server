@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
+import java.util.Optional;
 
 @SpringBootTest
 @Slf4j
@@ -30,8 +31,9 @@ public class FeedMapperTests {
 
     @Test
     public void getFeedModify(){
-        FeedDTO feedDTO = mapper.getFeedModify(51l);
-        log.info("feedDTO:{}",feedDTO);
+        Optional<FeedDTO> feedDTO = mapper.getFeedModify(51l);
+        FeedDTO feed = feedDTO.orElseThrow(() -> new RuntimeException("FeedDTO not found"));
+        log.info("feed:{}",feed);
     }
 
     @Test

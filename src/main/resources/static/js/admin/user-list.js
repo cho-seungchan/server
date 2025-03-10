@@ -17,9 +17,6 @@ menuBtn.addEventListener("click", function () {
 document.addEventListener("DOMContentLoaded", function () {
     const checkboxAll = document.querySelector(".checkboxall");
     const userCheckboxes = document.querySelectorAll(".usersCheckbox");
-    const pauseBtn = document.querySelector(".pauseBtn");
-    const banBtn = document.querySelector(".banBtn");
-    const restorationBtn = document.querySelector(".restorationBtn");
 
     //전체 선택 체크박스 클릭 시 모든 개별 체크박스 상태 변경
     checkboxAll.addEventListener("change", function () {
@@ -35,102 +32,83 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    //회원 정지 버튼 클릭 시 - 확인 누르면 실행, 취소 누르면 아무 변화 없음
-    pauseBtn.addEventListener("click", function () {
-        const isConfirmed = confirm("정말 회원을 정지하시겠습니까?");
-        if (!isConfirmed) return; // 취소를 누르면 함수 종료 (아무 변화 없음)
+    // 2025.03.03 조승찬 추가
+    // 최초 로딩시 라디오 버튼 처리
+    // const isActValue =  '[[${search.isAct}]]'; // html문 안에서 설정 됨.
+    // 따옴표 제거
+    let cleanIsActValue = isActValue.replace(/^"|"$/g, '');
+    const radioButtons = document.querySelectorAll('input[name="isAct"]');
 
-        userCheckboxes.forEach((checkbox) => {
-            if (checkbox.checked) {
-                const userRow = checkbox.closest(".userListDiv");
-                userRow.classList.add("banned"); // 회색 처리
-                checkbox.checked = false; // 체크 해제
-            }
-        });
-
-        // 전체 선택 체크 해제
-        checkboxAll.checked = false;
-    });
-
-    //회원 추방 버튼 클릭 시 - 확인 누르면 실행, 취소 누르면 아무 변화 없음
-    banBtn.addEventListener("click", function () {
-        const isConfirmed = confirm("정말 회원을 추방하시겠습니까?");
-        if (!isConfirmed) return; // 취소를 누르면 함수 종료 (아무 변화 없음)
-
-        userCheckboxes.forEach((checkbox) => {
-            if (checkbox.checked) {
-                const userRow = checkbox.closest(".userListDiv");
-                userRow.classList.add("removed"); // 취소선 추가
-                checkbox.checked = false; // 체크 해제
-            }
-        });
-
-        // 전체 선택 체크 해제
-        checkboxAll.checked = false;
-    });
-
-    //정지 취소 버튼 클릭 시 - 정지된 회원만 원상 복구 가능
-    restorationBtn.addEventListener("click", function () {
-        const isConfirmed = confirm("정말 회원을 복구하시겠습니까?");
-        if (!isConfirmed) return; // 취소를 누르면 함수 종료 (아무 변화 없음)
-        let hasBannedUser = false;
-
-        userCheckboxes.forEach((checkbox) => {
-            if (checkbox.checked) {
-                const userRow = checkbox.closest(".userListDiv");
-
-                if (userRow.classList.contains("banned")) {
-                    userRow.classList.remove("banned"); // 회색 제거
-                    checkbox.checked = false; // 체크 해제
-                    hasBannedUser = true;
-                }
-            }
-        });
-
-        // 만약 정지된 회원이 하나도 없었다면 경고창 띄우기
-        if (!hasBannedUser) {
-            alert("정지된 회원만 정지 취소할 수 있습니다.");
+    console.log("isActValue 원본:", isActValue, "| ASCII:", isActValue.charCodeAt(0));
+    console.log("isActValue 정리 후:", cleanIsActValue, "| ASCII:", cleanIsActValue.charCodeAt(0));
+    radioButtons.forEach(radio => {
+        console.log("radio.value:", radio.value, "| ASCII:", radio.value.charCodeAt(0));
+        if (radio.value == cleanIsActValue) {  // 라디오 버튼이기 때문에 하나만 true 되면 나머지는 false
+            radio.checked = true;
+            console.log("true    radio.value:", radio.value);
         }
-
-        // 전체 선택 체크 해제
-        checkboxAll.checked = false;
     });
-});
 
-document.addEventListener("DOMContentLoaded", function () {
-    const searchInput = document.querySelector(".SearchInput");
-    const userList = document.querySelectorAll(".userListDiv");
-
-    searchInput.addEventListener("input", function () {
-        const searchText = searchInput.value.trim().toLowerCase(); // 검색어 (소문자로 변환)
-
-        userList.forEach((user) => {
-            const id = user.querySelector(".idDiv").textContent.toLowerCase();
-            const account = user
-                .querySelector(".accountDiv")
-                .textContent.toLowerCase();
-            const name = user
-                .querySelector(".nameDiv")
-                .textContent.toLowerCase();
-            const phone = user
-                .querySelector(".phoneDiv")
-                .textContent.toLowerCase();
-            const email = user
-                .querySelector(".emailDiv")
-                .textContent.toLowerCase();
-
-            // 검색어가 포함되면 표시, 없으면 숨김
-            if (
-                id.includes(searchText) ||
-                account.includes(searchText) ||
-                name.includes(searchText) ||
-                phone.includes(searchText) ||
-                email.includes(searchText)
-            ) {
-                user.classList.remove("hidden");
-            } else {
-                user.classList.add("hidden");
-            }
+    //회원 정지, 정지 해제, 회원 추방 버튼 클릭시
+    function setFormAction(action) {
+        const selectedUsers = document.querySelectorAll(".usersCheckbox:checked");
+        if (selectedUsers == null || selectedUsers.length == 0){
+            alert("체크 박스를 선택 해 주세요!");
+            return;
+        }
+        const selectedIds = Array.from(selectedUsers).map(checkbox => {
+            const userDiv = checkbox.closest(".userListDiv");
+            const idDiv = userDiv.querySelector(".idDiv");
+            return idDiv.textContent.trim();
         });
+
+        document.getElementById("selectedIds").value = selectedIds.join(',');
+        document.querySelector("form[name=changeForm]").action = action;
+        document.querySelector("form[name=changeForm]").submit();
+    }
+
+    document.querySelector(".pauseBtn").addEventListener("click", function (e) {
+        e.preventDefault();
+        setFormAction('/admin/member-list-pause');
     });
+
+    document.querySelector(".restartBtn").addEventListener("click", function (e) {
+        e.preventDefault();
+        setFormAction('/admin/member-list-restart');
+    });
+
+    document.querySelector(".expelBtn").addEventListener("click", function (e) {
+        e.preventDefault();
+        setFormAction('/admin/member-list-delete');
+    });
+
+    // 2025.03.03 조승찬 추가
+
 });
+
+// 2025.03.05 조승찬 추가
+document.addEventListener("DOMContentLoaded", function () {
+    // 검색 조건 처리
+    document.querySelector("a.search").addEventListener("click", e =>{
+        e.preventDefault();
+        document.querySelector("form[name=searchForm]").submit();
+    })
+
+    // 페이징 처리
+    document.querySelector(".pagination-container").addEventListener("click", function (e) {
+        const pageLink = e.target.closest(".change-page"); // 가장 가까운 .change-page 요소 찾기
+        if (!pageLink) return; // 클릭한 요소가 .change-page가 아니면 무시
+
+        e.preventDefault(); // 기본 이벤트 막기
+
+        const pageValue = pageLink.getAttribute("href"); // href 값 가져오기
+        if (pageValue) {
+            // document.querySelector("input[name=page]").value = pageValue; // input[name=page] 값 변경
+            document.querySelector(".adminList").value = pageValue;
+            document.forms["searchForm"].submit(); // 폼 제출
+        }
+    });
+
+});
+// 2025.03.05 조승찬 추가
+

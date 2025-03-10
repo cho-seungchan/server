@@ -9,25 +9,30 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 @Mapper
 public interface CourseMapper {
 
     // 페이지 처리를 위한 전체 화면 갯수
-    int getCountAll(Search search);
+    int getCountAll(@Param("search") Search search);
 
     // 추천코스 등록
-    void postAddCourse(CourseVO courseVO);
+    void postAddCourse(CourseDTO courseDTO);
 
     // 추천코스 조회
-    CourseDTO getCourseDetail(Long id);
+    Optional<CourseDTO> getCourseDetail(Long id);
 
     // 추천코스 목록 조회
     List<CourseListDTO> getCourseList(@Param("pagination") Pagination pagination, @Param("search") Search search);
 
-    // 추천코스 타입 정하기 :: 추천화면 목록 조회 화면에서 수행
-    void patchCourseList(@Param("id") Long id, @Param("courseType") String courseType);
-
     // 추천코스 수정
     void patchEditCourse(CourseVO courseVO);
+
+    // 추천코스 타입 정하기 :: 기존에 같은 타입으로 등록된 코스의 타입 클리어
+    void patchCourseListExpire(@Param("courseType") String courseType);
+
+    // 추천코스 타입 정하기 :: 정해진 타입으로 코스 세팅
+    void patchCourseListRegist(@Param("id") Long id, @Param("courseType") String courseType);
+
 }

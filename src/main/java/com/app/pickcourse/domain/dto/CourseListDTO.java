@@ -10,7 +10,7 @@ import lombok.ToString;
 @Getter @Setter @ToString
 public class CourseListDTO {
     private Long      id;
-    private Character courseType;
+    private String    courseType;
     private Character courseIsVolunteer;
     private String    courseName;
     private String    courseDistance;

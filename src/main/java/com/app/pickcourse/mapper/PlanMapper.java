@@ -12,6 +12,7 @@ import java.util.Optional;
 public interface PlanMapper {
 //    추가
     public void insert(PlanVO planVO);
+
 //    전체 조회
     public List<PlanVO> selectAll();
 
@@ -24,6 +25,11 @@ public interface PlanMapper {
 //    삭제
     public void deleteById(Long Id);
 
-//    MEMBER ID로 조회
-    public List<PlanDTO> selectByMemberId(Pagination pagination, Long memberId);
+//    아이디별 전체조회
+    public List<PlanVO> selectAllById(Long id);
+
+    public List<Long> selectRankingWeekly();
+    public List<Long> selectRankingMonthly();
+    public List<Long> selectRankingYearly();
+
 }

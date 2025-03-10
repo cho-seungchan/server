@@ -7,11 +7,17 @@ import lombok.*;
 @Setter
 @ToString
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class FeedReportVO {
+public class ReceiveMessageVO {
+
     @EqualsAndHashCode.Include
     private Long id;
-    private Long feedId;
-    private Long memberId;
-    private String createDate;
-    private String updateDate;
+
+    private Long receiverId;
+    private Long senderId;
+
+    private String content;
+
+    private String messageDate;
+    private String receiveDate;
+
 }

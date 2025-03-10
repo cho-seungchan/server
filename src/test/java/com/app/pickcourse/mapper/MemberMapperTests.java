@@ -35,7 +35,7 @@ public class MemberMapperTests {
 
     @Test
     public void postMemberListTest() {
-        mapper.patchMemberList(3l);
+        mapper.patchMemberListPause(3l);
     }
 
     @Test
@@ -50,9 +50,9 @@ public class MemberMapperTests {
 
         MemberVO memberVO = new MemberVO();
 
-        memberVO.setMemberEmail("test@test.com");
+        memberVO.setMemberEmail("hhh1");
         memberVO.setMemberPassword("1234");
-        memberVO.setMemberNickname("Test");
+        memberVO.setMemberNickname("hhh1");
         memberVO.setMemberTell("010-1234-5678");
         memberVO.setMemberBirth("1992-12-12");
         memberVO.setMemberGender("선택안함");
@@ -69,7 +69,7 @@ public class MemberMapperTests {
     public void testSelectByMemberEmailAndMemberPassword(){
         MemberVO memberVO = new MemberVO();
         memberVO.setMemberEmail("test@test.com");
-        memberVO.setMemberPassword("12345");
+        memberVO.setMemberPassword("1234");
         MemberVO foundMember = mapper.selectByMemberEmailAndMemberPassword(memberVO).orElse(null);
         log.info(foundMember.toString());
     }
@@ -89,7 +89,7 @@ public class MemberMapperTests {
 
     @Test
     public void testDelete() {
-        mapper.delete(2L);
+        mapper.delete(23L);
     }
 
 

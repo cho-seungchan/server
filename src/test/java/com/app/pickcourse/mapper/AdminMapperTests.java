@@ -36,11 +36,11 @@ public class AdminMapperTests {
         admin.setAdminName("cho");
         admin.setAdminPhone("011");
         admin.setAdminEmail("daum");
-        mapper.postManageAdmin(admin);
+        mapper.postManageAdminList(admin);
     }
 
     @Test
     public void deleteManageAdmin() {
-        mapper.deleteManageAdmin(3l);
+        mapper.deleteManageAdminList(3l);
     }
 }
