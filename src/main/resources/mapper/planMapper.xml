@@ -54,6 +54,8 @@
         FROM TBL_MEMBER M JOIN TBL_PLAN P
         ON M.ID = P.MEMBER_ID
         WHERE P.MEMBER_ID = #{memberId}
+    </select>
+
     <select id="selectAllById" resultType="planVO">
         SELECT * FROM TBL_PLAN
         WHERE  MEMBER_ID = #{memberId}

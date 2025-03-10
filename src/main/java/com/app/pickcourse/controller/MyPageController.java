@@ -1,6 +1,7 @@
 package com.app.pickcourse.controller;
 
 
+import com.app.pickcourse.domain.dto.MemberDTO;
 import com.app.pickcourse.domain.dto.ReceiveMessageDTO;
 import com.app.pickcourse.domain.dto.SendMessageDTO;
 import com.app.pickcourse.domain.vo.MemberVO;
@@ -167,8 +168,22 @@ public class MyPageController {
     public void getMyCourse(){}
     @GetMapping("myMain")
     public void getMyMain(){}
+
     @GetMapping("myPageModify")
-    public void getMyPageModify(){}
+    public String getMyPageModify(HttpSession session, Model model) {
+        MemberVO loginUserVO = (MemberVO) session.getAttribute("loginUser");
+        MemberDTO loginUserDTO = MemberDTO.fromVO(loginUserVO);
+
+        if (loginUserVO == null) {
+            return "redirect:/login/login";
+        }
+
+        model.addAttribute("memberDTO", loginUserDTO);
+
+        return "my-page/myPageModify";
+    }
+
+
     @GetMapping("myReply")
     public void getMyReply(){}
     @GetMapping("payContent")
