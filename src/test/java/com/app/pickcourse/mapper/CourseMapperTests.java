@@ -23,7 +23,7 @@ public class CourseMapperTests {
     @Test
     public void postAddCourseTest() {
         CourseDTO course = new CourseDTO();
-        course.setCourseType(' ');
+        course.setCourseType("");
         course.setCourseIsVolunteer('Y');
         course.setCourseName("남원");
         course.setCourseDistance("1.6km");

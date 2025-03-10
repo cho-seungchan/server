@@ -48,14 +48,12 @@
         WHERE ID = #{id}
     </delete>
 
-<<<<<<< HEAD
     <select id="selectByMemberId" resultType="planDTO">
         SELECT M.MEMBER_NICKNAME, P.ID, P.PLAN_NAME, P.PLAN_START_DATE, P.PLAN_END_DATE, P.PLAN_DEADLINE,
                P.PLAN_MAX_PERSONNEL, P.PLAN_MIN_PERSONNEL, P.PLAN_PRICE, P.MEMBER_ID, P.COURSE_ID
         FROM TBL_MEMBER M JOIN TBL_PLAN P
         ON M.ID = P.MEMBER_ID
         WHERE P.MEMBER_ID = #{memberId}
-=======
     <select id="selectAllById" resultType="planVO">
         SELECT * FROM TBL_PLAN
         WHERE  MEMBER_ID = #{memberId}
@@ -104,6 +102,5 @@
              )
         WHERE ROWNUM <= 4
         ]]>
->>>>>>> e36c78bc36fed1e02c93512d90133408f84e26e7
     </select>
 </mapper>

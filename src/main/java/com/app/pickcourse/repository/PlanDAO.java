@@ -36,8 +36,4 @@ public class PlanDAO {
         planMapper.deleteById(id);
     }
 
-//    MEMBER ID로 조회
-    public List<PlanDTO> findByMemberId(Pagination pagination, Long memberId) {
-        return planMapper.selectByMemberId(pagination, memberId);
-    };
 }

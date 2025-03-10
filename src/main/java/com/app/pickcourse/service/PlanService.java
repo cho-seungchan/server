@@ -48,10 +48,5 @@ public class PlanService {
         log.info("check2 {}", planDTO.getPlanContent());
 
     }
-//    나의 여행 계획 목록
-
-    public List<PlanDTO> findMyPlan(Pagination pagination, Long memberId) {
-        return planDAO.findByMemberId(pagination, memberId);
-    };
 
 }
