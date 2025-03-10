@@ -3,8 +3,8 @@
 // import {addCourseList, addPagination, initSearchForm} from "./course-list-layout-add.js";
 
 // userListDiv 클릭시 course-list-event.js에서 호출
-function fetchCourDetail(id){
-    return fetch(`/admin/course-detail`)
+function fetchCourseDetail(id){
+    return fetch(`/admin/course-detail/${id}`)
         .then(response => response.json())
         .then(data => {
             createCourseDetail(); // 코스 목록 기초 화면

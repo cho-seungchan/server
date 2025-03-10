@@ -136,7 +136,7 @@ public class AdminController {
     @ResponseBody
     public ResponseEntity<Map<String, Object>> getCourseList(Pagination pagination, Search search) {
         List<CourseListDTO> list = adminService.getCourseList(pagination,search);
-        list.forEach(System.out::println);
+//        list.forEach(System.out::println);
 
         Map<String, Object> response = new HashMap<String, Object>();
         response.put("courses", list);
@@ -162,6 +162,7 @@ public class AdminController {
     @ResponseBody
     public ResponseEntity<Map<String, Object>> getCourseDetail(@PathVariable("id") Long id) {
         CourseDTO courseDTO = adminService.getCourseDetail(id);
+        System.out.println(courseDTO.toString());
         Map<String,Object> response = new HashMap<String, Object>();
         response.put("course", courseDTO);
         return ResponseEntity.ok(response);

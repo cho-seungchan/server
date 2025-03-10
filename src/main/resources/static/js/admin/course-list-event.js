@@ -48,15 +48,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // 리스트 중 클릭된 코스의 상세 조회 요청 => course-detail-service.js
         if (e.target.classList.contains("userListDiv") || e.target.closest(".userListDiv")){
-            console.log("상세 조회요청 들어옴");
             e.preventDefault(); // 기본 이벤트 막기
             const clickedElement = e.target.classList.contains("userListDiv") ? e.target : e.target.closest(".userListDiv");
             const courseIdDiv = clickedElement.querySelector(".courseIdDiv").textContent.trim();
 
+            console.log("상세 조회요청 들어옴"+" "+courseIdDiv);
             if (courseIdDiv){
-                fetchCourDetail(courseId);
+                const pageValue = document.querySelector('input[name="page"]').value;
+                const typeValue = document.querySelector('select[name="type"]').value;
+                const keyWordValue = document.querySelector('input[name="keyWord"]').value;
+
+                fetchCourseDetail(courseIdDiv, pageValue, typeValue, keyWordValue);
             } else {
-                console.warn('No courseId found !!!');
+                console.warn('No courseIdDiv found !!!');
             }
         }
 

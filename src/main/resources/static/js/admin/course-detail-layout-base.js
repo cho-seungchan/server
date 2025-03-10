@@ -18,21 +18,13 @@ function createCourseDetail() {
                 <div class="FundingPage_content__OTYzY">
                     <section class="Section_container__NzdhM spacing-9" style="max-width: 1024px" >
                         <div class="Section_content__Mzc4M">
-                            <input type="hidden" name="registered" value="2025-02-12 15:51:48.0" disabled="" style=" background-color: rgba( 211, 211, 211, 0.5 ); cursor: not-allowed; />
-                        </div>
-                    </section>
-                    <div class="">
+                            <input type="hidden" name="registered" value="2025-02-12 15:51:48.0">
                         <section
                             class="Section_container__NzdhM spacing-9" >
                             <div style="max-width: 1024px">
                                 <div class="Section_header__NDYxN spacing-4" >
                                     <h3 class="Section_title__ODQyN Section_isRequired__MzViM" >
                                         코스 제목<span class="BlindText_textHidden__Y2JmY" >필수</span >
-                                        <label for="volunteerBox" class="volunteerLabel" >
-                                            <input type="checkbox" id="volunteerBox" class="volunteerBox" disabled="" style=" background-color: rgba( 211, 211, 211, 0.5 ); cursor: not-allowed; " />
-                                            봉사 코스
-                                        </label>
-
                                         <div>
                                             <button type="button" class="Tooltip_button__OGZkY Tooltip_withLabel__M2Q1O Section_tooltip__Njk1N" aria-describedby="Tooltip_1" >
                                                 <span class="Tooltip_label__MjJkZ" >코스 제목 정보</span >
@@ -48,46 +40,35 @@ function createCourseDetail() {
                                     <div class="TextField_textField__ZmYzN TextField_lg__NGQ5N" >
                                         <label></label>
                                         <div class="TextField_field__YTJkY" >
-                                            <input placeholder="제목을 입력해 주세요" maxlength="40" type="text" class="Input_input__M2Q3Y Input_lg__MDE4M" aria-invalid="false" value="달(月)달(月)한 남원여행" disabled="" style=" background-color: rgba( 211, 211, 211, 0.5 ); cursor: not-allowed; " />
+<!--                                        여행 제목 생성 -->
                                         </div>
                                         <em class="HelperMessage_helperMessage__ZTRkO" >40자 남음</em >
-                                        <div class="DurationOfTourContainer hidden" >
-                                            <input type="date" placeholder="시작일" class="SocialRecruiteTagsContainer__SocialRecruiteTagsInput-sc-2762su-1 gcqwwh startdate" value="" disabled="" style=" background-color: rgba( 211, 211, 211, 0.5 ); cursor: not-allowed; " />
-                                            <span>~</span>
-                                            <input type="date" placeholder="종료일" class="SocialRecruiteTagsContainer__SocialRecruiteTagsInput-sc-2762su-1 gcqwwh enddate" value="" disabled="" style=" background-color: rgba( 211, 211, 211, 0.5 ); cursor: not-allowed; " />
-                                            <span>마감일</span >
-                                            <input type="date" placeholder="모집 마감일" class="SocialRecruiteTagsContainer__SocialRecruiteTagsInput-sc-2762su-1 gcqwwh deadline" value="" disabled="" style=" background-color: rgba( 211, 211, 211, 0.5 ); cursor: not-allowed; " />
-                                            <button type="button" class="CurrentProfile__MoreButton-sc-1u92qay-6 FvtMb" style=" pointer-events: none; opacity: 0.5; " >
-                                                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='17' viewBox='0 0 4 17'%3E %3Cpath fill='%23999' fill-rule='evenodd' d='M1.57 14a1.5 1.5 0 110 3 1.5 1.5 0 010-3zm0-7a1.5 1.5 0 110 3 1.5 1.5 0 010-3zm0-7a1.5 1.5 0 110 3 1.5 1.5 0 010-3z'/%3E %3C/svg%3E" alt="더보기" />
-                                            </button>
+                                        <div class="DurationOfTourContainer" >
+<!--                                        봉사코스 일 경우 시작일, 종료일, 마감일 생성-->
                                         </div>
-                                        <div class="DurationOfTourContainer1 hidden SocialRecruiteTagsContainer__SocialRecruiteTagsWrapper-sc-2762su-0 bmexYY second" >
+                                        <div class="DurationOfTourContainer1 SocialRecruiteTagsContainer__SocialRecruiteTagsWrapper-sc-2762su-0 bmexYY second" >
                                             <div class="bmexYYinput" >
-                                                <input placeholder="포함 사항 (0/10)" class="SocialRecruiteTagsContainer__SocialRecruiteTagsInput-sc-2762su-1 gcqwwh include" value="" disabled="" style=" background-color: rgba( 211, 211, 211, 0.5 ); cursor: not-allowed; " />
-                                                <input placeholder="불포함 사항 (0/10)" class="SocialRecruiteTagsContainer__SocialRecruiteTagsInput-sc-2762su-1 gcqwwh exclude" value="" disabled="" style=" background-color: rgba( 211, 211, 211, 0.5 ); cursor: not-allowed; " />
-                                                <input placeholder="준비물 (0/10)" class="SocialRecruiteTagsContainer__SocialRecruiteTagsInput-sc-2762su-1 gcqwwh prepare" value="" disabled="" style=" background-color: rgba( 211, 211, 211, 0.5 ); cursor: not-allowed; " />
+<!--                                           봉사코스 일 경우 포함 불포함 준비물 생성-->
                                             </div>
                                             <p class="Textarea__Count-sc-1b9phu6-2 jvAusQ" > 입력 후 엔터를 누르면 태그가 생성되요 </p>
                                             <section class="ProductDetailPage__SectionContainer-sc-126q1k2-4 bDBbNi" >
                                                 <article class="bDBbNifirst" ></article>
+<!--                                                포함 사항 생성-->
                                                 <article class="bDBbNisecond" ></article>
+<!--                                                불포함 사항 생성-->
                                                 <article class="bDBbNithird" ></article>
+<!--                                                준비물 생성-->
                                             </section>
                                         </div>
 
                                         <div class="NumberOfPerson" >
-                                            <input placeholder="총 거리" class="SocialRecruiteTagsContainer__SocialRecruiteTagsInput-sc-2762su-1 gcqwwh max" value="39.6 km" readonly="" disabled="" style=" background-color: rgba( 211, 211, 211, 0.5 ); cursor: not-allowed; " />
-                                            <input placeholder="일정" class="SocialRecruiteTagsContainer__SocialRecruiteTagsInput-sc-2762su-1 gcqwwh min" value="당일 여행" disabled="" style=" background-color: rgba( 211, 211, 211, 0.5 ); cursor: not-allowed; " />
-                                            <input placeholder="테마"  class="SocialRecruiteTagsContainer__SocialRecruiteTagsInput-sc-2762su-1 gcqwwh cost" value="힐링 코스" disabled="" style=" background-color: rgba( 211, 211, 211, 0.5 ); cursor: not-allowed; " />
+<!--                                        총거리 일정 테마 생성-->
                                         </div>
                                         <div class="GatheringPlace" >
-                                            <input placeholder="주소를 입력하세요" class="noBtnStyle SocialRecruiteTagsContainer__SocialRecruiteTagsInput-sc-2762su-1 gcqwwh include1 gather" value="" disabled="" style=" background-color: rgba( 211, 211, 211, 0.5 ); cursor: not-allowed; " />
+                                            <input placeholder="주소를 입력하세요" class="noBtnStyle SocialRecruiteTagsContainer__SocialRecruiteTagsInput-sc-2762su-1 gcqwwh include1 gather"/>
 
                                             <ul id="destinationList" tyle=" padding: 10px; margin-top: 10px; list-style: none; " >
-                                                <li style=" display: flex; justify-content: space-between; padding: 5px; border-bottom: 1px solid rgb( 221, 221, 221 " >
-                                                    <span style=" cursor: pointer; " >1. 전북특별자치도 남원시 원천로 37</span >
-                                                    <img src="" style=" cursor: pointer; margin-left: 5px; width: 14px; height: 14px; " />
-                                                </li>
+<!--                                            경로 생성 -->
                                             </ul>
                                             <!-- 지도 -->
                                             <!-- 지도 -->
@@ -121,8 +102,8 @@ function createCourseDetail() {
                                 </div>
                                 <div class="Section_content__Mzc4M" >
                                     <div class="StorySummaryField_container__MWQ0N" >
-                                        <textarea maxlength="1000" placeholder="내용 입력" class="Textarea_textarea__MWJjO" disabled="" value="" style=" background-color: rgba( 211, 211, 211, 0.5 ); cursor: not-allowed; " > 이번 여행은 사랑1번지 남원시에서의 ''치유와 힐링'' 여행이다. </textarea>
-                                        <p class="StorySummaryField_text__ZTEzY" > 1000자 남음 </p>
+<!--                                    내용 생성 -->
+                                        <p class="StorySummaryField_text__ZTEzY" > 0/1000 </p>
                                     </div>
                                 </div>
                             </div>
@@ -161,7 +142,7 @@ function createCourseDetail() {
                                 <div class="ImageUploadSection__Wrapper-sc-12o1z5n-0 kutLeL" >
                                     <div>
                                         <label class="InputImageReview__Wrapper-sc-1oapt4s-0 ipbuZD" >
-                                            <input type="file" accept=".jpg, .jpeg, .png" multiple="" disabled="" style=" background-color: rgba( 211, 211, 211, 0.5 ); cursor: not-allowed; " />
+                                            <input type="file" accept=".jpg, .jpeg, .png" multiple=""/>
                                             <span> 사진 첨부하기</span >
                                         </label>
                                         <div class="ImageList-sc-9v1mt2-0 hGJMVS" ></div>
