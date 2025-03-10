@@ -6,7 +6,6 @@ import com.app.pickcourse.domain.dto.CourseDTO;
 import com.app.pickcourse.domain.dto.CourseListDTO;
 import com.app.pickcourse.domain.vo.AdminVO;
 import com.app.pickcourse.domain.vo.MemberVO;
-import com.app.pickcourse.exception.DuplicateException;
 import com.app.pickcourse.service.AdminService;
 import com.app.pickcourse.util.Pagination;
 import com.app.pickcourse.util.Search;
@@ -98,7 +97,7 @@ public class AdminController {
     public String postManageAdminList(AdminVO adminVO, RedirectAttributes redirectAttributes) {
         try {
             adminService.postManageAdminList(adminVO);
-        } catch (DuplicateException e){
+        } catch (com.app.pickcourse.exception.DuplicateException e){
             redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
         }
         return "redirect:/admin/manage-admin-list";

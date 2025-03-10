@@ -3,6 +3,8 @@ package com.app.pickcourse.domain.vo;
 import lombok.*;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
+
 @NoArgsConstructor
 @Getter
 @Setter

@@ -15,7 +15,16 @@ import java.util.List;
 public class WritePrepareDTO {
     @EqualsAndHashCode.Include
     private Long id;
-    private List<WritePrepareVO> prepareContent;
+    private String prepareContent;
     private Long planId;
+
+    public WritePrepareVO toVO() {
+        WritePrepareVO writePrepareVO = new WritePrepareVO();
+        writePrepareVO.setId(id);
+        writePrepareVO.setPrepareContent(prepareContent);
+        writePrepareVO.setPlanId(planId);
+
+        return writePrepareVO;
+    }
 
 }

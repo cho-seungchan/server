@@ -13,6 +13,16 @@ import java.util.List;
 public class WriteIncludeDTO {
     @EqualsAndHashCode.Include
     private Long id;
-    private List<WriteIncludeVO> includeContent;
+    private String includeContent;
     private Long planId;
+
+    public WriteIncludeVO toVO(){
+        WriteIncludeVO writeIncludeVO = new WriteIncludeVO();
+
+        writeIncludeVO.setId(id);
+        writeIncludeVO.setIncludeContent(includeContent);
+        writeIncludeVO.setPlanId(planId);
+
+        return writeIncludeVO;
+    }
 }

@@ -1,12 +1,10 @@
 package com.app.pickcourse.domain.dto;
 
-import com.app.pickcourse.domain.vo.ScheduleVO;
-import com.app.pickcourse.domain.vo.WriteExcludeVO;
-import com.app.pickcourse.domain.vo.WriteIncludeVO;
-import com.app.pickcourse.domain.vo.WritePrepareVO;
+import com.app.pickcourse.domain.vo.*;
 import lombok.*;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Component
@@ -34,10 +32,34 @@ public class PlanDTO {
     private Long courseId;
     private String CreatedDate;
     private String UpdatedDate;
-    private List<WriteExcludeVO> excludeContents;
-    private List<WriteIncludeVO> includeContents;
-    private List<WritePrepareVO> prepareContents;
-    private List<ScheduleVO> shceduleContents;
+    private List<WriteExcludeDTO> excludeContents;
+    private List<WriteIncludeDTO> includeContents;
+    private List<WritePrepareDTO> prepareContents;
+    private List<ScheduleDTO> scheduleContents;
     private String memberName;
     private int memberAge;
+
+    public PlanVO toVO() {
+        PlanVO planVO = new PlanVO();
+
+        planVO.setId(id);
+        planVO.setPlanName(planName);
+        planVO.setPlanStartDate(planStartDate);
+        planVO.setPlanEndDate(planEndDate);
+        planVO.setPlanDeadline(planDeadline);
+        planVO.setPlanMaxPersonnel(planMaxPersonnel);
+        planVO.setPlanMinPersonnel(planMinPersonnel);
+        planVO.setPlanPrice(planPrice);
+        planVO.setPlanStartAddress(planStartAddress);
+        planVO.setPlanContent(planContent);
+        planVO.setPlanFilePath(planFilePath);
+        planVO.setPlanFileSize(planFileSize);
+        planVO.setPlanFileName(planFileName);
+        planVO.setMemberId(memberId);
+        planVO.setCourseId(courseId);
+        planVO.setCreatedDate(CreatedDate);
+        planVO.setUpdatedDate(UpdatedDate);
+
+        return planVO;
+    }
 }

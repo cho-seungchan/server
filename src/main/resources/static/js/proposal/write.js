@@ -74,6 +74,7 @@ const kebabmenu = document.querySelector(".FvtMb");
 const numberOfPerson = document.querySelector(".NumberOfPerson");
 const detailOfDateContainer = document.createElement("div");
 detailOfDateContainer.className = "DetailOfDateContainer";
+const schedules = new Array();
 
 kebabmenu.addEventListener("click", () => {
     if (document.querySelector(".DetailOfDateContainer")) {
@@ -95,19 +96,24 @@ kebabmenu.addEventListener("click", () => {
     for (let i = 0; i < days; i++) {
         detailOfDateContainer.innerHTML += ` <p>${i + 1}일차 계획서</p>
             <textarea data-index=${i} placeholder="상세 일정을 적어보세요 (아래 사진첨부로 대체 가능)"
-            maxlength="1200"  class="Textarea__StyledTextarea-sc-1b9phu6-1 kmqQeBdetail"></textarea>
+            maxlength="1200"  class="Textarea__StyledTextarea-sc-1b9phu6-1 kmqQeBdetail detaleContent"></textarea>
             <p class="Textarea__Count-sc-1b9phu6-2 jvAusQdetail">0 / 1200</p>`;
+
     }
+
     numberOfPerson.parentNode.insertBefore(detailOfDateContainer, numberOfPerson);
+
 
     // textarea에 글자 입력시 입력된 글자 수 보여주기
     document.querySelector(".DetailOfDateContainer").addEventListener("input", (e) => {
         if (e.target.classList.contains("kmqQeBdetail")) {
             e.target.nextElementSibling.textContent = `${e.target.value.length} / 1200 (추천 글자수: 30자 이내)`;
+            scheduleText = e.target.value;
         }
     });
-    // textarea에 글자 입력시 입력된 글자 수 보여주기
 });
+
+
 // 케밥버튼을 눌러서  시작일 부터 종료일까지 상세 일정 입력
 
 // 포함 사항 불포함 사항 준비물 입력시 태그 생성
@@ -117,13 +123,17 @@ const gcqwwhprepare = document.querySelector(".gcqwwh.prepare"); // 준비물
 const bDBbNifirst = document.querySelector(".bDBbNifirst");
 const bDBbNisecond = document.querySelector(".bDBbNisecond");
 const bDBbNithird = document.querySelector(".bDBbNithird");
+const includes = new Array();
+const excludes = new Array();
+const prepares = new Array();
+
 
 let firstTagCount = 0;
 let secondTagCount = 0;
 let thirdTagCount = 0;
 let parentDiv = ``;
 gcqwwhinclude.addEventListener("keyup", (e) => {
-    if (e.key == "Enter") {
+    if (e.key === "Enter") {
         if (firstTagCount > 9) {
             // alert(`10개 까지만 입력 가능합니다.`);
             let message = `10개 까지만 입력 가능합니다.`;
@@ -138,11 +148,14 @@ gcqwwhinclude.addEventListener("keyup", (e) => {
                                       </header>
                                       <div class="Stuff__StuffContainer-sc-8zlrc8-0 iXEvmI"></div>`;
         }
+        includes.push(e.target.value);
+
 
         parentDiv = bDBbNifirst.querySelector(".iXEvmI");
         const firstchildDiv = document.createElement("div");
+
         firstchildDiv.className = "Tag__RoundTag-sxb61j-1 jXxsiv";
-        firstchildDiv.innerHTML = `<span>#${gcqwwhinclude.value}</span>
+        firstchildDiv.innerHTML = `<span>#${e.target.value}</span>
                      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'%3E %3Cg fill='none' fill-rule='nonzero' stroke='%23999' stroke-linecap='square'%3E %3Cpath d='M11.828 6.172l-5.656 5.656M11.828 11.828L6.172 6.172'/%3E %3C/g%3E %3C/svg%3E" alt="delete tags item">`;
         parentDiv.appendChild(firstchildDiv);
         gcqwwhinclude.value = "";
@@ -168,6 +181,8 @@ gcqwwhexclude.addEventListener("keyup", (e) => {
                                       </header>
                                       <div class="Stuff__StuffContainer-sc-8zlrc8-0 iXEvmI"></div>`;
         }
+
+        excludes.push(e.target.value);
 
         parentDiv = bDBbNisecond.querySelector(".iXEvmI");
         const secondchildDiv = document.createElement("div");
@@ -198,6 +213,8 @@ gcqwwhprepare.addEventListener("keyup", (e) => {
                                       </header>
                                       <div class="Stuff__StuffContainer-sc-8zlrc8-0 iXEvmI"></div>`;
         }
+
+        prepares.push(e.target.value);
 
         parentDiv = bDBbNithird.querySelector(".iXEvmI");
         const thirdchildDiv = document.createElement("div");
@@ -380,25 +397,23 @@ document.querySelector(".gcqwwh.gather").addEventListener("keyup", (e) => {
 // 모이는 장소 :: 카카오맵 처리하기
 
 // 등록 하기
-const jULzvQ = document.querySelector(".jULzvQ");
+const button = document.querySelector(".saveButton");
 
-jULzvQ.addEventListener("click", () => {
+button.addEventListener("click", () => {
     // 태그에 들어 온 텍스트 모으기 => 서버로 보내기 위해
     let tagClassName, texts;
     tagClassName = `.Tag__RoundTag-sxb61j-1.jXxsiv`;
 
+
     texts = collectTexts(tagClassName);
-    console.log(texts.length);
 
     tagClassName = `.Tag__RoundTag-sxb61j-1.eMLPLA`;
 
     texts = collectTexts(tagClassName);
-    console.log(texts.length);
 
     tagClassName = `.Tag__RoundTag-sxb61j-1.eISlhn`;
 
     texts = collectTexts(tagClassName);
-    console.log(texts.length);
 
     let max = parseInt(document.querySelector(".gcqwwh.max").value, 10);
     let min = parseInt(document.querySelector(".gcqwwh.min").value, 10);
@@ -408,6 +423,46 @@ jULzvQ.addEventListener("click", () => {
         showAlertModal(message);
         return;
     }
+    // 배열로 받은 것들을 단일객체화하여 input태그에 속성 부여 후 form태그에 appendChild로 생성
+    includes.forEach((include, i) => {
+        const input = document.createElement("input");
+        input.type = "text";
+        input.name=`includeContents[${i}].includeContent`;
+        input.value = include;
+        document['write-form'].appendChild(input);
+    })
+    excludes.forEach((exclude, i)=>{
+        const input = document.createElement("input");
+        input.type = "text";
+        input.name = `excludeContents[${i}].excludeContent`;
+        input.value = exclude;
+        document['write-form'].appendChild(input);
+    })
+    prepares.forEach((prepare, i) => {
+        const input = document.createElement("input");
+        input.type = "text";
+        input.name = `prepareContents[${i}].prepareContent`
+        input.value = prepare;
+        document['write-form'].appendChild(input);
+    })
+    const textareas = document.querySelectorAll("textarea[data-index]")
+
+    textareas.forEach((textarea) => {
+        const index = textarea.getAttribute('data-index'); // data-index 값
+        const value = textarea.value; // 입력된 텍스트
+        schedules.push(value);
+        console.log(schedules);
+    })
+
+    schedules.forEach((schedule, i) => {
+        const input = document.createElement("input");
+        input.type = "text";
+        input.name = `scheduleContents[${i}].scheduleContent`
+        input.value = schedule;
+        document['write-form'].appendChild(input);
+    })
+
+    document['write-form'].submit();
 });
 
 // 모달 열기 함수
