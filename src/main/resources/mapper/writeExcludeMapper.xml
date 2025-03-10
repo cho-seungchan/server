@@ -15,7 +15,7 @@
     <update id="update">
         UPDATE TBL_WRITE_EXCLUDE
         SET EXCLUDE_CONTENT = #{excludeContent}
-        WHERE PLAN_ID = #{planId} AND ID = #{id}
+        WHERE ID = #{id}
     </update>
 
     <delete id="delete">

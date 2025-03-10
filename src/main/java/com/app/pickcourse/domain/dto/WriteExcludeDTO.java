@@ -13,6 +13,16 @@ import java.util.List;
 public class WriteExcludeDTO {
     @EqualsAndHashCode.Include
     private Long id;
-    private List<WriteExcludeVO> excludeContent;
+    private String excludeContent;
     private Long planId;
+
+    public WriteExcludeVO toVO() {
+        WriteExcludeVO writeExcludeVO = new WriteExcludeVO();
+
+        writeExcludeVO.setId(id);
+        writeExcludeVO.setPlanId(planId);
+        writeExcludeVO.setExcludeContent(excludeContent);
+
+        return writeExcludeVO;
+    }
 }

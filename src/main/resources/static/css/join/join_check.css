@@ -132,11 +132,19 @@ button, html [type="button"], [type="reset"], [type="submit"] {
     padding: 0px 13px;
     background-color: rgb(181, 197, 214);
     text-align: center;
-    cursor: not-allowed;
+    /*cursor: not-allowed;*/
+    cursor: pointer;
     border-radius: 10px;
     color: rgb(244, 244, 244);
     font-size: 16px;
     margin-top: 44px;
+}
+.bViOzS {
+    margin-bottom: 6px;
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: -0.36px;
+    color: rgb(222, 28, 34);
 }
 
 input::placeholder {

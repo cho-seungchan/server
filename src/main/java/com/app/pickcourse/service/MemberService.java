@@ -2,6 +2,7 @@ package com.app.pickcourse.service;
 
 import com.app.pickcourse.domain.dto.MemberDTO;
 import com.app.pickcourse.domain.vo.MemberVO;
+import com.app.pickcourse.mapper.MemberMapper;
 import com.app.pickcourse.repository.MemberDAO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,7 @@ import java.util.Optional;
 @Transactional(rollbackFor = Exception.class)
 public class MemberService {
     private final MemberDAO memberDAO;
+    private final MemberMapper memberMapper;
 
     //    회원가입
     public void kakaoJoin(MemberDTO memberDTO){
@@ -43,6 +45,10 @@ public class MemberService {
         return memberDAO.findByMemberEmailAndPassword(memberVO);
     }
 
+    // 닉네임 중복검사
+    public Optional<MemberVO> getMemberByNickname(String nickname) {
+        return memberMapper.findByNickname(nickname);
+    }
 
 
 }

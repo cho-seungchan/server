@@ -19,4 +19,15 @@ public interface ReceiveMessageMapper {
     // 받은 메시지 삭제
     void deleteReceiveMessageById(Long messageId);
 
+    // 받은 메시지 개수 조회 (페이징을 위해 추가)
+    int countByReceiverId(Long receiverId);
+
+    // 페이징을 적용한 받은 메시지 조회
+    List<ReceiveMessageDTO> findByReceiverIdWithPagination(
+            Long receiverId,
+            int startRow,
+            int rowCount
+    );
+
+
 }

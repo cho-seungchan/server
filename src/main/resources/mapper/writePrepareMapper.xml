@@ -15,7 +15,7 @@
     <update id="update">
         UPDATE TBL_WRITE_PREPARE
         SET PREPARE_CONTENT = #{prepareContent}
-        WHERE ID = #{id} AND PLAN_ID = #{planId}
+        WHERE ID = #{id}
     </update>
 
     <delete id="delete">

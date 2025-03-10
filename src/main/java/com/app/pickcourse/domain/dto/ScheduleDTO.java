@@ -16,4 +16,14 @@ public class ScheduleDTO {
     private Long id;
     private String scheduleContent;
     private Long planId;
+
+    public ScheduleVO toVO (){
+        ScheduleVO scheduleVO = new ScheduleVO();
+
+        scheduleVO.setId(id);
+        scheduleVO.setScheduleContent(scheduleContent);
+        scheduleVO.setPlanId(planId);
+
+        return scheduleVO;
+    }
 }
