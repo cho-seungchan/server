@@ -12,17 +12,17 @@
     <select id="selectReceiveMessagesByReceiverId" parameterType="Long" resultType="receiveMessageDTO">
         SELECT
             RM.ID AS ID,
-            RM.RECEIVER_ID AS RECEIVER_ID,
             RM.SENDER_ID AS SENDER_ID,
-            RM.RECEIVE_MESSAGE_CHECK AS ISCHECKED,
-            M.MESSAGE_ALL_CONTENT AS CONTENT,
-            M.MESSAGE_ALL_DATE AS RECEIVE_DATE,
-            SENDER.MEMBER_EMAIL AS SENDEREMAIL,
-            SENDER.MEMBER_NICKNAME AS SENDERNICKNAME
+            RM.RECEIVER_ID AS RECEIVER_ID,
+            M.MEMBER_NICKNAME AS SENDER_NICKNAME,
+            MSG.MESSAGE_ALL_CONTENT AS CONTENT,
+            TO_CHAR(MSG.MESSAGE_ALL_DATE, 'YYYY.MM.DD') AS RECEIVE_DATE,
+            RM.RECEIVE_MESSAGE_CHECK AS ISCHECKED
         FROM TBL_RECEIVE_MESSAGE RM
-                 JOIN TBL_MESSAGE M ON RM.ID = M.ID
-                 JOIN TBL_MEMBER SENDER ON RM.SENDER_ID = SENDER.ID
-        WHERE rm.RECEIVER_ID = #{receiverId}
+                 JOIN TBL_MESSAGE MSG ON RM.ID = MSG.ID
+                 JOIN TBL_MEMBER M ON RM.SENDER_ID = M.ID
+        WHERE RM.RECEIVER_ID = #{receiver_id}
+        ORDER BY MSG.MESSAGE_ALL_DATE DESC
     </select>
 
     <delete id="deleteReceiveMessageById">

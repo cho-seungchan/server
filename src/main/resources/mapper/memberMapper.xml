@@ -67,8 +67,8 @@
     </delete>
 
     <insert id="insert">
-        INSERT INTO TBL_MEMBER (ID, MEMBER_EMAIL, MEMBER_PASSWORD, MEMBER_NICKNAME, MEMBER_TELL, MEMBER_BIRTH, MEMBER_GENDER)
-        VALUES (SEQ_MEMBER.NEXTVAL, #{memberEmail}, #{memberPassword}, #{memberNickname}, #{memberTell}, #{memberBirth}, #{memberGender})
+        INSERT INTO TBL_MEMBER (ID, MEMBER_EMAIL, MEMBER_PASSWORD)
+        VALUES (SEQ_MEMBER.NEXTVAL, #{memberEmail}, #{memberPassword})
     </insert>
 
     <insert id="kakaoInsert">
@@ -94,7 +94,7 @@
     </select>
 
     <select id="selectByMemberEmailAndMemberPassword" resultType="memberVO">
-        SELECT ID, MEMBER_EMAIL, MEMBER_NICKNAME, MEMBER_TELL, MEMBER_BIRTH, MEMBER_GENDER
+        SELECT ID, MEMBER_EMAIL, MEMBER_PASSWORD, MEMBER_NICKNAME, MEMBER_TELL, MEMBER_BIRTH, MEMBER_GENDER
         FROM TBL_MEMBER WHERE MEMBER_EMAIL = #{memberEmail} AND MEMBER_PASSWORD = #{memberPassword}
     </select>
 
@@ -108,7 +108,16 @@
         DELETE FROM TBL_MEMBER WHERE ID = #{id}
     </delete>
 
+    <!-- 이메일로 아이디 조회 -->
+    <select id="selectIdByEmail" parameterType="String" resultType="Long">
+        SELECT ID FROM TBL_MEMBER WHERE MEMBER_EMAIL = #{email}
+    </select>
 
+    <select id="getMember" parameterType="String" resultType="MemberVO">
+        SELECT MEMBER_EMAIL, MEMBER_PASSWORD
+        FROM TBL_MEMBER
+        WHERE MEMBER_EMAIL = #{memberEmail}
+    </select>
 
 
 </mapper>

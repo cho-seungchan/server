@@ -47,6 +47,7 @@
                 <title>쪽지 쓰기</title>
             </head>
             <body class="fontLoaded">
+            <form action="/my-page/messageWrite" method="post" th:object="${sendMessageDTO}">
                 <div id="app">
                     <div class="App__AppWrapper-nc5ti6-0 idXWQn">
                         <div class="PageWrapper-sc-1w87j10-0 bScXKt">
@@ -67,6 +68,7 @@
                                         type="text"
                                         class="inputBox"
                                         placeholder="받는 사람을 입력해주세요!"
+                                        th:field="*{receiverEmail}"
                                     />
                                 </div>
                                 <div
@@ -76,6 +78,7 @@
                                         placeholder="보내실 내용을 입력해주세요!"
                                         maxlength="1200"
                                         class="Textarea__StyledTextarea-sc-1b9phu6-1 kmqQeB textContent"
+                                        th:field="*{content}"
                                     ></textarea>
                                     <p
                                         class="Textarea__Count-sc-1b9phu6-2 jvAusQ characters"
@@ -101,6 +104,7 @@
                                         >
                                     </div>
                                 </div>
+
                                 <!-- 이미지 첨부시 예시 -->
                                 <div class="">
                                     <div
@@ -166,6 +170,7 @@
                         </div>
                     </div>
                 </div>
+            </form>
                 <div id="modal-root"></div>
                 <div id="dnd-root"></div>
             </body>

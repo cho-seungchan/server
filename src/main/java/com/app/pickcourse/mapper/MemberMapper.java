@@ -51,5 +51,8 @@ public interface MemberMapper {
     //    조회(이메일)
     public Optional<MemberVO> selectByMemberEmail(String memberEmail);
 
+    // 이메일로 사용자 ID 조회
+    Optional<Long> selectIdByEmail(String email);
+
 
 }
