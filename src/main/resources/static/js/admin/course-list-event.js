@@ -31,7 +31,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 if (firstDate && secondDate && thirdDate &&
                     gcqwwhinclude && gcqwwhexclude && gcqwwhprepare && bDBbNifirst && bDBbNisecond && bDBbNithird) {
-                    observer.disconnect(); // 요소를 찾으면 observer 중지
+                    observer.disconnect(); // 계속 조회시 감지를 위해서 막음
+                    console.log("요소들을 찾았습니다.")
                 }
             }
         }
@@ -174,31 +175,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         // 25.03.11 조승찬 추가 끝 :: 태그의 이미지(x), 케밥버튼
 
-        // // 25.03.11 조승찬 추가 시작 :: 맵 화면 확대 축소
-        // if (e.target.id = "fullMap") {
-        //     if (mapContainer.style.position === "fixed") {
-        //         mapContainer.style.position = "relative";
-        //         mapContainer.style.width = "100%";
-        //         mapContainer.style.height = "40vh";
-        //         mapContainer.style.zIndex = ""; // 맵이 다른 요소 위에 오도록 설정한거 해제
-        //         document.querySelector("#fullMap").style.position = "absolute";
-        //         // 지도의 중심을 새로운 좌표로 설정
-        //         map.relayout();
-        //         map.setCenter(initialCenter);
-        //     } else {
-        //         mapContainer.style.position = "fixed";
-        //         mapContainer.style.top = "0";
-        //         mapContainer.style.left = "0";
-        //         mapContainer.style.width = "100%";
-        //         mapContainer.style.height = "100vh";
-        //         mapContainer.style.zIndex = "1000"; // 맵이 다른 요소 위에 오도록 설정
-        //         document.querySelector("#fullMap").style.position = "fixed";
-        //         // 지도의 중심을 새로운 좌표로 설정
-        //         map.relayout();
-        //         map.setCenter(initialCenter);
-        //     }
-        // };
-        // // 2025.03.11 조승찬 추가 끝 :: 화면 확장 축소
     });
 
     document.body.addEventListener("change", e => {
