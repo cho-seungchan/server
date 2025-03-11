@@ -681,7 +681,7 @@ form[name="deleteForm"] button:hover {
     border-radius: 5px;
     padding: 5px 10px;
     transition: border-color 0.3s ease-in-out;
-    margin-left: 83.5%;
+    margin-left: 85%;
 }
 
 .selectCourseOpt {

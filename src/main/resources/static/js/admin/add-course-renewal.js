@@ -105,7 +105,7 @@ kebabmenu.addEventListener("click", () => {
         detailOfDateContainer.innerHTML += ` <p>${i + 1}일차 계획서</p>
             <textarea data-index=${i} placeholder="상세 일정을 적어보세요"
             maxlength="1200"  class="Textarea__StyledTextarea-sc-1b9phu6-1 kmqQeBdetail"></textarea>
-            <p class="Textarea__Count-sc-1b9phu6-2 jvAusQdetail">0 / 1200</p>`;
+            <p class="Textarea__Count-sc-1b9phu6-2 jvAusQdetail">0/1200</p>`;
     }
     numberOfPerson.parentNode.insertBefore(
         detailOfDateContainer,
@@ -117,7 +117,7 @@ kebabmenu.addEventListener("click", () => {
         .querySelector(".DetailOfDateContainer")
         .addEventListener("input", (e) => {
             if (e.target.classList.contains("kmqQeBdetail")) {
-                e.target.nextElementSibling.textContent = `${e.target.value.length} / 1200 (추천 글자수: 30자 이내)`;
+                e.target.nextElementSibling.textContent = `${e.target.value.length}/1200`;
             }
         });
     // textarea에 글자 입력시 입력된 글자 수 보여주기

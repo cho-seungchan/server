@@ -19,7 +19,7 @@ function fetchCourseList(page, type, keyWord){
 
 function sendCourseOptionAndFetchCourseList(sendData,page,type,keyWord) {
     fetch("/admin/course-list", {
-        method: "PATCH",
+        method: "PUT",
         headers: {"Content-type": "application/json"},
         body: JSON.stringify(sendData)
     })

@@ -4,9 +4,10 @@ function addCourseDetail(course) {
 
     // 코스 제목 생성
     document.querySelector(".TextField_field__YTJkY").innerHTML = `
-    <input placeholder="제목을 입력해 주세요" maxlength="40" type="text" class="Input_input__M2Q3Y Input_lg__MDE4M"
+    <input placeholder="제목을 입력해 주세요" maxlength="40" type="text" class="Input_input__M2Q3Y Input_lg__MDE4M Input_courseName"
            aria-invalid="false" value="${course.courseName}"/>
     `;
+    document.querySelector(".HelperMessage_helperMessage__ZTRkO").textContent = `${course.courseName.length}/40`;
 
     // 봉사 코스일 경우
     if (course.courseIsVolunteer == `Y`) {
@@ -17,9 +18,9 @@ function addCourseDetail(course) {
             <input type="date" placeholder="종료일" class="SocialRecruiteTagsContainer__SocialRecruiteTagsInput-sc-2762su-1 gcqwwh enddate"/>
             <span >마감일</span >
             <input type="date" placeholder="모집 마감일" class="SocialRecruiteTagsContainer__SocialRecruiteTagsInput-sc-2762su-1 gcqwwh deadline"/>
-<!--            <button type="button" class="CurrentProfile__MoreButton-sc-1u92qay-6 FvtMb" >-->
-<!--                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='17' viewBox='0 0 4 17'%3E %3Cpath fill='%23999' fill-rule='evenodd' d='M1.57 14a1.5 1.5 0 110 3 1.5 1.5 0 010-3zm0-7a1.5 1.5 0 110 3 1.5 1.5 0 010-3zm0-7a1.5 1.5 0 110 3 1.5 1.5 0 010-3z'/%3E %3C/svg%3E" alt="더보기"/>-->
-<!--            </button>-->
+            <button type="button" class="CurrentProfile__MoreButton-sc-1u92qay-6 FvtMb" >
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='17' viewBox='0 0 4 17'%3E %3Cpath fill='%23999' fill-rule='evenodd' d='M1.57 14a1.5 1.5 0 110 3 1.5 1.5 0 010-3zm0-7a1.5 1.5 0 110 3 1.5 1.5 0 010-3zm0-7a1.5 1.5 0 110 3 1.5 1.5 0 010-3z'/%3E %3C/svg%3E" alt="더보기"/>
+            </button>
         `;
 
         const formatStartDate = course.volunteerStartDate.split(" ")[0];
@@ -90,7 +91,7 @@ function addCourseDetail(course) {
             parentDiv = bDBbNisecond.querySelector(".iXEvmI");
             course.excludeContents.forEach(e => {
                 const secondchildDiv = document.createElement("div");
-                secondchildDiv.className = "Tag__RoundTag-sxb61j-1 jXxsiv";
+                secondchildDiv.className = "Tag__RoundTag-sxb61j-1 eMLPLA";
                 secondchildDiv.innerHTML = `<span>${e}</span>
                  <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'%3E %3Cg fill='none' fill-rule='nonzero' stroke='%23999' stroke-linecap='square'%3E %3Cpath d='M11.828 6.172l-5.656 5.656M11.828 11.828L6.172 6.172'/%3E %3C/g%3E %3C/svg%3E" alt="delete tags item">`;
                 parentDiv.appendChild(secondchildDiv);
@@ -122,7 +123,7 @@ function addCourseDetail(course) {
             parentDiv = bDBbNithird.querySelector(".iXEvmI");
             course.prepareContents.forEach(e => {
                 const thirdchildDiv = document.createElement("div");
-                thirdchildDiv.className = "Tag__RoundTag-sxb61j-1 jXxsiv";
+                thirdchildDiv.className = "Tag__RoundTag-sxb61j-1 eISlhn";
                 thirdchildDiv.innerHTML = `<span>${e}</span>
                  <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'%3E %3Cg fill='none' fill-rule='nonzero' stroke='%23999' stroke-linecap='square'%3E %3Cpath d='M11.828 6.172l-5.656 5.656M11.828 11.828L6.172 6.172'/%3E %3C/g%3E %3C/svg%3E" alt="delete tags item">`;
                 parentDiv.appendChild(thirdchildDiv);
@@ -132,7 +133,7 @@ function addCourseDetail(course) {
             const observer = new MutationObserver((mutationsList, observer) => {
                 const prepareElement = document.querySelector(".gcqwwh.prepare");
                 if (prepareElement) {
-                    prepareElement.placeholder = `불포함 사항 (${course.prepareContents.length}/10)`;
+                    prepareElement.placeholder = `준비물 (${course.prepareContents.length}/10)`;
                     observer.disconnect(); // 감지가 끝나면 연결 해제
                 }
             });
@@ -141,6 +142,28 @@ function addCourseDetail(course) {
             observer.observe(document.body, { childList: true, subtree: true });
         }
 
+        // 상세 일정 생성
+        if (course.scheduleContents.length > 0){
+
+            const numberOfPerson = document.querySelector(".NumberOfPerson"); // 총 거리/일정/테마 :: 보다 먼저 보여주기 위해서
+            const detailOfDateContainer = document.createElement("div");
+            detailOfDateContainer.className = "DetailOfDateContainer";
+
+            detailOfDateContainer.innerHTML = `<p>계획서를 저장하시려면 입력창을 열어놓고 등록하세요.</p>`;
+
+            course.scheduleContents.forEach( (e, i) => {
+                detailOfDateContainer.innerHTML += ` <p>${i + 1}일차 계획서</p>
+                <textarea data-index=${i} placeholder="상세 일정을 적어보세요"
+                maxlength="1200"  class="Textarea__StyledTextarea-sc-1b9phu6-1 kmqQeBdetail">${e}</textarea>
+                <p class="Textarea__Count-sc-1b9phu6-2 jvAusQdetail"> ${e.length}/1200</p>`;
+            });
+
+            numberOfPerson.parentNode.insertBefore(
+                detailOfDateContainer,
+                numberOfPerson
+            );
+
+        }
     }
 
     // 기타 정보 생성

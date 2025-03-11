@@ -42,7 +42,7 @@ function createCourseDetail() {
                                         <div class="TextField_field__YTJkY" >
 <!--                                        여행 제목 생성 -->
                                         </div>
-                                        <em class="HelperMessage_helperMessage__ZTRkO" >40자 남음</em >
+                                        <em class="HelperMessage_helperMessage__ZTRkO" >0/40</em >
                                         <div class="DurationOfTourContainer" >
 <!--                                        봉사코스 일 경우 시작일, 종료일, 마감일 생성-->
                                         </div>

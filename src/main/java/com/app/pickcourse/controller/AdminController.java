@@ -145,7 +145,7 @@ public class AdminController {
     }
 
     // 추천코스 목록에서 A ~ D 코스 혹은 봉사 코스로 등록
-    @PatchMapping("/course-list")
+    @PutMapping("/course-list")
     @ResponseBody
     public ResponseEntity<String> patchCourseList(@RequestBody Map<String, String> reqData) {
         // 받은 데이터 확인 (디버깅용)
@@ -155,6 +155,10 @@ public class AdminController {
         // 처리 결과 반환
         return ResponseEntity.ok("Course list fetched successfully!");
     }
+
+//    test
+    @GetMapping("/coursedetail")
+    public String getCourseDetail(Model model) {return "/admin/course-detail";}
 
     // 추천 코스 조회
     @GetMapping("/course-detail/{id}")
