@@ -217,4 +217,39 @@ function addCourseDetail(course) {
         <p class="StorySummaryField_text__ZTEzY" > ${course.courseContent.length}/1000 </p>
     `;
 
+    // 25.03.12  조승찬 추가 시작 ::
+    // tourStpots 생성으로 이동경로 그려주고 , dotOverlays, testOverlays는 createMarkers 에서 생성
+    course.paths.forEach((path, i) => {
+        tourSpots.push({ number: i + 1, title:path.pathName, address: path.pathAddress });
+    });
+
+    geocoder = new kakao.maps.services.Geocoder();
+    remains = tourSpots.length;
+
+    // Promise.all()을 사용하여 모든 주소 검색이 끝난 후 실행
+    Promise.all(
+        tourSpots.map((spot) => {
+            return new Promise((resolve) => {
+                geocoder.addressSearch(spot.address, (result, status) => {
+                    if (status === kakao.maps.services.Status.OK) {
+                        spot.latlng = new kakao.maps.LatLng(
+                            Math.floor(result[0].y * 1000000) / 1000000,
+                            Math.floor(result[0].x * 1000000) / 1000000
+                        );
+                    } else {
+                        console.warn(`${spot.name} 좌표 변환 실패`);
+                    }
+                    resolve(); // 변환 완료
+                });
+            });
+        })
+    ).then(() => {
+        // 좌표 기반 마커 생성
+        createMarkers(tourSpots, map);
+
+        // 선 그리기
+        // drawLine(tourSpots, map);
+    });
+    // 25.03.12  조승찬 추가 시작 :: 맵 추가
 };
+

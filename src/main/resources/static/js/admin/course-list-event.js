@@ -1,4 +1,5 @@
 // 2025.03.08 조승찬
+let listObserverPause = false;
 document.addEventListener("DOMContentLoaded", function () {
 
     // 25.03.11 조승찬 추가 시작  ==  코스 조회를 위한 처리
@@ -13,7 +14,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     // 동적요소 처리를 위한 MutationObserver를 설정
-    const observer = new MutationObserver((mutationsList) => {
+    const listObserver = new MutationObserver((mutationsList) => {
+        if (listObserverPause) return;  // 동적요소를 찾은 후에는 일시 정지
+
+        console.log(" 리스트 동적 감시 시작 ");
         for (const mutation of mutationsList) {
             if (mutation.type === "childList") {
                 // 날짜 입력창 태그 불러오기
@@ -31,14 +35,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 if (firstDate && secondDate && thirdDate &&
                     gcqwwhinclude && gcqwwhexclude && gcqwwhprepare && bDBbNifirst && bDBbNisecond && bDBbNithird) {
-                    observer.disconnect(); // 계속 조회시 감지를 위해서 막음
+                    // listObserver.disconnect(); // 계속 조회시 감지를 위해서 막음
+                    listObserverPause = true;
                     console.log("요소들을 찾았습니다.")
                 }
             }
         }
     });
     // 감시할 DOM 노드를 지정 (body 전체를 감시)
-    observer.observe(document.body, { childList: true, subtree: true });
+    listObserver.observe(document.body, { childList: true, subtree: true });
 
     // 25.03.11 조승찬 추가  끝    ==  코스 조회를 위한 처리
 

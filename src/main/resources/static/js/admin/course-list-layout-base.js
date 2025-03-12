@@ -1,6 +1,8 @@
 // 2025.03.09 조승찬
 // 코스 목록 생성하는 함수
 function createCourseList() {
+    listObserverPause = false;  // 동적요소 생성 감시 시작
+
     const baseContainer = document.querySelector(".AppLayout_contents__YmI3N");
     baseContainer.innerHTML = ``;
 

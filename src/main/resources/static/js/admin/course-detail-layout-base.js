@@ -1,6 +1,7 @@
 // 2025.03.10 조승찬
 // 코스 상세 생성하는 함수
 function createCourseDetail() {
+    mapObserverPause = false;  // 동적요소 감시 시작
     const baseContainer = document.querySelector(".AppLayout_contents__YmI3N");
     baseContainer.innerHTML = `
     <main class="FundingPage_container__MDczO">
