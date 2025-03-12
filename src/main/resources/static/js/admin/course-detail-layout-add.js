@@ -219,6 +219,7 @@ function addCourseDetail(course) {
 
     // 25.03.12  조승찬 추가 시작 ::
     // tourStpots 생성으로 이동경로 그려주고 , dotOverlays, testOverlays는 createMarkers 에서 생성
+    tourSpots.length = 0;
     course.paths.forEach((path, i) => {
         tourSpots.push({ number: i + 1, title:path.pathName, address: path.pathAddress });
     });
@@ -248,7 +249,7 @@ function addCourseDetail(course) {
         createMarkers(tourSpots, map);
 
         // 선 그리기
-        // drawLine(tourSpots, map);
+        drawLine(tourSpots, map);
     });
     // 25.03.12  조승찬 추가 시작 :: 맵 추가
 };

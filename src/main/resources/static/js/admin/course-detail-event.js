@@ -76,20 +76,15 @@ document.addEventListener("DOMContentLoaded", function () {
                     map.relayout();
                     map.setCenter(initialCenter);
                 }
+                //  25.03.12 조승찬 추가 시작 :: X 버튼 이벤트 위임 (삭제 기능)
             } else if (e.target.classList.contains("closeBtn")) {
                 let index = e.target.dataset.index;
-                console.log("close button   "+index);
                 removeDestination(index);
             }
+            //  25.03.12 조승찬 추가 시작 :: X 버튼 이벤트 위임 (삭제 기능)
         }
         // // 2025.03.11 조승찬 추가 끝 :: 화면 확장 축소
 
-        //  25.03.12 조승찬 추가 시작 :: X 버튼 이벤트 위임 (삭제 기능)
-        // if (e.target.classList.contains("closeBtn")) {
-        //         let index = e.target.dataset.index;
-        //         removeDestination(index);
-        // }
-        //  25.03.12 조승찬 추가 시작 :: X 버튼 이벤트 위임 (삭제 기능)
 
     });
 
@@ -99,7 +94,6 @@ document.addEventListener("DOMContentLoaded", function () {
 // 주소 입력 이벤트 리스너 (중복 실행 방지)
 function handleAddressEnter(event) {
     if (event.key === "Enter") {
-        console.log("handleAddressEnter 들어옴");
         event.preventDefault();
         addDestination();
     }
@@ -195,8 +189,7 @@ function addDestination() {
 // 지도에 표시할 말풍선(목적지 태그) 생성 함수
 function createOverlayContent(spot, index) {
     return `<div class="dotOverlay addedDestination">
-                <b>${spot.number}. ${spot.title}</b><br>
-                ${spot.address}
+                <b>${spot.number}. ${spot.title}</b><br>${spot.address}
                 <img src="http://t1.daumcdn.net/localimg/localimages/07/mapjsapi/2x/bt_close.gif" 
                      class="closeBtn" 
                      data-index="${index}" 
@@ -240,8 +233,8 @@ function removeDestination(index) {
 
     if (index >= 0 && index < tourSpots.length) {
         // 지도에서 오버레이 및 라인 제거
-        dotOverlays[index].setMap(null);
-        textOverlays[index].setMap(null);
+        if (dotOverlays[index]) dotOverlays[index].setMap(null);
+        if (textOverlays[index]) textOverlays[index].setMap(null);
 
         // 배열에서도 삭제
         tourSpots.splice(index, 1);
@@ -255,10 +248,28 @@ function removeDestination(index) {
             e.dataset.index = i;
         })
 
-        // 삭제 후 번호 다시 정렬
+        // 삭제 후 번호 다시 정렬//
+        // 25.03.12 조승찬 추가 시작 :: 지도에 나오는 태그 순번 수정
+        // 기존 모든 textOverlays 제거
+        textOverlays.forEach(overlay => overlay.setMap(null));
+        // textOverlays 비우기
+        textOverlays = [];
+        // 25.03.12 조승찬 추가 시작 :: 지도에 나오는 태그 순번 수정
         tourSpots.forEach((spot, i) => {
             spot.number = i + 1;
+
+            // // 25.03.12 조승찬 추가 시작 :: 지도에 나오는 태그 순번 수정
+            let textOverlay = new kakao.maps.CustomOverlay({
+                content: createOverlayContent(spot, i),
+                position: spot.latlng,
+                yAnchor: 1.2,
+                zIndex: 2,
+            });
+            textOverlay.setMap(map);
+            textOverlays.push(textOverlay);
+            // // 25.03.12 조승찬 추가 시작 :: 지도에 나오는 태그 순번 수정
         });
+
 
         // 전체 UI 다시 렌더링 (정확한 번호 정렬 보장)
         refreshDestinationList();
@@ -278,14 +289,18 @@ function refreshDestinationList() {
 // 목적지 삭제 함수 (마지막 항목도 삭제 가능 & 번호 재정렬)
 
 // 지도 경로 업데이트 (총 거리 정상 표시)
+// 25.03.12 조승찬 수정 시작 :: 총거리 보여지도록 수정
 function updateRoute() {
     if (clickLine) clickLine.setMap(null);
     if (totalDistanceOverlay) totalDistanceOverlay.setMap(null);
 
     let linePath = tourSpots.map((spot) => spot.latlng);
 
-    if (tourSpots.length === 0) {
-        totalDistanceInput.value = "";
+    if (tourSpots.length < 2) {
+        if (previousDistanceOverlay) {
+            previousDistanceOverlay.setMap(null);  // 기존 오버레이 삭제
+        }
+        // totalDistanceInput.value = "0 km";
         return;
     }
 
@@ -300,13 +315,26 @@ function updateRoute() {
 
     let totalDistance = (clickLine.getLength() / 1000).toFixed(1);
 
-    totalDistanceInput.value = `${totalDistance} km`;
+    // totalDistanceInput.value = `${totalDistance} km`;
+    // // ✅ 거리 정보 HTML 생성 및 표시
+    let distanceInfoHTML = getTimeHTML(totalDistance);
+    showDistance(distanceInfoHTML, linePath[linePath.length - 1], map);
 }
-// 25.03.12 조승찬 추가 끝  :: 지도 수정시 작동
+
+// 25.03.12 조승찬 수정 끝 :: 총거리 보여지도록 수정
 
 // 마커 생성 함수
+//25.03.12 조승찬 수정 시작 :: 실제 지도를 그리도록 수정
 function createMarkers(tourSpots, map) {  // displayCircleDot 에 기능 있음
-    console.log("create markers "+tourSpots.length);
+
+    // 25.03.12 조승찬 추가 시작 :: 지도에 나오는 태그 순번 수정
+    // 기존 모든 Overlays 제거
+    dotOverlays.forEach(overlay => overlay.setMap(null));
+    textOverlays.forEach(overlay => overlay.setMap(null));
+    // Overlays 비우기
+    dotOverlays = [];
+    textOverlays = [];
+    // 25.03.12 조승찬 추가 시작 :: 지도에 나오는 태그 순번 수정
     tourSpots.forEach((spot, i) => {
 
         let dotOverlay = new kakao.maps.CustomOverlay({
@@ -318,7 +346,7 @@ function createMarkers(tourSpots, map) {  // displayCircleDot 에 기능 있음
         dotOverlays.push(dotOverlay);
 
         let textOverlay = new kakao.maps.CustomOverlay({
-            content: createOverlayContent(spot, spot.number-1), // 인덱스를 맞춰주기 위해 1을 빼줌
+            content: createOverlayContent(spot, i),
             position: spot.latlng,
             yAnchor: 1.2,
             zIndex: 2,
@@ -328,6 +356,7 @@ function createMarkers(tourSpots, map) {  // displayCircleDot 에 기능 있음
 
     });
 }
+//25.03.12 조승찬 수정 끝 :: 실제 지도를 그리도록 수정
 
 // 선을 그리는 함수
 function drawLine(tourSpots, map) {
@@ -402,7 +431,13 @@ function getTimeHTML(distance) {
 }
 
 // 거리 표시 함수
+let previousDistanceOverlay = null;
 function showDistance(content, position, map) {   // displayCircleDot 에 유사 기능 있음
+                                                  // 이전에 표시된 오버레이가 있다면 삭제
+    if (previousDistanceOverlay) {
+        previousDistanceOverlay.setMap(null);  // 기존 오버레이 삭제
+    }
+
     const distanceOverlay = new kakao.maps.CustomOverlay({
         map: map,
         content: content,
@@ -411,6 +446,8 @@ function showDistance(content, position, map) {   // displayCircleDot 에 유사
         yAnchor: -1,
         zIndex: 3,
     });
+
+    previousDistanceOverlay = distanceOverlay;
 }
 
 // 지점에 빨간 동그라미 표시하는 함수
