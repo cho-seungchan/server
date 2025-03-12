@@ -451,7 +451,6 @@ button.addEventListener("click", () => {
         const index = textarea.getAttribute('data-index'); // data-index 값
         const value = textarea.value; // 입력된 텍스트
         schedules.push(value);
-        console.log(schedules);
     })
 
     schedules.forEach((schedule, i) => {

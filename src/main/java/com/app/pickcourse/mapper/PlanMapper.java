@@ -4,6 +4,7 @@ import com.app.pickcourse.domain.dto.PlanDTO;
 import com.app.pickcourse.domain.vo.PlanVO;
 import com.app.pickcourse.util.Pagination;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Optional;
@@ -31,5 +32,14 @@ public interface PlanMapper {
     public List<Long> selectRankingWeekly();
     public List<Long> selectRankingMonthly();
     public List<Long> selectRankingYearly();
+
+//    멤버ID로 전체조회
+    public List<PlanDTO> selectByMemberId(
+            @Param("pagination") Pagination pagination,
+            @Param("memberId") Long memberId);
+
+//    목록개수
+    public int selectCount(Long id);
+
 
 }

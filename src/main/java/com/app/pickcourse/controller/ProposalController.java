@@ -1,7 +1,10 @@
 package com.app.pickcourse.controller;
 
+import com.app.pickcourse.domain.dto.MyPLanListDTO;
 import com.app.pickcourse.domain.dto.PlanDTO;
 import com.app.pickcourse.service.PlanService;
+import com.app.pickcourse.util.Pagination;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -9,6 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
 @RequestMapping("/proposal")
@@ -48,7 +53,13 @@ public class ProposalController {
     }
 
     @GetMapping("/read")
-    public String getRead(Model model) {
+    public String getRead(Model model, Long id, HttpServletRequest request) {
+        log.info("이동됨");
+        PlanDTO planDTO = planService.getPlanById(id).orElseThrow(()->{throw new RuntimeException();});
+        log.info(planDTO.toString());
+
+        model.addAttribute("plan", planDTO);
+
         return "/proposal/read";
     }
 
@@ -73,13 +84,19 @@ public class ProposalController {
     }
 
     @PostMapping("/write")
-    public String writePlan(PlanDTO planDTO) {
+    public RedirectView writePlan(PlanDTO planDTO) {
         log.info("planDTO: {}", planDTO.toString());
         planDTO.setMemberId(1L);
-        planDTO.setCourseId(1L);
+        planDTO.setCourseId(21L);
         planService.writePlan(planDTO);
 
-        return "redirect:/proposal/modifylist";
+        return new RedirectView("/proposal/modifylist");
+    }
+
+    @GetMapping("/modifylists")
+    @ResponseBody
+    public MyPLanListDTO getMyPlan(Pagination pagination, Long id) {
+        return planService.getMyPlanList(pagination, 1L);
     }
 
 }

@@ -52,11 +52,9 @@ public class MemberMapperTests {
 
         memberVO.setMemberEmail("hhh1");
         memberVO.setMemberPassword("1234");
-        memberVO.setMemberNickname("hhh1");
-        memberVO.setMemberTell("010-1234-5678");
-        memberVO.setMemberBirth("1992-12-12");
-        memberVO.setMemberGender("선택안함");
+
         mapper.insert(memberVO);
+
     }
 
     @Test

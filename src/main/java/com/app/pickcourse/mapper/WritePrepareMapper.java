@@ -1,5 +1,6 @@
 package com.app.pickcourse.mapper;
 
+import com.app.pickcourse.domain.dto.WritePrepareDTO;
 import com.app.pickcourse.domain.vo.WritePrepareVO;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -10,7 +11,7 @@ public interface WritePrepareMapper {
 //    추가
     public void insert(WritePrepareVO writePrepareVO);
 //    플랜아이디로 조회
-    public List<WritePrepareVO> selectByPlanId(Long planId);
+    public List<WritePrepareDTO> selectByPlanId(Long planId);
 //    수정
     public void update(WritePrepareVO writePrepareVO);
 //    삭제

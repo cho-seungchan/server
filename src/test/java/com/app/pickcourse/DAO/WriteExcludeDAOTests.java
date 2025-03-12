@@ -1,5 +1,6 @@
 package com.app.pickcourse.DAO;
 
+import com.app.pickcourse.domain.dto.WriteExcludeDTO;
 import com.app.pickcourse.domain.vo.WriteExcludeVO;
 import com.app.pickcourse.mapper.WriteExcludeMapper;
 import com.app.pickcourse.repository.WriteExcludeDAO;
@@ -28,7 +29,7 @@ public class WriteExcludeDAOTests {
 
     @Test
     public void testSelectByPlanId() {
-        List<WriteExcludeVO> foundWriteExclude =  writeExcludeDAO.findByPlanId(1L);
+        List<WriteExcludeDTO> foundWriteExclude =  writeExcludeDAO.findByPlanId(1L);
         log.info(foundWriteExclude.toString());
     }
 

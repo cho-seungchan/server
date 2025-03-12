@@ -3,10 +3,8 @@ package com.app.pickcourse.service;
 import com.app.pickcourse.domain.dto.*;
 import com.app.pickcourse.domain.vo.*;
 import com.app.pickcourse.mapper.PlanMapper;
-import com.app.pickcourse.repository.ScheduleDAO;
-import com.app.pickcourse.repository.WriteExcludeDAO;
-import com.app.pickcourse.repository.WriteIncludeDAO;
-import com.app.pickcourse.repository.WritePrepareDAO;
+import com.app.pickcourse.repository.*;
+import com.app.pickcourse.util.Pagination;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +12,15 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @SpringBootTest
 @Slf4j
 public class PlanServiceTests {
     @Autowired
     private PlanService planService;
+    @Autowired
+    private PlanDAO planDAO;
     @Autowired
     private WriteExcludeDAO writeExcludeDAO;
     @Autowired
@@ -90,6 +91,35 @@ public class PlanServiceTests {
         planDTO.setScheduleContents(test3);
 
         planService.writePlan(planDTO);
+
+        log.info(planDTO.toString());
+    }
+
+    @Test
+    public void testFindMyPlan() {
+        MyPLanListDTO myPlanListDTO = new MyPLanListDTO();
+        Pagination pagination = new Pagination();
+
+        pagination.create(planService.getTotal(1L));
+
+        myPlanListDTO = planService.getMyPlanList(pagination, 1L);
+
+         myPlanListDTO.getPlanList().forEach((planDTO) -> {
+             log.info(planDTO.toString());
+         });
+    }
+
+    @Test
+    public void testFindPlanCount() {
+        int count = planService.getTotal(1L);
+        log.info("" + count);
+    }
+
+    @Test
+    public void testGetPlanById() {
+        PlanDTO planDTO = new PlanDTO();
+
+        planDTO = planService.getPlanById(111L).orElseThrow(()-> new RuntimeException());
 
         log.info(planDTO.toString());
     }

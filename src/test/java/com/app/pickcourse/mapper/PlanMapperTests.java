@@ -4,6 +4,7 @@ import com.app.pickcourse.domain.dto.CourseDTO;
 import com.app.pickcourse.domain.dto.PlanDTO;
 import com.app.pickcourse.domain.vo.MemberVO;
 import com.app.pickcourse.domain.vo.PlanVO;
+import com.app.pickcourse.util.Pagination;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -103,13 +104,19 @@ public class PlanMapperTests {
     @Test
     public void testSelectByMemberId() {
         PlanDTO planDTO = new PlanDTO();
-        MemberVO memberVO = new MemberVO();
+        Pagination pagination = new Pagination();
 
-        memberVO.setId(1L);
+        pagination.setPage(1);
+        pagination.create(planMapper.selectCount(1L));
 
-        planDTO.setMemberId(memberVO.getId());
+        log.info("" + planMapper.selectCount(1L));
+        log.info(pagination.toString());
 
+        List<PlanDTO> plans = planMapper.selectByMemberId(pagination, 1L);
+
+        plans.forEach((plan) -> log.info(plan.toString()));
     }
+
     public void testSelectAllById() {
         List<PlanVO> list = planMapper.selectAllById(1L);
         list.forEach(System.out::println);
@@ -127,4 +134,12 @@ public class PlanMapperTests {
         List<Long> yearlyIds = planMapper.selectRankingYearly();
         yearlyIds.forEach(System.out::println);
     }
+
+    @Test
+    public void testSelectCount() {
+        int count = planMapper.selectCount(1L);
+
+        log.info("개수" + count);
+    }
+
 }

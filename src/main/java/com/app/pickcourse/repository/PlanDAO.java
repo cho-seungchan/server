@@ -6,6 +6,7 @@ import com.app.pickcourse.mapper.PlanMapper;
 import com.app.pickcourse.mapper.ScheduleMapper;
 import com.app.pickcourse.util.Pagination;
 import lombok.RequiredArgsConstructor;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -34,6 +35,18 @@ public class PlanDAO {
 //    삭제
     public void delete(Long id) {
         planMapper.deleteById(id);
+    }
+
+//   MEMBER ID로 목록 조회
+    public List<PlanDTO> findMyPlan(
+            @Param("pagination") Pagination pagination,
+            @Param("memberId") Long id) {
+        return planMapper.selectByMemberId(pagination, id);
+    }
+
+//    갯수 조회
+    public int findTotal(Long id) {
+        return planMapper.selectCount(id);
     }
 
 }

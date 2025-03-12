@@ -33,7 +33,7 @@ public class CourseMapperTests {
         course.setCourseFilePath("C:\\temp\\course.png");
         course.setCourseFileSize("2kb");
         course.setCourseFileName("represent");
-        course.setAdminId(2l);
+        course.setAdminId(1l);
 
         mapper.postAddCourse(course);
     }
