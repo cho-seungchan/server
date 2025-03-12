@@ -4,6 +4,7 @@ import com.app.pickcourse.domain.dto.ReceiveMessageDTO;
 import com.app.pickcourse.domain.vo.ReceiveMessageVO;
 import com.app.pickcourse.mapper.ReceiveMessageMapper;
 import lombok.RequiredArgsConstructor;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -27,4 +28,15 @@ public class ReceiveMessageDAO {
     public void delete(Long id) {
         receiveMessageMapper.deleteReceiveMessageById(id);
     }
+
+    // 받은 메시지 개수 조회 (페이징을 위해 추가)
+    public int countByReceiverId(Long receiverId) {
+        return receiveMessageMapper.countByReceiverId(receiverId);
+    }
+
+    // 페이징된 받은 메시지 조회
+    public List<ReceiveMessageDTO> findByReceiverIdWithPagination(Long receiverId, int startRow, int rowCount) {
+        return receiveMessageMapper.findByReceiverIdWithPagination(receiverId, startRow, rowCount);
+    }
+
 }

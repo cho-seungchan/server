@@ -27,23 +27,95 @@ public class MemberController {
     public void join(MemberDTO memberDTO){
         memberService.kakaoJoin(memberDTO);
     }
-    @GetMapping("join_check")
-    public void getJoinCheck(){}
+//    @GetMapping("join_check")
+//    public void getJoinCheck(){}
+//
+//    @GetMapping("join_email")
+//    public String getJoinEmail(Model model) {
+//        model.addAttribute("memberDTO", new MemberDTO());
+//        return "join/join_email";
+//    }
+//    @PostMapping("join_email")
+//    public String join(@ModelAttribute MemberDTO memberDTO, HttpSession session, Model model) {
+//        if (memberService.getMember(memberDTO.getMemberEmail()).isPresent()) {
+//            model.addAttribute("errorMessage", "중복된 이메일입니다.");
+//            return "join/join_email";
+//        }
+//        memberService.join(memberDTO);
+//        session.setAttribute("loginUser", memberDTO);
+//        return "redirect:/my-page/myPageModify";
+//    }
 
     @GetMapping("join_email")
     public String getJoinEmail(Model model) {
         model.addAttribute("memberDTO", new MemberDTO());
-        return "join/join_email";
+        return "/join/join_email";
     }
+
     @PostMapping("join_email")
     public String join(@ModelAttribute MemberDTO memberDTO, HttpSession session, Model model) {
         if (memberService.getMember(memberDTO.getMemberEmail()).isPresent()) {
             model.addAttribute("errorMessage", "중복된 이메일입니다.");
+            return "/join/join_email";
+        }
+
+        session.setAttribute("signupEmail", memberDTO.getMemberEmail());
+        session.setAttribute("signupPassword", memberDTO.getMemberPassword());
+
+        return "redirect:/join/join_check";
+    }
+
+    @GetMapping("join_check")
+    public String getJoinCheck(HttpSession session, Model model) {
+        String email = (String) session.getAttribute("signupEmail");
+        String password = (String) session.getAttribute("signupPassword");
+
+        if (email == null || password == null) {
+            return "redirect:/join/join_email?error=session_expired";
+        }
+
+        MemberDTO memberDTO = new MemberDTO();
+        memberDTO.setMemberEmail(email);
+        memberDTO.setMemberPassword(password);
+
+        model.addAttribute("memberDTO", memberDTO);
+        return "/join/join_check";
+    }
+
+    @PostMapping("join_check")
+    public String completeSignup(@ModelAttribute MemberDTO memberDTO, HttpSession session, Model model) {
+        String email = (String) session.getAttribute("signupEmail");
+        String password = (String) session.getAttribute("signupPassword");
+
+        if (email == null || password == null) {
+            return "redirect:/join/join_email?error=session_expired";
+        }
+
+        if (memberService.getMember(email).isPresent()) {
+            model.addAttribute("errorMessage", "이미 존재하는 이메일입니다.");
             return "join/join_email";
         }
+        if (memberService.getMemberByNickname(memberDTO.getMemberNickname()).isPresent()) {
+            model.addAttribute("errorMessage", "이미 사용 중인 닉네임입니다.");
+            return "join/join_check";
+        }
+
+        memberDTO.setMemberEmail(email);
+        memberDTO.setMemberPassword(password);
+
         memberService.join(memberDTO);
-        session.setAttribute("loginUser", memberDTO);
+
+        session.removeAttribute("signupEmail");
+        session.removeAttribute("signupPassword");
+
+        MemberVO loginUserVO = memberService.getMember(memberDTO.getMemberEmail()).get();
+        session.setAttribute("loginUser", loginUserVO);
+
         return "redirect:/my-page/myPageModify";
     }
+
+
+
+
 
 }

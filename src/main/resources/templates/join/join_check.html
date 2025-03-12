@@ -68,16 +68,19 @@
                                     <h3>회원가입</h3>
                                 </div>
                                 <form
+                                    th:object="${memberDTO}" method="post" action="/join/join_check"
                                     class="Form__RegisterPageForm-sc-1l5lis6-0 fLECcs"
                                 >
                                     <div>
                                         <!--중복검사에 실패했을때 errorInput클래스 추가 -->
                                         <input
                                             type="text"
+                                            th:field="*{memberNickname}"
                                             name="nickname"
                                             placeholder="닉네임"
                                             class="Form__Input-sc-1quypp7-1 iRBMai"
                                         />
+                                        <p th:if="${errorMessage}" class="bViOzS">[[${errorMessage}]]</p>
                                         <!-- 닉네임 중복검사에 실패했을때 나올 메세지 -->
                                         <!-- <p class="errorMessage">이미 사용중인 닉네임 입니다.</p> -->
                                     </div>
@@ -89,6 +92,7 @@
                                             <input
                                                 type="tel"
                                                 name="mobileNumber"
+                                                th:field="*{memberTell}"
                                                 placeholder="휴대폰 번호 ( - 없이 입력)"
                                                 class="Form__Input-sc-1quypp7-1 iRBMai phoneInput"
                                             />
@@ -144,7 +148,7 @@
                                     <!-- 인증번호버튼을 누르고 발송한 SMS에 인증번호와 일치하다면 -->
                                     <!-- button태그에 lastButtonChange 클래스를 추가하고 chSrfn클래스를 삭제한다 -->
                                     <button
-                                        type="button"
+                                        type="submit"
                                         width="100%"
                                         height="56px"
                                         color="#f4f4f4"

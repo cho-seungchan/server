@@ -67,8 +67,8 @@
     </delete>
 
     <insert id="insert">
-        INSERT INTO TBL_MEMBER (ID, MEMBER_EMAIL, MEMBER_PASSWORD)
-        VALUES (SEQ_MEMBER.NEXTVAL, #{memberEmail}, #{memberPassword})
+        INSERT INTO TBL_MEMBER (ID, MEMBER_EMAIL, MEMBER_PASSWORD, MEMBER_NICKNAME, MEMBER_TELL)
+        VALUES (SEQ_MEMBER.NEXTVAL, #{memberEmail}, #{memberPassword}, #{memberNickname}, #{memberTell})
     </insert>
 
     <insert id="kakaoInsert">
@@ -119,5 +119,8 @@
         WHERE MEMBER_EMAIL = #{memberEmail}
     </select>
 
+    <select id="findByNickname" parameterType="string" resultType="com.app.pickcourse.domain.vo.MemberVO">
+        SELECT * FROM TBL_MEMBER WHERE MEMBER_NICKNAME = #{nickname}
+    </select>
 
 </mapper>

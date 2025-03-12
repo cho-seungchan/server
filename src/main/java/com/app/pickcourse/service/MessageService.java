@@ -84,4 +84,27 @@ public class MessageService {
 
         sendMessage(sendMessageDTO);
     }
+
+    // 받은 메시지 조회
+    public List<ReceiveMessageDTO> findReceiveMessages(Long receiverId, int page, int rowCount) {
+        int startRow = (page - 1) * rowCount;
+        return receiveMessageDAO.findByReceiverIdWithPagination(receiverId, startRow, rowCount);
+    }
+
+    // 받은 메시지 개수 조회
+    public int getReceiveMessageCount(Long receiverId) {
+        return receiveMessageDAO.countByReceiverId(receiverId);
+    }
+
+    // 보낸 메시지 조회
+    public List<SendMessageDTO> findSendMessages(Long senderId, int page, int rowCount) {
+        int startRow = (page - 1) * rowCount;
+        return sendMessageDAO.findBySenderIdWithPagination(senderId, startRow, rowCount);
+    }
+
+    // 보낸 메시지 개수 조회
+    public int getSendMessageCount(Long senderId) {
+        return sendMessageDAO.countBySenderId(senderId);
+    }
+
 }
