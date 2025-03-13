@@ -50,5 +50,7 @@ public class MemberService {
         return memberMapper.findByNickname(nickname);
     }
 
+//    비밀번호 변경
+    public void updatePassword(MemberDTO memberDTO) {memberDAO.updateMemberPassword(memberDTO.toVO());}
 
 }

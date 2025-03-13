@@ -74,4 +74,7 @@ public class MemberDAO {
         memberMapper.deleteMemberList(memberId);
     }
 
+//    비밀번호 변경
+    public void updateMemberPassword(MemberVO memberVO) {memberMapper.updatePassword(memberVO);}
+
 }

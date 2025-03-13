@@ -1,9 +1,7 @@
 package com.app.pickcourse.controller;
 
 
-import com.app.pickcourse.domain.dto.MemberDTO;
-import com.app.pickcourse.domain.dto.ReceiveMessageDTO;
-import com.app.pickcourse.domain.dto.SendMessageDTO;
+import com.app.pickcourse.domain.dto.*;
 import com.app.pickcourse.domain.vo.MemberVO;
 import com.app.pickcourse.domain.vo.SendMessageVO;
 import com.app.pickcourse.repository.MemberDAO;
@@ -11,12 +9,18 @@ import com.app.pickcourse.repository.ReceiveMessageDAO;
 import com.app.pickcourse.repository.SendMessageDAO;
 import com.app.pickcourse.service.MessageService;
 import com.app.pickcourse.util.Pagination;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Controller
@@ -36,92 +40,95 @@ public class MyPageController {
 
     @GetMapping("changePassword")
     public void getChangePassword(){}
+    @PostMapping("changePassword")
+    public String changePassword(@RequestParam("memberPassword") String memberPassword) {
+        return changePassword(memberPassword);
+    }
+
     @GetMapping("heart")
     public void getHeart(){}
 
+    @GetMapping("/messageList_Send")
+    public String goToSendListPage(HttpSession session) {
+        MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
+
+        if (loginUser == null) {
+            return "redirect:/login/login";
+        }
+
+        return "my-page/messageList_Send";
+    }
+
+    @GetMapping("/messageList_Sends")
+    @ResponseBody
+    public SendPaginationDTO getSendMessages(Pagination pagination, HttpSession session, HttpServletResponse response)  throws IOException {
+        MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
+        if (loginUser == null) {
+            response.sendRedirect("/login/login");
+            return null;
+        }
+
+        Long senderId = loginUser.getId();
+
+        return messageService.getSendList(senderId, pagination);
+    }
+
 //    @GetMapping("messageList_Send")
-//    public String getSentMessage(Model model, HttpSession session) {
+//    public String getSentMessages(
+//            @RequestParam(value = "page", defaultValue = "1") int page,
+//            Model model,
+//            HttpSession session) {
+//
 //        MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
 //
 //        if (loginUser == null) {
 //            return "redirect:/login/login";
 //        }
 //
-//        try {
-//            Long senderId = loginUser.getId();
-//            List<SendMessageDTO> sentMessages = sendMessageDAO.findBySenderId(senderId);
-//            model.addAttribute("sentMessages", sentMessages);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+//        Long senderId = loginUser.getId();
+//
+//        // 전체 메시지 개수 조회
+//        int totalMessages = messageService.getSendMessageCount(senderId);
+//
+//        // 페이지네이션 객체 생성
+//        Pagination pagination = new Pagination();
+//        pagination.setPage(page);
+//        pagination.create(totalMessages);
+//
+//        // 보낸 메시지 리스트 가져오기
+//        List<SendMessageDTO> sentMessages = messageService.findSendMessages(senderId, page, 5);
+//
+//        model.addAttribute("sentMessages", sentMessages);
+//        model.addAttribute("pagination", pagination);
 //
 //        return "my-page/messageList_Send";
 //    }
 
-    @GetMapping("messageList_Send")
-    public String getSentMessages(
-            @RequestParam(value = "page", defaultValue = "1") int page,
-            Model model,
-            HttpSession session) {
 
+    @GetMapping("/messageListReceive")
+    public String goToReceiveListPage(HttpSession session) {
         MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
 
         if (loginUser == null) {
             return "redirect:/login/login";
         }
-
-        Long senderId = loginUser.getId();
-
-        // 전체 메시지 개수 조회
-        int totalMessages = messageService.getSendMessageCount(senderId);
-
-        // 페이지네이션 객체 생성
-        Pagination pagination = new Pagination();
-        pagination.setPage(page);
-        pagination.create(totalMessages);
-
-        // 보낸 메시지 리스트 가져오기
-        List<SendMessageDTO> sentMessages = messageService.findSendMessages(senderId, page, 5);
-
-        model.addAttribute("sentMessages", sentMessages);
-        model.addAttribute("pagination", pagination);
-
-        return "my-page/messageList_Send";
-    }
-
-
-
-    @GetMapping("messageListReceive")
-    public String getReceivedMessages(
-            @RequestParam(value = "page", defaultValue = "1") int page,
-            Model model,
-            HttpSession session) {
-
-        MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
-
-        if (loginUser == null) {
-            return "redirect:/login/login";
-        }
-
-        Long receiverId = loginUser.getId();
-
-        // 전체 메시지 개수 조회
-        int totalMessages = messageService.getReceiveMessageCount(receiverId);
-
-        // 페이지네이션 객체 생성
-        Pagination pagination = new Pagination();
-        pagination.setPage(page);
-        pagination.create(totalMessages);
-
-        // 받은 메시지 리스트 가져오기 (페이징 적용)
-        List<ReceiveMessageDTO> receivedMessages = messageService.findReceiveMessages(receiverId, page, 5);
-
-        model.addAttribute("receivedMessages", receivedMessages);
-        model.addAttribute("pagination", pagination);
 
         return "my-page/messageListReceive";
     }
 
+    @GetMapping("/messageListReceives")
+    @ResponseBody
+    public ReceivePaginationDTO getReceivedMessages(Pagination pagination, HttpSession session, HttpServletResponse response)  throws IOException {
+        MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
+        if (loginUser == null) {
+            response.sendRedirect("/login/login");
+            return null;
+        }
+
+        Long receiverId = loginUser.getId();
+
+        return messageService.getReceiveList(receiverId, pagination);
+    }
 
 
     @GetMapping("messageWrite")
@@ -171,17 +178,20 @@ public class MyPageController {
 
     @GetMapping("myPageModify")
     public String getMyPageModify(HttpSession session, Model model) {
-        MemberVO loginUserVO = (MemberVO) session.getAttribute("loginUser");
-        MemberDTO loginUserDTO = MemberDTO.fromVO(loginUserVO);
+        Object loginUser = session.getAttribute("loginUser");
 
-        if (loginUserVO == null) {
+        if (loginUser == null) {
             return "redirect:/login/login";
         }
+
+        MemberVO loginUserVO = (MemberVO) loginUser;
+        MemberDTO loginUserDTO = MemberDTO.fromVO(loginUserVO);
 
         model.addAttribute("memberDTO", loginUserDTO);
 
         return "my-page/myPageModify";
     }
+
 
 
     @GetMapping("myReply")

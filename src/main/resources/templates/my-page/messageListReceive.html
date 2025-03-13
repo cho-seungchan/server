@@ -73,69 +73,18 @@
                                             <div class="contentDiv">내용</div>
                                             <div class="HeadernameDiv">받은 날짜</div>
                                         </div>
-                                        <li th:each="message : ${receivedMessages}">
-                                            <div class="userListDiv">
-                                                <div class="postList">
-                                                    <a href="">
-                                                        <span th:text="${message.senderNickname}">받는 사람</span>
-                                                    </a>
-                                                </div>
-                                                <div class="contentHidden">
-                                                    <span style="cursor: pointer" class="hiddenText" th:text="${message.content}">내용</span>
-                                                </div>
-                                                <div class="comentMessage">
-                                                    <span th:text="${message.receiveDate}"></span>
-                                                </div>
-                                            </div>
-
+                                        <h2 id="no-receiveMessage" style="display: none">받은 쪽지가 없습니다.</h2>
+                                        <li id="receiveMessageWrap">
                                         </li>
-
                                     </ul>
                                 </div>
                             </div>
                             <footer
                                 class="Wrapper__PaginationWrapper-fk4uv4-0 hBVRcD"
                             >
-                                <div class="PaginationButtonGroup__PrevButtonWrapper-x0iffd-0 gIsDDT">
-                                    <!-- '<<' 맨 처음 페이지로 이동 -->
-                                    <button th:if="${pagination.page > 1}"
-                                            th:onclick="|location.href='@{/my-page/messageListReceive(page=1)}'|"
-                                            class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 iItkLq">
-                                        &laquo;
-                                    </button>
+                            <div id="page-wrap" class="PaginationButtonGroup__PrevButtonWrapper-x0iffd-0 gIsDDT">
 
-                                    <!-- '<' 이전 페이지 -->
-                                    <button th:if="${pagination.prev}"
-                                            th:onclick="|location.href='@{/my-page/messageListReceive(page=${pagination.page - 1})}'|"
-                                            class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 iItkLq">
-                                        &lt;
-                                    </button>
-                                </div>
-
-                                <!-- 페이지 번호 버튼 -->
-                                <th:block th:each="num : ${#numbers.sequence(pagination.startPage, pagination.endPage)}">
-                                    <button th:text="${num}"
-                                            th:onclick="|location.href='@{/my-page/messageListReceive(page=${num})}'|"
-                                            th:classappend="${pagination.page == num} ? 'emphasis' : ''"
-                                            class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0">
-                                    </button>
-                                </th:block>
-
-                                <div class="PaginationButtonGroup__NextButtonWrapper-x0iffd-1 eNIHag">
-                                    <!-- '>' 다음 페이지 -->
-                                    <button th:if="${pagination.next}"
-                                            th:onclick="|location.href='@{/my-page/messageListReceive(page=${pagination.page + 1})}'|"
-                                            class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 iItkLq">
-                                        &gt;
-                                    </button>
-
-                                    <!-- '>>' 마지막 페이지로 이동 -->
-                                    <button th:if="${pagination.page < pagination.realEnd}"
-                                            th:onclick="|location.href='@{/my-page/messageListReceive(page=${pagination.realEnd})}'|"
-                                            class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 iItkLq">
-                                        &raquo;
-                                    </button>
-                                </div>
+                            </div>
                             </footer>
                             <!-- 쪽지가 없을때 나올 화면 -->
                             <!-- <div
@@ -167,7 +116,9 @@
                 <div id="modal-root"></div>
                 <div id="dnd-root"></div>
             </body>
-            <script src="/js/myPage/messageList.js"></script>
+            <script src="/js/myPage/receiveService.js"></script>
+            <script src="/js/myPage/receiveLayout.js"></script>
+            <script src="/js/myPage/receiveEvent.js"></script>
         </html>
     </head>
 </html>

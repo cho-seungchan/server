@@ -123,4 +123,10 @@
         SELECT * FROM TBL_MEMBER WHERE MEMBER_NICKNAME = #{nickname}
     </select>
 
+    <update id="updatePassword">
+        UPDATE TBL_MEMBER
+        SET MEMBER_PASSWORD = #{memberPassword}
+        WHERE ID = #{id}
+    </update>
+
 </mapper>

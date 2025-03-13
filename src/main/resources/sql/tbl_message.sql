@@ -51,3 +51,32 @@ CREATE TABLE TBL_SEND_MESSAGE_FILE(
         CONSTRAINT FK_SEND_MESSAGE FOREIGN KEY(SEND_MESSAGE_ID)
         REFERENCES TBL_SEND_MESSAGE(ID)
 );
+
+SELECT ID,
+       SENDER_ID,
+       RECEIVER_ID,
+       MEMBER_NICKNAME AS RECEIVER_ID,
+       MESSAGE_ALL_CONTENT AS CONTENT,
+       RECEIVE_MESSAGE_CHECK FROM (
+    SELECT ROWNUM R ,
+              ID,
+              SENDER_ID,
+              RECEIVER_ID,
+              MEMBER_NICKNAME,
+              MESSAGE_ALL_CONTENT,
+              RECEIVE_MESSAGE_CHECK
+       FROM (SELECT RM.ID,
+                    RM.SENDER_ID,
+                    RM.RECEIVER_ID,
+                    M.MEMBER_NICKNAME,
+                    MSG.MESSAGE_ALL_CONTENT,
+                    TO_CHAR(MSG.MESSAGE_ALL_DATE, 'YYYY.MM.DD'),
+                    RM.RECEIVE_MESSAGE_CHECK
+             FROM TBL_RECEIVE_MESSAGE RM
+                      JOIN TBL_MESSAGE MSG ON RM.ID = MSG.ID
+                      JOIN TBL_MEMBER M ON RM.SENDER_ID = M.ID
+             WHERE RM.RECEIVER_ID = 2
+             ORDER BY MSG.MESSAGE_ALL_DATE DESC)
+       WHERE ROWNUM <= 5
+       )
+WHERE R >=1;
