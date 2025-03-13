@@ -212,4 +212,14 @@ public class AdminService {
         }
 
     }
+
+    public void deleteCourseDetail(Long id) {
+        courseDAO.deleteCourseDetail(id);
+        volunteerDAO.deleteCourseDetail(id);
+        pathDAO.deleteCourseDetail(id);
+        volunteerExcludeDAO.deleteCourseDetail(id);
+        volunteerIncludeDAO.deleteCourseDetail(id);
+        volunteerPrepareDAO.deleteCourseDetail(id);
+        volunteerScheduleDAO.deleteCourseDetail(id);
+    }
 }

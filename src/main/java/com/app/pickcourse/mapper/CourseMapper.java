@@ -38,4 +38,5 @@ public interface CourseMapper {
     // 추천코스 타입 정하기 :: 정해진 타입으로 코스 세팅
     void patchCourseListRegist(@Param("id") Long id, @Param("courseType") String courseType);
 
+    void deleteCourseDetail(Long id);
 }

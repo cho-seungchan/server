@@ -134,6 +134,7 @@ public class AdminController {
     @GetMapping("/course-list")
     @ResponseBody
     public ResponseEntity<Map<String, Object>> getCourseList(Pagination pagination, Search search) {
+        log.info("course list  "+pagination.toString()+" "+search.toString());
         List<CourseListDTO> list = adminService.getCourseList(pagination,search);
         list.forEach(System.out::println);
 
@@ -155,10 +156,6 @@ public class AdminController {
         // 처리 결과 반환
         return ResponseEntity.ok("Course list fetched successfully!");
     }
-
-//    test
-    @GetMapping("/coursedetail")
-    public String getCourseDetail(Model model) {return "/admin/course-detail";}
 
     // 추천 코스 조회
     @GetMapping("/course-detail/{id}")
@@ -182,12 +179,20 @@ public class AdminController {
         return ResponseEntity.ok(response);
     }
 
-    // 추천 코스 수정 화면 :: PutMapping
+    // 추천 코스 수정
     @PutMapping("/course-detail")
     @ResponseBody
     public void putCourseDetail(@RequestBody CourseDTO courseDTO) {
-        log.info("putCourseDetail"+courseDTO.toString());
+//        log.info("putCourseDetail"+courseDTO.toString());
         adminService.putCourseDetail(courseDTO);
+    }
+
+    // 추천 코스 삭제
+    @DeleteMapping("/course-detail/{id}")
+    @ResponseBody
+    public void deleteCourseDetail(@PathVariable Long id){
+        log.info("deleteCourseDetail  "+id);
+        adminService.deleteCourseDetail(id);
     }
 
     // 공지사항 등록

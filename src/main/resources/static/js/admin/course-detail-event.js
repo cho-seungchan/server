@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", function () {
     MapObserver.observe(document.body, { childList: true, subtree: true });
 
     document.body.addEventListener("click", e => {
-        console.log("click event  :: " + e.className + " " + e.target.className + " " + e.target.tagName);
+        console.log("click event  :: " + e.className + " " + e.target.className + " " + e.target.tagName+" "+e.target.parentElement.className);
 
         // // 25.03.11 조승찬 추가 시작 :: 맵 화면 확대 축소
         if (e.target.tagName == "IMG") {
@@ -89,7 +89,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (e.target.closest(".updateCourseDtail")){
             // 전송할 데이타 json 형태로 변경
             const sendData = {
-                id:  document.querySelector(".Input_CourseId").value,
+                id:  document.querySelector(".courseId").value,
                 // courseType: ,
                 // courseIsVolunteer: ,
                 courseName: document.querySelector(".Input_courseName").value,
@@ -122,8 +122,13 @@ document.addEventListener("DOMContentLoaded", function () {
             updateCourseDetail(sendData);
 
         }
-        if (e.target.closest(".deleteCourseDtail")){
-            deleteCourseDetail(course.id, page, type, keyWord);
+        if (e.target.closest(".deleteCourseDetail")){
+            let courseId = document.querySelector('input[name="courseId"]').value;
+            let page = document.querySelector('input[name="page"]').value;
+            let type = document.querySelector('input[name="type"]').value;
+            let keyWord = document.querySelector('input[name="keyWord"]').value;
+            console.log(".deleteCourseDtail  "+courseId+" "+page+" "+type+" "+keyWord);
+            deleteCourseDetail(courseId, page, type, keyWord);
         }
         // 2025.03.13 조승찬 추가 시작 :: 수정 클릭시 update 함수 삭제 클릭시 delete 함수 호출
 

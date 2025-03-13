@@ -205,4 +205,10 @@
             UPDATED_DATE        =  SYSDATE
         WHERE ID                =  #{id}
     </update>
+
+    <delete id="deleteCourseDetail">
+        DELETE
+        FROM   TBL_COURSE
+        WHERE  ID     =  #{id}
+    </delete>
 </mapper>

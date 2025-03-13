@@ -12,4 +12,6 @@ public interface VolunteerMapper {
 
     // 추천코스 수정
     void putCourseDetail(VolunteerVO volunteerVO);
+
+    void deleteCourseDetail(Long id);
 }

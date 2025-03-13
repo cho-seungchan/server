@@ -1,11 +1,15 @@
 //2025.03.08 조승찬
 // 코스 목록 생성하는 함수
-function addCourseDetail(course) {
+function addCourseDetail(course, page, type, keyWord) {
 
-    // 아이디 저장
+    // 아이디, 페이지, 검색 정보 저장. 삭제 후 원우치로 돌아갈 수 있도록 조치
+    console.log("addCourseDetail  "+page+" "+type+" "+keyWord);
     let courseIdDiv = document.createElement("div"); // div 요소를 생성합니다.
     courseIdDiv.innerHTML = `
-    <input type="hidden" class="Input_CourseId" value="${course.id}"/>`;
+    <input type="hidden" name="courseId" class="courseId" value="${course.id}"/> 
+    <input type="hidden" name="page"     class="page"     value="${page}"/>
+    <input type="hidden" name="type"     class="type"     value="${type}"/>
+    <input type="hidden" name="keyWord"  class="keyWord"  value="${keyWord}"/>`;
     document.querySelector(".AppLayout_contents__YmI3N").appendChild(courseIdDiv);
 
     // 코스 제목 생성

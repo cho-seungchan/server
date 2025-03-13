@@ -48,4 +48,8 @@ public class CourseDAO {
     public CourseDTO getCourseTypeDetail(String courseType) {
         return courseMapper.getCourseTypeDetail(courseType).orElseThrow(() -> new RuntimeException("Course Type Detail Not Found"));
     }
+
+    public void deleteCourseDetail(Long id) {
+        courseMapper.deleteCourseDetail(id);
+    }
 }

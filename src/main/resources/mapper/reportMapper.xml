@@ -10,15 +10,28 @@
         VALUES(#{id})
     </insert>
 
-     <select id="getReportList" resultType="reportVO">
+     <select id="getReportList" resultType="reportDTO">
          SELECT
-             COALESCE(fr.ID, rr.ID) AS id,
-             COALESCE(fr.REPORTED_ID, rr.REPORTED_ID) AS reportedId,
-             COALESCE(fr.MEMBER_ID, rr.MEMBER_ID) AS memberId,
-             COALESCE(fr.CREATED_DATE, rr.CREATED_DATE) AS createDate,
-             COALESCE(fr.UPDATED_DATE, rr.UPDATED_DATE) AS updateDate
-         FROM TBL_FEED_REPORT fr
-                  FULL OUTER JOIN TBL_REPLY_REPORT rr ON fr.ID = rr.ID
-         ORDER BY COALESCE(fr.UPDATED_DATE, rr.UPDATED_DATE) DESC
+             'FEED_REPORT' AS SOURCE,
+             FR.REPORT_REASON,
+             FR.CREATED_DATE,
+             FR.REPORTED_ID,
+             FR.MEMBER_ID,
+             M.MEMBER_NICKNAME
+         FROM TBL_FEED_REPORT FR
+         JOIN TBL_MEMBER M
+             ON FR.MEMBER_ID = M.ID
+         UNION ALL
+         SELECT
+             'REPLY_REPORT' AS SOURCE,
+             RR.REPORT_REASON,
+             RR.CREATED_DATE,
+             RR.REPORTED_ID,
+             RR.MEMBER_ID,
+             M.MEMBER_NICKNAME
+         FROM TBL_REPLY_REPORT RR
+         JOIN TBL_MEMBER M
+         ON RR.MEMBER_ID = M.ID
+         ORDER BY CREATED_DATE DESC;
      </select>
 </mapper>
