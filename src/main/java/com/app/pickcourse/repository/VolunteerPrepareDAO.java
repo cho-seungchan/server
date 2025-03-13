@@ -18,4 +18,8 @@ public class VolunteerPrepareDAO {
     public List<String> getCourseDetail(Long id) {
         return volunteerPrepareMapper.getCourseDetail(id);
     }
+
+    public void deleteCourseDetail(Long id) {
+        volunteerPrepareMapper.deleteCourseDetail(id);
+    }
 }

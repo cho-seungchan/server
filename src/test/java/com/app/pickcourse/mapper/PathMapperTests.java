@@ -34,7 +34,7 @@ public class PathMapperTests {
     }
 
     @Test
-    public void deleteEditCourse() {
-        mapper.deleteEditCourse(2l);
+    public void deleteCourseDetail() {
+        mapper.deleteCourseDetail(2l);
     }
 }

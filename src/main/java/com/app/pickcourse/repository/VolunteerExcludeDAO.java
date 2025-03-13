@@ -18,4 +18,8 @@ public class VolunteerExcludeDAO {
     public List<String> getCourseDetail(Long volunteerId) {
         return volunteerExcludeMapper.getCourseDetail(volunteerId);
     }
+
+    public void deleteCourseDetail(Long id) {
+        volunteerExcludeMapper.deleteCourseDetail(id);
+    }
 }

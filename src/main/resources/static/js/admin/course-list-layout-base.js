@@ -47,6 +47,7 @@ function createCourseList() {
                                        <div class="adminNameDiv" > Admin Name </div>
                                        <div class="courseNameDiv" > Course Name </div>
                                        <div class="courseAddressDiv" > Course Theme </div>
+                                       <div class="courseIsVolunteerDiv" > Volunteer </div>
                                        <div class="courseTypeDiv" > Course Type </div>
                                    </div>
 <!--                                   2025.03.08 조승찬 추가 -->

@@ -19,4 +19,9 @@ public class PathDAO {
     public List<PathVO> getCourseDetail(Long id) {
         return pathMapper.getCourseDetail(id);
     }
+
+    public void deleteCourseDetail(Long id) {
+        pathMapper.deleteCourseDetail(id);
+    }
+
 }

@@ -1,12 +1,12 @@
 
 // 2025.03.11  DOM 동적 생성에 맞게 지도를 그릴 수 있도록 수정
-// 맵 관리를 위한 변수 들
-var mapContainer, mapOption, map, geocoder, remains;
-var tourSpots = [];
-let mapObserverPause = false;   // 동적감시 요소를 일시중단, 재시작할 플래그
-let searchInput, clickLine, totalDistanceOverlay, totalDistanceInput, destinationList, initialCenter;
-let dotOverlays = [];
-let textOverlays = [];
+// 맵 관리를 위한 변수 들 => admin-global-variables.js
+// var mapContainer, mapOption, map, geocoder, remains;
+// var tourSpots = [];
+// let mapObserverPause = false;   // 동적감시 요소를 일시중단, 재시작할 플래그
+// let searchInput, clickLine, totalDistanceOverlay, totalDistanceInput, destinationList, initialCenter;
+// let dotOverlays = [];
+// let textOverlays = [];
 
 document.addEventListener("DOMContentLoaded", function () {
 
@@ -84,6 +84,49 @@ document.addEventListener("DOMContentLoaded", function () {
             //  25.03.12 조승찬 추가 시작 :: X 버튼 이벤트 위임 (삭제 기능)
         }
         // // 2025.03.11 조승찬 추가 끝 :: 화면 확장 축소
+
+        // 2025.03.13 조승찬 추가 시작 :: 수정 클릭시 update 함수 삭제 클릭시 delete 함수 호출
+        if (e.target.closest(".updateCourseDtail")){
+            // 전송할 데이타 json 형태로 변경
+            const sendData = {
+                id:  document.querySelector(".Input_CourseId").value,
+                // courseType: ,
+                // courseIsVolunteer: ,
+                courseName: document.querySelector(".Input_courseName").value,
+                courseDistance: document.querySelector(".gcqwwh.max").value,
+                courseSchedule: document.querySelector(".gcqwwh.min").value,
+                courseTheme: document.querySelector(".gcqwwh.cost").value,
+                courseContent: document.querySelector(".Textarea_textarea__MWJjO").value,
+                // courseFilePath: ,
+                // courseFileSize: ,
+                // courseFileName: ,
+                // adminId: ,
+                // createdDate: ,
+                // updatedDate: ,
+                // volunteerId: ,
+                volunteerStartDate: document.querySelector(".gcqwwh.startdate").value,
+                volunteerEndDate:   document.querySelector(".gcqwwh.enddate").value,
+                volunteerDeadline:  document.querySelector(".gcqwwh.deadline").value,
+                paths:  tourSpots.map(spot => {
+                    return {
+                        pathName : spot.title,
+                        pathAddress : spot.address
+                    }
+                }),
+                excludeContents:  Array.from(document.querySelectorAll(".Tag__RoundTag-sxb61j-1.eMLPLA span")).map(span => span.textContent),
+                includeContents:  Array.from(document.querySelectorAll(".Tag__RoundTag-sxb61j-1.eMLPLA span")).map(span => span.textContent),
+                prepareContents:  Array.from(document.querySelectorAll(".Tag__RoundTag-sxb61j-1.eISlhn span")).map(span => span.textContent),
+                scheduleContents: Array.from(document.querySelectorAll(".Textarea__StyledTextarea-sc-1b9phu6-1.kmqQeBdetail")).map(textarea => textarea.value)
+            };
+            console.log(sendData);
+            updateCourseDetail(sendData);
+
+        }
+        if (e.target.closest(".deleteCourseDtail")){
+            deleteCourseDetail(course.id, page, type, keyWord);
+        }
+        // 2025.03.13 조승찬 추가 시작 :: 수정 클릭시 update 함수 삭제 클릭시 delete 함수 호출
+
 
 
     });
@@ -300,7 +343,7 @@ function updateRoute() {
         if (previousDistanceOverlay) {
             previousDistanceOverlay.setMap(null);  // 기존 오버레이 삭제
         }
-        // totalDistanceInput.value = "0 km";
+        totalDistanceInput.value = "0 km";
         return;
     }
 
@@ -315,7 +358,7 @@ function updateRoute() {
 
     let totalDistance = (clickLine.getLength() / 1000).toFixed(1);
 
-    // totalDistanceInput.value = `${totalDistance} km`;
+    totalDistanceInput.value = `${totalDistance} km`;
     // // ✅ 거리 정보 HTML 생성 및 표시
     let distanceInfoHTML = getTimeHTML(totalDistance);
     showDistance(distanceInfoHTML, linePath[linePath.length - 1], map);
@@ -354,12 +397,17 @@ function createMarkers(tourSpots, map) {  // displayCircleDot 에 기능 있음
         textOverlay.setMap(map);
         textOverlays.push(textOverlay);
 
+        // 지도 중심 좌표 변경
+        map.setCenter(spot.latlng)
+        initialCenter = spot.latlng;
     });
+
 }
 //25.03.12 조승찬 수정 끝 :: 실제 지도를 그리도록 수정
 
 // 선을 그리는 함수
 function drawLine(tourSpots, map) {
+
     let linePath = [];
     tourSpots.forEach((tourSpot) => {
         linePath.push(tourSpot.latlng);
@@ -459,16 +507,16 @@ function displayCircleDot(position, distance, map) {   //createMarkers, showDist
     });
     circleOverlay.setMap(map);
 
-    if (distance > 0) {
-        const distanceOverlay = new kakao.maps.CustomOverlay({
-            content:
-                '<div class="dotOverlay">거리 <span class="number">' +
-                distance +
-                "</span>Km</div>",
-            position: position,
-            yAnchor: 2.2,
-            zIndex: 2,
-        });
-        distanceOverlay.setMap(map);
-    }
+    // if (distance > 0) {
+    //     const distanceOverlay = new kakao.maps.CustomOverlay({
+    //         content:
+    //             '<div class="dotOverlay">거리 <span class="number">' +
+    //             distance +
+    //             "</span>Km</div>",
+    //         position: position,
+    //         yAnchor: 2.2,
+    //         zIndex: 2,
+    //     });
+    //     distanceOverlay.setMap(map);
+    // }
 }

@@ -4,6 +4,7 @@ import com.app.pickcourse.domain.dto.CourseDTO;
 import com.app.pickcourse.domain.dto.CourseListDTO;
 import com.app.pickcourse.domain.vo.AdminVO;
 import com.app.pickcourse.domain.vo.MemberVO;
+import com.app.pickcourse.domain.vo.PathVO;
 import com.app.pickcourse.exception.DuplicateException;
 import com.app.pickcourse.repository.*;
 import com.app.pickcourse.util.Pagination;
@@ -157,5 +158,58 @@ public class AdminService {
         courseDTO.setPrepareContents(volunteerPrepareDAO.getCourseDetail(id));
         courseDTO.setScheduleContents(volunteerScheduleDAO.getCourseDetail(id));
         return courseDTO;
+    }
+
+    public CourseDTO getCourseTypeDetail(String courseType) {
+        CourseDTO courseDTO = courseDAO.getCourseTypeDetail(courseType);
+        courseDTO.setPaths(pathDAO.getCourseDetail(courseDTO.getId()));
+        courseDTO.setExcludeContents(volunteerExcludeDAO.getCourseDetail(courseDTO.getId()));
+        courseDTO.setIncludeContents(volunteerIncludeDAO.getCourseDetail(courseDTO.getId()));
+        courseDTO.setPrepareContents(volunteerPrepareDAO.getCourseDetail(courseDTO.getId()));
+        courseDTO.setScheduleContents(volunteerScheduleDAO.getCourseDetail(courseDTO.getId()));
+
+        return courseDTO;
+    }
+
+    public void putCourseDetail(CourseDTO courseDTO) {
+
+        courseDAO.putCourseDetail(courseDTO.toCourseVO());
+        volunteerDAO.putCourseDetail(courseDTO.toVolunteerVO());
+        pathDAO.deleteCourseDetail(courseDTO.getId());
+        if (courseDTO.getPaths() != null){
+            courseDTO.getPaths().forEach(path -> {
+                path.setCourseId(courseDTO.getId());
+                pathDAO.postAddCourse(path);
+            });
+        }
+
+        volunteerExcludeDAO.deleteCourseDetail(courseDTO.getId());
+        if (courseDTO.getExcludeContents() != null){
+            courseDTO.getExcludeContents().forEach(content -> {
+                volunteerExcludeDAO.postAddCourse(content, courseDTO.getId());
+            });
+        }
+        volunteerIncludeDAO.deleteCourseDetail(courseDTO.getId());
+        if (courseDTO.getIncludeContents() != null){
+            courseDTO.getIncludeContents().forEach(content -> {
+                volunteerIncludeDAO.postAddCourse(content, courseDTO.getId());
+            });
+        }
+
+        volunteerPrepareDAO.deleteCourseDetail(courseDTO.getId());
+        if (courseDTO.getPrepareContents() != null){
+            courseDTO.getPrepareContents().forEach(content -> {
+                volunteerPrepareDAO.postAddCourse(content, courseDTO.getId());
+            });
+        }
+
+        volunteerScheduleDAO.deleteCourseDetail(courseDTO.getId());
+        if (courseDTO.getScheduleContents() != null){
+            courseDTO.getScheduleContents().forEach(content -> {
+                log.info("schedult insert "+courseDTO.getId()+" "+content);
+                volunteerScheduleDAO.postAddCourse(content, courseDTO.getId());
+            });
+        }
+
     }
 }

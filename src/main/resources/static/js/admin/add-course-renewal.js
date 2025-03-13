@@ -555,7 +555,7 @@ function updateRoute() {
         if (previousDistanceOverlay) {
             previousDistanceOverlay.setMap(null);  // 기존 오버레이 삭제
         }
-        // totalDistanceInput.value = "0 km";
+        totalDistanceInput.value = "0 km";
         return;
     }
 
@@ -571,7 +571,7 @@ function updateRoute() {
     let totalDistance = (clickLine.getLength() / 1000).toFixed(1);
 
 
-    // totalDistanceInput.value = `${totalDistance} km`;
+    totalDistanceInput.value = `${totalDistance} km`;
     // // ✅ 거리 정보 HTML 생성 및 표시
     let distanceInfoHTML = getTimeHTML(totalDistance);
     showDistance(distanceInfoHTML, linePath[linePath.length - 1], map);
@@ -681,18 +681,18 @@ function displayCircleDot(position, distance, map) {   //createMarkers, showDist
     });
     circleOverlay.setMap(map);
 
-    if (distance > 0) {
-        const distanceOverlay = new kakao.maps.CustomOverlay({
-            content:
-                '<div class="dotOverlay">거리 <span class="number">' +
-                distance +
-                "</span>Km</div>",
-            position: position,
-            yAnchor: 2.2,
-            zIndex: 2,
-        });
-        distanceOverlay.setMap(map);
-    }
+    // if (distance > 0) {
+    //     const distanceOverlay = new kakao.maps.CustomOverlay({
+    //         content:
+    //             '<div class="dotOverlay">거리 <span class="number">' +
+    //             distance +
+    //             "</span>Km</div>",
+    //         position: position,
+    //         yAnchor: 2.2,
+    //         zIndex: 2,
+    //     });
+    //     distanceOverlay.setMap(map);
+    // }
 }
 
 

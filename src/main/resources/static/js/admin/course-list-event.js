@@ -1,5 +1,5 @@
 // 2025.03.08 조승찬
-let listObserverPause = false;
+
 document.addEventListener("DOMContentLoaded", function () {
 
     // 25.03.11 조승찬 추가 시작  ==  코스 조회를 위한 처리
@@ -67,7 +67,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // 코스 등록 시 코스 등록 요청
         if (e.target.className == "selectCourseBtn") {
-            console.log("코스 등록 들어옴");
+            if ((courseType == "봉사 코스" && courseIsVolunteer == 'N') || // 봉사 코스로 생성되지 않은 코스는 봉사 코스로 등록이 안됨.
+               (courseType != "봉사 코스" && courseIsVolunteer == 'Y')) {  // 봉사 코스로 생성된 코스는 A B C D로 등록이 안됨.
+                return;
+            }
             e.preventDefault(); // 기본 이벤트 막기
             const pageValue = document.querySelector('input[name="page"]').value;
             const typeValue = document.querySelector('select[name="type"]').value;
@@ -152,6 +155,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 startDate = firstDate.value;
                 endDate   = secondDate.value;
                 deadline  = thirdDate.value;
+                console.log("날짜를 봅시다 "+startDate+" "+endDate+" "+deadline);
                 if (startDate == 0 || endDate == 0 || deadline == 0) {
                     alert(`날짜를 모두 입력하세요`);
                     return;
@@ -196,8 +200,9 @@ document.addEventListener("DOMContentLoaded", function () {
             // 선택된 라디오 버튼의 부모 요소 탐색
             const userListDiv = radio.closest(".userListDiv");
             if (userListDiv) {
-                courseId = userListDiv.querySelector(".courseIdDiv").textContent.trim();
-                console.log("선택된 course.id:", courseId);
+                courseId   = userListDiv.querySelector(".courseIdDiv").textContent.trim();
+                courseIsVolunteer = userListDiv.querySelector(".courseIsVolunteerDiv").textContent.trim();
+                console.log("선택된 course.id: "+courseId+"  선택된 course.courseType: "+courseType);
             }
         }
 

@@ -2,6 +2,7 @@ package com.app.pickcourse.repository;
 
 import com.app.pickcourse.domain.dto.CourseDTO;
 import com.app.pickcourse.domain.dto.CourseListDTO;
+import com.app.pickcourse.domain.vo.CourseVO;
 import com.app.pickcourse.mapper.CourseMapper;
 import com.app.pickcourse.util.Pagination;
 import com.app.pickcourse.util.Search;
@@ -15,6 +16,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CourseDAO {
     private final CourseMapper courseMapper;
+
+    public void putCourseDetail(CourseVO courseVO) {
+        courseMapper.putCourseDetail(courseVO);
+    }
 
     public int getCountAll(Search search) {
         return courseMapper.getCountAll(search);
@@ -38,5 +43,9 @@ public class CourseDAO {
 
     public CourseDTO getCourseDetail(Long id) {
         return courseMapper.getCourseDetail(id).orElseThrow(() -> new RuntimeException("Course Detail Not Found"));
+    }
+
+    public CourseDTO getCourseTypeDetail(String courseType) {
+        return courseMapper.getCourseTypeDetail(courseType).orElseThrow(() -> new RuntimeException("Course Type Detail Not Found"));
     }
 }

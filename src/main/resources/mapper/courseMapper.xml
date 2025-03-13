@@ -59,6 +59,32 @@
         WHERE C.ID = #{id}
     </select>
 
+    <select id="getCourseTypeDetail" resultType="courseDTO">
+        SELECT
+            C.ID,
+            C.COURSE_TYPE,
+            C.COURSE_IS_VOLUNTEER,
+            C.COURSE_NAME,
+            C.COURSE_DISTANCE,
+            C.COURSE_SCHEDULE,
+            C.COURSE_THEME,
+            C.COURSE_CONTENT,
+            C.COURSE_FILE_PATH,
+            C.COURSE_FILE_SIZE,
+            C.COURSE_FILE_NAME,
+            C.ADMIN_ID,
+            C.CREATED_DATE,
+            C.UPDATED_DATE,
+            V.ID AS VOLUNTEER_ID,
+            V.VOLUNTEER_START_DATE,
+            V.VOLUNTEER_END_DATE,
+            V.VOLUNTEER_DEADLINE
+        FROM TBL_COURSE C
+                 LEFT OUTER JOIN TBL_VOLUNTEER V
+                                 ON   C.ID = V.ID
+        WHERE C.COURSE_TYPE = #{courseType}
+    </select>
+
     <sql id="search">
         <if test="search.keyWord != null">
             <where>
@@ -86,6 +112,7 @@
         SELECT
             ID,
             COURSE_TYPE,
+            COURSE_IS_VOLUNTEER,
             COURSE_NAME,
             COURSE_DISTANCE,
             COURSE_SCHEDULE,
@@ -103,6 +130,7 @@
                     ROWNUM R,
                     ID,
                     COURSE_TYPE,
+                    COURSE_IS_VOLUNTEER,
                     COURSE_NAME,
                     COURSE_DISTANCE,
                     COURSE_SCHEDULE,
@@ -119,6 +147,7 @@
                         (SELECT
                             C.ID,
                             C.COURSE_TYPE,
+                            C.COURSE_IS_VOLUNTEER,
                             C.COURSE_NAME,
                             C.COURSE_DISTANCE,
                             C.COURSE_SCHEDULE,
@@ -163,16 +192,16 @@
         WHERE COURSE_TYPE  = #{courseType}
     </update>
 
-    <update id="patchEditCourse">
+    <update id="putCourseDetail">
         UPDATE TBL_COURSE
         SET COURSE_NAME         =  #{courseName},
             COURSE_DISTANCE     =  #{courseDistance},
             COURSE_SCHEDULE     =  #{courseSchedule},
             COURSE_THEME        =  #{courseTheme},
             COURSE_CONTENT      =  #{courseContent},
-            COURSE_FILE_PATH    =  #{courseFilePath},
-            COURSE_FILE_SIZE    =  #{courseFileSize},
-            COURSE_FILE_NAME    =  #{courseFileName},
+            COURSE_FILE_PATH    =  #{courseFilePath, jdbcType=VARCHAR},
+            COURSE_FILE_SIZE    =  #{courseFileSize, jdbcType=VARCHAR},
+            COURSE_FILE_NAME    =  #{courseFileName, jdbcType=VARCHAR},
             UPDATED_DATE        =  SYSDATE
         WHERE ID                =  #{id}
     </update>

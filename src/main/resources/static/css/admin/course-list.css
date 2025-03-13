@@ -710,7 +710,7 @@ form[name="deleteForm"] button:hover {
 
 .mainUserListDiv, .userListDiv {
     display: grid;
-    grid-template-columns: 50px 100px 200px 500px 350px 100px;
+    grid-template-columns: 50px 100px 200px 450px 300px 100PX 100px;
     align-items: center;
     text-align: center;
     border-bottom: 1px solid #ccc; /* 구분선 */

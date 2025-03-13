@@ -20,4 +20,8 @@ public class VolunteerScheduleDAO {
     public List<String> getCourseDetail(Long id) {
         return volunteerScheduleMapper.getCourseDetail(id);
     }
+
+    public void deleteCourseDetail(Long volunteerId) {
+        volunteerScheduleMapper.deleteCourseDetail(volunteerId);
+    }
 }

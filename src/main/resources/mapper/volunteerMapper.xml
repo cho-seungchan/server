@@ -14,7 +14,7 @@
              TO_DATE(#{volunteerDeadline}, 'YYYY-MM-DD'))
     </insert>
 
-    <update id="patchEditCourse">
+    <update id="putCourseDetail">
         UPDATE TBL_VOLUNTEER
         SET VOLUNTEER_START_DATE        =   TO_DATE(#{volunteerStartDate}, 'YYYY-MM-DD'),
             VOLUNTEER_END_DATE          =   TO_DATE(#{volunteerEndDate}, 'YYYY-MM-DD'),

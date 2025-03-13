@@ -2,6 +2,12 @@
 // 코스 목록 생성하는 함수
 function addCourseDetail(course) {
 
+    // 아이디 저장
+    let courseIdDiv = document.createElement("div"); // div 요소를 생성합니다.
+    courseIdDiv.innerHTML = `
+    <input type="hidden" class="Input_CourseId" value="${course.id}"/>`;
+    document.querySelector(".AppLayout_contents__YmI3N").appendChild(courseIdDiv);
+
     // 코스 제목 생성
     document.querySelector(".TextField_field__YTJkY").innerHTML = `
     <input placeholder="제목을 입력해 주세요" maxlength="40" type="text" class="Input_input__M2Q3Y Input_lg__MDE4M Input_courseName"
@@ -12,23 +18,23 @@ function addCourseDetail(course) {
     // 봉사 코스일 경우
     if (course.courseIsVolunteer == `Y`) {
         // 시작일, 종료일, 모집 마감일 생성
+        const formatStartDate = course.volunteerStartDate.split(" ")[0];
+        const formatEndDate = course.volunteerEndDate.split(" ")[0];
+        const formatDeadlinDate = course.volunteerDeadline.split(" ")[0];
         document.querySelector(".DurationOfTourContainer").innerHTML = `
-            <input type="date" placeholder="시작일" class="SocialRecruiteTagsContainer__SocialRecruiteTagsInput-sc-2762su-1 gcqwwh startdate"/> 
+            <input type="date" placeholder="시작일" class="SocialRecruiteTagsContainer__SocialRecruiteTagsInput-sc-2762su-1 gcqwwh startdate" value = "${formatStartDate}"/> 
             <span>~</span >
-            <input type="date" placeholder="종료일" class="SocialRecruiteTagsContainer__SocialRecruiteTagsInput-sc-2762su-1 gcqwwh enddate"/>
+            <input type="date" placeholder="종료일" class="SocialRecruiteTagsContainer__SocialRecruiteTagsInput-sc-2762su-1 gcqwwh enddate" value = "${formatEndDate}"/>
             <span >마감일</span >
-            <input type="date" placeholder="모집 마감일" class="SocialRecruiteTagsContainer__SocialRecruiteTagsInput-sc-2762su-1 gcqwwh deadline"/>
+            <input type="date" placeholder="모집 마감일" class="SocialRecruiteTagsContainer__SocialRecruiteTagsInput-sc-2762su-1 gcqwwh deadline" value = "${formatDeadlinDate}"/>
             <button type="button" class="CurrentProfile__MoreButton-sc-1u92qay-6 FvtMb" >
                 <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='17' viewBox='0 0 4 17'%3E %3Cpath fill='%23999' fill-rule='evenodd' d='M1.57 14a1.5 1.5 0 110 3 1.5 1.5 0 010-3zm0-7a1.5 1.5 0 110 3 1.5 1.5 0 010-3zm0-7a1.5 1.5 0 110 3 1.5 1.5 0 010-3z'/%3E %3C/svg%3E" alt="더보기"/>
             </button>
         `;
 
-        const formatStartDate = course.volunteerStartDate.split(" ")[0];
-        const formatEndDate = course.volunteerEndDate.split(" ")[0];
-        const formatDeadlinDate = course.volunteerDeadline.split(" ")[0];
-        document.querySelector(".gcqwwh.startdate").value = formatStartDate;
-        document.querySelector(".gcqwwh.enddate").value = formatEndDate;
-        document.querySelector(".gcqwwh.deadline").value = formatDeadlinDate;
+        // document.querySelector(".gcqwwh.startdate").value = formatStartDate;
+        // document.querySelector(".gcqwwh.enddate").value = formatEndDate;
+        // document.querySelector(".gcqwwh.deadline").value = formatDeadlinDate;
 
         // 포함, 불포함, 준비물 입력창 생성
         document.querySelector(".bmexYYinput").innerHTML = `
@@ -245,9 +251,9 @@ function addCourseDetail(course) {
             });
         })
     ).then(() => {
+
         // 좌표 기반 마커 생성
         createMarkers(tourSpots, map);
-
         // 선 그리기
         drawLine(tourSpots, map);
     });

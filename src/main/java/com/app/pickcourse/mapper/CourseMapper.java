@@ -23,14 +23,17 @@ public interface CourseMapper {
     // 추천코스 조회
     Optional<CourseDTO> getCourseDetail(Long id);
 
+    // 타입별 추천코스 조회
+    Optional<CourseDTO> getCourseTypeDetail(String courseType);
+
     // 추천코스 목록 조회
     List<CourseListDTO> getCourseList(@Param("pagination") Pagination pagination, @Param("search") Search search);
 
     // 추천코스 수정
-    void patchEditCourse(CourseVO courseVO);
+    void putCourseDetail(CourseVO courseVO);
 
     // 추천코스 타입 정하기 :: 기존에 같은 타입으로 등록된 코스의 타입 클리어
-    void patchCourseListExpire(@Param("courseType") String courseType);
+    void patchCourseListExpire(String courseType);
 
     // 추천코스 타입 정하기 :: 정해진 타입으로 코스 세팅
     void patchCourseListRegist(@Param("id") Long id, @Param("courseType") String courseType);

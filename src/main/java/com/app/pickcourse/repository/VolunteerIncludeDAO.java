@@ -19,4 +19,8 @@ public class VolunteerIncludeDAO {
     public List<String> getCourseDetail(Long id) {
         return volunteerIncludeMapper.getCourseDetail(id);
     }
+
+    public void deleteCourseDetail(Long id) {
+        volunteerIncludeMapper.deleteCourseDetail(id);
+    }
 }

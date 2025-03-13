@@ -159,8 +159,12 @@ function createCourseDetail() {
                         <div class="SaveButtonFooter_btnWrapper__ZTk3Z" >
                             <div class="StoryFormPage_saveButtonWrapper__Y2FmO" >
                                 <button
-                                    class="Button_button__YmRmM Button_primary__YjdmO Button_contained__NjMyO Button_md__NTc2Y StoryFormPage_submitBtn__MzE2M StoryFormPage_desktop__YmRkN" type="button" style=" opacity: 1; cursor: pointer; " >
+                                    class="Button_button__YmRmM Button_primary__YjdmO Button_contained__NjMyO Button_md__NTc2Y StoryFormPage_submitBtn__MzE2M StoryFormPage_desktop__YmRkN updateCourseDtail" type="button" style=" opacity: 1; cursor: pointer; " >
                                     <span><span class="Button_children__NzZlO" >수정</span></span>
+                                </button>
+                                <button
+                                    class="Button_button__YmRmM Button_primary__YjdmO Button_contained__NjMyO Button_md__NTc2Y StoryFormPage_submitBtn__MzE2M StoryFormPage_desktop__YmRkN deleteCourseDetail" type="button" style=" opacity: 1; cursor: pointer; " >
+                                    <span><span class="Button_children__NzZlO" >삭제</span></span>
                                 </button>
                             </div>
                         </div>

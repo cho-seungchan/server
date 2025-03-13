@@ -16,5 +16,5 @@ public interface PathMapper {
     List<PathVO> getCourseDetail(Long courseId);
 
     // 추천 코스 수정
-    void deleteEditCourse(Long courseId);
+    void deleteCourseDetail(Long courseId);
 }
