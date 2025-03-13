@@ -10,7 +10,7 @@
         VALUES(#{id})
     </insert>
 
-     <select id="getReportList" resultType="reportDTO">
+     <select id="getReportList" resultType="reportListDTO">
          SELECT
              'FEED_REPORT' AS SOURCE,
              FR.REPORT_REASON,
@@ -32,6 +32,6 @@
          FROM TBL_REPLY_REPORT RR
          JOIN TBL_MEMBER M
          ON RR.MEMBER_ID = M.ID
-         ORDER BY CREATED_DATE DESC;
+         ORDER BY CREATED_DATE DESC
      </select>
 </mapper>
