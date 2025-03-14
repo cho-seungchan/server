@@ -7,10 +7,7 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -27,24 +24,7 @@ public class MemberController {
     public void join(MemberDTO memberDTO){
         memberService.kakaoJoin(memberDTO);
     }
-//    @GetMapping("join_check")
-//    public void getJoinCheck(){}
-//
-//    @GetMapping("join_email")
-//    public String getJoinEmail(Model model) {
-//        model.addAttribute("memberDTO", new MemberDTO());
-//        return "join/join_email";
-//    }
-//    @PostMapping("join_email")
-//    public String join(@ModelAttribute MemberDTO memberDTO, HttpSession session, Model model) {
-//        if (memberService.getMember(memberDTO.getMemberEmail()).isPresent()) {
-//            model.addAttribute("errorMessage", "중복된 이메일입니다.");
-//            return "join/join_email";
-//        }
-//        memberService.join(memberDTO);
-//        session.setAttribute("loginUser", memberDTO);
-//        return "redirect:/my-page/myPageModify";
-//    }
+
 
     @GetMapping("join_email")
     public String getJoinEmail(Model model) {
@@ -83,38 +63,55 @@ public class MemberController {
     }
 
     @PostMapping("join_check")
-    public String completeSignup(@ModelAttribute MemberDTO memberDTO, HttpSession session, Model model) {
-        String email = (String) session.getAttribute("signupEmail");
-        String password = (String) session.getAttribute("signupPassword");
+    public String completeSignup(@ModelAttribute MemberDTO memberDTO,
+                                 HttpSession session,
+                                 Model model) {
+        Boolean isVerified = (Boolean) session.getAttribute("isVerified");
 
-        if (email == null || password == null) {
-            return "redirect:/join/join_email?error=session_expired";
-        }
+        System.out.println("회원가입: isVerified 값 = " + isVerified);
 
-        if (memberService.getMember(email).isPresent()) {
-            model.addAttribute("errorMessage", "이미 존재하는 이메일입니다.");
-            return "join/join_email";
-        }
-        if (memberService.getMemberByNickname(memberDTO.getMemberNickname()).isPresent()) {
-            model.addAttribute("errorMessage", "이미 사용 중인 닉네임입니다.");
+        if (isVerified == null || !isVerified) {
+            model.addAttribute("errorMessage", "휴대폰 인증을 완료해야 합니다.");
             return "join/join_check";
         }
 
+        String email = (String) session.getAttribute("signupEmail");
+        String password = (String) session.getAttribute("signupPassword");
+        String nickname = memberDTO.getMemberNickname();
+
+        // 중복된 이메일 검사
+        if (memberService.getMember(email).isPresent()) {
+            model.addAttribute("errorMessage", "이미 가입된 이메일입니다.");
+            return "join/join_email"; // 중복된 이메일이 있으면 회원가입 진행 X
+        }
+
+        // 중복된 닉네임 검사
+        if (memberService.getMemberByNickname(nickname).isPresent()) {
+            model.addAttribute("errorMessage", "이미 사용 중인 닉네임입니다.");
+            return "join/join_check"; // 중복된 닉네임이 있으면 회원가입 진행 X
+        }
+
+        // 회원 정보 설정
         memberDTO.setMemberEmail(email);
         memberDTO.setMemberPassword(password);
 
+        // 회원가입 진행
         memberService.join(memberDTO);
 
+        // 로그인 상태 유지
+        MemberVO member = memberService.getMember(memberDTO.getMemberEmail()).get();
+        session.setAttribute("memberStatus", "email");
+        session.setAttribute("member", member);
+
+        // 세션 정리 (보안)
         session.removeAttribute("signupEmail");
         session.removeAttribute("signupPassword");
+        session.removeAttribute("verificationCode");
+        session.removeAttribute("isVerified");
 
-        MemberVO loginUserVO = memberService.getMember(memberDTO.getMemberEmail()).get();
-        session.setAttribute("loginUser", loginUserVO);
-
+        // 회원가입 후 마이페이지로 이동
         return "redirect:/my-page/myPageModify";
     }
-
-
 
 
 

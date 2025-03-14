@@ -37,6 +37,8 @@ public class KakaoController {
             memberService.kakaoJoin(memberDTO);
         }
 
+
+        session.setAttribute("memberStatus", "kakao");
         session.setAttribute("member", memberDTO);
         return new RedirectView("/");
     }

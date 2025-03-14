@@ -1,7 +1,9 @@
 package com.app.pickcourse.service;
 
 import com.app.pickcourse.domain.dto.ReceiveMessageDTO;
+import com.app.pickcourse.domain.dto.ReceivePaginationDTO;
 import com.app.pickcourse.domain.dto.SendMessageDTO;
+import com.app.pickcourse.domain.dto.SendPaginationDTO;
 import com.app.pickcourse.domain.vo.MemberVO;
 import com.app.pickcourse.domain.vo.MessageVO;
 import com.app.pickcourse.domain.vo.ReceiveMessageVO;
@@ -10,6 +12,7 @@ import com.app.pickcourse.repository.MemberDAO;
 import com.app.pickcourse.repository.MessageDAO;
 import com.app.pickcourse.repository.ReceiveMessageDAO;
 import com.app.pickcourse.repository.SendMessageDAO;
+import com.app.pickcourse.util.Pagination;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -145,6 +148,33 @@ public class MessageServiceTests {
         log.info("메시지 전송 성공: {}", sendMessageDTO);
     }
 
+    @Test
+    public void testReceiveMessageWithPagination() {
+        Pagination pagination = new Pagination();
+        ReceivePaginationDTO receivePaginationDTO = new ReceivePaginationDTO();
+
+        pagination.create(messageService.getTotalReceiveMessage(2L));
+        receivePaginationDTO.setPagination(pagination);
+        receivePaginationDTO = messageService.getReceiveList(2L, pagination);
+
+        receivePaginationDTO.getReceiveMessages().forEach((message) -> {log.info(message.toString());});
+        log.info(receivePaginationDTO.toString());
+
+    }
+
+    @Test
+    public void testSendMessageWithPagination() {
+        Pagination pagination = new Pagination();
+        SendPaginationDTO sendPaginationDTO = new SendPaginationDTO();
+
+        pagination.create(messageService.getTotalSendMessage(2L));
+        sendPaginationDTO.setPagination(pagination);
+        sendPaginationDTO = messageService.getSendList(2L, pagination);
+
+        sendPaginationDTO.getSendMessages().forEach((message) -> {log.info(message.toString());});
+        log.info(sendPaginationDTO.toString());
+
+    }
 }
 
 
