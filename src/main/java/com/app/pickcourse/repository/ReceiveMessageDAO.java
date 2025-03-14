@@ -3,6 +3,7 @@ package com.app.pickcourse.repository;
 import com.app.pickcourse.domain.dto.ReceiveMessageDTO;
 import com.app.pickcourse.domain.vo.ReceiveMessageVO;
 import com.app.pickcourse.mapper.ReceiveMessageMapper;
+import com.app.pickcourse.util.Pagination;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -35,8 +36,14 @@ public class ReceiveMessageDAO {
     }
 
     // 페이징된 받은 메시지 조회
-    public List<ReceiveMessageDTO> findByReceiverIdWithPagination(Long receiverId, int startRow, int rowCount) {
-        return receiveMessageMapper.findByReceiverIdWithPagination(receiverId, startRow, rowCount);
+    public List<ReceiveMessageDTO> findByReceiverIdWithPagination(Long receiverId, Pagination pagination) {
+        return receiveMessageMapper.findByReceiverIdWithPagination(receiverId, pagination);
     }
+    // 전체 개수
+    public int findTotalReceiveMessage(Long id) { return receiveMessageMapper.selectTotalReceiveMessage(id); }
 
+    // 전체 조회
+    public List<ReceiveMessageDTO> findAllReceiveMessage(Long receiverId, Pagination pagination) {
+        return receiveMessageMapper.selectAllReceiveMessage(receiverId, pagination);
+    }
 }

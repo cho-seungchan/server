@@ -152,16 +152,34 @@
     padding: 0px;
     background-color: white;
     text-align: center;
-    cursor: not-allowed;
+    cursor: pointer;
     border-radius: 50%;
     font-size: 18px;
-    display: flex
-;
+    display: flex;
     -webkit-box-pack: center;
     justify-content: center;
     -webkit-box-align: center;
     align-items: center;
     outline: none;
+    color: black;
+}
+
+.iItkLq.disabled {
+    cursor: not-allowed;
+    color: gray;
+}
+
+button:disabled {
+    cursor: not-allowed;
+}
+
+img:disabled{
+    cursor: not-allowed;
+}
+
+.garfld.disabled {
+    cursor: not-allowed;
+    color: gray;
 }
 
 .jVxRns {
@@ -339,8 +357,7 @@ b, strong {
     cursor: pointer;
     border-radius: 50%;
     font-size: 18px;
-    display: flex
-;
+    display: flex;
     -webkit-box-pack: center;
     justify-content: center;
     -webkit-box-align: center;

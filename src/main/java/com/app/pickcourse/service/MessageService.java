@@ -1,7 +1,9 @@
 package com.app.pickcourse.service;
 
 import com.app.pickcourse.domain.dto.ReceiveMessageDTO;
+import com.app.pickcourse.domain.dto.ReceivePaginationDTO;
 import com.app.pickcourse.domain.dto.SendMessageDTO;
+import com.app.pickcourse.domain.dto.SendPaginationDTO;
 import com.app.pickcourse.domain.vo.MessageVO;
 import com.app.pickcourse.domain.vo.ReceiveMessageVO;
 import com.app.pickcourse.domain.vo.SendMessageVO;
@@ -12,11 +14,13 @@ import com.app.pickcourse.repository.MemberDAO;
 import com.app.pickcourse.repository.MessageDAO;
 import com.app.pickcourse.repository.ReceiveMessageDAO;
 import com.app.pickcourse.repository.SendMessageDAO;
+import com.app.pickcourse.util.Pagination;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -85,16 +89,43 @@ public class MessageService {
         sendMessage(sendMessageDTO);
     }
 
-    // 받은 메시지 조회
-    public List<ReceiveMessageDTO> findReceiveMessages(Long receiverId, int page, int rowCount) {
-        int startRow = (page - 1) * rowCount;
-        return receiveMessageDAO.findByReceiverIdWithPagination(receiverId, startRow, rowCount);
-    }
+//    // 받은 메시지 목록과 페이지네이션 데이터를 함께 반환하는 메서드
+//    public Map<String, Object> getReceivedMessages(Long receiverId, int page) {
+//        int totalMessages = getReceiveMessageCount(receiverId);
+//
+//        Pagination pagination = new Pagination();
+//        pagination.setPage(page);
+//        pagination.create(totalMessages);
+//
+//        List<ReceiveMessageDTO> receivedMessages = findReceiveMessages(receiverId, page, 5);
+//
+//        return Map.of(
+//                "receivedMessages", receivedMessages,
+//                "pagination", pagination
+//        );
+//    }
 
     // 받은 메시지 개수 조회
     public int getReceiveMessageCount(Long receiverId) {
         return receiveMessageDAO.countByReceiverId(receiverId);
     }
+
+    // 받은 메시지 목록 조회 (페이지네이션 적용)
+    public List<ReceiveMessageDTO> findReceiveMessages(Long receiverId, Pagination pagination) {
+        return receiveMessageDAO.findByReceiverIdWithPagination(receiverId, pagination);
+    }
+
+
+//    // 받은 메시지 조회
+//    public List<ReceiveMessageDTO> findReceiveMessages(Long receiverId, int page, int rowCount) {
+//        int startRow = (page - 1) * rowCount;
+//        return receiveMessageDAO.findByReceiverIdWithPagination(receiverId, startRow, rowCount);
+//    }
+//
+//    // 받은 메시지 개수 조회
+//    public int getReceiveMessageCount(Long receiverId) {
+//        return receiveMessageDAO.countByReceiverId(receiverId);
+//    }
 
     // 보낸 메시지 조회
     public List<SendMessageDTO> findSendMessages(Long senderId, int page, int rowCount) {
@@ -107,4 +138,31 @@ public class MessageService {
         return sendMessageDAO.countBySenderId(senderId);
     }
 
+//    페이지네이션 리스트
+    public ReceivePaginationDTO getReceiveList(Long receiverId, Pagination pagination) {
+        ReceivePaginationDTO receivePaginationDTO = new ReceivePaginationDTO();
+
+        pagination.create(receiveMessageDAO.findTotalReceiveMessage(receiverId));
+        receivePaginationDTO.setPagination(pagination);
+        receivePaginationDTO.setReceiveMessages(receiveMessageDAO.findAllReceiveMessage(receiverId, pagination));
+        return receivePaginationDTO;
+    }
+
+    public int getTotalReceiveMessage(Long receiverId) {
+        return receiveMessageDAO.findTotalReceiveMessage(receiverId);
+    }
+
+    //    페이지네이션 리스트
+    public SendPaginationDTO getSendList(Long senderId, Pagination pagination) {
+        SendPaginationDTO sendPaginationDTO = new SendPaginationDTO();
+
+        pagination.create(sendMessageDAO.findTotalSendMessage(senderId));
+        sendPaginationDTO.setPagination(pagination);
+        sendPaginationDTO.setSendMessages(sendMessageDAO.findAllSendMessage(senderId, pagination));
+        return sendPaginationDTO;
+    }
+
+    public int getTotalSendMessage(Long senderId) {
+        return sendMessageDAO.findTotalSendMessage(senderId);
+    }
 }

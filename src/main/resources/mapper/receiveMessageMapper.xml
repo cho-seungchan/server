@@ -21,45 +21,57 @@
         FROM TBL_RECEIVE_MESSAGE RM
                  JOIN TBL_MESSAGE MSG ON RM.ID = MSG.ID
                  JOIN TBL_MEMBER M ON RM.SENDER_ID = M.ID
-        WHERE RM.RECEIVER_ID = #{receiver_id}
+        WHERE RM.RECEIVER_ID = #{receiverId}
         ORDER BY MSG.MESSAGE_ALL_DATE DESC
+    </select>
+
+    <select id="selectAllReceiveMessage" parameterType="Long" resultType="receiveMessageDTO">
+    <![CDATA[
+        SELECT ID,
+        SENDER_ID,
+        RECEIVER_ID,
+        MEMBER_NICKNAME AS SENDER_NICKNAME,
+        MESSAGE_ALL_CONTENT AS CONTENT,
+        RECEIVE_DATE,
+        RECEIVE_MESSAGE_CHECK FROM (
+        SELECT ROWNUM R,
+        ID,
+        SENDER_ID,
+        RECEIVER_ID,
+        MEMBER_NICKNAME,
+        MESSAGE_ALL_CONTENT,
+        RECEIVE_DATE,
+        RECEIVE_MESSAGE_CHECK
+        FROM (SELECT RM.ID,
+        RM.SENDER_ID,
+        RM.RECEIVER_ID,
+        M.MEMBER_NICKNAME,
+        MSG.MESSAGE_ALL_CONTENT,
+        TO_CHAR(MSG.MESSAGE_ALL_DATE, 'YYYY.MM.DD') AS RECEIVE_DATE,
+        RM.RECEIVE_MESSAGE_CHECK
+        FROM TBL_RECEIVE_MESSAGE RM
+        JOIN TBL_MESSAGE MSG ON RM.ID = MSG.ID
+        JOIN TBL_MEMBER M ON RM.SENDER_ID = M.ID
+        WHERE RM.RECEIVER_ID = #{receiverId}
+        ORDER BY MSG.MESSAGE_ALL_DATE DESC)
+        WHERE ROWNUM <= ${pagination.endRow}
+        )
+        WHERE R >= ${pagination.startRow}
+        ]]>
     </select>
 
     <delete id="deleteReceiveMessageById">
         DELETE FROM TBL_RECEIVE_MESSAGE WHERE ID = #{id}
     </delete>
 
+    <select id="selectTotalReceiveMessage" resultType="_int">
+        SELECT COUNT(*) FROM TBL_RECEIVE_MESSAGE WHERE RECEIVER_ID = #{receiverId}
+    </select>
+
     <!-- 받은 메시지 개수 조회 -->
     <select id="countByReceiverId" resultType="_int">
         SELECT COUNT(*) FROM TBL_RECEIVE_MESSAGE WHERE RECEIVER_ID = #{receiverId}
     </select>
-
-    <!-- 받은 메시지 조회 (페이징 적용) -->
-    <select id="findByReceiverIdWithPagination" resultType="receiveMessageDTO">
-    <![CDATA[
-        SELECT * FROM (
-                          SELECT A.*, ROWNUM AS RNUM
-                          FROM (
-                                   SELECT
-                                       RM.ID AS ID,
-                                       RM.SENDER_ID AS SENDER_ID,
-                                       RM.RECEIVER_ID AS RECEIVER_ID,
-                                       M.MEMBER_NICKNAME AS SENDER_NICKNAME,
-                                       MSG.MESSAGE_ALL_CONTENT AS CONTENT,
-                                       TO_CHAR(MSG.MESSAGE_ALL_DATE, 'YYYY.MM.DD') AS RECEIVE_DATE,
-                                       RM.RECEIVE_MESSAGE_CHECK AS ISCHECKED
-                                   FROM TBL_RECEIVE_MESSAGE RM
-                                            JOIN TBL_MESSAGE MSG ON RM.ID = MSG.ID
-                                            JOIN TBL_MEMBER M ON RM.SENDER_ID = M.ID
-                                   WHERE RM.RECEIVER_ID = #{receiverId}
-                                   ORDER BY MSG.MESSAGE_ALL_DATE DESC
-                               ) A
-                          WHERE ROWNUM <= #{startRow} + #{rowCount}
-                      )
-        WHERE RNUM > #{startRow}
-        ]]>
-</select>
-
 
 
 
