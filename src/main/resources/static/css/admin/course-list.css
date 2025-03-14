@@ -381,7 +381,7 @@ p, label {
     margin: 0;
 }
 
-.mainUserListDiv, .userListDiv {
+.mainUserListDiv, .userListDiv, .reportListDiv {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -394,7 +394,7 @@ p, label {
     background-color: #f5f5f5;
 }
 
-.userListDiv {
+.userListDiv, .reportListDiv {
     background-color: #fff;
 }
 
@@ -461,7 +461,7 @@ p, label {
     top: 15px;
 }
 
-.userListDiv {
+.userListDiv, .reportListDiv{
     padding: 10px;
     border-bottom: 1px solid #ddd;
     display: flex;
@@ -539,7 +539,9 @@ p, label {
     width: 100%;
 }
 .change-page code,
-.change-page + code {
+.change-page + code,
+.report-change-page code,
+.report-change-page + code {
     margin: 0 10px;
     font-size: 16px;
 }
@@ -717,16 +719,25 @@ form[name="deleteForm"] button:hover {
     padding: 10px 0;
 }
 
+.mainUserListDiv.reportList, .reportListDiv {
+    display: grid;
+    grid-template-columns: 100px 850px 200px 200px;
+    align-items: center;
+    text-align: center;
+    border-bottom: 1px solid #ccc; /* 구분선 */
+    padding: 10px 0;
+}
+
 .mainUserListDiv {
     font-weight: bold;
     background-color: #f8f8f8; /* 타이틀 배경색 */
 }
 
-.userListDiv {
+.userListDiv, .reportListDiv{
     background-color: #fff;
 }
 
-.userListDiv:hover {
+.userListDiv:hover, .reportListDiv:hover {
     background-color: #f1f1f1; /* 마우스 오버 시 강조 */
 }
 
@@ -740,4 +751,13 @@ form[name="deleteForm"] button:hover {
 .userListDiv .courseThemeDiv {
     text-align: left;
     padding-left: 10px; /* 여백 추가 */
+}
+
+/*25.03.14 신고 내용 숨기기 */
+.reportReason {
+    display: -webkit-box; /* Flexbox 기반으로 레이아웃 설정 */
+    -webkit-line-clamp: 1; /* 줄 수 설정 */
+    -webkit-box-orient: vertical; /* 박스 방향을 수직으로 설정 */
+    overflow: hidden; /* 초과 부분 숨김 */
+    text-overflow: ellipsis; /* 생략 표시(...) */
 }

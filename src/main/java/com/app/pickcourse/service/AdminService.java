@@ -2,10 +2,13 @@ package com.app.pickcourse.service;
 
 import com.app.pickcourse.domain.dto.CourseDTO;
 import com.app.pickcourse.domain.dto.CourseListDTO;
+import com.app.pickcourse.domain.dto.ReportListDTO;
 import com.app.pickcourse.domain.vo.AdminVO;
 import com.app.pickcourse.domain.vo.MemberVO;
 import com.app.pickcourse.domain.vo.PathVO;
 import com.app.pickcourse.exception.DuplicateException;
+import com.app.pickcourse.mapper.FeedReportMapper;
+import com.app.pickcourse.mapper.ReplyMapper;
 import com.app.pickcourse.repository.*;
 import com.app.pickcourse.util.Pagination;
 import com.app.pickcourse.util.Search;
@@ -13,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -32,12 +36,17 @@ public class AdminService {
     private final VolunteerIncludeDAO volunteerIncludeDAO;
     private final VolunteerPrepareDAO volunteerPrepareDAO;
     private final VolunteerScheduleDAO volunteerScheduleDAO;
+    private final ReportDAO reportDAO;
+    private final FeedReportDAO feedReportDAO;
+    private final ReplyReportDAO replyReportDAO;
 
+    // 관리자 목록 조회
     public List<AdminVO> getManageAdminList(Pagination pagination, Search search) {
         pagination.create(adminDAO.getCountAll(search));
         return adminDAO.getManageAdminList(pagination, search);
     }
 
+    // 관리자 등록
     public void postManageAdminList(AdminVO adminVO) throws DuplicateException {
         // 중복 체크
         if (adminDAO.isAdminAccount(adminVO.getAdminAccount()) > 0){
@@ -47,6 +56,7 @@ public class AdminService {
         adminDAO.postManageAdminList(adminVO);
     }
 
+    // 관리자 삭제
     public void deleteManageAdminList(String selectedIds) {
         // 삭제할 대상 id를 Long으로 변환
         List<Long> idList = Arrays.asList(selectedIds.split(",")).
@@ -57,11 +67,13 @@ public class AdminService {
         });
     }
 
+    // 회원 목록
     public List<MemberVO> getMemberList(Pagination pagination, Search search) {
         pagination.create(memberDAO.getCountAll(search));
         return memberDAO.getMemberList(pagination, search);
     }
 
+    // 회원 정지
     public void patchMemberListPause(String selectedIds) {
         List<Long> idList = Arrays.asList(selectedIds.split(",")).stream().
                 map(Long::parseLong).collect(Collectors.toList());
@@ -71,6 +83,7 @@ public class AdminService {
         });
     }
 
+    // 회원 정지 해제
     public void patchMemberListRestart(String selectedIds) {
         List<Long> idList = Arrays.asList(selectedIds.split(",")).stream().
                 map(Long::parseLong).collect(Collectors.toList());
@@ -81,6 +94,7 @@ public class AdminService {
         });
     }
 
+    // 회원 삭제
     public void deleteMemberList(String selectedIds) {
         List<Long> idList = Arrays.asList(selectedIds.split(",")).stream().
                 map(Long::parseLong).collect(Collectors.toList());
@@ -91,6 +105,7 @@ public class AdminService {
 
     }
 
+    // 코스 등록
     public void postAddCourse(CourseDTO courseDTO) {
 
         // 코스정보 입력
@@ -140,16 +155,19 @@ public class AdminService {
 
     }
 
+    // 코스 목록
     public List<CourseListDTO> getCourseList(Pagination pagination, Search search) {
         pagination.create(courseDAO.getCountAll(search));
         return courseDAO.getCourseList(pagination,search);
     }
 
+    // 코스 수정
     public void patchCourseList(String courseId, String courseType) {
         courseDAO.patchCourseListExpire(courseType);
         courseDAO.patchCourseListRegist(Long.parseLong(courseId), courseType);
     }
 
+    // 코스 상세 조회
     public CourseDTO getCourseDetail(Long id) {
         CourseDTO courseDTO = courseDAO.getCourseDetail(id);
         courseDTO.setPaths(pathDAO.getCourseDetail(id));
@@ -160,6 +178,7 @@ public class AdminService {
         return courseDTO;
     }
 
+    // 타입별 코스 조회
     public CourseDTO getCourseTypeDetail(String courseType) {
         CourseDTO courseDTO = courseDAO.getCourseTypeDetail(courseType);
         courseDTO.setPaths(pathDAO.getCourseDetail(courseDTO.getId()));
@@ -171,6 +190,7 @@ public class AdminService {
         return courseDTO;
     }
 
+    // 코스 수정
     public void putCourseDetail(CourseDTO courseDTO) {
 
         courseDAO.putCourseDetail(courseDTO.toCourseVO());
@@ -213,6 +233,7 @@ public class AdminService {
 
     }
 
+    // 코스 삭제 :: delete on cascade 안될 경우를 대비해서 모두 삭제
     public void deleteCourseDetail(Long id) {
         courseDAO.deleteCourseDetail(id);
         volunteerDAO.deleteCourseDetail(id);
@@ -221,5 +242,23 @@ public class AdminService {
         volunteerIncludeDAO.deleteCourseDetail(id);
         volunteerPrepareDAO.deleteCourseDetail(id);
         volunteerScheduleDAO.deleteCourseDetail(id);
+    }
+
+    // 신고 목록  :: 전체, 피드, 댓글에 따라 조회를 달리 처리
+    public List<ReportListDTO> getReportList(Pagination pagination, Search search) {
+        log.info("전체건수  "+reportDAO.getCountAll(search));
+        List<ReportListDTO> list = null;
+        if (search.getIsAct().equals("피드")){
+            pagination.create(feedReportDAO.getCountAll(search));
+            list = feedReportDAO.getReportList(pagination, search);
+        } else if (search.getIsAct().equals("댓글")){
+            pagination.create(replyReportDAO.getCountAll(search));
+            list = replyReportDAO.getReportList(pagination, search);
+        } else {
+            pagination.create(reportDAO.getCountAll(search));
+            list = reportDAO.getReportList(pagination, search);
+        }
+
+        return list;
     }
 }

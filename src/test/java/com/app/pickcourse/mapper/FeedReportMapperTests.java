@@ -19,7 +19,7 @@ public class FeedReportMapperTests {
         ReportVO reportVO = new ReportVO();
         reportMapper.saveReport(reportVO);
 
-        mapper.saveFeedReport(reportVO.getId(), 51l, 1l);
+        mapper.saveFeedReport(reportVO.getId(), 53l, 43l);
 
     }
 

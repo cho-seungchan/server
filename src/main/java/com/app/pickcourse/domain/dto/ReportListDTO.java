@@ -10,10 +10,11 @@ import lombok.ToString;
 @Setter
 @ToString
 public class ReportListDTO {
+    private Long   id;
     private String source;
     private String reportReason;
     private String createdDate;
-    private Long reportedId;
-    private Long memberId;
+    private Long   reportedId;
+    private Long   memberId;
     private String memberNickname;
 }

@@ -19,7 +19,7 @@ public class ReplyReportMapperTests {
         ReportVO reportVO = new ReportVO();
         reportMapper.saveReport(reportVO);
 
-        mapper.saveReplyReport(reportVO.getId(), 3l, 1l);
+        mapper.saveReplyReport(reportVO.getId(), 4l, 44l);
     }
 
 
