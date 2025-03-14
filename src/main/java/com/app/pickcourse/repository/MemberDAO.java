@@ -74,4 +74,9 @@ public class MemberDAO {
         memberMapper.deleteMemberList(memberId);
     }
 
+//    ID로 회원 조회
+    public Optional<MemberVO> findById(Long id) {
+        return memberMapper.selectById(id);
+    }
+
 }

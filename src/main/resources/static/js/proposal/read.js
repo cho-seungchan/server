@@ -39,28 +39,6 @@ document.querySelectorAll(".enp_mobon_cart").forEach((JJim) => {
 
 // 찜하기 버튼 클릭
 
-// 로그인 버튼 눌렀을 때 (로그인은 차후 반영)
-document.querySelectorAll(".ContentComment").forEach((ContentComment) => {
-    ContentComment.addEventListener("click", () => {
-        if (document.querySelector(".ContentComment").textContent == "등록") {
-            return;
-        }
-        document.querySelector(".replyWrap").className = "replyWrap subscription login";
-        document.querySelector(".writeForm").removeAttribute("style");
-        document.querySelectorAll(".comment").forEach((e) => {
-            e.removeAttribute("readonly");
-            e.removeAttribute("style");
-            e.placeholder = "글을 남겨주세요.";
-        });
-        document.querySelectorAll(".fileUp").forEach((e) => {
-            e.removeAttribute("disabled");
-        });
-        document.querySelectorAll(".ContentComment").forEach((e) => {
-            e.textContent = "등록";
-        });
-    });
-});
-// 로그인 버튼 눌렀을 때 (로그인은 차후 반영)
 
 // 댓글에 답글 달기 버튼
 document.querySelectorAll(".btn2").forEach((btn2) => {
@@ -76,14 +54,6 @@ document.querySelectorAll(".btn2").forEach((btn2) => {
     });
 });
 // 댓글에 답글 달기 버튼
-
-// textarea에 글자 입력시 입력된 글자 수 보여주기
-document.querySelectorAll(".comment").forEach((comment) => {
-    comment.addEventListener("input", (e) => {
-        e.target.nextElementSibling.textContent = `${e.target.value.length} / 1200 (추천 글자수: 30자 이내)`;
-    });
-});
-// textarea에 글자 입력시 입력된 글자 수 보여주기
 
 // 댓글 더보기 버튼
 document.querySelector(".btn_more").addEventListener("click", () => {
@@ -216,8 +186,9 @@ function commentresize(textarea) {
 }
 
 // 모이는 장소 :: 카카오맵 처리하기
+let address = planDetail.plan.planStartAddress
 let geocoder = new kakao.maps.services.Geocoder();
-geocoder.addressSearch("올림픽로 19-2", (result, status) => {
+geocoder.addressSearch(address, (result, status) => {
     if (status === kakao.maps.services.Status.OK) {
         let coords = new kakao.maps.LatLng(result[0].y, result[0].x);
         let mapContainer = document.getElementById("map"), // 지도를 표시할 div

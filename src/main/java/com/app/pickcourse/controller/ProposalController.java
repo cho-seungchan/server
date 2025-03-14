@@ -2,17 +2,18 @@ package com.app.pickcourse.controller;
 
 import com.app.pickcourse.domain.dto.MyPLanListDTO;
 import com.app.pickcourse.domain.dto.PlanDTO;
+import com.app.pickcourse.domain.dto.PlanDetailDTO;
+import com.app.pickcourse.domain.dto.QuestionDTO;
+import com.app.pickcourse.domain.vo.MemberVO;
 import com.app.pickcourse.service.PlanService;
 import com.app.pickcourse.util.Pagination;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
@@ -21,6 +22,7 @@ import org.springframework.web.servlet.view.RedirectView;
 @Slf4j
 public class ProposalController {
     private final PlanService planService;
+    private final HttpSession session;
 
     @GetMapping("/eco")
     public String getEco(Model model) {
@@ -44,7 +46,12 @@ public class ProposalController {
 
     @GetMapping("/modifylist")
     public String getModifyList(Model model) {
+        MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
+        if (loginUser == null) {
+            return "redirect:/login/login";
+        }else {
         return "/proposal/modifylist";
+        }
     }
 
     @GetMapping("/pay")
@@ -53,12 +60,15 @@ public class ProposalController {
     }
 
     @GetMapping("/read")
-    public String getRead(Model model, Long id, HttpServletRequest request) {
-        log.info("이동됨");
-        PlanDTO planDTO = planService.getPlanById(id).orElseThrow(()->{throw new RuntimeException();});
-        log.info(planDTO.toString());
+    public String getRead(Model model, Long id) {
+        MemberVO loginUser = (MemberVO) session.getAttribute("getMember");
 
-        model.addAttribute("plan", planDTO);
+        log.info("id = {}", id);
+        PlanDetailDTO planDetailDTO = planService.getPlanDetailById(id);
+        planDetailDTO.setMember(loginUser);
+        log.info("Read plan: {}", planDetailDTO);
+
+        model.addAttribute("planDetailDTO", planDetailDTO);
 
         return "/proposal/read";
     }
@@ -85,8 +95,10 @@ public class ProposalController {
 
     @PostMapping("/write")
     public RedirectView writePlan(PlanDTO planDTO) {
+        MemberVO loginMember = (MemberVO)session.getAttribute("getMember");
+
         log.info("planDTO: {}", planDTO.toString());
-        planDTO.setMemberId(1L);
+        planDTO.setMemberId(loginMember.getId());
         planDTO.setCourseId(21L);
         planService.writePlan(planDTO);
 
@@ -95,8 +107,16 @@ public class ProposalController {
 
     @GetMapping("/modifylists")
     @ResponseBody
-    public MyPLanListDTO getMyPlan(Pagination pagination, Long id) {
-        return planService.getMyPlanList(pagination, 1L);
+    public MyPLanListDTO getMyPlan(Pagination pagination) {
+        MemberVO loginMember = (MemberVO) session.getAttribute("loginUser");
+
+        Long id = loginMember.getId();
+        return planService.getMyPlanList(pagination, id);
+    }
+
+    @PostMapping("/writeQuestion")
+    public void writeQuestion(@RequestBody QuestionDTO questionDTO) {
+        planService.writeQuestion(questionDTO);
     }
 
 }

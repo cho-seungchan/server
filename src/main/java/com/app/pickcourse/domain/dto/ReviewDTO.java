@@ -9,7 +9,9 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class ReviewDTO {
+    @EqualsAndHashCode.Include
     private Long id;
     private String feedContent;
     private String createDate;

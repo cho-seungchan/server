@@ -10,7 +10,6 @@ import lombok.*;
 public class ReavFeedVO {
     @EqualsAndHashCode.Include
     private Long id;
-
     private Long memberId;
     private Long planId;
 }

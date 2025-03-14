@@ -58,15 +58,22 @@
                  f.FEED_CONTENT,
                  f.CREATED_DATE,
                  f.UPDATED_DATE,
-                 s.REAL_STAR,
                  r.MEMBER_ID,
                  r.PLAN_ID
         FROM     TBL_FEED f
                      JOIN     TBL_REAL_FEED r
                               ON       f.ID = r.ID
-                     LEFT JOIN     TBL_REAL_STAR s
-                                   ON       f.ID  =  s.REAL_FEED_ID
-        WHERE    f.ID = #{id}
+        WHERE    r.PLAN_ID = ${planId}
     </select>
+
+    <insert id="insertReview">
+        INSERT INTO TBL_REAL_FEED
+        (ID,
+         MEMBER_ID,
+         PLAN_ID)
+        VALUES(#{id},
+               #{memberId},
+               #{planId})
+    </insert>
 
 </mapper>

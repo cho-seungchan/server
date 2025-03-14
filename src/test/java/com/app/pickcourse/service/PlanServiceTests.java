@@ -29,6 +29,8 @@ public class PlanServiceTests {
     private WritePrepareDAO writePrepareDAO;
     @Autowired
     private ScheduleDAO scheduleDAO;
+    @Autowired
+    private QuestionDAO questionDAO;
 
     @Test
     public void testWritePlan() {
@@ -122,5 +124,23 @@ public class PlanServiceTests {
         planDTO = planService.getPlanById(111L).orElseThrow(()-> new RuntimeException());
 
         log.info(planDTO.toString());
+    }
+
+    @Test
+    public void getPlanDetail() {
+        planService.getPlanDetailById(111L);
+
+        log.info(planService.getPlanDetailById(111L).toString());
+    }
+
+    @Test
+    public void testWriteQuestion() {
+        QuestionDTO questionDTO = new QuestionDTO();
+
+        questionDTO.setPlanId(113L);
+        questionDTO.setContent("서비스테스트2");
+        questionDTO.setMemberId(1L);
+
+        planService.writeQuestion(questionDTO);
     }
 }

@@ -24,4 +24,6 @@ public interface FeedMapper {
 
     void deleteFeedModifyList(Long id);
 
+
+
 }

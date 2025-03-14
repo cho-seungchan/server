@@ -61,7 +61,7 @@
                     P.PLAN_MAX_PERSONNEL, P.PLAN_MIN_PERSONNEL, P.PLAN_PRICE, P.MEMBER_ID, P.COURSE_ID
                     FROM TBL_MEMBER M JOIN TBL_PLAN P
                     ON M.ID = P.MEMBER_ID
-                    WHERE MEMBER_ID = 1
+                    WHERE MEMBER_ID = #{memberId}
                     ORDER BY P.ID DESC
                 )
             <![CDATA[

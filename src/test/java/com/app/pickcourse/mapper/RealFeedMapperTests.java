@@ -25,13 +25,13 @@ public class RealFeedMapperTests {
     @Test
     public void postFeedWrite(){
         FeedDTO feedDTO = new FeedDTO();
-        feedDTO.setFeedContent("아름다운 밤이에요test");
+        feedDTO.setFeedContent("아름다운 밤이에요test1");
         feedMapper.postFeedWrite(feedDTO.toFeedVO());
 
         MemberVO memberVO = new MemberVO();
-        memberVO.setId(21l);
+        memberVO.setId(1l);
         PlanVO planVO = new PlanVO();
-        planVO.setId(4l);
+        planVO.setId(113l);
         mapper.postFeedWrite(feedDTO.getId(),memberVO.getId(),planVO.getId());
     }
 

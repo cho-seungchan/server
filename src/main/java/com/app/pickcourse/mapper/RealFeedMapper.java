@@ -1,7 +1,9 @@
 package com.app.pickcourse.mapper;
 
 import com.app.pickcourse.domain.dto.FeedListDTO;
+import com.app.pickcourse.domain.dto.RealFeedDTO;
 import com.app.pickcourse.domain.dto.ReviewDTO;
+import com.app.pickcourse.domain.vo.FeedVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -21,4 +23,7 @@ public interface RealFeedMapper {
     List<ReviewDTO>  getReviewList(Long memberId);
 
     Optional<ReviewDTO> getReviewModify(Long id);
+
+//    플랜후기작성
+    public void insertReview(FeedVO feedVO, RealFeedDTO realFeedDTO);
 }

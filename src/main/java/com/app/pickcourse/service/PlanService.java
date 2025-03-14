@@ -1,9 +1,11 @@
 package com.app.pickcourse.service;
 
-import com.app.pickcourse.domain.dto.MyPLanListDTO;
-import com.app.pickcourse.domain.dto.PlanDTO;
+import com.app.pickcourse.domain.dto.*;
+import com.app.pickcourse.domain.vo.FeedVO;
 import com.app.pickcourse.domain.vo.MemberVO;
 import com.app.pickcourse.domain.vo.PlanVO;
+import com.app.pickcourse.domain.vo.QuestionVO;
+import com.app.pickcourse.mapper.QuestionMapper;
 import com.app.pickcourse.repository.*;
 import com.app.pickcourse.util.Pagination;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.swing.text.html.Option;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,9 +30,11 @@ public class PlanService {
     private final WriteIncludeDAO writeIncludeDAO;
     private final WritePrepareDAO writePrepareDAO;
     private final MemberDAO memberDAO;
+    private final FeedDAO feedDAO;
+    private final QuestionDAO questionDAO;
 
 
-//    여행계획작성
+    //    여행계획작성
     public void writePlan(PlanDTO planDTO) {
         PlanVO planVO = planDTO.toVO();
 
@@ -78,8 +83,8 @@ public class PlanService {
         Optional<PlanDTO> foundPlan = planDAO.findById(id);
 
         planDTO = foundPlan.orElseThrow(()-> new RuntimeException());
+        memberVO = memberDAO.findById(planDTO.getMemberId()).orElseThrow(()-> new RuntimeException());
 
-        memberVO.setId(planDTO.getId());
 
         planDTO.setMemberNickname(memberVO.getMemberNickname());
         planDTO.setScheduleContents(scheduleDAO.findByPlanId(id));
@@ -88,6 +93,37 @@ public class PlanService {
         planDTO.setPrepareContents(writePrepareDAO.findByPlanId(id));
 
         return Optional.ofNullable(foundPlan.orElse(new PlanDTO()));
+    }
+
+//    상세조회
+    public PlanDetailDTO getPlanDetailById(Long id) {
+        PlanDetailDTO planDetailDTO = new PlanDetailDTO();
+        PlanDTO planDTO = new PlanDTO();
+        MemberVO memberVO = new MemberVO();
+        List<FeedDTO> feedDTOList = new ArrayList<>();
+
+        Optional<PlanDTO> foundPlan = planDAO.findById(id);
+
+        planDTO = foundPlan.orElseThrow(()-> new RuntimeException());
+        memberVO = memberDAO.findById(planDTO.getMemberId()).orElseThrow(()-> new RuntimeException());
+
+
+        planDTO.setMemberNickname(memberVO.getMemberNickname());
+        planDTO.setScheduleContents(scheduleDAO.findByPlanId(id));
+        planDTO.setExcludeContents(writeExcludeDAO.findByPlanId(id));
+        planDTO.setIncludeContents(writeIncludeDAO.findByPlanId(id));
+        planDTO.setPrepareContents(writePrepareDAO.findByPlanId(id));
+
+        planDetailDTO.setPlan(planDAO.findById(id).get());
+        planDetailDTO.setFeeds(feedDTOList);
+
+        return planDetailDTO;
+    }
+
+//    질문 작성
+    public void writeQuestion(QuestionDTO questionDTO) {
+        QuestionVO questionVO = questionDTO.toVO();
+        questionDAO.saveQuestion(questionVO);
     }
 
 }

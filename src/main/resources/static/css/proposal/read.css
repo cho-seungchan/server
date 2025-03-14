@@ -287,6 +287,10 @@
 
 /* class="Wrapper__FloatingActionBarWrapper-aopuoy-0 ifNxJR" */
 
+button {
+    cursor: pointer;
+}
+
 .ifNxJR {
     position: fixed;
     bottom: 0px;
