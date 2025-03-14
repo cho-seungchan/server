@@ -18,6 +18,12 @@ document.addEventListener("DOMContentLoaded", function () {
             fetchReportList(pageValue, '', keyWordValue, isAct); // type 값은 오류방지를 위해 빈문자열로 보냄
         }
 
+        // 더보기 클릭시 글자제한 해제
+        if (e.target.className == "reportMore"){
+            console.log("더보기 "+e.target.previousElementSibling)
+            e.target.previousElementSibling.classList.toggle("expanded");
+            e.target.textContent = e.target.previousElementSibling.classList.contains('expanded') ? '접기' : '더보기';
+        }
 
         // 검색 클릭시 검색 요청
         if (e.target.classList.contains("fa-reportSearch")) {
@@ -31,8 +37,32 @@ document.addEventListener("DOMContentLoaded", function () {
             fetchReportList(pageValue, ``,keyWordValue, isAct);  // type 값은 오류방지를 위해 빈문자열로 보냄
         }
 
+        // 각 목록(reportListDiv) 클릭시 댓글이나 피드 상세보기 제공
+        if (e.target.className == "reportListDiv" || e.target.closest(".reportListDiv")) {
+            if (e.target.tagName == "BUTTON"){
+                return;
+            }
+            e.preventDefault(); // 기본 이벤트 막기
+
+            const clickedElement = e.target.classList.contains("reportListDiv") ? e.target : e.target.closest(".reportListDiv");
+            console.log("clickedElement  "+clickedElement+" clickedElement.querySelector(.sourceDiv)"+clickedElement.querySelector(".sourceDiv"));
+            const sourceDiv     = clickedElement.querySelector(".sourceDiv").textContent.trim();
+            const reportedIdDiv = clickedElement.querySelector(".reportedIdDiv").textContent.trim();
+
+            if (sourceDiv && reportedIdDiv) {
+                fetchReportDetail(sourceDiv, reportedIdDiv);
+            } else {
+                console.warn('No sourceDiv or No reportedIdDiv found !!!');
+            }
+        }
+
+        // 모달창 x 버튼 클릭시 모달 삭제
+        if (e.target.className == "closeReportModal") {
+            // e.target.classList.remove("clicked");
+            document.querySelector(".report-modal-body").innerHTML = ``;
+            document.querySelector(".report-modal-body").style.display = "none";
+        }
+
     });
 
-    document.body.addEventListener("change", e => {
-    });
 });

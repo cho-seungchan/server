@@ -4,6 +4,7 @@ package com.app.pickcourse.controller;
 
 import com.app.pickcourse.domain.dto.CourseDTO;
 import com.app.pickcourse.domain.dto.CourseListDTO;
+import com.app.pickcourse.domain.dto.ReportDetailDTO;
 import com.app.pickcourse.domain.dto.ReportListDTO;
 import com.app.pickcourse.domain.vo.AdminVO;
 import com.app.pickcourse.domain.vo.MemberVO;
@@ -188,18 +189,6 @@ public class AdminController {
         adminService.deleteCourseDetail(id);
     }
 
-    // 공지사항 등록
-    @GetMapping("/addnotice")
-    public String getAddNotice(Model model) {
-        return "/admin/addnotice";
-    }
-
-    // 공지사항 수정 삭제
-    @GetMapping("/managenotice")
-    public String getAnnouncement(Model model) {
-        return "/admin/managenotice";
-    }
-
     // 신고 관리 :: 피드 신고, 댓글 신고 25.03.14 조승찬
     @GetMapping("/report-list")
     @ResponseBody
@@ -215,6 +204,34 @@ public class AdminController {
         list.forEach(System.out::println);
 
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/report-detail")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> getReportDetail(@RequestParam String source,
+                                                             @RequestParam Long id) {
+        log.info("source "+source+"  id  "+id);
+        ReportDetailDTO report = adminService.getReportDetail(source, id);
+        report.setSource(source);
+
+        log.info(report.toString());
+        Map<String,Object> response = new HashMap<>();
+        response.put("report", report);
+
+        return ResponseEntity.ok(response);
+    };
+
+
+    // 공지사항 등록
+    @GetMapping("/addnotice")
+    public String getAddNotice(Model model) {
+        return "/admin/addnotice";
+    }
+
+    // 공지사항 수정 삭제
+    @GetMapping("/managenotice")
+    public String getAnnouncement(Model model) {
+        return "/admin/managenotice";
     }
 
 }

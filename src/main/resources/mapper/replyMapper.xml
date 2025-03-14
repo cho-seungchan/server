@@ -14,4 +14,20 @@
             #{replyContent})
     </insert>
 
+    <select id="getReportDetail" resultType="reportDetailDTO">
+        SELECT
+            R.ID AS id,
+            M.MEMBER_NICKNAME AS memberNickname,
+            M.ID AS memberId,
+            TO_CHAR(R.CREATED_DATE, 'YYYY-MM-DD HH24:MI:SS') AS createdDate,
+            COALESCE(FR.REPORT_REASON, RR.REPORT_REASON) AS content
+        FROM TBL_REPORT R
+                 LEFT JOIN TBL_FEED_REPORT FR ON R.ID = FR.ID
+                 LEFT JOIN TBL_REPLY_REPORT RR ON R.ID = RR.ID
+                 LEFT JOIN TBL_MEMBER M
+                           ON FR.MEMBER_ID = M.ID
+                               OR RR.MEMBER_ID = M.ID
+        WHERE R.ID = #{id}
+    </select>
+
 </mapper>

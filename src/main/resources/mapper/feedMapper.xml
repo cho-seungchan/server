@@ -53,6 +53,21 @@
         ORDER BY f.CREATED_DATE DESC
     </select>
 
+    <select id="getReportDetail" resultType="reportDetailDTO">
+        SELECT
+            F.ID AS id,
+            COALESCE(GF.MEMBER_ID, RF.MEMBER_ID, TF.MEMBER_ID) AS memberId, -- MEMBER_ID를 각 테이블에서 가져옴
+            M.MEMBER_NICKNAME AS memberNickname,
+            TO_CHAR(F.CREATED_DATE, 'YYYY-MM-DD HH24:MI:SS') AS createdDate,
+            F.FEED_CONTENT AS content
+        FROM TBL_FEED F
+                 LEFT JOIN TBL_GENERAL_FEED GF ON F.ID = GF.ID
+                 LEFT JOIN TBL_REAL_FEED RF ON F.ID = RF.ID
+                 LEFT JOIN TBL_TOGETHER_FEED TF ON F.ID = TF.ID
+                 LEFT JOIN TBL_MEMBER M ON COALESCE(GF.MEMBER_ID, RF.MEMBER_ID, TF.MEMBER_ID) = M.ID
+        WHERE F.ID   =  #{id}
+    </select>
+
     <update id="PostFeedModify">
         UPDATE TBL_FEED
         SET

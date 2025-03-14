@@ -2,6 +2,7 @@ package com.app.pickcourse.service;
 
 import com.app.pickcourse.domain.dto.CourseDTO;
 import com.app.pickcourse.domain.dto.CourseListDTO;
+import com.app.pickcourse.domain.dto.ReportDetailDTO;
 import com.app.pickcourse.domain.dto.ReportListDTO;
 import com.app.pickcourse.domain.vo.AdminVO;
 import com.app.pickcourse.domain.vo.MemberVO;
@@ -39,6 +40,8 @@ public class AdminService {
     private final ReportDAO reportDAO;
     private final FeedReportDAO feedReportDAO;
     private final ReplyReportDAO replyReportDAO;
+    private final FeedDAO feedDAO;
+    private final ReplyDAO replyDAO;
 
     // 관리자 목록 조회
     public List<AdminVO> getManageAdminList(Pagination pagination, Search search) {
@@ -248,10 +251,10 @@ public class AdminService {
     public List<ReportListDTO> getReportList(Pagination pagination, Search search) {
         log.info("전체건수  "+reportDAO.getCountAll(search));
         List<ReportListDTO> list = null;
-        if (search.getIsAct().equals("피드")){
+        if (search.getIsAct().equals("FEED")){
             pagination.create(feedReportDAO.getCountAll(search));
             list = feedReportDAO.getReportList(pagination, search);
-        } else if (search.getIsAct().equals("댓글")){
+        } else if (search.getIsAct().equals("REPLY")){
             pagination.create(replyReportDAO.getCountAll(search));
             list = replyReportDAO.getReportList(pagination, search);
         } else {
@@ -260,5 +263,16 @@ public class AdminService {
         }
 
         return list;
+    }
+
+    public ReportDetailDTO getReportDetail(String source, Long id) {
+        ReportDetailDTO report = null;
+        if (source.equals("FEED")) {
+            report = feedDAO.getReportDetail(id);
+        } else if (source.equals("REPLY")) {
+            report = replyDAO.getReportDetail(id);
+        }
+
+        return report;
     }
 }

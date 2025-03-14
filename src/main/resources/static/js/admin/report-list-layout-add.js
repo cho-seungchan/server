@@ -7,16 +7,31 @@ function addReportList(reports) {
     // 리스트 데이터 매핑
     reports.forEach(report => {
         const reportRow = document.createElement("li");
-        reportRow.innerHTML =
-            `<div class="reportListDiv">
+        if (report.reportReason.length > 50) {
+            reportRow.innerHTML =
+                `<div class="reportListDiv">
                 <div class="reportIdDiv" style="display: none;" > ${report.id} </div>   
-                <div class="SourceDiv" > ${report.source} </div>                             
+                <div class="sourceDiv" > ${report.source} </div>                             
                 <div class="reportedIdDiv" style="display: none;"> ${report.reportedId} </div>
-                <div class="reportReason"> ${report.reportReason} </div>
+                <div class="reportReasonDiv"> ${report.reportReason}</div>
+                <button class="reportMore">더보기</button> 
                 <div class="createdDateDiv" > ${report.createdDate} </div>
                 <div class="memberNicknameDiv" > ${report.memberNickname} </div>
                 <div class="memberIdDiv" style="display: none;"> ${report.memberId} </div>
             </div>`;
+        } else {
+            reportRow.innerHTML =
+                `<div class="reportListDiv">
+                <div class="reportIdDiv" style="display: none;" > ${report.id} </div>   
+                <div class="sourceDiv" > ${report.source} </div>                             
+                <div class="reportedIdDiv" style="display: none;"> ${report.reportedId} </div>
+                <div class="reportReason"> ${report.reportReason} </div>
+                <span class="noMore"></span> 
+                <div class="createdDateDiv" > ${report.createdDate} </div>
+                <div class="memberNicknameDiv" > ${report.memberNickname} </div>
+                <div class="memberIdDiv" style="display: none;"> ${report.memberId} </div>
+            </div>`;
+        }
 
         reportListContainer.appendChild(reportRow);
     });
@@ -90,4 +105,25 @@ function initReportSearchForm(pagination, search) {
             radio.checked = true; // "전체" 라벨인 버튼 체크
         }
     });
+}
+
+// 신고 상세 내역을 담아와서 모달 창으로 보여주기
+function reportModal(report) {
+
+    document.querySelector(".report-modal-body").innerHTML = `
+        <div class="report-modal">
+            <div class="modal-header">
+                <span> 신고 된 내용 상세 </span>
+                <span class="closeReportModal">&times;</span>
+            </div>
+            <div class="title">
+                <div class="reportModal-sourceDiv">구    분 ::&nbsp;&nbsp;${report.source}</div>
+                <div class="reportModal-memberNicknameDiv">작성자 ::&nbsp;&nbsp;${report.memberNickname}</div>
+                <div class="reportModal-createdDiv">작성일 ::&nbsp;&nbsp;${report.createdDate}</div>
+                <div class="reportModal-introduce">내    용 ::</div>
+            </div>
+            <div class="reportModal-contentDiv">${report.content}</div>
+        </div>`;
+    document.querySelector(".report-modal-body").style.display = "flex";
+
 }

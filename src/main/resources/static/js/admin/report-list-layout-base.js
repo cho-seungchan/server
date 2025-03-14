@@ -2,7 +2,6 @@
 
 // 코스 목록 생성하는 함수
 function createReportList() {
-    ListObserverPause = false;  // 동적요소 생성 감시 시작
 
     const baseContainer = document.querySelector(".AppLayout_contents__YmI3N");
     baseContainer.innerHTML = ``;
@@ -29,6 +28,7 @@ function createReportList() {
                                        <div class="SourceDiv" > Source </div>
                                        <div class="reportedIdDiv" style="display: none;"> Source Id </div>
                                        <div class="reportReason">Details of Report </div>
+                                       <div class="moreDiv"></div>
                                        <div class="createdDateDiv" > Reporting Date </div>
                                        <div class="memberNicknameDiv" > Reporting Member </div>
                                        <div class="memberIdDiv" style="display: none;">Reporting Member Id</div>
@@ -57,11 +57,11 @@ function createReportList() {
                                                            </label>
                                                            <br>
                                                            <label>
-                                                               <input type="radio" name="isAct" class="isAct">피드
+                                                               <input type="radio" name="isAct" class="isAct">FEED
                                                            </label>
                                                            <br>
                                                            <label>
-                                                               <input type="radio" name="isAct" class="isAct">댓글
+                                                               <input type="radio" name="isAct" class="isAct">REPLY
                                                            </label>
                                                        </div>
                                                        <label for="keyWordInput">검색어</label>

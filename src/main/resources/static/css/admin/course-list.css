@@ -719,15 +719,6 @@ form[name="deleteForm"] button:hover {
     padding: 10px 0;
 }
 
-.mainUserListDiv.reportList, .reportListDiv {
-    display: grid;
-    grid-template-columns: 100px 850px 200px 200px;
-    align-items: center;
-    text-align: center;
-    border-bottom: 1px solid #ccc; /* 구분선 */
-    padding: 10px 0;
-}
-
 .mainUserListDiv {
     font-weight: bold;
     background-color: #f8f8f8; /* 타이틀 배경색 */
@@ -753,11 +744,162 @@ form[name="deleteForm"] button:hover {
     padding-left: 10px; /* 여백 추가 */
 }
 
-/*25.03.14 신고 내용 숨기기 */
-.reportReason {
+/*25.03.14 조승찬 추가 성공*/
+/*신고 내용 숨기기 */
+.mainUserListDiv.reportList, .reportListDiv {
+    display: grid;
+    grid-template-columns: 100px 800px 70px 200px 200px;
+    align-items: center;
+    text-align: center;
+    border-bottom: 1px solid #ccc; /* 구분선 */
+    padding: 10px 0;
+
+}
+.reportReasonDiv {
     display: -webkit-box; /* Flexbox 기반으로 레이아웃 설정 */
     -webkit-line-clamp: 1; /* 줄 수 설정 */
     -webkit-box-orient: vertical; /* 박스 방향을 수직으로 설정 */
     overflow: hidden; /* 초과 부분 숨김 */
     text-overflow: ellipsis; /* 생략 표시(...) */
+    white-space: normal; /* 여러 줄을 허용 */
 }
+/*신고내용 더보기 버튼 */
+.reportMore {
+    padding: 5px 10px;
+    color: rgb(171, 182, 196);
+    background-color: transparent; /* 배경을 투명하게 설정 */
+    border: none;
+    cursor: pointer;
+}
+.reportMore :hover {
+    background-color: rgb(171, 182, 196);
+    color: #fff;
+    border-radius: 4px;
+}
+
+.reportReasonDiv.expanded {
+    -webkit-line-clamp: unset; /* 줄 제한 해제 */
+    overflow: visible;
+}
+
+/* 신고 상세 모달 창*/
+/*.report-modal-body {*/
+/*    font-family: Arial, sans-serif;*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    align-items: center;*/
+/*    height: 100vh;*/
+/*    background-color: rgba(0, 0, 0, 0.5);*/
+/*    position: fixed;*/
+/*    top: 0;*/
+/*    left: 0;*/
+/*    width: 100%;*/
+/*    display: none;*/
+/*    z-index: 999;*/
+/*}*/
+
+/*.report-modal {*/
+/*    width: 600px;*/
+/*    border: 1px solid #ccc;*/
+/*    border-radius: 10px;*/
+/*    padding: 15px;*/
+/*    background-color: white;*/
+/*    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);*/
+/*}*/
+/*.report-modal .modal-header {*/
+/*    font-size: 20px;*/
+/*    display: flex;*/
+/*    justify-content: space-between;*/
+/*    align-items: center;*/
+/*    font-weight: bold;*/
+/*    padding-bottom: 10px;*/
+/*}*/
+/*.report-modal .close {*/
+/*    margin-right: 10px;*/
+/*    cursor: pointer;*/
+/*    font-size: 22px;*/
+/*}*/
+.report-modal-body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: none; /* 기본적으로 숨겨진 상태 */
+    z-index: 999;
+}
+
+.report-modal {
+    width: 800px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.report-modal .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.report-modal .modal-header span {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.closeReportModal {
+    margin-right: 10px;
+    cursor: pointer;
+    font-size: 22px;
+    color: #999;
+}
+
+.closeReportModal:hover {
+    color: #333; /* 호버 시 더 진한 색 */
+}
+
+/* 타이틀 스타일 */
+.title {
+    display: grid;
+    grid-template-columns: 1fr; /* 세로로 쌓이도록 설정 */
+    gap: 5px; /* 항목 간 간격 */
+    margin-top: 10px;
+}
+
+.title > div {
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    color: #555;
+}
+
+.title > div::before {
+    content: '●'; /* 기본적으로 동그라미 표시 */
+    font-size: 12px;
+    color: #777;
+    margin-right: 8px;
+}
+
+/* contentDiv 스타일 */
+.reportModal-contentDiv {
+    margin-top: 20px; /* 타이틀과 간격 추가 */
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    font-size: 20px;
+    color: #333;
+    text-align: left; /* 왼쪽 정렬 */
+    line-height: 1.6; /* 가독성을 위한 줄 간격 */
+    word-wrap: break-word; /* 긴 텍스트 자동 줄바꿈 */
+}
+/*25.03.14 조승찬 추가  끝*/
