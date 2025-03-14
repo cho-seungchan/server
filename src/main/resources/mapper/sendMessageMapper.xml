@@ -37,14 +37,15 @@
         ORDER BY MSG.MESSAGE_ALL_DATE DESC
     </select>
 
-    <select id="countBySenderId" resultType="_int">
+    <select id="selectTotalSendMessage" resultType="_int">
         SELECT COUNT(*) FROM TBL_SEND_MESSAGE WHERE SENDER_ID = #{senderId}
     </select>
 
-    <select id="findBySenderIdWithPagination" resultType="sendMessageDTO">
+    <select id="selectAllSendMessage" resultType="sendMessageDTO">
     <![CDATA[
-        SELECT * FROM (
-                          SELECT A.*, ROWNUM AS RNUM
+        SELECT ID, SENDER_ID, RECEIVER_ID, RECEIVER_NICKNAME, CONTENT, SEND_DATE
+               FROM (
+                          SELECT A.ID, SENDER_ID, RECEIVER_ID, RECEIVER_NICKNAME, CONTENT, SEND_DATE, ROWNUM AS RNUM
                           FROM (
                                    SELECT
                                        SM.ID AS ID,
@@ -59,9 +60,9 @@
                                    WHERE SM.SENDER_ID = #{senderId}
                                    ORDER BY MSG.MESSAGE_ALL_DATE DESC
                                ) A
-                          WHERE ROWNUM <= #{startRow} + #{rowCount}
+                          WHERE ROWNUM <= ${pagination.endRow}
                       )
-        WHERE RNUM > #{startRow}
+        WHERE RNUM >= ${pagination.startRow}
         ]]>
 </select>
 

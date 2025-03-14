@@ -78,5 +78,7 @@ public class MemberDAO {
     public Optional<MemberVO> findById(Long id) {
         return memberMapper.selectById(id);
     }
+//    비밀번호 변경
+    public void updateMemberPassword(MemberVO memberVO) {memberMapper.updatePassword(memberVO);}
 
 }

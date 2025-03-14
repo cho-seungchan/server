@@ -1,7 +1,9 @@
 package com.app.pickcourse.mapper;
 
+import com.app.pickcourse.domain.dto.ReceiveMessageDTO;
 import com.app.pickcourse.domain.dto.SendMessageDTO;
 import com.app.pickcourse.domain.vo.SendMessageVO;
+import com.app.pickcourse.util.Pagination;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -31,5 +33,11 @@ public interface SendMessageMapper {
 
     // 보낸 메시지 개수 조회
     int countBySenderId(@Param("senderId") Long senderId);
+
+    public int selectTotalSendMessage(Long sendId);
+
+    public List<SendMessageDTO> selectAllSendMessage(
+            @Param("senderId") Long senderId,
+            @Param("pagination") Pagination pagination);
 
 }

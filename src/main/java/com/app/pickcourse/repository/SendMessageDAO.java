@@ -1,8 +1,10 @@
 package com.app.pickcourse.repository;
 
+import com.app.pickcourse.domain.dto.ReceiveMessageDTO;
 import com.app.pickcourse.domain.dto.SendMessageDTO;
 import com.app.pickcourse.domain.vo.SendMessageVO;
 import com.app.pickcourse.mapper.SendMessageMapper;
+import com.app.pickcourse.util.Pagination;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -37,5 +39,13 @@ public class SendMessageDAO {
     // 보낸 메시지 개수 조회
     public int countBySenderId(Long senderId) {
         return sendMessageMapper.countBySenderId(senderId);
+    }
+
+    // 전체 개수
+    public int findTotalSendMessage(Long id) { return sendMessageMapper.selectTotalSendMessage(id); }
+
+    // 전체 조회
+    public List<SendMessageDTO> findAllSendMessage(Long senderId, Pagination pagination) {
+        return sendMessageMapper.selectAllSendMessage(senderId, pagination);
     }
 }

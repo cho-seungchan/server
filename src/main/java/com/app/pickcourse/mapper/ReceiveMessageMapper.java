@@ -3,7 +3,9 @@ package com.app.pickcourse.mapper;
 import com.app.pickcourse.domain.dto.ReceiveMessageDTO;
 import com.app.pickcourse.domain.dto.SendMessageDTO;
 import com.app.pickcourse.domain.vo.ReceiveMessageVO;
+import com.app.pickcourse.util.Pagination;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -24,10 +26,14 @@ public interface ReceiveMessageMapper {
 
     // 페이징을 적용한 받은 메시지 조회
     List<ReceiveMessageDTO> findByReceiverIdWithPagination(
-            Long receiverId,
-            int startRow,
-            int rowCount
-    );
+            @Param("receiverId") Long receiverId,
+            @Param("pagination") Pagination pagination);
+
+    public int selectTotalReceiveMessage(Long receiverId);
+
+    public List<ReceiveMessageDTO> selectAllReceiveMessage(
+            @Param("receiverId") Long receiverId,
+            @Param("pagination") Pagination pagination);
 
 
 }
