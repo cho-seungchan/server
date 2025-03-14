@@ -99,8 +99,9 @@ public class MemberController {
         memberService.join(memberDTO);
 
         // 로그인 상태 유지
-        MemberVO loginUserVO = memberService.getMember(memberDTO.getMemberEmail()).get();
-        session.setAttribute("loginUser", loginUserVO);
+        MemberVO member = memberService.getMember(memberDTO.getMemberEmail()).get();
+        session.setAttribute("memberStatus", "email");
+        session.setAttribute("member", member);
 
         // 세션 정리 (보안)
         session.removeAttribute("signupEmail");

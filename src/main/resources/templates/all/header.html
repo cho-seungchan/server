@@ -9,25 +9,31 @@
                     <div class="GlobalNavigationBar__TopNavMenu-og74wb-4 kgHgrk">사이트 소개</div>
                 </a>
                 <!-- 로그인하지 않은 경우 -->
-                <a th:if="${session.loginUser == null}" class="withLink__StyledLink-zuberk-0 lQqkn" href="/join/join">
+                <a th:if="${session.member == null}" class="withLink__StyledLink-zuberk-0 lQqkn" href="/join/join">
                     <div class="GlobalNavigationBar__TopNavMenu-og74wb-4 kgHgrk">회원가입</div>
                 </a>
-                <a th:if="${session.loginUser == null}" class="withLink__StyledLink-zuberk-0 lQqkn" href="/login/login">
+                <a th:if="${session.member == null}" class="withLink__StyledLink-zuberk-0 lQqkn" href="/login/login">
                     <div class="GlobalNavigationBar__TopNavMenu-og74wb-4 kgHgrk">로그인</div>
                 </a>
-
-                <!-- 로그인한 경우 -->
-                <a th:if="${session.loginUser != null}" class="withLink__StyledLink-zuberk-0 lQqkn" href="/my/profile">
+                <!-- 로그인한 경우 (일반 로그인 or 카카오 로그인) -->
+                <a th:if="${session.member != null}" class="withLink__StyledLink-zuberk-0 lQqkn" href="/my/profile">
                     <div class="GlobalNavigationBar__TopNavMenu-og74wb-4 kgHgrk">
-                        <span th:text="${session.loginUser.memberNickname}"></span> 님
+                        <span th:text="${session.member != null ? session.member.memberNickname : ''}"></span> 님
                     </div>
                 </a>
-                <form th:if="${session.loginUser != null}" action="/logout/logout" method="post" style="display:inline;">
-                    <button type="submit" class="GlobalNavigationBar__LogoutButton-og74wb-5 jfHerU">
-                        로그아웃
-                    </button>
-                </form>
 
+                <!-- 일반 로그인 로그아웃 버튼 -->
+                <form th:if="${session.memberStatus == 'email'}" id="logoutForm" action="/logout/logout" method="post" style="display:inline;">
+                    <div id="logout-section" class="jfHerU">
+                        <button class="jfHerU" type="submit">로그아웃</button>
+                    </div>
+                </form>
+                <!-- 카카오 로그인 로그아웃 버튼 -->
+                <form th:if="${session.memberStatus == 'kakao'}" id="kakaoLogoutForm" action="/logout/kakao" method="post" style="display:inline;">
+                    <div id="kakao-logout-section" class="jfHerU">
+                        <button type="submit" class="jfHerU">카카오 로그아웃</button>
+                    </div>
+                </form>
                 <a class="withLink__StyledLink-zuberk-0 lQqkn" href="/help">
                     <div class="GlobalNavigationBar__TopNavMenu-og74wb-4 kgHgrk">자주 묻는 질문</div>
                 </a>
@@ -93,3 +99,4 @@
         </div>
     </section>
 </header>
+

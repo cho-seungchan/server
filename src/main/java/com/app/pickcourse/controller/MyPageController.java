@@ -50,9 +50,9 @@ public class MyPageController {
 
     @GetMapping("/messageList_Send")
     public String goToSendListPage(HttpSession session) {
-        MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
+        MemberVO member = (MemberVO) session.getAttribute("member");
 
-        if (loginUser == null) {
+        if (member == null) {
             return "redirect:/login/login";
         }
 
@@ -62,54 +62,25 @@ public class MyPageController {
     @GetMapping("/messageList_Sends")
     @ResponseBody
     public SendPaginationDTO getSendMessages(Pagination pagination, HttpSession session, HttpServletResponse response)  throws IOException {
-        MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
-        if (loginUser == null) {
+        MemberVO member = (MemberVO) session.getAttribute("member");
+        if (member == null) {
             response.sendRedirect("/login/login");
             return null;
         }
 
-        Long senderId = loginUser.getId();
+        Long senderId = member.getId();
 
         return messageService.getSendList(senderId, pagination);
     }
 
-//    @GetMapping("messageList_Send")
-//    public String getSentMessages(
-//            @RequestParam(value = "page", defaultValue = "1") int page,
-//            Model model,
-//            HttpSession session) {
-//
-//        MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
-//
-//        if (loginUser == null) {
-//            return "redirect:/login/login";
-//        }
-//
-//        Long senderId = loginUser.getId();
-//
-//        // 전체 메시지 개수 조회
-//        int totalMessages = messageService.getSendMessageCount(senderId);
-//
-//        // 페이지네이션 객체 생성
-//        Pagination pagination = new Pagination();
-//        pagination.setPage(page);
-//        pagination.create(totalMessages);
-//
-//        // 보낸 메시지 리스트 가져오기
-//        List<SendMessageDTO> sentMessages = messageService.findSendMessages(senderId, page, 5);
-//
-//        model.addAttribute("sentMessages", sentMessages);
-//        model.addAttribute("pagination", pagination);
-//
-//        return "my-page/messageList_Send";
-//    }
+
 
 
     @GetMapping("/messageListReceive")
     public String goToReceiveListPage(HttpSession session) {
-        MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
+        MemberVO member = (MemberVO) session.getAttribute("member");
 
-        if (loginUser == null) {
+        if (member == null) {
             return "redirect:/login/login";
         }
 
@@ -119,13 +90,13 @@ public class MyPageController {
     @GetMapping("/messageListReceives")
     @ResponseBody
     public ReceivePaginationDTO getReceivedMessages(Pagination pagination, HttpSession session, HttpServletResponse response)  throws IOException {
-        MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
-        if (loginUser == null) {
+        MemberVO member = (MemberVO) session.getAttribute("member");
+        if (member == null) {
             response.sendRedirect("/login/login");
             return null;
         }
 
-        Long receiverId = loginUser.getId();
+        Long receiverId = member.getId();
 
         return messageService.getReceiveList(receiverId, pagination);
     }
@@ -140,10 +111,10 @@ public class MyPageController {
     @PostMapping("messageWrite")
     public String sendMessage(@ModelAttribute SendMessageDTO sendMessageDTO, HttpSession session) {
         // 로그인된 사용자 정보 가져오기
-        MemberVO loginUser = (MemberVO) session.getAttribute("loginUser");
+        MemberVO member = (MemberVO) session.getAttribute("member");
 
         // 로그인된 사용자가 없으면 에러 페이지로 리다이렉트
-        if (loginUser == null) {
+        if (member == null) {
             return "redirect:/login/login";
         }
 
@@ -161,7 +132,7 @@ public class MyPageController {
         // receiverId 설정
         sendMessageDTO.setReceiverId(receiverId.get());
         // senderId를 세션에서 가져온 로그인된 사용자 ID로 설정
-        sendMessageDTO.setSenderId(loginUser.getId());
+        sendMessageDTO.setSenderId(member.getId());
 
         // 메시지 전송
         messageService.sendMessage(sendMessageDTO);
@@ -178,16 +149,16 @@ public class MyPageController {
 
     @GetMapping("myPageModify")
     public String getMyPageModify(HttpSession session, Model model) {
-        Object loginUser = session.getAttribute("loginUser");
+        Object member = session.getAttribute("member");
 
-        if (loginUser == null) {
+        if (member == null) {
             return "redirect:/login/login";
         }
 
-        MemberVO loginUserVO = (MemberVO) loginUser;
-        MemberDTO loginUserDTO = MemberDTO.fromVO(loginUserVO);
+        MemberVO memberVO = (MemberVO) member;
+        MemberDTO memberDTO = MemberDTO.fromVO(memberVO);
 
-        model.addAttribute("memberDTO", loginUserDTO);
+        model.addAttribute("memberDTO", memberDTO);
 
         return "my-page/myPageModify";
     }

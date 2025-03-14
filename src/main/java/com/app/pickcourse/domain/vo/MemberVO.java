@@ -1,7 +1,6 @@
 package com.app.pickcourse.domain.vo;
 
 import lombok.*;
-
 import org.springframework.stereotype.Component;
 
 @Component
@@ -17,9 +16,10 @@ public class MemberVO {
     private String memberTell;
     private String memberBirth;
     private String memberGender;
-    private int    memberPoint;
-    private char   memberIsAct;
+    private int memberPoint;
+    private char memberIsAct;
     private String createdDate;
     private String updatedDate;
 
+    private String loginType; // "EMAIL" or "KAKAO"
 }

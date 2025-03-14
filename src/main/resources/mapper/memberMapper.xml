@@ -98,6 +98,12 @@
         FROM TBL_MEMBER WHERE MEMBER_EMAIL = #{memberEmail} AND MEMBER_PASSWORD = #{memberPassword}
     </select>
 
+    <select id="findByEmailForKakao" resultType="MemberVO">
+        SELECT * FROM TBL_MEMBER
+        WHERE MEMBER_EMAIL = #{email}
+        AND MEMBER_PASSWORD IS NULL
+    </select>
+
     <update id="update">
         UPDATE TBL_MEMBER
         SET MEMBER_NICKNAME = #{memberNickname}, MEMBER_TELL = #{memberTell}, MEMBER_BIRTH = #{memberBirth}, MEMBER_GENDER = #{memberGender}, UPDATED_DATE = SYSDATE
