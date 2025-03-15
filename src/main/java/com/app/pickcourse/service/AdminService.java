@@ -1,11 +1,9 @@
 package com.app.pickcourse.service;
 
-import com.app.pickcourse.domain.dto.CourseDTO;
-import com.app.pickcourse.domain.dto.CourseListDTO;
-import com.app.pickcourse.domain.dto.ReportDetailDTO;
-import com.app.pickcourse.domain.dto.ReportListDTO;
+import com.app.pickcourse.domain.dto.*;
 import com.app.pickcourse.domain.vo.AdminVO;
 import com.app.pickcourse.domain.vo.MemberVO;
+import com.app.pickcourse.domain.vo.NoticeVO;
 import com.app.pickcourse.domain.vo.PathVO;
 import com.app.pickcourse.exception.DuplicateException;
 import com.app.pickcourse.mapper.FeedReportMapper;
@@ -42,6 +40,7 @@ public class AdminService {
     private final ReplyReportDAO replyReportDAO;
     private final FeedDAO feedDAO;
     private final ReplyDAO replyDAO;
+    private final NoticeDAO noticeDAO;
 
     // 관리자 목록 조회
     public List<AdminVO> getManageAdminList(Pagination pagination, Search search) {
@@ -112,7 +111,7 @@ public class AdminService {
     public void postAddCourse(CourseDTO courseDTO) {
 
         // 코스정보 입력
-        courseDTO.setAdminId(11l);
+        courseDTO.setAdminId(11l);  // 로그인수정
         courseDAO.postAddCourse(courseDTO);
         log.info("postAddCourse service : {}",courseDTO.toString());
 
@@ -249,7 +248,6 @@ public class AdminService {
 
     // 신고 목록  :: 전체, 피드, 댓글에 따라 조회를 달리 처리
     public List<ReportListDTO> getReportList(Pagination pagination, Search search) {
-        log.info("전체건수  "+reportDAO.getCountAll(search));
         List<ReportListDTO> list = null;
         if (search.getIsAct().equals("FEED")){
             pagination.create(feedReportDAO.getCountAll(search));
@@ -265,7 +263,7 @@ public class AdminService {
         return list;
     }
 
-    public ReportDetailDTO getReportDetail(String source, Long id) {
+    public ReportDetailDTO getReportDetail(Long id, String source) {
         ReportDetailDTO report = null;
         if (source.equals("FEED")) {
             report = feedDAO.getReportDetail(id);
@@ -274,5 +272,28 @@ public class AdminService {
         }
 
         return report;
+    }
+
+    public List<NoticeListDTO> getNoticeList(Pagination pagination, Search search) {
+        pagination.create(noticeDAO.getCountAll(search));
+        return noticeDAO.getNoticeList(pagination, search);
+    }
+
+    public NoticeVO getNoticeDetail(Long id) {
+        return noticeDAO.getNoticeDetail(id);
+    }
+
+    public void putNoticeDetail(NoticeVO notice) {
+        noticeDAO.putNoticeDetail(notice);
+    }
+
+    public void deleteNoticeDetail(Long id) {
+        noticeDAO.deleteNoticeDetail(id);
+    }
+
+    public void postNoticeDetail(NoticeVO notice) {
+
+        notice.setAdminId(11l);  // 로그인 수정
+        noticeDAO.postNoticeDetail(notice);
     }
 }

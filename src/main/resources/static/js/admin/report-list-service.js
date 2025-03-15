@@ -3,7 +3,7 @@
 // import {addCourseList, addPagination, initSearchForm} from "./course-list-layout-add.js";
 
 function fetchReportDetail(source, id){
-    return fetch(`/admin/report-detail?source=${source}&id=${id}`)
+    return fetch(`/admin/report-detail/${id}?source=${source}`)
         .then(response => response.json())
         .then(data => {
             reportModal(data.report)

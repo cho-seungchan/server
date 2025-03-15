@@ -16,17 +16,22 @@
 
     <select id="getReportDetail" resultType="reportDetailDTO">
         SELECT
+            CASE
+                WHEN GR.GENERAL_FEED_ID IS NOT NULL THEN 'GENERAL_REPLY'
+                WHEN RR.REAL_FEED_ID IS NOT NULL THEN 'REAL_REPLY'
+                WHEN TR.TOGETHER_FEED_ID IS NOT NULL THEN 'TOGETHER_REPLY'
+            ELSE 'UNKNOWN'
+            END AS source,
             R.ID AS id,
             M.MEMBER_NICKNAME AS memberNickname,
             M.ID AS memberId,
             TO_CHAR(R.CREATED_DATE, 'YYYY-MM-DD HH24:MI:SS') AS createdDate,
-            COALESCE(FR.REPORT_REASON, RR.REPORT_REASON) AS content
-        FROM TBL_REPORT R
-                 LEFT JOIN TBL_FEED_REPORT FR ON R.ID = FR.ID
-                 LEFT JOIN TBL_REPLY_REPORT RR ON R.ID = RR.ID
-                 LEFT JOIN TBL_MEMBER M
-                           ON FR.MEMBER_ID = M.ID
-                               OR RR.MEMBER_ID = M.ID
+            COALESCE(GR.GENERAL_FEED_ID, RR.REAL_FEED_ID, TR.TOGETHER_FEED_ID) AS content
+        FROM TBL_REPLY R
+                 LEFT JOIN TBL_GENERAL_REPLY GR ON R.ID = GR.ID
+                 LEFT JOIN TBL_REAL_REPLY RR ON R.ID = RR.ID
+                 LEFT JOIN TBL_TOGETHER_REPLY TR ON R.ID = TR.ID
+                 LEFT JOIN TBL_MEMBER M ON COALESCE(GR.MEMBER_ID, RR.MEMBER_ID, TR.MEMBER_ID) = M.ID
         WHERE R.ID = #{id}
     </select>
 

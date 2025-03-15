@@ -7,7 +7,7 @@ function addReportList(reports) {
     // 리스트 데이터 매핑
     reports.forEach(report => {
         const reportRow = document.createElement("li");
-        if (report.reportReason.length > 50) {
+        if (report.reportReason.length > 94) {
             reportRow.innerHTML =
                 `<div class="reportListDiv">
                 <div class="reportIdDiv" style="display: none;" > ${report.id} </div>   
@@ -38,7 +38,7 @@ function addReportList(reports) {
 };
 
 // 페이지 번호 생성하는 함수
-function addPagination(pagination) {
+function addReportPagination(pagination) {
     const paginationContainer = document.querySelector(".pagination-container");
     paginationContainer.innerHTML = ""; // 기존 페이지네이션 초기화
 
@@ -96,7 +96,7 @@ function addPagination(pagination) {
 // 검색 폼을 초기화하는 함수
 function initReportSearchForm(pagination, search) {
     document.querySelector('input[name="page"]').value = pagination.page;
-    // document.querySelector('select[name="type"]').value = search.type;
+    document.querySelector('select[name="type"]').value = search.type;
     document.querySelector('input[name="keyWord"]').value = search.keyWord;
 
     if ((search.isAct == ``) || (search.isAct == null)) {search.isAct = "전체"};
@@ -110,7 +110,7 @@ function initReportSearchForm(pagination, search) {
 // 신고 상세 내역을 담아와서 모달 창으로 보여주기
 function reportModal(report) {
 
-    document.querySelector(".report-modal-body").innerHTML = `
+    document.querySelector(".admin-modal-body").innerHTML = `
         <div class="report-modal">
             <div class="modal-header">
                 <span> 신고 된 내용 상세 </span>
@@ -124,6 +124,6 @@ function reportModal(report) {
             </div>
             <div class="reportModal-contentDiv">${report.content}</div>
         </div>`;
-    document.querySelector(".report-modal-body").style.display = "flex";
+    document.querySelector(".admin-modal-body").style.display = "flex";
 
 }

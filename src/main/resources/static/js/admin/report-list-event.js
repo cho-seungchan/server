@@ -59,8 +59,8 @@ document.addEventListener("DOMContentLoaded", function () {
         // 모달창 x 버튼 클릭시 모달 삭제
         if (e.target.className == "closeReportModal") {
             // e.target.classList.remove("clicked");
-            document.querySelector(".report-modal-body").innerHTML = ``;
-            document.querySelector(".report-modal-body").style.display = "none";
+            document.querySelector(".admin-modal-body").innerHTML = ``;
+            document.querySelector(".admin-modal-body").style.display = "none";
         }
 
     });

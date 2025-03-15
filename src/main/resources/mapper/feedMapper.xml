@@ -55,6 +55,12 @@
 
     <select id="getReportDetail" resultType="reportDetailDTO">
         SELECT
+            CASE
+                WHEN GF.ID IS NOT NULL THEN 'GENERAL FEED REPORT'
+                WHEN RF.ID IS NOT NULL THEN 'REAL FEED REPORT'
+                WHEN TF.ID IS NOT NULL THEN 'TOGETHER FEED REPORT'
+                ELSE 'UNKNOWN'
+            END AS source,
             F.ID AS id,
             COALESCE(GF.MEMBER_ID, RF.MEMBER_ID, TF.MEMBER_ID) AS memberId, -- MEMBER_ID를 각 테이블에서 가져옴
             M.MEMBER_NICKNAME AS memberNickname,

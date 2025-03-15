@@ -43,7 +43,7 @@ function generateClickedScreens(elementClass, callback) {
         console.warn(`No elements found with class: ${elementClass}`);
     }
 }
-//});
+
 //2025.03.10  조승찬
 // import {createCourseList} from "./course-list-layout-base.js";
 // import {addCourseList, addPagination, initSearchForm} from "./course-list-layout-add.js";
@@ -59,6 +59,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     })
 
+    // 25.03.14 조승찬 시작
     // 신고 목록 메뉴 클릭시
     document.querySelectorAll(".reportList").forEach(type => {
         type.addEventListener("click", e => {
@@ -67,6 +68,25 @@ document.addEventListener("DOMContentLoaded", function() {
             fetchReportList(1, ``,``, ``);
         });
     })
+    // 25.03.14 조승찬 끝
+
+    // 25.03.15 조승찬 시작
+    // 공지 목록 메뉴 클릭시
+    document.querySelectorAll(".noticeList").forEach(type => {
+        type.addEventListener("click", e => {
+            //  첫 페이지부터 조회 될 수 있도록 page, type, keyWord 초기화 해서 보냄
+            fetchNoticeList(1, ``,``);
+        });
+    })
+
+    // 공지 등록 메뉴 클릭시 입력 화면  생성 ::  공지목록 화면의 공지 등록 버튼도 같은 동작
+    document.querySelectorAll(".adminNoticeInput").forEach((type => {
+        type.addEventListener("click", e => {
+            console.log(" 공지 등록 조회 클릭  "+e.target.textContent);
+            createNoticeInput();  // notice-list-layout-add.js
+        });
+    }))
+    // 25.03.15 조승찬 끝
 });
 
 // 메인화면 A,B,C,D, 봉사코드 메뉴 클릭시
@@ -105,7 +125,7 @@ function fetchReportList(page, type, keyWord, isAct){
         .then(data => {
             createReportList(); // 코스 목록 기초 화면
             addReportList(data.report, data.pagination, data.search); // 코스목록 추가
-            addPagination(data.pagination) // 페이지 번호 생성
+            addReportPagination(data.pagination) // 페이지 번호 생성
             initReportSearchForm(data.pagination, data.search) // 다음 화면 전달을 위한 갑 저장
         })
         .catch(error => {
@@ -115,3 +135,23 @@ function fetchReportList(page, type, keyWord, isAct){
         });
 };
 // 25.03.14 조승찬 추가 끝 ::
+
+
+// 25.03.15 조승찬 추가 시작 ::
+// 메인 메뉴에서 공지 목록 클릭시
+function fetchNoticeList(page, type, keyWord){
+    return fetch(`/admin/notice-list?page=${page}&type=${type}&keyWord=${keyWord}`)
+        .then(response => response.json())
+        .then(data => {
+            createNoticeList(); // 코스 목록 기초 화면
+            addNoticeList(data.notice, data.pagination, data.search); // 코스목록 추가
+            addNoticePagination(data.pagination) // 페이지 번호 생성
+            initSearchForm(data.pagination, data.search) // 다음 화면 전달을 위한 갑 저장.
+        })
+        .catch(error => {
+            console.error("notice list 데이타를 가져오는 중 오류", error);
+            notFoundCourseType();
+            throw error;
+        });
+};
+// 25.03.15 조승찬 추가 끝 ::

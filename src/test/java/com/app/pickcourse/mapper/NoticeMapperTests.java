@@ -18,12 +18,12 @@ public class NoticeMapperTests {
     private NoticeMapper mapper;
 
     @Test
-    public void postAddNotice() {
+    public void postNoticeDetail() {
         NoticeVO notice = new NoticeVO();
         notice.setNoticeName("공지사항2222");
         notice.setNoticeContent("이것은 공지사항2222");
         notice.setAdminId(6l);
-        mapper.postAddNotice(notice);
+        mapper.postNoticeDetail(notice);
     }
 
     @Test
@@ -32,29 +32,29 @@ public class NoticeMapperTests {
         search.setType("w");
         search.setKeyWord("HHH");
         Pagination pagination = new Pagination();
-        List<NoticeVO> notices = mapper.getManageNoticeList(pagination, search);
+        List<NoticeVO> notices = mapper.geNoticeList(pagination, search);
         log.info(pagination.toString());
         notices.forEach(System.out::println);
         log.info("notices size :: {} ", notices.size());
     }
 
     @Test
-    public void getManageNotice() {
-        Optional<NoticeVO> noticeDTO = mapper.getManageNotice(7l);
+    public void getNoticeDetail() {
+        Optional<NoticeVO> noticeDTO = mapper.getNoticeDetail(7l);
         NoticeVO notice = noticeDTO.orElseThrow(() -> new RuntimeException("NoticeDTO not found"));
         log.info(notice.toString());
     }
 
     @Test
-    public void patchManageNotice() {
+    public void putNoticeDetail() {
         NoticeVO notice = new NoticeVO();
         notice.setNoticeContent("이것은 공지사항3333");
         notice.setId(3l);
-        mapper.patchManageNotice(notice);
+        mapper.putNoticeDetail(notice);
     }
 
     @Test
-    public void deleteManageNotice() {
-        mapper.deleteManageNotice(6l);
+    public void deleteNoticeDetail() {
+        mapper.deleteNoticeDetail(6l);
     }
 }

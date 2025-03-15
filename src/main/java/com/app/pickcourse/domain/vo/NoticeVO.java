@@ -9,7 +9,7 @@ public class NoticeVO {
     @EqualsAndHashCode.Include
     private Long id;
 
-    private String noticeName;
+    private String noticeTitle;
     private String noticeContent;
     private Long   adminId;
     private String createdDate;

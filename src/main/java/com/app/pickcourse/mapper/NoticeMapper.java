@@ -1,5 +1,6 @@
 package com.app.pickcourse.mapper;
 
+import com.app.pickcourse.domain.dto.NoticeListDTO;
 import com.app.pickcourse.domain.vo.NoticeVO;
 import com.app.pickcourse.util.Pagination;
 import com.app.pickcourse.util.Search;
@@ -15,18 +16,18 @@ public interface NoticeMapper {
     int getCountAll(@Param("search") Search search);
 
     // 공지사항 등록
-    void postAddNotice(NoticeVO noticeVO);
+    void postNoticeDetail(NoticeVO noticeVO);
 
     // 공지사항 목록
-    List<NoticeVO> getManageNoticeList(@Param("pagination") Pagination pagination, @Param("search") Search search);
+    List<NoticeListDTO> getNoticeList(@Param("pagination") Pagination pagination, @Param("search") Search search);
 
     // 공지사항 조회
-    Optional<NoticeVO> getManageNotice(Long id);
+    Optional<NoticeVO> getNoticeDetail(Long id);
 
     // 공지사항 수정
-    void patchManageNotice(NoticeVO noticeVO);
+    void putNoticeDetail(NoticeVO noticeVO);
 
     // 공지사항 삭제
-    void deleteManageNotice(Long id);
+    void deleteNoticeDetail(Long id);
 
 }

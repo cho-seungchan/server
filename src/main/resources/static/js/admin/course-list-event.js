@@ -80,7 +80,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 courseId: courseId,
                 courseType: courseType
             };
-            sendCourseOptionAndFetchCourseList(sendData, pageValue, typeValue, keyWordValue);
+            updateCourseType(sendData, pageValue, typeValue, keyWordValue);
         }
 
         // 검색 클릭시 검색 요청

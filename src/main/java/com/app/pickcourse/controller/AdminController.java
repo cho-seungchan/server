@@ -2,12 +2,10 @@
 package com.app.pickcourse.controller;
 
 
-import com.app.pickcourse.domain.dto.CourseDTO;
-import com.app.pickcourse.domain.dto.CourseListDTO;
-import com.app.pickcourse.domain.dto.ReportDetailDTO;
-import com.app.pickcourse.domain.dto.ReportListDTO;
+import com.app.pickcourse.domain.dto.*;
 import com.app.pickcourse.domain.vo.AdminVO;
 import com.app.pickcourse.domain.vo.MemberVO;
+import com.app.pickcourse.domain.vo.NoticeVO;
 import com.app.pickcourse.service.AdminService;
 import com.app.pickcourse.util.Pagination;
 import com.app.pickcourse.util.Search;
@@ -116,6 +114,10 @@ public class AdminController {
         return "redirect:/admin/manage-admin-list?page=" + page + "&type=" + type + "&keyWord=" + keyWord;
     }
 
+    // 신규 코스 조회 화면 25.03.07 조승찬
+    @GetMapping("/add-course")
+    public String getAddCourse(Model model) {return "/admin/add-course";}
+
     // 신규 코스 작성  25.03.07 조승찬
     @PostMapping("/add-course")
     public String postAddCourse(CourseDTO courseDTO, Model model) {
@@ -206,32 +208,74 @@ public class AdminController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/report-detail")
+    // 신고 상세 조회 25.03.14 조승찬
+    @GetMapping("/report-detail/{id}")
     @ResponseBody
-    public ResponseEntity<Map<String, Object>> getReportDetail(@RequestParam String source,
-                                                             @RequestParam Long id) {
-        log.info("source "+source+"  id  "+id);
-        ReportDetailDTO report = adminService.getReportDetail(source, id);
-        report.setSource(source);
+    public ResponseEntity<Map<String, Object>> getReportDetail(@PathVariable Long id,
+                                                               @RequestParam String source) {
+        ReportDetailDTO report = adminService.getReportDetail(id, source);
 
-        log.info(report.toString());
         Map<String,Object> response = new HashMap<>();
         response.put("report", report);
 
         return ResponseEntity.ok(response);
     };
 
+    // 공지 사항 목록  2025.03.15 조승찬
+    @GetMapping("/notice-list")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> getNoticeList(Pagination pagination, Search search) {
 
-    // 공지사항 등록
-    @GetMapping("/addnotice")
-    public String getAddNotice(Model model) {
-        return "/admin/addnotice";
+        log.info(" getNoticeList 들어옴 ");
+
+        List<NoticeListDTO> list = adminService.getNoticeList(pagination, search);
+
+        list.forEach(System.out::println);
+
+        Map<String,Object> response = new HashMap<>();
+        response.put("notice", list);
+        response.put("pagination", pagination);
+        response.put("search", search);
+
+        return ResponseEntity.ok(response);
     }
 
-    // 공지사항 수정 삭제
-    @GetMapping("/managenotice")
-    public String getAnnouncement(Model model) {
-        return "/admin/managenotice";
+    // 공지사항 상세 조회  25.03.15 조승찬
+    @GetMapping("/notice-detail/{id}")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> getNoticeDetail(@PathVariable Long id) {
+
+        NoticeVO notice = adminService.getNoticeDetail(id);
+
+        Map<String,Object> response = new HashMap<>();
+        response.put("notice", notice);
+        return ResponseEntity.ok(response);
+    }
+
+    // 공지사항 등록  25.03.15 조승찬
+    @PostMapping("/notice-detail")
+    @ResponseBody
+    public void postNoticeDetail(@RequestBody NoticeVO notice) {
+        log.info("postNoticeDetail  "+notice.toString());
+
+        adminService.postNoticeDetail(notice);
+    }
+
+    // 공지사항 수정  25.03.15 조승찬
+    @PutMapping("/notice-detail")
+    @ResponseBody
+    public void putNoticeDetail(@RequestBody NoticeVO notice) {
+
+        adminService.putNoticeDetail(notice);
+    }
+
+    // 공지사항 삭제 25.03.15 조승찬
+    @DeleteMapping("/notice-detail/{id}")
+    @ResponseBody
+    public void deleteNoticeDetail(@PathVariable Long id) {
+        log.info("deleteNoticeDetail  "+id);
+
+        adminService.deleteNoticeDetail(id);
     }
 
 }

@@ -17,7 +17,7 @@ function fetchCourseList(page, type, keyWord){
         });
 };
 
-function sendCourseOptionAndFetchCourseList(sendData,page,type,keyWord) {
+function updateCourseType(sendData,page,type,keyWord) {
     fetch("/admin/course-list", {
         method: "PUT",
         headers: {"Content-type": "application/json"},
@@ -25,14 +25,14 @@ function sendCourseOptionAndFetchCourseList(sendData,page,type,keyWord) {
     })
         .then (response => {
             if (!response.ok){
-                throw new Error("데이터 전송에 실패했습니다!");
+                throw new Error("코스타입 데이터 수정에 실패했습니다!");
             }
-            console.log("데이터 전송 성공!");
+            console.log("코스타입 수정 데이터 전송 성공!");
             // 전송 성공 후 course list를 다시 가져옴
-            return fetchCourseList(page, type, keyWord);
+            fetchCourseList(page, type, keyWord);
         })
         .catch(error => {
-            console.error("데이터 전송 중 오류:", error);
+            console.error("코스타입 수정 데이터 전송 중 오류:", error);
         });
 }
 

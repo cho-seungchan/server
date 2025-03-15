@@ -381,7 +381,7 @@ p, label {
     margin: 0;
 }
 
-.mainUserListDiv, .userListDiv, .reportListDiv {
+.mainUserListDiv, .userListDiv, .reportListDiv, .noticeListDiv {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -394,7 +394,7 @@ p, label {
     background-color: #f5f5f5;
 }
 
-.userListDiv, .reportListDiv {
+.userListDiv, .reportListDiv, .noticeListDiv {
     background-color: #fff;
 }
 
@@ -461,7 +461,7 @@ p, label {
     top: 15px;
 }
 
-.userListDiv, .reportListDiv{
+.userListDiv, .reportListDiv, .noticeListDiv{
     padding: 10px;
     border-bottom: 1px solid #ddd;
     display: flex;
@@ -539,9 +539,7 @@ p, label {
     width: 100%;
 }
 .change-page code,
-.change-page + code,
-.report-change-page code,
-.report-change-page + code {
+.change-page + code{
     margin: 0 10px;
     font-size: 16px;
 }
@@ -724,11 +722,11 @@ form[name="deleteForm"] button:hover {
     background-color: #f8f8f8; /* 타이틀 배경색 */
 }
 
-.userListDiv, .reportListDiv{
+.userListDiv, .reportListDiv, .noticeListDiv{
     background-color: #fff;
 }
 
-.userListDiv:hover, .reportListDiv:hover {
+.userListDiv:hover, .reportListDiv:hover, .noticeListDiv:hover {
     background-color: #f1f1f1; /* 마우스 오버 시 강조 */
 }
 
@@ -744,7 +742,7 @@ form[name="deleteForm"] button:hover {
     padding-left: 10px; /* 여백 추가 */
 }
 
-/*25.03.14 조승찬 추가 성공*/
+/*25.03.14 조승찬 추가 */
 /*신고 내용 숨기기 */
 .mainUserListDiv.reportList, .reportListDiv {
     display: grid;
@@ -755,6 +753,7 @@ form[name="deleteForm"] button:hover {
     padding: 10px 0;
 
 }
+/*신고내용 더보기를 위한 설정 */
 .reportReasonDiv {
     display: -webkit-box; /* Flexbox 기반으로 레이아웃 설정 */
     -webkit-line-clamp: 1; /* 줄 수 설정 */
@@ -763,7 +762,6 @@ form[name="deleteForm"] button:hover {
     text-overflow: ellipsis; /* 생략 표시(...) */
     white-space: normal; /* 여러 줄을 허용 */
 }
-/*신고내용 더보기 버튼 */
 .reportMore {
     padding: 5px 10px;
     color: rgb(171, 182, 196);
@@ -782,44 +780,19 @@ form[name="deleteForm"] button:hover {
     overflow: visible;
 }
 
-/* 신고 상세 모달 창*/
-/*.report-modal-body {*/
-/*    font-family: Arial, sans-serif;*/
-/*    display: flex;*/
-/*    justify-content: center;*/
-/*    align-items: center;*/
-/*    height: 100vh;*/
-/*    background-color: rgba(0, 0, 0, 0.5);*/
-/*    position: fixed;*/
-/*    top: 0;*/
-/*    left: 0;*/
-/*    width: 100%;*/
-/*    display: none;*/
-/*    z-index: 999;*/
-/*}*/
+.report-change-page code,
+.report-change-page + code {
+    margin: 0 10px;
+    font-size: 16px;
+}
+/*신고내용 더보기를 위한 설정 */
 
-/*.report-modal {*/
-/*    width: 600px;*/
-/*    border: 1px solid #ccc;*/
-/*    border-radius: 10px;*/
-/*    padding: 15px;*/
-/*    background-color: white;*/
-/*    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);*/
-/*}*/
-/*.report-modal .modal-header {*/
-/*    font-size: 20px;*/
-/*    display: flex;*/
-/*    justify-content: space-between;*/
-/*    align-items: center;*/
-/*    font-weight: bold;*/
-/*    padding-bottom: 10px;*/
-/*}*/
-/*.report-modal .close {*/
-/*    margin-right: 10px;*/
-/*    cursor: pointer;*/
-/*    font-size: 22px;*/
-/*}*/
-.report-modal-body {
+.reportListDiv .reportReason {
+    text-align: left;
+    padding-left: 10px; /* 여백 추가 */
+}
+/*신고상세 모달 창*/
+.admin-modal-body {
     font-family: Arial, sans-serif;
     display: flex;
     justify-content: center;
@@ -903,3 +876,174 @@ form[name="deleteForm"] button:hover {
     word-wrap: break-word; /* 긴 텍스트 자동 줄바꿈 */
 }
 /*25.03.14 조승찬 추가  끝*/
+
+/*25.03.15 조승찬 추가  시작*/
+/*공지 목록 관련*/
+.mainNoticeListDiv {
+    font-weight: bold;
+    background-color: #f8f8f8; /* 타이틀 배경색 */
+}
+.mainNoticeListDiv.noticeList, .noticeListDiv {
+    display: grid;
+    grid-template-columns: 100px 800px 70px 200px 200px;
+    align-items: center;
+    text-align: center;
+    border-bottom: 1px solid #ccc;
+    padding: 10px 0;
+}
+
+.noticeListDiv .noticeTitleDiv {
+    text-align: left;
+    padding-left: 10px; /* 여백 추가 */
+}
+
+.notice-change-page code,
+.notice-change-page + code {
+    margin: 0 10px;
+    font-size: 16px;
+}
+.noticeRegistBtn,
+.noticeUpdateBtn,
+.noticeDeleteBtn,
+.noticeConfirmBtn
+{
+    width: 83px;
+    white-space: nowrap;
+    overflow-x: auto;
+    line-height: 40px;
+    padding: 0 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    overflow: hidden;
+    position: relative;
+    left: 93.5%;
+}
+
+/* 버튼 hover 효과 */
+
+.noticeRegistBtn:hover,
+.noticeUpdateBtn:hover,
+.noticeDeleteBtn:hover,
+.noticeConfirmBtn:hover {
+    background-color: #d0d0d0; /* Hover 시 배경색 */
+    color: #000; /* Hover 시 글자 색 */
+    border: 1px solid #aaa; /* Hover 시 테두리 */
+}
+
+/* 버튼 컨테이너 스타일 */
+.notice-button-container {
+    width: 100%; /* 부모 너비 */
+    display: flex;
+    justify-content: center; /* 버튼 중앙 정렬 */
+    align-items: center;
+    padding: 20px;
+    position: absolute; /* 모달창 기준으로 절대 위치 */
+    bottom: 0; /* 하단에 고정 */
+}
+
+.noticeUpdateBtn,
+.noticeDeleteBtn,
+.noticeConfirmBtn {
+    margin: 0 10px;
+    position: static;
+}
+
+/*모달 관련 부분*/
+.notice-modal {
+    height: 800px;
+    width: 1400px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.notice-modal .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.notice-modal .modal-header span {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.notice-container {
+    position: relative;
+    padding-bottom: 70px;
+}
+
+.closeNoticeModal {
+    margin-right: 10px;
+    cursor: pointer;
+    font-size: 22px;
+    color: #999;
+}
+
+.closeNoticeModal:hover {
+    color: #333; /* 호버 시 더 진한 색 */
+}
+
+/*모달 관련 부분*/
+/* 공지제목  더보기를 위한 설정 */
+.noticeTitleDiv {
+    display: -webkit-box; /* Flexbox 기반으로 레이아웃 설정 */
+    -webkit-line-clamp: 1; /* 줄 수 설정 */
+    -webkit-box-orient: vertical; /* 박스 방향을 수직으로 설정 */
+    overflow: hidden; /* 초과 부분 숨김 */
+    text-overflow: ellipsis; /* 생략 표시(...) */
+    white-space: normal; /* 여러 줄을 허용 */
+}
+.noticeMore {
+    padding: 5px 10px;
+    color: rgb(171, 182, 196);
+    background-color: transparent; /* 배경을 투명하게 설정 */
+    border: none;
+    cursor: pointer;
+}
+.noticeMore :hover {
+    background-color: rgb(171, 182, 196);
+    color: #fff;
+    border-radius: 4px;
+}
+
+.noticeTitleDiv.expanded {
+    -webkit-line-clamp: unset; /* 줄 제한 해제 */
+    overflow: visible;
+}
+
+/* 타이틀 입력창 스타일 */
+.noticeModal-TitleInput {
+    width: 1300px;
+    background: none;
+    height: 80px;
+    border: 1px solid #ccc; /* 테두리 추가 */
+    border-radius: 4px;
+    padding: 10px;
+    resize: none; /* 사용자가 크기 조정 못하도록 */
+}
+/* 모달 상세 입력 창 */
+.noticeModal-ContentInput{
+    width: 1300px;
+    background: none;
+    height: 400px;
+    border: 1px solid #ccc; /* 테두리 추가 */
+    border-radius: 4px;
+    padding: 10px;
+    resize: none; /* 사용자가 크기 조정 못하도록 */
+}
+/* 제목, 내용 컨테이너 테두리 */
+.border-box {
+    border: 2px solid #ddd; /* 테두리 */
+    border-radius: 8px; /* 모서리 둥글게 */
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+/*25.03.15 조승찬 추가  끝*/
