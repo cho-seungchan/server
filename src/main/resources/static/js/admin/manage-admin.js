@@ -119,7 +119,7 @@ document.addEventListener("DOMContentLoaded", function () { // HTML이 로드된
 
         const pageValue = pageLink.getAttribute("href"); // href 값 가져오기
         if (pageValue) {
-            // document.querySelector("input[name=page]").value = pageValue; // input[name=page] 값 변경
+            e.preventDefault(); // 기본 동작 방지
             document.querySelector(".adminList").value = pageValue;
             document.forms["searchForm"].submit(); // 폼 제출
         }

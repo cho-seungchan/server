@@ -86,8 +86,8 @@
     </select>
 
     <sql id="search">
-        <if test="search.keyWord != null">
-            <where>
+        <if test="search.type != null and search.types != null and !search.types.isEmpty()">
+            <trim prefix="WHERE" prefixOverrides="OR">
                 <foreach item="type" collection="search.types" separator=" OR ">
                     <choose>
                         <when test="type == 'n'.toString()">
@@ -104,7 +104,7 @@
                         </when>
                     </choose>
                 </foreach>
-            </where>
+            </trim>
         </if>
     </sql>
 

@@ -72,6 +72,7 @@ public class AdminService {
     // 회원 목록
     public List<MemberVO> getMemberList(Pagination pagination, Search search) {
         pagination.create(memberDAO.getCountAll(search));
+        log.info(pagination.toString());
         return memberDAO.getMemberList(pagination, search);
     }
 
@@ -111,7 +112,7 @@ public class AdminService {
     public void postAddCourse(CourseDTO courseDTO) {
 
         // 코스정보 입력
-        courseDTO.setAdminId(11l);  // 로그인수정
+        courseDTO.setAdminId(4l);  // 로그인수정
         courseDAO.postAddCourse(courseDTO);
         log.info("postAddCourse service : {}",courseDTO.toString());
 

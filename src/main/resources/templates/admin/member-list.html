@@ -15,10 +15,11 @@
             rel="stylesheet"
             href="/css/admin/user-list2.css"
         />
-        <link
-            rel="stylesheet"
-            href="/css/admin/admin-notice2.css"
-        />
+<!--        25.03.15 사용하지 않는거 같아서 조승찬 막음-->
+<!--        <link-->
+<!--            rel="stylesheet"-->
+<!--            href="/css/admin/admin-notice2.css"-->
+<!--        />-->
         <link
             rel="stylesheet"
             href="/css/admin/add-course.css"
@@ -474,7 +475,7 @@
                                                                         </div>
                                                                         <select name="type" class="custom-select">
 <!--                                                                            <option value="">검색 기준</option>-->
-                                                                            <option value="eknt" th:selected="${search.type == 'ekt'}">전체</option>
+                                                                            <option value="ekt" th:selected="${search.type == 'ekt'}">전체</option>
                                                                             <option value="e" th:selected="${search.type == 'e'}">eMail</option>
                                                                             <option value="k" th:selected="${search.type == 'k'}">Nickname</option>
                                                                             <option value="t" th:selected="${search.type == 't'}">Phone</option>

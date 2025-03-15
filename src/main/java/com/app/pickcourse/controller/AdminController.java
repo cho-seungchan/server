@@ -42,8 +42,11 @@ public class AdminController {
     @GetMapping("/member-list")
     public String getMemberList(Pagination pagination, Search search, Model model) {
 
+        log.info("회원 목록 "+pagination.toString()+" "+search.toString());
+
         List<MemberVO> members = adminService.getMemberList(pagination, search);
         model.addAttribute("members", members);
+
         return "/admin/member-list";
     }
 
@@ -55,6 +58,7 @@ public class AdminController {
                                        @RequestParam(value = "keyWord", required = false) String keyWord,
                                        @RequestParam(value = "isAct", required = false) String isAct,
                                        RedirectAttributes redirectAttributes) {
+        log.info("회원정지 "+selectedIds+" "+page+" "+type+" "+keyWord+" "+isAct);
         adminService.patchMemberListPause(selectedIds);
         return "redirect:/admin/member-list?page=" +page+"&type="+type+"&keyWord="+keyWord+"&isAct="+isAct;
     }
@@ -86,9 +90,13 @@ public class AdminController {
     // 관리자 관리 화면 :: 목록 조회 25.03.03 조승찬
     @GetMapping("/manage-admin-list")
     public String getManageAdminList(Pagination pagination, Search search, Model model) {
+
+        log.info(pagination.toString());
         List<AdminVO> admins = adminService.getManageAdminList(pagination, search);
         model.addAttribute("admins", admins);
         model.addAttribute("admin", new AdminVO());
+
+        log.info(pagination.toString());
         return "/admin/manage-admin-list";
     }
 
