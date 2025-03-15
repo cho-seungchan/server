@@ -1,18 +1,18 @@
-let menuBtn = document.querySelector(".AppLayout_expandNavButton__NTEwM");
-let nav = document.querySelector(".AppNavbarLayout_container__NmY5O");
-
-menuBtn.addEventListener("click", function () {
-    nav.classList.toggle("active");
-});
-
-let div = document.querySelector(".AppLayout_contents__Nzg1Z");
-menuBtn.addEventListener("click", function () {
-    div.classList.toggle("active");
-});
-
-menuBtn.addEventListener("click", function () {
-    menuBtn.classList.toggle("active");
-});
+// let menuBtn = document.querySelector(".AppLayout_expandNavButton__NTEwM");
+// let nav = document.querySelector(".AppNavbarLayout_container__NmY5O");
+//
+// menuBtn.addEventListener("click", function () {
+//     nav.classList.toggle("active");
+// });
+//
+// let div = document.querySelector(".AppLayout_contents__Nzg1Z");
+// menuBtn.addEventListener("click", function () {
+//     div.classList.toggle("active");
+// });
+//
+// menuBtn.addEventListener("click", function () {
+//     menuBtn.classList.toggle("active");
+// });
 
 // 시작일자가 오늘 날짜보다 작은지 확인. 종료일자가 시작일자보다 적은지 확인. 모집 마감일자가 종료일자보다 적은지 확인
 const firstDate = document.querySelector(".gcqwwh.startdate");

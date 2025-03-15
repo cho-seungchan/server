@@ -30,6 +30,17 @@
             href="/images/common/favicon1.ico"
             type="image/x-icon"
         />
+<!--        콘트롤러 메뉴와 레스트콘트롤러 메뉴 통합 25.03.15 -->
+
+        <link
+                rel="stylesheet"
+                href="/css/admin/course-list.css"
+        />
+        <link
+                rel="stylesheet"
+                href="/css/admin/add-course-renewal.css"
+        />
+<!--        콘트롤러 메뉴와 레스트콘트롤러 메뉴 통합 25.03.15-->
     </head>
     <body>
         <div id="root">
@@ -52,70 +63,70 @@
                             ></span>
                         </div>
                     </div>
-                    <div
-                        class="AppGNBbar_flex__ZGYyN AppGNBbar_rightBox__NmRjN"
-                    >
-                        <div
-                            class="AnnouncementButton_container__YzUzY"
-                            role="button"
-                        >
-                            <img
-                                class="AnnouncementButton_icon__Y2U1N"
-                                src="data:image/svg+xml,%3c?xml%20version='1.0'%20encoding='UTF-8'?%3e%3csvg%20width='24px'%20height='24px'%20viewBox='0%200%2024%2024'%20version='1.1'%20xmlns='http://www.w3.org/2000/svg'%20xmlns:xlink='http://www.w3.org/1999/xlink'%3e%3ctitle%3eGroup%2020%3c/title%3e%3cdefs%3e%3cpolygon%20id='path-1'%20points='0%200%2020%200%2020%2017.9953708%200%2017.9953708'%3e%3c/polygon%3e%3c/defs%3e%3cg%20id='Page-1'%20stroke='none'%20stroke-width='1'%20fill='none'%20fill-rule='evenodd'%3e%3cg%20id='Group-20'%3e%3crect%20id='Rectangle'%20fill-opacity='0'%20fill='%23FFFFFF'%20x='0'%20y='0'%20width='24'%20height='24'%3e%3c/rect%3e%3cg%20id='Group'%3e%3crect%20id='Rectangle'%20fill='%23FFFFFF'%20opacity='0'%20x='0'%20y='0'%20width='24'%20height='24'%3e%3c/rect%3e%3cg%20id='Group-6'%20transform='translate(2.000000,%203.000000)'%3e%3cg%20id='Group-3'%3e%3cmask%20id='mask-2'%20fill='white'%3e%3cuse%20xlink:href='%23path-1'%3e%3c/use%3e%3c/mask%3e%3cg%20id='Clip-2'%3e%3c/g%3e%3cpath%20d='M1.26810993,13.3807221%20L7.86036937,13.3807221%20C9.56087376,13.3807221%2011.2379633,13.6592429%2012.8467595,14.2094435%20L18.7307193,16.219679%20L18.7307193,1.7756918%20L12.8467595,3.78690464%20C11.2369877,4.33612797%209.55989815,4.6146487%207.86036937,4.6146487%20L1.26810993,4.6146487%20L1.26810993,13.3807221%20Z%20M20,17.9953708%20L12.4369994,15.4114803%20C10.9608874,14.9072112%209.42038459,14.6521448%207.86036937,14.6521448%20L-0.000195123855,14.6521448%20L-0.000195123855,3.34420327%20L7.86036937,3.34420327%20C9.41940897,3.34420327%2010.9599118,3.08913692%2012.4369994,2.58389055%20L20,0%20L20,17.9953708%20Z'%20id='Fill-1'%20fill='%23495057'%20mask='url(%23mask-2)'%3e%3c/path%3e%3c/g%3e%3cpath%20d='M7.16709431,19%20C4.8226812,19%203.05388345,16.9995371%203.05388345,14.3472379%20C3.05388345,14.2143298%203.06168841,14.0892398%203.0714446,13.9709906%20L4.33584718,14.0667627%20C4.32901784,14.1537393%204.32218851,14.2485341%204.32218851,14.3472379%20C4.32218851,16.2753832%205.54561508,17.7285773%207.16709431,17.7285773%20C9.26662699,17.7285773%2010.0120001,15.9079313%2010.0120001,14.3472379%20L11.2803052,14.2856702%20L11.2803052,14.3472379%20C11.2803052,17.1304907%209.6266305,19%207.16709431,19'%20id='Fill-4'%20fill='%23495057'%3e%3c/path%3e%3c/g%3e%3c/g%3e%3c/g%3e%3c/g%3e%3c/svg%3e"
-                                alt=""
-                                aria-hidden="true"
-                            /><span
-                                class="Badge_container__M2E2N Badge_visible__NjUyZ AnnouncementButton_badge__MDIyN"
-                                ><span
-                                    class="Badge_badge__YWQ1N Badge_dot__NGVmY Badge_md__YTgxN"
-                                ></span
-                            ></span>
-                        </div>
-                        <div class="PreviewExitButtons_container__YTEzZ">
-                            <button
-                                class="Button_button__NTMwZ PreviewExitButtons_button__OGEyM"
-                                type="button"
-                            >
-                                <span
-                                    ><span class="Button_children__NDY1Y2"
-                                        >미리보기</span
-                                    ></span
-                                ></button
-                            ><button
-                                class="Button_button__NTMwZ PreviewExitButtons_button__OGEyM"
-                                type="button"
-                            >
-                                <span
-                                    ><span class="Button_children__NDY1Y2"
-                                        >나가기</span
-                                    ></span
-                                >
-                            </button>
-                        </div>
-                    </div>
+<!--                    <div-->
+<!--                        class="AppGNBbar_flex__ZGYyN AppGNBbar_rightBox__NmRjN"-->
+<!--                    >-->
+<!--                        <div-->
+<!--                            class="AnnouncementButton_container__YzUzY"-->
+<!--                            role="button"-->
+<!--                        >-->
+<!--                            <img-->
+<!--                                class="AnnouncementButton_icon__Y2U1N"-->
+<!--                                src="data:image/svg+xml,%3c?xml%20version='1.0'%20encoding='UTF-8'?%3e%3csvg%20width='24px'%20height='24px'%20viewBox='0%200%2024%2024'%20version='1.1'%20xmlns='http://www.w3.org/2000/svg'%20xmlns:xlink='http://www.w3.org/1999/xlink'%3e%3ctitle%3eGroup%2020%3c/title%3e%3cdefs%3e%3cpolygon%20id='path-1'%20points='0%200%2020%200%2020%2017.9953708%200%2017.9953708'%3e%3c/polygon%3e%3c/defs%3e%3cg%20id='Page-1'%20stroke='none'%20stroke-width='1'%20fill='none'%20fill-rule='evenodd'%3e%3cg%20id='Group-20'%3e%3crect%20id='Rectangle'%20fill-opacity='0'%20fill='%23FFFFFF'%20x='0'%20y='0'%20width='24'%20height='24'%3e%3c/rect%3e%3cg%20id='Group'%3e%3crect%20id='Rectangle'%20fill='%23FFFFFF'%20opacity='0'%20x='0'%20y='0'%20width='24'%20height='24'%3e%3c/rect%3e%3cg%20id='Group-6'%20transform='translate(2.000000,%203.000000)'%3e%3cg%20id='Group-3'%3e%3cmask%20id='mask-2'%20fill='white'%3e%3cuse%20xlink:href='%23path-1'%3e%3c/use%3e%3c/mask%3e%3cg%20id='Clip-2'%3e%3c/g%3e%3cpath%20d='M1.26810993,13.3807221%20L7.86036937,13.3807221%20C9.56087376,13.3807221%2011.2379633,13.6592429%2012.8467595,14.2094435%20L18.7307193,16.219679%20L18.7307193,1.7756918%20L12.8467595,3.78690464%20C11.2369877,4.33612797%209.55989815,4.6146487%207.86036937,4.6146487%20L1.26810993,4.6146487%20L1.26810993,13.3807221%20Z%20M20,17.9953708%20L12.4369994,15.4114803%20C10.9608874,14.9072112%209.42038459,14.6521448%207.86036937,14.6521448%20L-0.000195123855,14.6521448%20L-0.000195123855,3.34420327%20L7.86036937,3.34420327%20C9.41940897,3.34420327%2010.9599118,3.08913692%2012.4369994,2.58389055%20L20,0%20L20,17.9953708%20Z'%20id='Fill-1'%20fill='%23495057'%20mask='url(%23mask-2)'%3e%3c/path%3e%3c/g%3e%3cpath%20d='M7.16709431,19%20C4.8226812,19%203.05388345,16.9995371%203.05388345,14.3472379%20C3.05388345,14.2143298%203.06168841,14.0892398%203.0714446,13.9709906%20L4.33584718,14.0667627%20C4.32901784,14.1537393%204.32218851,14.2485341%204.32218851,14.3472379%20C4.32218851,16.2753832%205.54561508,17.7285773%207.16709431,17.7285773%20C9.26662699,17.7285773%2010.0120001,15.9079313%2010.0120001,14.3472379%20L11.2803052,14.2856702%20L11.2803052,14.3472379%20C11.2803052,17.1304907%209.6266305,19%207.16709431,19'%20id='Fill-4'%20fill='%23495057'%3e%3c/path%3e%3c/g%3e%3c/g%3e%3c/g%3e%3c/g%3e%3c/svg%3e"-->
+<!--                                alt=""-->
+<!--                                aria-hidden="true"-->
+<!--                            /><span-->
+<!--                                class="Badge_container__M2E2N Badge_visible__NjUyZ AnnouncementButton_badge__MDIyN"-->
+<!--                                ><span-->
+<!--                                    class="Badge_badge__YWQ1N Badge_dot__NGVmY Badge_md__YTgxN"-->
+<!--                                ></span-->
+<!--                            ></span>-->
+<!--                        </div>-->
+<!--                        <div class="PreviewExitButtons_container__YTEzZ">-->
+<!--                            <button-->
+<!--                                class="Button_button__NTMwZ PreviewExitButtons_button__OGEyM"-->
+<!--                                type="button"-->
+<!--                            >-->
+<!--                                <span-->
+<!--                                    ><span class="Button_children__NDY1Y2"-->
+<!--                                        >미리보기</span-->
+<!--                                    ></span-->
+<!--                                ></button-->
+<!--                            ><button-->
+<!--                                class="Button_button__NTMwZ PreviewExitButtons_button__OGEyM"-->
+<!--                                type="button"-->
+<!--                            >-->
+<!--                                <span-->
+<!--                                    ><span class="Button_children__NDY1Y2"-->
+<!--                                        >나가기</span-->
+<!--                                    ></span-->
+<!--                                >-->
+<!--                            </button>-->
+<!--                        </div>-->
+<!--                    </div>-->
                 </div>
                 <div class="AppLayout_main__NDI4Y">
                     <nav
-                        id="AppNavbarLayout_Nav"
-                        class="AppNavbarLayout_container__NmY5O AppNavbarLayout_expand__NGFhZ AppNavbarLayout_scroll__MGM0N"
+                            id="AppNavbarLayout_Nav"
+                            class="AppNavbarLayout_container__NmY5O AppNavbarLayout_expand__NGFhZ AppNavbarLayout_scroll__MGM0N"
                     >
                         <div class="AppNavbarLayout_content__ZGYyN">
                             <div
-                                class="ProjectInfo_container__ODExZ AppNavbar_projectInfoPC__M2FmZ ProjectInfo_dropDownContainer__MTIzN"
+                                    class="ProjectInfo_container__ODExZ AppNavbar_projectInfoPC__M2FmZ ProjectInfo_dropDownContainer__MTIzN"
                             >
                                 <button
-                                    type="button"
-                                    id="project-info-box"
-                                    class="ProjectInfo_infoButton__YjZmY"
-                                    aria-controls="project-info-box"
-                                    aria-expanded="false"
+                                        type="button"
+                                        id="project-info-box"
+                                        class="ProjectInfo_infoButton__YjZmY"
+                                        aria-controls="project-info-box"
+                                        aria-expanded="false"
                                 >
                                     관리자
                                     <span class="ProjectInfo_emphasis__YWQwM"
-                                        >박정근님</span
+                                    >박정근님</span
                                     >
                                     <span class="ProjectInfo_text__MWIyM"
-                                        >환영 합니다.</span
+                                    >환영 합니다.</span
                                     ><svg
                                         viewBox="0 0 24 24"
                                         fill="none"
@@ -124,118 +135,116 @@
                                         class="withIcon_icon__M2ZhN"
                                         aria-hidden="true"
                                         style="width: 12px; height: 12px"
-                                    >
-                                        <path
+                                >
+                                    <path
                                             fill-rule="evenodd"
                                             clip-rule="evenodd"
                                             d="M2.576 7.924l.848-.848L12 15.652l8.576-8.576.848.848L12 17.35 2.576 7.924z"
-                                        ></path>
-                                    </svg>
+                                    ></path>
+                                </svg>
                                 </button>
                             </div>
                             <div class="AppNavbar_menu__YmEzM">
                                 <div
-                                    id="AppNavbar_LinkMenu"
-                                    class="AppNavbar_linkMenu__ZWM3O"
-                                    style="overflow: auto"
+                                        id="AppNavbar_LinkMenu"
+                                        class="AppNavbar_linkMenu__ZWM3O"
+                                        style="overflow: auto"
                                 >
                                     <div class="MenuItems_section__YTZhM">
                                         <a
-                                            aria-current="page"
-                                            class="MenuItems_menu__NTNmZ MenuItems_hasSubmenu__NGQxM MenuItems_active__ZDlmN"
-                                            href="/studio/reward/337882/funding"
-                                            ><span
+                                                aria-current="page"
+                                                class="MenuItems_menu__NTNmZ MenuItems_hasSubmenu__NGQxM MenuItems_active__ZDlmN"
+                                                href="/studio/reward/337882/funding"
+                                        ><span
                                                 class="MenuItems_label__YjUxM"
-                                                ><svg
-                                                    viewBox="0 0 24 24"
-                                                    fill="none"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                >
+                                        ><svg
+                                                viewBox="0 0 24 24"
+                                                fill="none"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                        >
                                                     <path
-                                                        d="M9.40039 12C9.40039 11.6686 9.66902 11.4 10.0004 11.4H14.0004C14.3318 11.4 14.6004 11.6686 14.6004 12C14.6004 12.3313 14.3318 12.6 14.0004 12.6H10.0004C9.66902 12.6 9.40039 12.3313 9.40039 12Z"
-                                                        fill="#212529"
+                                                            d="M9.40039 12C9.40039 11.6686 9.66902 11.4 10.0004 11.4H14.0004C14.3318 11.4 14.6004 11.6686 14.6004 12C14.6004 12.3313 14.3318 12.6 14.0004 12.6H10.0004C9.66902 12.6 9.40039 12.3313 9.40039 12Z"
+                                                            fill="#212529"
                                                     ></path>
                                                     <path
-                                                        fill-rule="evenodd"
-                                                        clip-rule="evenodd"
-                                                        d="M7.57523 2.40002C6.94799 2.40002 6.3419 2.62677 5.86868 3.03847L2.29286 6.14943C1.72528 6.64323 1.39941 7.35867 1.39941 8.11099V19C1.39941 20.436 2.56347 21.6 3.99941 21.6H19.9994C21.4354 21.6 22.5994 20.436 22.5994 19V8.01974C22.5994 7.33688 22.3308 6.68144 21.8515 6.195L18.8764 3.17528C18.3878 2.67929 17.7206 2.40002 17.0243 2.40002H7.57523ZM6.65632 3.9438C6.91113 3.72212 7.23749 3.60002 7.57523 3.60002H17.0243C17.3992 3.60002 17.7585 3.7504 18.0216 4.01747L20.8615 6.89999H3.2584L6.65632 3.9438ZM2.59946 8.09999C2.59943 8.10366 2.59941 8.10732 2.59941 8.11099V19C2.59941 19.7732 3.22622 20.4 3.99941 20.4H19.9994C20.7726 20.4 21.3994 19.7732 21.3994 19V8.09999H2.59946Z"
-                                                        fill="#212529"
+                                                            fill-rule="evenodd"
+                                                            clip-rule="evenodd"
+                                                            d="M7.57523 2.40002C6.94799 2.40002 6.3419 2.62677 5.86868 3.03847L2.29286 6.14943C1.72528 6.64323 1.39941 7.35867 1.39941 8.11099V19C1.39941 20.436 2.56347 21.6 3.99941 21.6H19.9994C21.4354 21.6 22.5994 20.436 22.5994 19V8.01974C22.5994 7.33688 22.3308 6.68144 21.8515 6.195L18.8764 3.17528C18.3878 2.67929 17.7206 2.40002 17.0243 2.40002H7.57523ZM6.65632 3.9438C6.91113 3.72212 7.23749 3.60002 7.57523 3.60002H17.0243C17.3992 3.60002 17.7585 3.7504 18.0216 4.01747L20.8615 6.89999H3.2584L6.65632 3.9438ZM2.59946 8.09999C2.59943 8.10366 2.59941 8.10732 2.59941 8.11099V19C2.59941 19.7732 3.22622 20.4 3.99941 20.4H19.9994C20.7726 20.4 21.3994 19.7732 21.3994 19V8.09999H2.59946Z"
+                                                            fill="#212529"
                                                     ></path></svg
-                                                >회원 관리</span
-                                            ></a
+                                        >회원 관리</span
+                                        ></a
                                         >
                                         <div
-                                            class="MenuItems_submenuContainer__ZDZlO MenuItems_show__ZmI3M Menulist1"
+                                                class="MenuItems_submenuContainer__ZDZlO MenuItems_show__ZmI3M Menulist1"
                                         >
                                             <a
-                                                class="MenuItems_submenu__YTg3N"
-                                                href="/admin/member-list"
-                                                >회원 목록</a
+                                                    class="MenuItems_submenu__YTg3N"
+                                                    href="/admin/member-list"
+                                            >회원 목록</a
                                             ><a
-                                                class="MenuItems_submenu__YTg3N"
-                                                href="/admin/report-list"
-                                                >신고 목록</a
-                                            >
+                                                class="MenuItems_submenu__YTg3N reportList"
+                                        >신고 목록</a
+                                        >
                                         </div>
                                         <a
-                                            aria-current="page"
-                                            class="MenuItems_menu__NTNmZ MenuItems_hasSubmenu__NGQxM MenuItems_active__ZDlmN"
-                                            href="/studio/reward/337882/funding"
-                                            ><span
+                                                aria-current="page"
+                                                class="MenuItems_menu__NTNmZ MenuItems_hasSubmenu__NGQxM MenuItems_active__ZDlmN"
+                                                href="/studio/reward/337882/funding"
+                                        ><span
                                                 class="MenuItems_label__YjUxM"
-                                                ><svg
-                                                    viewBox="0 0 24 24"
-                                                    fill="none"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                >
+                                        ><svg
+                                                viewBox="0 0 24 24"
+                                                fill="none"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                        >
                                                     <path
-                                                        d="M9.40039 12C9.40039 11.6686 9.66902 11.4 10.0004 11.4H14.0004C14.3318 11.4 14.6004 11.6686 14.6004 12C14.6004 12.3313 14.3318 12.6 14.0004 12.6H10.0004C9.66902 12.6 9.40039 12.3313 9.40039 12Z"
-                                                        fill="#212529"
+                                                            d="M9.40039 12C9.40039 11.6686 9.66902 11.4 10.0004 11.4H14.0004C14.3318 11.4 14.6004 11.6686 14.6004 12C14.6004 12.3313 14.3318 12.6 14.0004 12.6H10.0004C9.66902 12.6 9.40039 12.3313 9.40039 12Z"
+                                                            fill="#212529"
                                                     ></path>
                                                     <path
-                                                        fill-rule="evenodd"
-                                                        clip-rule="evenodd"
-                                                        d="M7.57523 2.40002C6.94799 2.40002 6.3419 2.62677 5.86868 3.03847L2.29286 6.14943C1.72528 6.64323 1.39941 7.35867 1.39941 8.11099V19C1.39941 20.436 2.56347 21.6 3.99941 21.6H19.9994C21.4354 21.6 22.5994 20.436 22.5994 19V8.01974C22.5994 7.33688 22.3308 6.68144 21.8515 6.195L18.8764 3.17528C18.3878 2.67929 17.7206 2.40002 17.0243 2.40002H7.57523ZM6.65632 3.9438C6.91113 3.72212 7.23749 3.60002 7.57523 3.60002H17.0243C17.3992 3.60002 17.7585 3.7504 18.0216 4.01747L20.8615 6.89999H3.2584L6.65632 3.9438ZM2.59946 8.09999C2.59943 8.10366 2.59941 8.10732 2.59941 8.11099V19C2.59941 19.7732 3.22622 20.4 3.99941 20.4H19.9994C20.7726 20.4 21.3994 19.7732 21.3994 19V8.09999H2.59946Z"
-                                                        fill="#212529"
+                                                            fill-rule="evenodd"
+                                                            clip-rule="evenodd"
+                                                            d="M7.57523 2.40002C6.94799 2.40002 6.3419 2.62677 5.86868 3.03847L2.29286 6.14943C1.72528 6.64323 1.39941 7.35867 1.39941 8.11099V19C1.39941 20.436 2.56347 21.6 3.99941 21.6H19.9994C21.4354 21.6 22.5994 20.436 22.5994 19V8.01974C22.5994 7.33688 22.3308 6.68144 21.8515 6.195L18.8764 3.17528C18.3878 2.67929 17.7206 2.40002 17.0243 2.40002H7.57523ZM6.65632 3.9438C6.91113 3.72212 7.23749 3.60002 7.57523 3.60002H17.0243C17.3992 3.60002 17.7585 3.7504 18.0216 4.01747L20.8615 6.89999H3.2584L6.65632 3.9438ZM2.59946 8.09999C2.59943 8.10366 2.59941 8.10732 2.59941 8.11099V19C2.59941 19.7732 3.22622 20.4 3.99941 20.4H19.9994C20.7726 20.4 21.3994 19.7732 21.3994 19V8.09999H2.59946Z"
+                                                            fill="#212529"
                                                     ></path></svg
-                                                >공지</span
-                                            ></a
+                                        >공지</span
+                                        ></a
                                         >
                                         <div
-                                            class="MenuItems_submenuContainer__ZDZlO MenuItems_show__ZmI3M Menulist2"
+                                                class="MenuItems_submenuContainer__ZDZlO MenuItems_show__ZmI3M Menulist2"
                                         >
                                             <a
-                                                class="MenuItems_submenu__YTg3N"
-                                                href="/studio/reward/337882/funding/plan"
-                                                >공지 사항</a
+                                                    class="MenuItems_submenu__YTg3N noticeList"
+                                            >공지 목록</a
                                             >
                                         </div>
                                         <a
-                                            aria-current="page"
-                                            class="MenuItems_menu__NTNmZ MenuItems_hasSubmenu__NGQxM MenuItems_active__ZDlmN"
-                                            href="/studio/reward/337882/funding"
-                                            ><span
+                                                aria-current="page"
+                                                class="MenuItems_menu__NTNmZ MenuItems_hasSubmenu__NGQxM MenuItems_active__ZDlmN"
+                                                href="/studio/reward/337882/funding"
+                                        ><span
                                                 class="MenuItems_label__YjUxM"
-                                                ><svg
-                                                    viewBox="0 0 24 24"
-                                                    fill="none"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                >
+                                        ><svg
+                                                viewBox="0 0 24 24"
+                                                fill="none"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                        >
                                                     <path
-                                                        d="M9.40039 12C9.40039 11.6686 9.66902 11.4 10.0004 11.4H14.0004C14.3318 11.4 14.6004 11.6686 14.6004 12C14.6004 12.3313 14.3318 12.6 14.0004 12.6H10.0004C9.66902 12.6 9.40039 12.3313 9.40039 12Z"
-                                                        fill="#212529"
+                                                            d="M9.40039 12C9.40039 11.6686 9.66902 11.4 10.0004 11.4H14.0004C14.3318 11.4 14.6004 11.6686 14.6004 12C14.6004 12.3313 14.3318 12.6 14.0004 12.6H10.0004C9.66902 12.6 9.40039 12.3313 9.40039 12Z"
+                                                            fill="#212529"
                                                     ></path>
                                                     <path
-                                                        fill-rule="evenodd"
-                                                        clip-rule="evenodd"
-                                                        d="M7.57523 2.40002C6.94799 2.40002 6.3419 2.62677 5.86868 3.03847L2.29286 6.14943C1.72528 6.64323 1.39941 7.35867 1.39941 8.11099V19C1.39941 20.436 2.56347 21.6 3.99941 21.6H19.9994C21.4354 21.6 22.5994 20.436 22.5994 19V8.01974C22.5994 7.33688 22.3308 6.68144 21.8515 6.195L18.8764 3.17528C18.3878 2.67929 17.7206 2.40002 17.0243 2.40002H7.57523ZM6.65632 3.9438C6.91113 3.72212 7.23749 3.60002 7.57523 3.60002H17.0243C17.3992 3.60002 17.7585 3.7504 18.0216 4.01747L20.8615 6.89999H3.2584L6.65632 3.9438ZM2.59946 8.09999C2.59943 8.10366 2.59941 8.10732 2.59941 8.11099V19C2.59941 19.7732 3.22622 20.4 3.99941 20.4H19.9994C20.7726 20.4 21.3994 19.7732 21.3994 19V8.09999H2.59946Z"
-                                                        fill="#212529"
+                                                            fill-rule="evenodd"
+                                                            clip-rule="evenodd"
+                                                            d="M7.57523 2.40002C6.94799 2.40002 6.3419 2.62677 5.86868 3.03847L2.29286 6.14943C1.72528 6.64323 1.39941 7.35867 1.39941 8.11099V19C1.39941 20.436 2.56347 21.6 3.99941 21.6H19.9994C21.4354 21.6 22.5994 20.436 22.5994 19V8.01974C22.5994 7.33688 22.3308 6.68144 21.8515 6.195L18.8764 3.17528C18.3878 2.67929 17.7206 2.40002 17.0243 2.40002H7.57523ZM6.65632 3.9438C6.91113 3.72212 7.23749 3.60002 7.57523 3.60002H17.0243C17.3992 3.60002 17.7585 3.7504 18.0216 4.01747L20.8615 6.89999H3.2584L6.65632 3.9438ZM2.59946 8.09999C2.59943 8.10366 2.59941 8.10732 2.59941 8.11099V19C2.59941 19.7732 3.22622 20.4 3.99941 20.4H19.9994C20.7726 20.4 21.3994 19.7732 21.3994 19V8.09999H2.59946Z"
+                                                            fill="#212529"
                                                     ></path></svg
-                                                >코스</span
-                                            ></a
+                                        >코스</span
+                                        ></a
                                         >
                                         <div
-                                            class="MenuItems_submenuContainer__ZDZlO MenuItems_show__ZmI3M Menulist2"
+                                                class="MenuItems_submenuContainer__ZDZlO MenuItems_show__ZmI3M Menulist2"
                                         >
                                             <!--                            25.03.08 조승찬  json(restController) 방식으로 처리하기 위해 분기를 스크립트에서 작성-->
                                             <a
@@ -243,62 +252,57 @@
                                             >코스 목록</a
                                             >
                                             <a
-                                                class="MenuItems_submenu__YTg3N"
-                                                href="/studio/reward/337882/funding/plan"
-                                                >A 코스</a
+                                                    class="MenuItems_submenu__YTg3N courseType"
+                                            >A 코스</a
                                             >
                                             <a
-                                                class="MenuItems_submenu__YTg3N"
-                                                href="/studio/reward/337882/funding/plan"
-                                                >B 코스</a
+                                                    class="MenuItems_submenu__YTg3N courseType"
+                                            >B 코스</a
                                             >
                                             <a
-                                                class="MenuItems_submenu__YTg3N"
-                                                href="/studio/reward/337882/funding/plan"
-                                                >C 코스</a
+                                                    class="MenuItems_submenu__YTg3N courseType"
+                                            >C 코스</a
                                             >
                                             <a
-                                                class="MenuItems_submenu__YTg3N"
-                                                href="/studio/reward/337882/funding/plan"
-                                                >D 코스</a
+                                                    class="MenuItems_submenu__YTg3N courseType"
+                                            >D 코스</a
                                             >
                                             <a
-                                                class="MenuItems_submenu__YTg3N"
-                                                href="/studio/reward/337882/funding/screening"
-                                                >봉사 코스</a
+                                                    class="MenuItems_submenu__YTg3N courseType"
+                                            >봉사 코스</a
                                             >
                                         </div>
                                         <a
-                                            aria-current="page"
-                                            class="MenuItems_menu__NTNmZ MenuItems_hasSubmenu__NGQxM MenuItems_active__ZDlmN"
-                                            href="/studio/reward/337882/funding"
-                                            ><span
+                                                aria-current="page"
+                                                class="MenuItems_menu__NTNmZ MenuItems_hasSubmenu__NGQxM MenuItems_active__ZDlmN"
+                                                href="/studio/reward/337882/funding"
+                                        ><span
                                                 class="MenuItems_label__YjUxM"
-                                                ><svg
-                                                    viewBox="0 0 24 24"
-                                                    fill="none"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                >
+                                        ><svg
+                                                viewBox="0 0 24 24"
+                                                fill="none"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                        >
                                                     <path
-                                                        d="M9.40039 12C9.40039 11.6686 9.66902 11.4 10.0004 11.4H14.0004C14.3318 11.4 14.6004 11.6686 14.6004 12C14.6004 12.3313 14.3318 12.6 14.0004 12.6H10.0004C9.66902 12.6 9.40039 12.3313 9.40039 12Z"
-                                                        fill="#212529"
+                                                            d="M9.40039 12C9.40039 11.6686 9.66902 11.4 10.0004 11.4H14.0004C14.3318 11.4 14.6004 11.6686 14.6004 12C14.6004 12.3313 14.3318 12.6 14.0004 12.6H10.0004C9.66902 12.6 9.40039 12.3313 9.40039 12Z"
+                                                            fill="#212529"
                                                     ></path>
                                                     <path
-                                                        fill-rule="evenodd"
-                                                        clip-rule="evenodd"
-                                                        d="M7.57523 2.40002C6.94799 2.40002 6.3419 2.62677 5.86868 3.03847L2.29286 6.14943C1.72528 6.64323 1.39941 7.35867 1.39941 8.11099V19C1.39941 20.436 2.56347 21.6 3.99941 21.6H19.9994C21.4354 21.6 22.5994 20.436 22.5994 19V8.01974C22.5994 7.33688 22.3308 6.68144 21.8515 6.195L18.8764 3.17528C18.3878 2.67929 17.7206 2.40002 17.0243 2.40002H7.57523ZM6.65632 3.9438C6.91113 3.72212 7.23749 3.60002 7.57523 3.60002H17.0243C17.3992 3.60002 17.7585 3.7504 18.0216 4.01747L20.8615 6.89999H3.2584L6.65632 3.9438ZM2.59946 8.09999C2.59943 8.10366 2.59941 8.10732 2.59941 8.11099V19C2.59941 19.7732 3.22622 20.4 3.99941 20.4H19.9994C20.7726 20.4 21.3994 19.7732 21.3994 19V8.09999H2.59946Z"
-                                                        fill="#212529"
+                                                            fill-rule="evenodd"
+                                                            clip-rule="evenodd"
+                                                            d="M7.57523 2.40002C6.94799 2.40002 6.3419 2.62677 5.86868 3.03847L2.29286 6.14943C1.72528 6.64323 1.39941 7.35867 1.39941 8.11099V19C1.39941 20.436 2.56347 21.6 3.99941 21.6H19.9994C21.4354 21.6 22.5994 20.436 22.5994 19V8.01974C22.5994 7.33688 22.3308 6.68144 21.8515 6.195L18.8764 3.17528C18.3878 2.67929 17.7206 2.40002 17.0243 2.40002H7.57523ZM6.65632 3.9438C6.91113 3.72212 7.23749 3.60002 7.57523 3.60002H17.0243C17.3992 3.60002 17.7585 3.7504 18.0216 4.01747L20.8615 6.89999H3.2584L6.65632 3.9438ZM2.59946 8.09999C2.59943 8.10366 2.59941 8.10732 2.59941 8.11099V19C2.59941 19.7732 3.22622 20.4 3.99941 20.4H19.9994C20.7726 20.4 21.3994 19.7732 21.3994 19V8.09999H2.59946Z"
+                                                            fill="#212529"
                                                     ></path></svg
-                                                >관리자</span
-                                            ></a
+                                        >관리자</span
+                                        ></a
                                         >
                                         <div
-                                            class="MenuItems_submenuContainer__ZDZlO MenuItems_show__ZmI3M Menulist3"
+                                                class="MenuItems_submenuContainer__ZDZlO MenuItems_show__ZmI3M Menulist3"
                                         >
                                             <a
-                                                class="MenuItems_submenu__YTg3N"
-                                                href="/admin/manage-admin-list"
-                                                >관리자 목록</a
+                                                    class="MenuItems_submenu__YTg3N"
+                                                    href="/admin/manage-admin-list"
+                                            >관리자 목록</a
                                             >
                                         </div>
                                     </div>
@@ -507,9 +511,42 @@
                 </div>
             </div>
         </div>
+        <div class="admin-modal-body"></div>
     </body>
     <script th:inline="javascript">
         const isActValue = `[[${search.isAct}]]`;
     </script>
     <script src="/js/admin/user-list.js"></script>
+
+<!--컨트롤러와 레스트콘트롤러로 작성된 메뉴 통합을 위한 작업 25.03.15 조승찬-->
+
+    <!-- 자바 스크립트 전역 변수 모음 25.03.13 조승찬-->
+    <script src="/js/admin/admin-global-variables.js"></script>
+    <!-- jQuery 라이브러리 포함 -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- 카카오 맵 키 25.03.10 조승찬-->-->
+    <script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=dca5cc5ce3946cf9a7295748f1aa7d12&libraries=services"></script>
+    <script src="/js/admin/admin.js"></script>
+    <!-- 코스 목록 js 03.09 조승찬-->
+    <script src="/js/admin/course-list-layout-base.js"></script>
+    <script src="/js/admin/course-list-layout-add.js"></script>
+    <script src="/js/admin/course-list-service.js"></script>
+    <script src="/js/admin/course-list-event.js"></script>
+    <!-- 코스 상세 js 25.03.10 조승찬-->
+    <script src="/js/admin/course-detail-layout-base.js"></script>
+    <script src="/js/admin/course-detail-layout-add.js"></script>
+    <script src="/js/admin/course-detail-service.js"></script>
+    <script src="/js/admin/course-detail-event.js"></script>
+    <!-- 리포트 목록 js 25.03.14 조승찬 -->
+    <script src="/js/admin/report-list-layout-base.js"></script>
+    <script src="/js/admin/report-list-layout-add.js"></script>
+    <script src="/js/admin/report-list-service.js"></script>
+    <script src="/js/admin/report-list-event.js"></script>
+    <!-- 공지 목록 js 25.03,15-->
+    <script src="/js/admin/notice-list-layout-base.js"></script>
+    <script src="/js/admin/notice-list-layout-add.js"></script>
+    <script src="/js/admin/notice-list-service.js"></script>
+    <script src="/js/admin/notice-list-event.js"></script>
+
+<!--    컨트롤러와 레스트콘트롤러로 작성된 메뉴 통합을 위한 작업 25.03.15 조승찬-->
 </html>
