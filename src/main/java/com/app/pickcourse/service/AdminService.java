@@ -294,7 +294,7 @@ public class AdminService {
 
     public void postNoticeDetail(NoticeVO notice) {
 
-        notice.setAdminId(4l);  // 로그인 수정
+        notice.setAdminId(4l);  // 로그인수정
         noticeDAO.postNoticeDetail(notice);
     }
 }

@@ -13,7 +13,7 @@
                  #{feedId})
     </insert>
 
-    <select id="getReplyList"  resultType="replyDto">
+    <select id="getReplyList"  resultType="ReplyListDTO">
         SELECT
             r.ID,
             r.REPLY_CONTENT,
@@ -31,4 +31,10 @@
         ORDER BY r.CREATED_DATE DESC
     </select>
 
+
+    <delete id="deleteReplyList">
+        DELETE
+        FROM    TBL_TOGETHER_REPLY
+        WHERE   ID  =  #{id}
+    </delete>
 </mapper>

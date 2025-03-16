@@ -711,16 +711,11 @@ a {
 }
 .jZtIEr .button-container button {
     cursor: pointer;
-    padding: 10px, 20px;
-    background-color: #f8f9fa;
     color: #000000;
     border: none;
     border-radius: 5px;
     font-size: 16px;
-    transition: background-color 0.3s;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* 입체감 있는 그림자 */
-    background-image: linear-gradient(to bottom, #ffffff, #e2e6ea); /* 그라디언트 배경 */
-    transition: background-color 0.3s, box-shadow 0.3s; /* 호버 시 배경 색상 및 그림자 변경 애니메이션 */
+    transition: background-color 0.3s, box-shadow 0.3s;
 }
 .jZtIEr .button-container button:hover {
     background-color: #e2e6ea; /* 호버 시 배경 색상 변경 */

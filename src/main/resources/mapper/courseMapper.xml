@@ -166,7 +166,7 @@
                         <include refid="search"/>
                         ORDER  BY C.ID DESC    ) B
                 <![CDATA[
-                WHERE  ROWNUM <= ${pagination.endRow}   )
+                WHERE  ROWNUM <= #{pagination.endRow}   )
         WHERE  R >= #{pagination.startRow} ]]>
     </select>
 

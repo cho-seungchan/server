@@ -46,7 +46,7 @@ function deleteCourseDetail(id, page, type, keyWord) {
                 console.error("course 데이타를 삭제하는 중 오류", error);
                 throw error;
             }
-            fetchCourseList(page, type, keyWord)  // 삭제 완료시 리스트 화면으로 .....
+            fetchCourseList(page, type, keyWord)  // 삭제 완료시 리스트 화면으로. 만약 받은 데이터를 쓰려면 .then(date =>{ 단계 추가 필요
         })
         .catch(error => {
             console.error("course 데이타 삭제를 요청하는 중 오류", error);

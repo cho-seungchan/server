@@ -32,7 +32,7 @@
         <include refid="search"/>
         ORDER  BY ID DESC )  B
         <![CDATA[
-            WHERE  ROWNUM <= ${pagination.endRow}   )
+            WHERE  ROWNUM <= #{pagination.endRow}   )
         WHERE  R >= #{pagination.startRow} ]]>
     </select>
 

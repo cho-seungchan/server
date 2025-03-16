@@ -1,5 +1,6 @@
 package com.app.pickcourse.mapper;
 
+import com.app.pickcourse.domain.vo.ReportIdVO;
 import com.app.pickcourse.domain.vo.ReportVO;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -16,8 +17,8 @@ public class FeedReportMapperTests {
 
     @Test
     public void saveFeedReport() {
-        ReportVO reportVO = new ReportVO();
-        reportMapper.saveReport(reportVO);
+        ReportIdVO reportVO = new ReportIdVO();
+        reportMapper.postReportReplyList(reportVO);
 
         mapper.saveFeedReport(reportVO.getId(), 1l, 1l);
 

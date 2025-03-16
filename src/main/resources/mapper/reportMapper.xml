@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.app.pickcourse.mapper.ReportMapper">
-    <insert id="saveReport">
+    <insert id="postReportReplyList">
         <selectKey keyProperty="id" resultType="long" order="BEFORE">
             SELECT SEQ_REPORT.NEXTVAL FROM DUAL
         </selectKey>
         INSERT INTO TBL_REPORT
-               (ID)
+        (ID)
         VALUES(#{id})
     </insert>
 
@@ -57,7 +57,7 @@
                     WHERE RR.REPORT_REASON LIKE '%' || #{search.keyWord} || '%'
                     ORDER BY CREATED_DATE DESC) B
                     <![CDATA[
-                    WHERE  ROWNUM <= ${pagination.endRow}   )
+                    WHERE  ROWNUM <= #{pagination.endRow}   )
         WHERE  R >= #{pagination.startRow} ]]>
      </select>
 
@@ -74,4 +74,9 @@
         ) combined_results
     </select>
 
+    <delete id="deleteReplyList">
+        DELETE
+        FROM    TBL_REPORT
+        WHERE   ID  =  #{id}
+    </delete>
 </mapper>

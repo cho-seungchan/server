@@ -15,5 +15,9 @@ public interface ReplyReportMapper {
 
     List<ReportListDTO> getReportList(@Param("pagination") Pagination pagination, @Param("search") Search search);
 
-    void saveReplyReport(@Param("id") Long id, @Param("reportedId") Long replyId, @Param("memberId") Long memberId);
+    void postReportReplyList(@Param("id") Long id, @Param("reportedId") Long replyId, @Param("memberId") Long memberId);
+
+    void deleteReplyList(Long id);
+
+    List<Long> selectId(@Param("replyId") Long id);
 }

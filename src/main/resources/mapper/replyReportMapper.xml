@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.app.pickcourse.mapper.ReplyReportMapper">
-    <insert id="saveReplyReport">
+    <insert id="postReportReplyList">
         INSERT INTO TBL_REPLY_REPORT
               (ID,
                REPORTED_ID,
@@ -45,7 +45,7 @@
                         WHERE RR.REPORT_REASON LIKE '%' || #{search.keyWord} || '%'
                         ORDER BY CREATED_DATE DESC) B
                         <![CDATA[
-                 WHERE  ROWNUM <= ${pagination.endRow}   )
+                 WHERE  ROWNUM <= #{pagination.endRow}   )
         WHERE  R >= #{pagination.startRow} ]]>
     </select>
 
@@ -55,4 +55,15 @@
         WHERE RR.REPORT_REASON LIKE '%' || #{search.keyWord} || '%'
     </select>
 
+    <select id="selectId" resultType="long">
+        SELECT  ID
+        FROM    TBL_REPLY_REPORT
+        WHERE   REPORTED_ID  =  #{replyId}
+    </select>
+
+    <delete id="deleteReplyList">
+        DELETE
+        FROM    TBL_REPLY_REPORT
+        WHERE   ID  =  #{id}
+    </delete>
 </mapper>

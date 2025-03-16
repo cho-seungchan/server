@@ -1,6 +1,7 @@
 package com.app.pickcourse.mapper;
 
 import com.app.pickcourse.domain.dto.ReportListDTO;
+import com.app.pickcourse.domain.vo.ReportIdVO;
 import com.app.pickcourse.domain.vo.ReportVO;
 import com.app.pickcourse.util.Pagination;
 import com.app.pickcourse.util.Search;
@@ -16,7 +17,7 @@ public interface ReportMapper {
 
     List<ReportListDTO> getReportList(@Param("pagination") Pagination pagination, @Param("search") Search search);
 
-    void saveReport(ReportVO reportVO);
+    void postReportReplyList(ReportIdVO reportIdVO);
 
-
+    void deleteReplyList(Long replyId);
 }

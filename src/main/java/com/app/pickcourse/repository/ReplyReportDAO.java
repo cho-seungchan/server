@@ -6,6 +6,7 @@ import com.app.pickcourse.mapper.ReplyReportMapper;
 import com.app.pickcourse.util.Pagination;
 import com.app.pickcourse.util.Search;
 import lombok.RequiredArgsConstructor;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -23,5 +24,17 @@ public class ReplyReportDAO {
     // 신고 목록
     public List<ReportListDTO> getReportList(Pagination pagination, Search search) {
         return replyReportMapper.getReportList(pagination, search);
+    }
+
+    public void postReportReplyList(Long id, Long replyId, Long memberId){
+        replyReportMapper.postReportReplyList(id, replyId, memberId);
+    }
+
+    public void deleteReplyList(Long id) {
+        replyReportMapper.deleteReplyList(id);
+    }
+
+    public List<Long> selectId(Long id) {
+        return replyReportMapper.selectId(id);
     }
 }

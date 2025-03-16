@@ -36,11 +36,13 @@ public class Pagination {
         this.startPage = this.startPage == 0 ? 1 : this.startPage;
         // 검색창의 기존 검색 내용을 수정하고 page를 클릭했을 때, 조건에 맞는 데이타가 적을 경우 문제 발생 25.03.15 조승찬
         this.endPage = this.endPage > realEnd ? realEnd : endPage;
+        // this.endPage가 0일 때 1로 세트하므로 그 전으로 이동 25.03.16 조승찬
+        this.prev = startPage > 1;
+        this.next = realEnd != endPage;
+        // this.endPage가 0일 때 1로 세트하므로 그 전으로 이동 25.03.16 조승찬
         this.endPage = this.endPage == 0 ? 1 : this.endPage;
 
         this.endRow = rowCount * this.page;
         this.startRow = endRow - (rowCount - 1);
-        this.prev = startPage > 1;
-        this.next = realEnd != endPage;
     }
 }
