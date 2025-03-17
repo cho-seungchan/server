@@ -4,10 +4,7 @@ import com.app.pickcourse.domain.dto.*;
 import com.app.pickcourse.domain.vo.AdminVO;
 import com.app.pickcourse.domain.vo.MemberVO;
 import com.app.pickcourse.domain.vo.NoticeVO;
-import com.app.pickcourse.domain.vo.PathVO;
 import com.app.pickcourse.exception.DuplicateException;
-import com.app.pickcourse.mapper.FeedReportMapper;
-import com.app.pickcourse.mapper.ReplyMapper;
 import com.app.pickcourse.repository.*;
 import com.app.pickcourse.util.Pagination;
 import com.app.pickcourse.util.Search;
@@ -15,7 +12,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -274,8 +270,8 @@ public class AdminService {
         return list;
     }
 
-    public ReportDetailDTO getReportDetail(Long id, String source) {
-        ReportDetailDTO report = null;
+    public ReplyDetailDTO getReportDetail(Long id, String source) {
+        ReplyDetailDTO report = null;
         if (source.equals("FEED")) {
             report = feedDAO.getReportDetail(id);
         } else if (source.equals("REPLY")) {

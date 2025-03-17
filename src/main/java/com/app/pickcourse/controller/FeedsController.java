@@ -4,6 +4,7 @@ package com.app.pickcourse.controller;
 import com.app.pickcourse.domain.dto.ReplyActionDTO;
 import com.app.pickcourse.domain.dto.ReplyListDTO;
 import com.app.pickcourse.domain.vo.ReplyVO;
+import com.app.pickcourse.domain.vo.ReportVO;
 import com.app.pickcourse.service.FeedsService;
 import com.app.pickcourse.util.Pagination;
 import lombok.RequiredArgsConstructor;
@@ -62,10 +63,10 @@ public class FeedsController {
     // 댓글 신고 25.03.16 조승찬
     @PostMapping("/reply-list")
     @ResponseBody
-    public void postReportReplyList(@RequestBody ReplyVO replyVO) {
+    public void postReportReplyList(@RequestBody ReportVO reportVO) {
         log.info("postReportReplyList  들어옴");
 
-        feedsService.postReportReplyList(replyVO);
+        feedsService.postReportReplyList(reportVO);
     }
 
     @PostMapping("/reply")

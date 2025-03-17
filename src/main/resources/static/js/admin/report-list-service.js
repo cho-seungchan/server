@@ -6,7 +6,7 @@ function fetchReportDetail(source, id){
     return fetch(`/admin/report-detail/${id}?source=${source}`)
         .then(response => response.json())
         .then(data => {
-            reportModal(data.report)
+            reportModal(data.reply)
         })
         .catch(error => {
             console.error("course list 데이타를 가져오는 중 오류", error);

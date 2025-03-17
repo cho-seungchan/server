@@ -23,7 +23,7 @@
             #{replyContent})
     </insert>
 
-    <select id="getReportDetail" resultType="reportDetailDTO">
+    <select id="getReportDetail" resultType="replyDetailDTO">
         SELECT
             CASE
                 WHEN GR.FEED_ID IS NOT NULL THEN 'GENERAL_REPLY'
@@ -31,11 +31,12 @@
                 WHEN TR.FEED_ID IS NOT NULL THEN 'TOGETHER_REPLY'
             ELSE 'UNKNOWN'
             END AS source,
+            R.REPLY_CONTENT,
             R.ID AS id,
             M.MEMBER_NICKNAME AS memberNickname,
             M.ID AS memberId,
             TO_CHAR(R.CREATED_DATE, 'YYYY-MM-DD HH24:MI:SS') AS createdDate,
-            COALESCE(GR.FEED_ID, RR.FEED_ID, TR.FEED_ID) AS content
+            COALESCE(GR.FEED_ID, RR.FEED_ID, TR.FEED_ID) AS feedId
         FROM TBL_REPLY R
                  LEFT JOIN TBL_GENERAL_REPLY GR ON R.ID = GR.ID
                  LEFT JOIN TBL_REAL_REPLY RR ON R.ID = RR.ID
@@ -46,7 +47,7 @@
 
     <select id="getReplyList" resultType="replyListDTO">
         <![CDATA[
-        SELECT ROWNUM R, ID, REPLY_CONTENT, createdDate, feedId, memberId, MEMBER_NICKNAME
+        SELECT ID, REPLY_CONTENT, createdDate, feedId, memberId, MEMBER_NICKNAME
         FROM
         (
             SELECT ROWNUM R, ID, REPLY_CONTENT, createdDate, feedId, memberId, MEMBER_NICKNAME
@@ -66,7 +67,7 @@
                         LEFT JOIN TBL_TOGETHER_REPLY TR ON R.ID = TR.ID
                         LEFT JOIN TBL_MEMBER M ON M.ID = COALESCE(GR.MEMBER_ID, RR.MEMBER_ID, TR.MEMBER_ID)
                 WHERE   COALESCE(GR.FEED_ID, RR.FEED_ID, TR.FEED_ID) = #{feedId}
-                ORDER BY R.ID
+                ORDER BY R.ID DESC
                 ) B
              WHERE  ROWNUM <= #{pagination.endRow}
         )

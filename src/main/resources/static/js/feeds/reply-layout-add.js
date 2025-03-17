@@ -48,7 +48,7 @@ function addReplyListAndPage(replys, pagination) {
 
 
 // 신고 클릭시 모달창에서 신고 내용 입력
-function reportModalCreate() {
+function reportModalCreate(id) {
 
     document.querySelector(".reply-report-modal-body").innerHTML = `
         <div class="reply-report-modal">
@@ -64,6 +64,7 @@ function reportModalCreate() {
                     <button class="reply-reportConfirmBtn">확  인</button>
                 </div>             
             </div>
+            <div class="replyIdDiv" style="display: none;" > ${id} </div>
         </div>`;
     document.querySelector(".reply-report-modal-body").style.display = "flex";
 

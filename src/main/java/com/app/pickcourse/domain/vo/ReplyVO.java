@@ -10,8 +10,7 @@ import lombok.*;
 public class ReplyVO {
     @EqualsAndHashCode.Include
     private Long id;
-    private String reportedReason;
-    private Long feedId;
+    private String replyContent;
     private String createDate;
     private String updateDate;
 }

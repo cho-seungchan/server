@@ -9,11 +9,12 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class ReportDetailDTO {
+public class ReplyDetailDTO {
     private Long   id;
     private String source;
+    private String replyContent;
     private String memberNickname;
+    private Long   feedId;
     private Long   memberId;
     private String createdDate;
-    private String content;
 }

@@ -3,6 +3,7 @@ package com.app.pickcourse.service;
 import com.app.pickcourse.domain.dto.ReplyListDTO;
 import com.app.pickcourse.domain.vo.ReplyVO;
 import com.app.pickcourse.domain.vo.ReportIdVO;
+import com.app.pickcourse.domain.vo.ReportVO;
 import com.app.pickcourse.repository.*;
 import com.app.pickcourse.util.Pagination;
 import lombok.RequiredArgsConstructor;
@@ -56,10 +57,10 @@ public class FeedsService {
 
     }
 
-    public void postReportReplyList(ReplyVO replyVO) {
+    public void postReportReplyList(ReportVO reportVO) {
         ReportIdVO reportId = new ReportIdVO();
         reportDAO.postReportReplyList(reportId); // 슈퍼키 가져오기
-        replyReportDAO.postReportReplyList(reportId.getId(), replyVO.getId(), replyVO.getReportedReason(), 1l); // 로그인수정
+        replyReportDAO.postReportReplyList(reportId.getId(), reportVO.getId(), reportVO.getReportedReason(), 1l); // 로그인수정
 
     }
 }

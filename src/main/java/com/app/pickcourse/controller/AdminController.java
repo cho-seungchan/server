@@ -15,10 +15,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -216,15 +214,17 @@ public class AdminController {
         return ResponseEntity.ok(response);
     }
 
-    // 신고 상세 조회 25.03.14 조승찬
+    // 신고된 대상 상세 조회 25.03.14 조승찬
     @GetMapping("/report-detail/{id}")
     @ResponseBody
     public ResponseEntity<Map<String, Object>> getReportDetail(@PathVariable Long id,
                                                                @RequestParam String source) {
-        ReportDetailDTO report = adminService.getReportDetail(id, source);
+        ReplyDetailDTO reply = adminService.getReportDetail(id, source);
 
         Map<String,Object> response = new HashMap<>();
-        response.put("report", report);
+        response.put("reply", reply);
+
+        log.info(reply.toString());
 
         return ResponseEntity.ok(response);
     };

@@ -53,7 +53,7 @@
         ORDER BY f.CREATED_DATE DESC
     </select>
 
-    <select id="getReportDetail" resultType="reportDetailDTO">
+    <select id="getReportDetail" resultType="replyDetailDTO">
         SELECT
             CASE
                 WHEN GF.ID IS NOT NULL THEN 'GENERAL FEED REPORT'

@@ -810,6 +810,7 @@ form[name="deleteForm"] button:hover {
 
 .report-modal {
     width: 800px;
+    height: 500px;
     border: 1px solid #ccc;
     border-radius: 10px;
     padding: 20px;
@@ -865,6 +866,7 @@ form[name="deleteForm"] button:hover {
 
 /* contentDiv 스타일 */
 .reportModal-contentDiv {
+    height: 250px;
     margin-top: 20px; /* 타이틀과 간격 추가 */
     padding: 15px;
     border: 1px solid #ddd;

@@ -108,7 +108,7 @@ function initReportSearchForm(pagination, search) {
 }
 
 // 신고 상세 내역을 담아와서 모달 창으로 보여주기
-function reportModal(report) {
+function reportModal(reply) {
 
     document.querySelector(".admin-modal-body").innerHTML = `
         <div class="report-modal">
@@ -117,12 +117,12 @@ function reportModal(report) {
                 <span class="closeReportModal">&times;</span>
             </div>
             <div class="title">
-                <div class="reportModal-sourceDiv">구    분 ::&nbsp;&nbsp;${report.source}</div>
-                <div class="reportModal-memberNicknameDiv">작성자 ::&nbsp;&nbsp;${report.memberNickname}</div>
-                <div class="reportModal-createdDiv">작성일 ::&nbsp;&nbsp;${report.createdDate}</div>
+                <div class="reportModal-sourceDiv">구    분 ::&nbsp;&nbsp;${reply.source}</div>
+                <div class="reportModal-memberNicknameDiv">작성자 ::&nbsp;&nbsp;${reply.memberNickname}</div>
+                <div class="reportModal-createdDiv">작성일 ::&nbsp;&nbsp;${reply.createdDate}</div>
                 <div class="reportModal-introduce">내    용 ::</div>
             </div>
-            <div class="reportModal-contentDiv">${report.content}</div>
+            <div class="reportModal-contentDiv">${reply.replyContent}</div>
         </div>`;
     document.querySelector(".admin-modal-body").style.display = "flex";
 

@@ -1,14 +1,11 @@
 package com.app.pickcourse.repository;
 
 import com.app.pickcourse.domain.dto.NoticeListDTO;
-import com.app.pickcourse.domain.dto.ReportDetailDTO;
 import com.app.pickcourse.domain.vo.NoticeVO;
-import com.app.pickcourse.mapper.FeedMapper;
 import com.app.pickcourse.mapper.NoticeMapper;
 import com.app.pickcourse.util.Pagination;
 import com.app.pickcourse.util.Search;
 import lombok.RequiredArgsConstructor;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

@@ -45,7 +45,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     deleteReplyList(id, feedId);  // 삭제하고 처음부터 조회 레스트컨트롤러 함수
                 }
             } else if (e.target.textContent.trim() == "신고") {
-                reportModalCreate()
+                const  id = e.target.closest(".lcexfU").querySelector(".replyIdDiv").textContent.trim();
+                reportModalCreate(id)
             }
         }
 
@@ -68,14 +69,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // 신고 확인 버튼 클릭 시
         if (e.target.className == "reply-reportConfirmBtn") {
-                // const  id = e.target.closest(".lcexfU").querySelector(".replyIdDiv").textContent.trim();
-                // 신고 json data 생성
-                const sendData = {
-                    id : e.target.closest(".lcexfU").querySelector(".replyIdDiv").textContent.trim(), // 댓글 아이디
-                    reportedReason : e.target.closest(".reply-report-modal-body").querySelector(".reply-reportModal-ContentInput").value.trim(), // 신고 내용
-                    feedId : document.querySelector(".replyFeedId").value
-                }
-                reportReplyList(sendData);  // 신고처리만 하면 종료
+            // 신고 json data 생성
+            const sendData = {
+                // 모달창 생성될 때 div로 만들어 놓은 곳에서 id 가져오기
+                id : document.querySelector(".reply-report-modal-body").querySelector(".replyIdDiv").textContent.trim(), // 댓글 아이디
+                reportedReason : document.querySelector(".reply-report-modal-body").querySelector(".reply-reportModal-ContentInput").value.trim(), // 신고 내용
+                feedId : document.querySelector(".replyFeedId").value
+            }
+            reportReplyList(sendData);  // 신고처리만 하면 종료
+            // 모달창 클리어
+            document.querySelector(".reply-report-modal-body").innerHTML = ``;
+            document.querySelector(".reply-report-modal-body").style.display = "none";
+            alert("신고 되었습니다. ")
         }
 
 
