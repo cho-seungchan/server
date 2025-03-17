@@ -1,12 +1,14 @@
 package com.app.pickcourse.mapper;
 
 import com.app.pickcourse.domain.vo.AdminVO;
+import com.app.pickcourse.domain.vo.MemberVO;
 import com.app.pickcourse.util.Pagination;
 import com.app.pickcourse.util.Search;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 @Mapper
 public interface AdminMapper {
@@ -25,4 +27,17 @@ public interface AdminMapper {
 
     // 중복 체크
     int isAdminAccount(@Param("adminAccount") String adminAccount);
+
+    // 조회(아이디/비밀번호) (mapper)
+    public Optional<AdminVO> selectByAdminAccountAndAdminPassword(AdminVO adminVO);
+
+//    // 로그인 (DAO)
+//    public Optional<AdminVO> findByAdminAccountAndPassword(AdminVO adminVO){
+//        return adminMapper.selectByAdminAccountAndAdminPassword(adminVO);
+//    }
+
+//    // Admin 로그인 (Service)
+//    public Optional<AdminVO> adminLogin(AdminVO adminVO) {
+//        return adminDAO.findByAdminAccountAndPassword(adminVO);
+//    }
 }

@@ -55,7 +55,7 @@
                                         <ul>
                                             <li>- 내 정보 수정</li>
                                             <li>- 결제 내역</li>
-                                            <li>- 회원 탈퇴</li>
+                                            <li><a href="/my-page/userQuit">- 회원 탈퇴</a></li>
                                         </ul>
                                         <span> 내 목록 </span>
                                         <ul>
@@ -72,9 +72,9 @@
                                         </ul>
                                         <span>쪽지함</span>
                                         <ul>
-                                            <li>- 보낸 쪽지함</li>
-                                            <li>- 받은 쪽지함</li>
-                                            <li>- 쪽지 쓰기</li>
+                                            <li><a href="/my-page/messageList_Send">- 보낸 쪽지함</a></li>
+                                            <li><a href="/my-page/messageListReceive">- 받은 쪽지함</a></li>
+                                            <li><a href="/my-page/messageWrite">- 쪽지 쓰기</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -84,7 +84,7 @@
                                     >
                                         <a
                                             class="UserInfo__Wrapper-bt0psx-0 jgHvjG"
-                                            href="/my/profile"
+                                            href="/my-page/myPageModify"
                                             ><img
                                                 src="https://res.cloudinary.com/frientrip/image/fetch/c_fill,f_auto,g_center,q_auto/https://k.kakaocdn.net/dn/bXaPH0/btsK2yqBvZ8/GszNkcMupnQJ2FhKuMeRQK/img_110x110.jpg"
                                                 class="UserInfo__Image-bt0psx-1 ijgGxL"
@@ -92,15 +92,13 @@
                                             <div
                                                 class="UserInfo__TextWrapper-bt0psx-2 dPypOl"
                                             >
-                                                <div
-                                                    class="UserInfo__Nickname-bt0psx-3 hewsYu"
-                                                >
-                                                    박정근
+                                                <div class="UserInfo__Nickname-bt0psx-3 hewsYu">
+                                                    <span th:text="${session.member != null ? session.member.memberNickname : ''}"></span>
                                                 </div>
-                                                <div
-                                                    class="UserInfo__Account-bt0psx-4 hOMBPU"
-                                                >
-                                                    카카오톡 계정
+
+                                                <div class="UserInfo__Account-bt0psx-4 hOMBPU">
+                                                    <span th:if="${session.memberStatus == 'kakao'}">카카오톡 계정</span>
+                                                    <span th:if="${session.memberStatus == 'email'}">이메일 계정</span>
                                                 </div>
                                             </div></a
                                         >

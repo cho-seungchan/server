@@ -27,22 +27,25 @@ public class MemberService {
     }
 
     //    이메일로 회원 조회
-    public Optional<MemberVO> getMember(String memberEmail) {
+    public Optional<MemberDTO> getMember(String memberEmail) {
         return memberDAO.findByMemberEmail(memberEmail);
     }
 
     public void update(MemberDTO memberDTO){
+        Optional<MemberDTO> member = memberDAO.findById(memberDTO.getId());
+
+        memberDTO.setMemberEmail(member.get().getMemberEmail());
+        memberDTO.setMemberTell(member.get().getMemberTell());
+
         memberDAO.set(memberDTO.toVO());
     }
 
     // 회원 삭제
-    public void delete(MemberDTO memberDTO) {
-        memberDAO.delete(memberDTO.toVO());
-    }
+    public void delete(Long id) {memberDAO.delete(id);}
 
     // 이메일 로그인
-    public Optional<MemberVO> login(MemberVO memberVO) {
-        return memberDAO.findByMemberEmailAndPassword(memberVO);
+    public Optional<MemberDTO> login(MemberDTO memberDTO) {
+        return memberDAO.findByMemberEmailAndPassword(memberDTO);
     }
 
     // 닉네임 중복검사
@@ -50,7 +53,26 @@ public class MemberService {
         return memberMapper.findByNickname(nickname);
     }
 
+
+    public boolean checkPassword(Long id, String oldPassword) {
+        Optional<MemberDTO> optionalMember = memberMapper.selectById(id);
+
+        if (optionalMember.isEmpty()) {
+            return false; // 존재하지 않는 회원이면 false 반환
+        }
+
+        MemberDTO member = optionalMember.get();
+
+        // 🚨 기존 비밀번호가 틀릴 경우, 예외를 던지지 않고 false 반환
+        return member.getMemberPassword().equals(oldPassword);
+    }
 //    비밀번호 변경
-    public void updatePassword(MemberDTO memberDTO) {memberDAO.updateMemberPassword(memberDTO.toVO());}
+    public void updatePassword(Long userId, String newPassword) {
+        memberMapper.updatePassword(userId, newPassword);
+    }
+
+    public boolean checkNicknameDuplicate(String memberNickname) {
+        return memberDAO.checkNicknameDuplicate(memberNickname);
+    }
 
 }

@@ -1,5 +1,6 @@
 package com.app.pickcourse.mapper;
 
+import com.app.pickcourse.domain.dto.MemberDTO;
 import com.app.pickcourse.domain.vo.MemberVO;
 import com.app.pickcourse.util.Pagination;
 import com.app.pickcourse.util.Search;
@@ -31,13 +32,13 @@ public interface MemberMapper {
     public void insert(MemberVO memberVO);
 
     //    조회(아이디/비밀번호)
-    public Optional<MemberVO> selectByMemberEmailAndMemberPassword(MemberVO memberVO);
+    public Optional<MemberDTO> selectByMemberEmailAndMemberPassword(MemberDTO memberDTO);
 
     //    이메일 중복 검사
     public int selectCountByMemberEmail(String memberEmail);
 
     //    조회(회원 번호)
-    public Optional<MemberVO> selectById(Long id);
+    public Optional<MemberDTO> selectById(Long id);
 
     //    수정
     public void update(MemberVO memberVO);
@@ -49,7 +50,7 @@ public interface MemberMapper {
     public void kakaoInsert(MemberVO memberVO);
 
     //    조회(이메일)
-    public Optional<MemberVO> selectByMemberEmail(String memberEmail);
+    public Optional<MemberDTO> selectByMemberEmail(String memberEmail);
 
     // 이메일로 사용자 ID 조회
     Optional<Long> selectIdByEmail(String email);
@@ -57,7 +58,12 @@ public interface MemberMapper {
     // 닉네임 중복검사
     public Optional<MemberVO> findByNickname(String nickname);
 
-//    비밀번호 변경
-    public void updatePassword(MemberVO memberVO);
+    // 비밀번호 조회
+    String getCurrentPassword(Long id);
+
+    // 비밀번호 변경하기
+    void updatePassword(@Param("id") Long id, @Param("memberPassword") String newPassword);
+
+    int countByNickname(@Param("memberNickname") String memberNickname);
 
 }

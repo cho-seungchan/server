@@ -41,17 +41,4 @@ public class MemberDTO {
         return memberVO;
     }
 
-    public static MemberDTO fromVO(MemberVO memberVO) {
-        MemberDTO memberDTO = new MemberDTO();
-        memberDTO.setId(memberVO.getId());
-        memberDTO.setMemberEmail(memberVO.getMemberEmail());
-        memberDTO.setMemberPassword(memberVO.getMemberPassword());
-        memberDTO.setMemberNickname(memberVO.getMemberNickname());
-        memberDTO.setMemberTell(memberVO.getMemberTell());
-        memberDTO.setMemberBirth(memberVO.getMemberBirth());
-        memberDTO.setMemberGender(memberVO.getMemberGender());
-        return memberDTO;
-    }
-
-
 }

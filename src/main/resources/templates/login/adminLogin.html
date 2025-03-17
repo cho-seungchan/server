@@ -46,7 +46,7 @@
                     rel="stylesheet"
                 />
 
-                <title>로그인</title>
+                <title>관리자 로그인</title>
             </head>
             <body class="fontLoaded">
             <header th:replace="/all/header.html :: #main-header"></header>
@@ -60,13 +60,13 @@
                                 <h3>로그인</h3>
                             </div>
                             <form
-                                    action="/login/adminLogin" method="post" th:object="${adminDTO}"
+                                    action="/login/adminLogin" method="post"
                                     class="LoginRegister__LoginRegisterForm-gtp545-0 fjvnva"
                             >
                                 <div>
                                     <!-- 이메일 형식이 올바르지 않을때 input class에 inputError를 추가해주고 iRBMai를 삭제한다-->
                                     <input
-                                        th:field="*{adminAccount}" required
+
                                         type="text"
                                         placeholder="아이디"
                                         class="Form__Input-sc-1quypp7-1 iRBMai idInput"
@@ -76,7 +76,7 @@
                                 </div>
                                 <div>
                                     <input
-                                        th:field="*{adminPassword}" required
+
                                         type="password"
                                         placeholder="비밀번호"
                                         class="Form__Input-sc-1quypp7-1 iRBMai passwordInput"

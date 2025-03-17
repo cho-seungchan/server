@@ -5,7 +5,7 @@
                 <div class="GlobalNavigationBar__TopNavMenu-og74wb-4 kgHgrk">함께하는 피커스</div>
             </div>
             <div class="GlobalNavigationBar__TopNavMenuNodeListWrapper-og74wb-3 dlTKtS">
-                <a class="withLink__StyledLink-zuberk-0 lQqkn" href="/intro?redirectPath=%2Fsocial-feeds">
+                <a class="withLink__StyledLink-zuberk-0 lQqkn" href="/introduce/introduce-main">
                     <div class="GlobalNavigationBar__TopNavMenu-og74wb-4 kgHgrk">사이트 소개</div>
                 </a>
                 <!-- 로그인하지 않은 경우 -->
@@ -15,10 +15,20 @@
                 <a th:if="${session.member == null}" class="withLink__StyledLink-zuberk-0 lQqkn" href="/login/login">
                     <div class="GlobalNavigationBar__TopNavMenu-og74wb-4 kgHgrk">로그인</div>
                 </a>
-                <!-- 로그인한 경우 (일반 로그인 or 카카오 로그인) -->
-                <a th:if="${session.member != null}" class="withLink__StyledLink-zuberk-0 lQqkn" href="/my/profile">
+
+                <!-- 일반 회원 프로필 링크 -->
+                <a th:if="${session.member != null and session.memberStatus != 'admin'}"
+                   class="withLink__StyledLink-zuberk-0 lQqkn" href="/my-page/myPageModify">
                     <div class="GlobalNavigationBar__TopNavMenu-og74wb-4 kgHgrk">
-                        <span th:text="${session.member != null ? session.member.memberNickname : ''}"></span> 님
+                        <span th:text="${session.member.memberNickname}"></span> 님
+                    </div>
+                </a>
+
+                <!-- 관리자 프로필 링크 -->
+                <a th:if="${session.member != null and session.memberStatus == 'admin'}"
+                   class="withLink__StyledLink-zuberk-0 lQqkn" href="/admin/dashboard">
+                    <div class="GlobalNavigationBar__TopNavMenu-og74wb-4 kgHgrk">
+                        <span th:text="'관리자 ' + ${session.member.adminName}"></span> 님
                     </div>
                 </a>
 
@@ -34,6 +44,7 @@
                         <button type="submit" class="jfHerU">카카오 로그아웃</button>
                     </div>
                 </form>
+
                 <a class="withLink__StyledLink-zuberk-0 lQqkn" href="/help">
                     <div class="GlobalNavigationBar__TopNavMenu-og74wb-4 kgHgrk">자주 묻는 질문</div>
                 </a>
@@ -71,7 +82,7 @@
                         <span class="GlobalNavigationBar__MainLabel-og74wb-12 hqQfQn">피드</span>
                     </div>
                 </a>
-                <a class="withLink__StyledLink-zuberk-0 lQqkn" href="/messageList">
+                <a class="withLink__StyledLink-zuberk-0 lQqkn" href="my-page/messageListReceive">
                     <div class="GlobalNavigationBar__MainNavMenu-og74wb-10 fqlSHx">
                         <div class="GlobalNavigationBar__IconWrapper-og74wb-11 bXkqmJ">
                             <img src="data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E %3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M5.66816 0H14.3318C17.4622 0 20 2.53538 20 5.66283V10.2346C20 12.0805 19 13.2722 17.7439 14.7485V14.7559L13.1831 18.7067C12.4035 19.382 11.2067 18.8163 11.2067 17.7725V15.8975H5.66816C2.53777 15.8975 0 13.3621 0 10.2346V5.66283C0 2.53538 2.53777 0 5.66816 0ZM6.20039 9.08643C6.86313 9.08643 7.40039 8.53792 7.40039 7.8613C7.40039 7.18469 6.86313 6.63618 6.20039 6.63618C5.53765 6.63618 5.00039 7.18469 5.00039 7.8613C5.00039 8.53792 5.53765 9.08643 6.20039 9.08643ZM11.4 7.8613C11.4 8.53792 10.8627 9.08643 10.2 9.08643C9.53726 9.08643 9 8.53792 9 7.8613C9 7.18469 9.53726 6.63618 10.2 6.63618C10.8627 6.63618 11.4 7.18469 11.4 7.8613ZM14.2002 9.08643C14.8629 9.08643 15.4002 8.53792 15.4002 7.8613C15.4002 7.18469 14.8629 6.63618 14.2002 6.63618C13.5375 6.63618 13.0002 7.18469 13.0002 7.8613C13.0002 8.53792 13.5375 9.08643 14.2002 9.08643Z' fill='%23AAAAAA'/%3E %3C/svg%3E" alt="메시지-icon">
@@ -87,7 +98,7 @@
                         <span class="GlobalNavigationBar__MainLabel-og74wb-12 hqQfQn">찜</span>
                     </div>
                 </a>
-                <a class="withLink__StyledLink-zuberk-0 lQqkn" href="/my/frips/upcoming">
+                <a class="withLink__StyledLink-zuberk-0 lQqkn" href="/my-page/myMain">
                     <div class="GlobalNavigationBar__MainNavMenu-og74wb-10 fqlSHx">
                         <div class="GlobalNavigationBar__IconWrapper-og74wb-11 bXkqmJ">
                             <img src="data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E %3Cpath d='M17 11H3L1 17.4H19L17 11Z' fill='%23AAAAAA'/%3E %3Ccircle cx='10' cy='5' r='4.5' fill='%23AAAAAA'/%3E %3C/svg%3E" alt="마이-icon">

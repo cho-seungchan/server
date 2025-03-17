@@ -37,7 +37,7 @@ public class MemberDAOTests {
 
     @Test
     public void findByMemberEmailTest() {
-        Optional<MemberVO> foundMember = memberDAO.findByMemberEmail("dao2@test.com");
+        Optional<MemberDTO> foundMember = memberDAO.findByMemberEmail("dao2@test.com");
         log.info(foundMember.toString());
     }
 
@@ -52,7 +52,7 @@ public class MemberDAOTests {
 
         memberDAO.set(memberVO);
 
-        Optional<MemberVO> updatedMember = memberDAO.findByMemberEmail("dao@test.com");
+        Optional<MemberDTO> updatedMember = memberDAO.findByMemberEmail("dao@test.com");
         log.info(updatedMember.toString());
     }
 
@@ -65,11 +65,11 @@ public class MemberDAOTests {
     @Test
     public void findByMemberEmailAndPasswordTest() {
 
-        MemberVO memberVO = new MemberVO();
-        memberVO.setMemberEmail("dao@test.com");
-        memberVO.setMemberPassword("1234");
+        MemberDTO memberDTO = new MemberDTO();
+        memberDTO.setMemberEmail("dao@test.com");
+        memberDTO.setMemberPassword("1234");
 
-        Optional<MemberVO> result = memberDAO.findByMemberEmailAndPassword(memberVO);
+        Optional<MemberDTO> result = memberDAO.findByMemberEmailAndPassword(memberDTO);
 
         log.info("조회된 회원 정보: {}", result);
     }

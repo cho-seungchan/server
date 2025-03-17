@@ -99,7 +99,7 @@ public class MemberController {
         memberService.join(memberDTO);
 
         // 로그인 상태 유지
-        MemberVO member = memberService.getMember(memberDTO.getMemberEmail()).get();
+        MemberDTO member = memberService.getMember(memberDTO.getMemberEmail()).get();
         session.setAttribute("memberStatus", "email");
         session.setAttribute("member", member);
 
@@ -112,6 +112,8 @@ public class MemberController {
         // 회원가입 후 마이페이지로 이동
         return "redirect:/my-page/myPageModify";
     }
+
+
 
 
 

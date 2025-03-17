@@ -1,7 +1,9 @@
 package com.app.pickcourse.controller;
 
 import com.app.pickcourse.domain.dto.MemberDTO;
+import com.app.pickcourse.domain.vo.AdminVO;
 import com.app.pickcourse.domain.vo.MemberVO;
+import com.app.pickcourse.service.AdminService;
 import com.app.pickcourse.service.MemberService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Optional;
 
@@ -31,34 +34,59 @@ public class LoginController {
     }
 
     @PostMapping("login")
-    public String login(@ModelAttribute MemberDTO memberDTO) {
+    public String login(@ModelAttribute MemberDTO memberDTO, RedirectAttributes redirectAttributes) {
+        memberDTO.setMemberEmail(memberDTO.getMemberEmail());
+        memberDTO.setMemberPassword(memberDTO.getMemberPassword());
 
-        MemberVO memberVO = new MemberVO();
-        memberVO.setMemberEmail(memberDTO.getMemberEmail());
-        memberVO.setMemberPassword(memberDTO.getMemberPassword());
+        Optional<MemberDTO> optionalMember = memberService.login(memberDTO);
 
-        Optional<MemberVO> optionalMember = memberService.login(memberVO);
+        if (optionalMember.isEmpty() ||
+                optionalMember.get().getMemberPassword() == null ||
+                !optionalMember.get().getMemberPassword().equals(memberDTO.getMemberPassword())) {
 
-        if (optionalMember.isEmpty()) {
+            redirectAttributes.addFlashAttribute("error", "이메일 또는 비밀번호가 올바르지 않습니다.");
             return "redirect:/login/login";
         }
 
-        MemberVO member = optionalMember.get();
-
-        if (member.getMemberPassword() == null ||
-                !member.getMemberPassword().equals(memberDTO.getMemberPassword())) {
-            return "redirect:/login/login";
-        }
+        MemberDTO member = optionalMember.get();
         session.setAttribute("memberStatus", "email");
         session.setAttribute("member", member);
+
         return "redirect:/";
     }
 
-    @GetMapping("adminLogin")
-    public String goToAdminLoginForm(Model model) {
-        return "login/adminLogin";
-    }
 
+    @GetMapping("updatePasswordLogin")
+    public void updatePasswordLogin(@ModelAttribute MemberDTO memberDTO) {}
+
+//    AdminController
+//    @GetMapping("adminLogin")
+//    public String goToAdminLoginForm(Model model) {
+//        return "login/adminLogin";
+//    }
+//
+//    @PostMapping("adminLogin")
+//    public String adminLogin(@ModelAttribute AdminVO adminVO) {
+//
+//        adminVO.setAdminAccount(adminVO.getAdminAccount());
+//        adminVO.setAdminPassword(adminVO.getAdminPassword());
+//
+//        Optional<AdminVO> optionalAdmin = adminService.adminLogin(adminVO);
+//
+//        if (optionalAdmin.isEmpty()) {
+//            return "redirect:/login/adminLogin";
+//        }
+//
+//        AdminVO admin = optionalAdmin.get();
+//
+//        if (admin.getAdminPassword() == null ||
+//                !admin.getAdminPassword().equals(adminVO.getAdminPassword())) {
+//            return "redirect:/login/adminLogin";
+//        }
+//
+//        session.setAttribute("admin", admin);
+//        return "redirect:/admin/admin";
+//    }
 
 
 
