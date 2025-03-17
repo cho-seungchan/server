@@ -869,3 +869,24 @@ address, em, var {
     font-size: 16px;
     transition: all 0.3s ease;
 }
+
+.AppLayout_contents__YmI3N.active {
+    transition: transform 0.3s ease-in-out;
+    transform: translateX(-15%);
+}
+.AppLayout_contents__YmI3N {
+    transition: transform 0.3s ease-in-out;
+    transform: translateX(0);
+}
+.notFoundCourseType {
+    position: fixed; /* 요소를 화면 중앙에 고정 */
+    top: 20%;
+    left: 35%;
+    transform: translate(-50%, -50%); /* 정확히 가운데로 이동 */
+    text-align: center; /* 텍스트 중앙 정렬 */
+}
+
+.notFoundCourseType h1{
+    font-weight: bold; /* 폰트 진하게 설정 */
+    font-size: 40px; /* 폰트 크기 설정 */
+}

@@ -1,11 +1,12 @@
 // 2025.03.09 조승찬
 // 코스 목록 생성하는 함수
 function createCourseList() {
+    listObserverPause = false;  // 동적요소 생성 감시 시작
+
     const baseContainer = document.querySelector(".AppLayout_contents__YmI3N");
     baseContainer.innerHTML = ``;
 
     baseContainer.innerHTML = `
-    <div id="AppLayout_Contents" class="AppLayout_contents__YmI3N" >
        <main class="FundingPage_container__NDhmM">
            <div id="FundingPage_Content" class="FundingPage_box__OGY3N" >
                <section>
@@ -46,6 +47,7 @@ function createCourseList() {
                                        <div class="adminNameDiv" > Admin Name </div>
                                        <div class="courseNameDiv" > Course Name </div>
                                        <div class="courseAddressDiv" > Course Theme </div>
+                                       <div class="courseIsVolunteerDiv" > Volunteer </div>
                                        <div class="courseTypeDiv" > Course Type </div>
                                    </div>
 <!--                                   2025.03.08 조승찬 추가 -->
@@ -83,7 +85,7 @@ function createCourseList() {
                                                            <option value="u">Using Course</option>
                                                        </select>
                                                        <input type="text" name="keyWord">
-                                                       <a class="search button primary icon solid fa-search">검색</a>
+                                                       <a class="search button primary icon solid fa-courseList-search">검색</a>
                                                    </div>
                                                </div>
                                            </div>
@@ -99,6 +101,5 @@ function createCourseList() {
                </section>
            </div>
        </main>
-   </div>
    `;
 };

@@ -63,7 +63,7 @@ public class CourseMapperTests {
     }
 
     @Test
-    public void patchEditCourseTest() {
+    public void putCourseDetailTest() {
         CourseVO course = new CourseVO();
         course.setId(4l);
         course.setCourseName("서울");
@@ -74,6 +74,6 @@ public class CourseMapperTests {
         course.setCourseFilePath("C:\\temp\\relax.png");
         course.setCourseFileSize("1.5kb");
         course.setCourseFileName("hue");
-        mapper.patchEditCourse(course);
+        mapper.putCourseDetail(course);
     }
 }

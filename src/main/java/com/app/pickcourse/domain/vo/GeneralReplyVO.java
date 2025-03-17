@@ -12,5 +12,5 @@ public class GeneralReplyVO {
     private Long id;
 
     private Long memberId;
-    private Long generalFeedId;
+    private Long feedId;
 }

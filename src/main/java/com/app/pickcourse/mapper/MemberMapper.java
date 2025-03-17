@@ -24,6 +24,10 @@ public interface MemberMapper {
 
     // 회원 목록 조회
     List<MemberVO> getMemberList(@Param("pagination") Pagination pagination, @Param("search") Search search);
+    // 활동회원 목록 조회
+    List<MemberVO> getMemberListActY(@Param("pagination") Pagination pagination, @Param("search") Search search);
+    // 활동 정지 회원 목록 조회
+    List<MemberVO> getMemberListActN(@Param("pagination") Pagination pagination, @Param("search") Search search);
 
     // 회원 추방
     void deleteMemberList(Long id);

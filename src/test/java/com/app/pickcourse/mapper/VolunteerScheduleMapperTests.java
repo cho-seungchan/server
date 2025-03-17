@@ -32,7 +32,7 @@ public class VolunteerScheduleMapperTests {
     }
 
     @Test
-    public void deleteEditCourse() {
-        mapper.deleteEditCourse(129l);
+    public void deleteCourseDetail() {
+        mapper.deleteCourseDetail(129l);
     }
 }

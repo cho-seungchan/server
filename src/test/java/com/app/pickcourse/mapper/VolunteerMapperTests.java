@@ -27,12 +27,12 @@ public class VolunteerMapperTests {
     }
 
     @Test
-    public void patchEditCourse() {
+    public void putCourseDetail() {
         VolunteerVO volunteer = new VolunteerVO();
         volunteer.setId(129l);
         volunteer.setVolunteerStartDate(String.valueOf(LocalDate.parse("2025-03-15")));
         volunteer.setVolunteerEndDate(String.valueOf(LocalDate.parse("2025-03-20")));
         volunteer.setVolunteerDeadline(String.valueOf(LocalDate.parse("2025-03-10")));
-        mapper.patchEditCourse(volunteer);
+        mapper.putCourseDetail(volunteer);
     }
 }

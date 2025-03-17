@@ -9,8 +9,8 @@ public class VolunteerPrepareVO {
     @EqualsAndHashCode.Include
     private Long   id;
 
-    private String volunteerPrepareContent;
-    private Long   courseId;
+    private String prepareContent;
+    private Long   volunteerId;
     private String createdDate;
     private String updatedDate;
 }

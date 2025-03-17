@@ -10,7 +10,7 @@ document.querySelector(".oflaA").addEventListener("input", () => {
             .classList.remove("FEhZA");
         document.querySelector(
             ".CurrentTextAreaSection__SubmitButton-sc-1l5sqeb-5"
-        ).style.cursor = "default";
+        ).style.cursor = "cursor";
     } else {
         document
             .querySelector(".CurrentTextAreaSection__SubmitButton-sc-1l5sqeb-5")

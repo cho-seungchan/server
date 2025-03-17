@@ -1,18 +1,18 @@
-let menuBtn = document.querySelector(".AppLayout_expandNavButton__NTEwM");
-let nav = document.querySelector(".AppNavbarLayout_container__NmY5O");
-
-menuBtn.addEventListener("click", function () {
-    nav.classList.toggle("active");
-});
-
-let div = document.querySelector(".AppLayout_contents__YmI3N");
-menuBtn.addEventListener("click", function () {
-    div.classList.toggle("active");
-});
-
-menuBtn.addEventListener("click", function () {
-    menuBtn.classList.toggle("active");
-});
+// let menuBtn = document.querySelector(".AppLayout_expandNavButton__NTEwM");
+// let nav = document.querySelector(".AppNavbarLayout_container__NmY5O");
+//
+// menuBtn.addEventListener("click", function () {
+//     nav.classList.toggle("active");
+// });
+//
+// let div = document.querySelector(".AppLayout_contents__YmI3N");
+// menuBtn.addEventListener("click", function () {
+//     div.classList.toggle("active");
+// });
+//
+// menuBtn.addEventListener("click", function () {
+//     menuBtn.classList.toggle("active");
+// });
 
 document.addEventListener("DOMContentLoaded", function () {
     const checkboxAll = document.querySelector(".checkboxall");
@@ -119,7 +119,7 @@ document.addEventListener("DOMContentLoaded", function () { // HTML이 로드된
 
         const pageValue = pageLink.getAttribute("href"); // href 값 가져오기
         if (pageValue) {
-            // document.querySelector("input[name=page]").value = pageValue; // input[name=page] 값 변경
+            e.preventDefault(); // 기본 동작 방지
             document.querySelector(".adminList").value = pageValue;
             document.forms["searchForm"].submit(); // 폼 제출
         }
