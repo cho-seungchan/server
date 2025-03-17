@@ -754,7 +754,7 @@ form[name="deleteForm"] button:hover {
 
 }
 /*신고내용 더보기를 위한 설정 */
-.reportReasonDiv {
+.reportedReasonDiv {
     display: -webkit-box; /* Flexbox 기반으로 레이아웃 설정 */
     -webkit-line-clamp: 1; /* 줄 수 설정 */
     -webkit-box-orient: vertical; /* 박스 방향을 수직으로 설정 */
@@ -775,7 +775,7 @@ form[name="deleteForm"] button:hover {
     border-radius: 4px;
 }
 
-.reportReasonDiv.expanded {
+.reportedReasonDiv.expanded {
     -webkit-line-clamp: unset; /* 줄 제한 해제 */
     overflow: visible;
 }
@@ -787,7 +787,7 @@ form[name="deleteForm"] button:hover {
 }
 /*신고내용 더보기를 위한 설정 */
 
-.reportListDiv .reportReason {
+.reportListDiv .reportedReason {
     text-align: left;
     padding-left: 10px; /* 여백 추가 */
 }

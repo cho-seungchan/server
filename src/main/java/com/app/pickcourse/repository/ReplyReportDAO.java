@@ -1,6 +1,7 @@
 package com.app.pickcourse.repository;
 
 import com.app.pickcourse.domain.dto.ReportListDTO;
+import com.app.pickcourse.domain.vo.ReplyVO;
 import com.app.pickcourse.mapper.FeedReportMapper;
 import com.app.pickcourse.mapper.ReplyReportMapper;
 import com.app.pickcourse.util.Pagination;
@@ -26,8 +27,8 @@ public class ReplyReportDAO {
         return replyReportMapper.getReportList(pagination, search);
     }
 
-    public void postReportReplyList(Long id, Long replyId, Long memberId){
-        replyReportMapper.postReportReplyList(id, replyId, memberId);
+    public void postReportReplyList(Long id, Long reportedId, String reportedReason, Long memberId){
+        replyReportMapper.postReportReplyList(id, reportedId, reportedReason, memberId);
     }
 
     public void deleteReplyList(Long id) {

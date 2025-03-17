@@ -12,7 +12,7 @@ import lombok.ToString;
 public class ReportListDTO {
     private Long   id;
     private String source;
-    private String reportReason;
+    private String reportedReason;
     private String createdDate;
     private Long   reportedId;
     private Long   memberId;

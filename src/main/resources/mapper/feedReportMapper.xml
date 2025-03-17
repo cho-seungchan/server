@@ -16,7 +16,7 @@
         SELECT
             ID,
             SOURCE,
-            REPORT_REASON,
+            REPORTED_REASON,
             CREATED_DATE,
             REPORTED_ID,
             MEMBER_ID,
@@ -26,7 +26,7 @@
                  ROWNUM R,
                  ID,
                  SOURCE,
-                 REPORT_REASON,
+                 REPORTED_REASON,
                  CREATED_DATE,
                  REPORTED_ID,
                  MEMBER_ID,
@@ -35,7 +35,7 @@
                  (SELECT
                         FR.ID AS ID,
                         'FEED' AS SOURCE,
-                        FR.REPORT_REASON,
+                        FR.REPORTED_REASON,
                         TO_CHAR(FR.CREATED_DATE, 'YYYY-MM-DD HH24:MI:SS') AS CREATED_DATE,
                         FR.REPORTED_ID,
                         FR.MEMBER_ID,
@@ -43,7 +43,7 @@
                         FROM TBL_FEED_REPORT FR
                                  JOIN TBL_MEMBER M
                                       ON FR.MEMBER_ID = M.ID
-                        WHERE FR.REPORT_REASON LIKE '%' || #{search.keyWord} || '%'
+                        WHERE FR.REPORTED_REASON LIKE '%' || #{search.keyWord} || '%'
                         ORDER BY CREATED_DATE DESC) B
                         <![CDATA[
                   WHERE  ROWNUM <= #{pagination.endRow}   )
@@ -53,7 +53,7 @@
     <select id="getCountAll" resultType="_int">
         SELECT COUNT(*)
                  FROM TBL_FEED_REPORT FR
-        WHERE FR.REPORT_REASON LIKE '%' || #{search.keyWord} || '%'
+        WHERE FR.REPORTED_REASON LIKE '%' || #{search.keyWord} || '%'
     </select>
 
 </mapper>

@@ -3,6 +3,7 @@ package com.app.pickcourse.controller;
 
 import com.app.pickcourse.domain.dto.ReplyActionDTO;
 import com.app.pickcourse.domain.dto.ReplyListDTO;
+import com.app.pickcourse.domain.vo.ReplyVO;
 import com.app.pickcourse.service.FeedsService;
 import com.app.pickcourse.util.Pagination;
 import lombok.RequiredArgsConstructor;
@@ -59,12 +60,12 @@ public class FeedsController {
     }
 
     // 댓글 신고 25.03.16 조승찬
-    @PostMapping("/reply-list/{id}")
+    @PostMapping("/reply-list")
     @ResponseBody
-    public void postReportReplyList(@PathVariable Long id) {
+    public void postReportReplyList(@RequestBody ReplyVO replyVO) {
         log.info("postReportReplyList  들어옴");
 
-        feedsService.postReportReplyList(id);
+        feedsService.postReportReplyList(replyVO);
     }
 
     @PostMapping("/reply")

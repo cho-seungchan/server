@@ -6,7 +6,7 @@
         INSERT INTO TBL_TOGETHER_REPLY
                 (ID,
                  MEMBER_ID,
-                 TOGETHER_FEED_ID)
+                 FEED_ID)
         VALUES
                 (#{replyId},
                  #{memberId},
@@ -19,7 +19,7 @@
             r.REPLY_CONTENT,
             r.CREATED_DATE,
             r.UPDATED_DATE,
-            gr.TOGETHER_FEED_ID,
+            gr.FEED_ID,
             gr.MEMBER_ID,
             m.MEMBER_NICKNAME
         FROM  TBL_REPLY r
@@ -27,7 +27,7 @@
         ON    r.ID = gr.ID
         JOIN  TBL_MEMBER m
         ON    gr.MEMBER_ID = m.ID
-        WHERE gr.TOGETHER_FEED_ID   = #{feedId}
+        WHERE gr.FEED_ID   = #{feedId}
         ORDER BY r.CREATED_DATE DESC
     </select>
 

@@ -33,11 +33,11 @@ function deleteReplyList(id, feedId) {
 }
 
 // 댓글 신고
-function reportReplyList(id) {
-    return fetch(`/feeds/reply-list/${id}`, {
+function reportReplyList(sendData) {
+    return fetch(`/feeds/reply-list`, {
         method: "POST",
         headers: {"Content-type": "application/json"},
-        body: JSON.stringify({ id: id })
+        body: JSON.stringify(sendData)
     })
         .then(response => {
             if (!response.ok){

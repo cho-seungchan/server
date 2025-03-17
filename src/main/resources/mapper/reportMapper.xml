@@ -14,7 +14,7 @@
         SELECT
             ID,
             SOURCE,
-            REPORT_REASON,
+            REPORTED_REASON,
             CREATED_DATE,
             REPORTED_ID,
             MEMBER_ID,
@@ -24,7 +24,7 @@
                 ROWNUM R,
                 ID,
                 SOURCE,
-                REPORT_REASON,
+                REPORTED_REASON,
                 CREATED_DATE,
                 REPORTED_ID,
                 MEMBER_ID,
@@ -33,7 +33,7 @@
                     (SELECT
                         FR.ID AS ID,
                         'FEED' AS SOURCE,
-                        FR.REPORT_REASON,
+                        FR.REPORTED_REASON,
                         TO_CHAR(FR.CREATED_DATE, 'YYYY-MM-DD HH24:MI:SS') AS CREATED_DATE,
                         FR.REPORTED_ID,
                         FR.MEMBER_ID,
@@ -41,12 +41,12 @@
                     FROM TBL_FEED_REPORT FR
                     JOIN TBL_MEMBER M
                         ON FR.MEMBER_ID = M.ID
-                    WHERE FR.REPORT_REASON LIKE '%' || #{search.keyWord} || '%'
+                    WHERE FR.REPORTED_REASON LIKE '%' || #{search.keyWord} || '%'
                     UNION ALL
                     SELECT
                         RR.ID AS ID,
                         'REPLY' AS SOURCE,
-                        RR.REPORT_REASON,
+                        RR.REPORTED_REASON,
                         TO_CHAR(RR.CREATED_DATE, 'YYYY-MM-DD HH24:MI:SS') AS CREATED_DATE,
                         RR.REPORTED_ID,
                         RR.MEMBER_ID,
@@ -54,7 +54,7 @@
                     FROM TBL_REPLY_REPORT RR
                     JOIN TBL_MEMBER M
                     ON RR.MEMBER_ID = M.ID
-                    WHERE RR.REPORT_REASON LIKE '%' || #{search.keyWord} || '%'
+                    WHERE RR.REPORTED_REASON LIKE '%' || #{search.keyWord} || '%'
                     ORDER BY CREATED_DATE DESC) B
                     <![CDATA[
                     WHERE  ROWNUM <= #{pagination.endRow}   )
@@ -66,11 +66,11 @@
         FROM (
             SELECT *
             FROM TBL_FEED_REPORT FR
-            WHERE FR.REPORT_REASON LIKE '%' || #{search.keyWord} || '%'
+            WHERE FR.REPORTED_REASON LIKE '%' || #{search.keyWord} || '%'
             UNION ALL
             SELECT *
             FROM TBL_REPLY_REPORT RR
-            WHERE RR.REPORT_REASON LIKE '%' || #{search.keyWord} || '%'
+            WHERE RR.REPORTED_REASON LIKE '%' || #{search.keyWord} || '%'
         ) combined_results
     </select>
 

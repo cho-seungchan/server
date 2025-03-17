@@ -7,13 +7,13 @@ function addReportList(reports) {
     // 리스트 데이터 매핑
     reports.forEach(report => {
         const reportRow = document.createElement("li");
-        if (report.reportReason.length > 94) {
+        if (report.reportedReason.length > 94) {
             reportRow.innerHTML =
                 `<div class="reportListDiv">
                 <div class="reportIdDiv" style="display: none;" > ${report.id} </div>   
                 <div class="sourceDiv" > ${report.source} </div>                             
                 <div class="reportedIdDiv" style="display: none;"> ${report.reportedId} </div>
-                <div class="reportReasonDiv"> ${report.reportReason}</div>
+                <div class="reportedReasonDiv"> ${report.reportedReason}</div>
                 <button class="reportMore">더보기</button> 
                 <div class="createdDateDiv" > ${report.createdDate} </div>
                 <div class="memberNicknameDiv" > ${report.memberNickname} </div>
@@ -25,7 +25,7 @@ function addReportList(reports) {
                 <div class="reportIdDiv" style="display: none;" > ${report.id} </div>   
                 <div class="sourceDiv" > ${report.source} </div>                             
                 <div class="reportedIdDiv" style="display: none;"> ${report.reportedId} </div>
-                <div class="reportReason"> ${report.reportReason} </div>
+                <div class="reportedReason"> ${report.reportedReason} </div>
                 <span class="noMore"></span> 
                 <div class="createdDateDiv" > ${report.createdDate} </div>
                 <div class="memberNicknameDiv" > ${report.memberNickname} </div>

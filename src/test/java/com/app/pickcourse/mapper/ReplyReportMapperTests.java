@@ -20,7 +20,7 @@ public class ReplyReportMapperTests {
         ReportIdVO reportVO = new ReportIdVO();
         reportMapper.postReportReplyList(reportVO);
 
-        mapper.postReportReplyList(reportVO.getId(), 1l, 1l);
+        mapper.postReportReplyList(reportVO.getId(), 1l, "ggg", 1l);
     }
 
 

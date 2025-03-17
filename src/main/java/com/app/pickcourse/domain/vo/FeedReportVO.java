@@ -6,7 +6,7 @@ import lombok.*;
 @Getter @Setter @ToString
 public class FeedReportVO {
     private Long   id;
-    private String reportReason;
+    private String reportedReason;
     private Long   reportedId;
     private Long   memberId;
     private String createdDate;

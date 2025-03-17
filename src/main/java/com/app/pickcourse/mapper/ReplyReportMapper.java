@@ -15,7 +15,7 @@ public interface ReplyReportMapper {
 
     List<ReportListDTO> getReportList(@Param("pagination") Pagination pagination, @Param("search") Search search);
 
-    void postReportReplyList(@Param("id") Long id, @Param("reportedId") Long replyId, @Param("memberId") Long memberId);
+    void postReportReplyList(@Param("id") Long id, @Param("reportedId") Long replyId, @Param("reportedReason") String reportedReason, @Param("memberId") Long memberId);
 
     void deleteReplyList(Long id);
 

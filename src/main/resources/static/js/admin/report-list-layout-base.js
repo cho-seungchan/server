@@ -27,7 +27,7 @@ function createReportList() {
                                        <div class="reportIdDiv" style="display: none;" > Id </div>
                                        <div class="SourceDiv" > Source </div>
                                        <div class="reportedIdDiv" style="display: none;"> Source Id </div>
-                                       <div class="reportReason">Details of Report </div>
+                                       <div class="reportedReason">Details of Report </div>
                                        <div class="moreDiv"></div>
                                        <div class="createdDateDiv" > Reporting Date </div>
                                        <div class="memberNicknameDiv" > Reporting Member </div>
