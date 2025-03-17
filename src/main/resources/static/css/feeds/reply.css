@@ -9,6 +9,7 @@
     min-height: 100vh;
 }
 .hcLOFI {
+    left: 0%;
     width: 100%;
     display: flex;
     -webkit-box-pack: center;
@@ -16,8 +17,10 @@
     -webkit-box-align: center;
     align-items: center;
     height: 65px;
-    position: relative;
     border-bottom: 1px solid rgb(238, 238, 238);
+    z-index: 1000;      /* 본문이 스크롤 될 때 뒤로 움직이는 효과 */
+    position: fixed;   /* 본문이 스크롤 될 때 뒤로 움직이는 효과 */
+    background-color: rgb(255, 255, 255);   /* 본문이 스크롤 될 때 뒤로 움직이는 효과 */
 }
 .hcLOFI h3 {
     font-size: 18px;
@@ -29,7 +32,7 @@
     margin: 0px;
 }
 .gyWKha {
-    margin-top: 10px;
+    margin-top: 80px;
     padding: 0px 20px;
 }
 .dSDVFj {

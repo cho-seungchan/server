@@ -37,8 +37,9 @@ function addReplyListAndPage(replys, pagination) {
         `;
 
         document.querySelector(".replyList-container").appendChild(replyAddLine); // 새로 생성된 리스트 추가
-
+        replyAddLine.scrollIntoView({ behavior: "smooth", block: "start" });
     })
+
     document.querySelector("footer").innerHTML = ``; // 기존의 더보기 삭제
     if (pagination.next) {  // 다음 페이지가 존재하면 더보기 추가
         document.querySelector("footer").innerHTML = `

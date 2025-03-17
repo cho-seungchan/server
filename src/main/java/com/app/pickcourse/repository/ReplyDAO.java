@@ -6,6 +6,7 @@ import com.app.pickcourse.domain.vo.ReplyVO;
 import com.app.pickcourse.mapper.FeedMapper;
 import com.app.pickcourse.mapper.ReplyMapper;
 import com.app.pickcourse.util.Pagination;
+import com.app.pickcourse.util.PaginationOnePage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -25,7 +26,7 @@ public class ReplyDAO {
         return replyMapper.getCountAll(feedId);
     }
 
-    public List<ReplyListDTO> getReplyList(Long feedId, Pagination pagination) {
+    public List<ReplyListDTO> getReplyList(Long feedId, PaginationOnePage pagination) {
         return replyMapper.getReplyList(feedId, pagination);
     }
 
@@ -39,5 +40,13 @@ public class ReplyDAO {
 
     public String selectTypeOfFeed(Long feedId) {
         return feedMapper.selectTypeOfFeed(feedId);
+    }
+
+    public int getMyCountAll(long loginId) {
+        return replyMapper.getMyCountAll(loginId);
+    }
+
+    public List<ReplyListDTO> getMyReplyList(long loginId, PaginationOnePage pagination) {
+        return replyMapper.getMyReplyList(loginId, pagination);
     }
 }

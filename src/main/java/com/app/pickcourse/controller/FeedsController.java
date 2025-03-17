@@ -7,6 +7,7 @@ import com.app.pickcourse.domain.vo.ReplyVO;
 import com.app.pickcourse.domain.vo.ReportVO;
 import com.app.pickcourse.service.FeedsService;
 import com.app.pickcourse.util.Pagination;
+import com.app.pickcourse.util.PaginationOnePage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -27,18 +28,20 @@ public class FeedsController {
 
     // 댓글 목록 조회 :: 25.03.16 조승찬
     @GetMapping("/reply-list/{feedId}")
-    public String getReplyList(@PathVariable Long feedId, Pagination pagination, Model model) {
+    public String getReplyList(@PathVariable Long feedId, PaginationOnePage pagination, Model model) {
 
         List<ReplyListDTO> replys = feedsService.getReplyList(feedId, pagination);
+        log.info("pagination  "+pagination.toString());
         model.addAttribute("replys", replys);  // 댓글 목록
-        model.addAttribute("replyAction", new ReplyActionDTO());  // 입력될 댓글을 받아올 객체
+        model.addAttribute("replyAction", new ReplyActionDTO()); // 입력될 댓글을 받아올 객체
+        model.addAttribute("pagination", pagination);
         return "/feeds/reply-list";
     }
 
     // 댓글 목록 추가 조회 레스트컨트롤러 방식:: 25.03.16 조승찬
     @GetMapping("/reply-list/api/{feedId}")
     @ResponseBody
-    public ResponseEntity<Map<String, Object>> getReplyListApi(@PathVariable Long feedId, Pagination pagination) {
+    public ResponseEntity<Map<String, Object>> getReplyListApi(@PathVariable Long feedId, PaginationOnePage pagination) {
 
         List<ReplyListDTO> replys = feedsService.getReplyList(feedId, pagination);
         Map<String, Object> response = new HashMap<>();
@@ -85,13 +88,39 @@ public class FeedsController {
 
     // 나의 댓글 목록 조회 :: 25.03.17 조승찬
     @GetMapping("/my/reply-list")
-    public String getMyReplyList(Pagination pagination, Model model) {
+    public String getMyReplyList(PaginationOnePage pagination, Model model) {
 
-        List<ReplyListDTO> replys = feedsService.getMyReplyList(1l, pagination);  //로그인수정
+        List<ReplyListDTO> replys = feedsService.getMyReplyList(21l, pagination);  //로그인수정
         model.addAttribute("replys", replys);  // 댓글 목록
+        model.addAttribute("replyAction", new ReplyActionDTO()); // 입력될 댓글을 받아올 객체
+        model.addAttribute("pagination", pagination);
+
         return "/feeds/my-reply-list";
     }
 
+    // 댓글 목록 추가 조회 레스트컨트롤러 방식:: 25.03.17 조승찬
+    @GetMapping("/my/reply-list/api")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> getMyReplyListApi(PaginationOnePage pagination) {
+
+        List<ReplyListDTO> replys = feedsService.getMyReplyList(21l, pagination); // 로그인수정
+        Map<String, Object> response = new HashMap<>();
+        response.put("replys", replys);
+        response.put("pagination", pagination);
+        return ResponseEntity.ok(response);
+
+    }
+
+    // 댓글 삭제 레스트컨트롤러 방식 => 컨트롤러 방식으로 redirect :: 25.03.17 조승찬
+    @DeleteMapping("/my/reply-list/{id}")
+    @ResponseBody
+    public Map<String, Object> deleteMyReplyList(@PathVariable Long id) {
+
+        feedsService.deleteReplyList(id);
+        Map<String, Object> response = new HashMap<>();
+        response.put("redirectUrl", "/feeds/my/reply-list?page=" + 1); // 1페이지부터 조회
+        return response;
+    }
 
     @GetMapping("/list")
     public String getFeedList(Model model) {

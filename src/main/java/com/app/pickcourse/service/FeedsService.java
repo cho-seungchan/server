@@ -6,6 +6,7 @@ import com.app.pickcourse.domain.vo.ReportIdVO;
 import com.app.pickcourse.domain.vo.ReportVO;
 import com.app.pickcourse.repository.*;
 import com.app.pickcourse.util.Pagination;
+import com.app.pickcourse.util.PaginationOnePage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -24,21 +25,20 @@ public class FeedsService {
     private final ReportDAO reportDAO;
     private final ReplyReportDAO replyReportDAO;
 
-    public List<ReplyListDTO> getReplyList(Long feedId, Pagination pagination) {
+    public List<ReplyListDTO> getReplyList(Long feedId, PaginationOnePage pagination) {
         pagination.create(replyDAO.getCountAll(feedId));
-        log.info(pagination.toString());
+        log.info("replyDAO.getCountAll(feedId) "+replyDAO.getCountAll(feedId));
 
         List<ReplyListDTO> list = replyDAO.getReplyList(feedId, pagination);
 
         // 로그인 회원과 작성자가 같으면 '삭제' 다르면 '신고'
         list.forEach( reply -> {
-            if ( reply.getMemberId() == 2){  // 로그인수정
+            if ( reply.getMemberId() == 21){  // 로그인수정
                 reply.setReplyAction("삭제");
             } else {
                 reply.setReplyAction("신고");
             }
 
-            log.info("댓글 내용  "+reply.toString());
         });
         return list;
     }
@@ -75,7 +75,7 @@ public class FeedsService {
         String typeOfFeed = replyDAO.selectTypeOfFeed(replyVO.getFeedId());
 
         // 피드 종류별 댓글 입력
-        replyVO.setMemberId(1l);   // 로그인수정
+        replyVO.setMemberId(21l);   // 로그인수정
         if (typeOfFeed.equals("GENERAL FEED")) {
             generalReplyDAO.postReplyList(replyVO);
         } else if (typeOfFeed.equals("REAL FEED")) {
@@ -86,10 +86,10 @@ public class FeedsService {
 
     }
 
-    public List<ReplyListDTO> getMyReplyList(long id, Pagination pagination) {
-        pagination.create(replyDAO.getCountAll(id));
+    public List<ReplyListDTO> getMyReplyList(long loginId, PaginationOnePage pagination) {
+        pagination.create(replyDAO.getMyCountAll(loginId));
 
-        List<ReplyListDTO> list = replyDAO.getReplyList(id, pagination);
+        List<ReplyListDTO> list = replyDAO.getMyReplyList(loginId, pagination);
 
         // 삭제 버튼 생성
         list.forEach( reply -> {
