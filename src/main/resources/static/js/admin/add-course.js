@@ -87,7 +87,7 @@ kebabmenu.addEventListener("click", () => {
         Math.floor((endDateConv - startDateConv) / (1000 * 60 * 60 * 24)) + 1;
     for (let i = 0; i < days; i++) {
         detailOfDateContainer.innerHTML += ` <p>${i + 1}일차 계획서</p>
-            <textarea data-index=${i} placeholder="상세 일정을 적어보세요 (아래 사진첨부로 대체 가능)"
+            <textarea data-index=${i} placeholder="상세 일정을 적어보세요"
             maxlength="1200"  class="Textarea__StyledTextarea-sc-1b9phu6-1 kmqQeBdetail"></textarea>
             <p class="Textarea__Count-sc-1b9phu6-2 jvAusQdetail">0 / 1200</p>`;
     }

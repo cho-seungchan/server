@@ -13,4 +13,12 @@ public class VolunteerDAO {
     public void postAddCourse(VolunteerVO volunteerVO) {
         volunteerMapper.postAddCourse(volunteerVO);
     }
+
+    public void putCourseDetail(VolunteerVO volunteerVO) {
+        volunteerMapper.putCourseDetail(volunteerVO);
+    }
+
+    public void deleteCourseDetail(Long id) {
+        volunteerMapper.deleteCourseDetail(id);
+    }
 }

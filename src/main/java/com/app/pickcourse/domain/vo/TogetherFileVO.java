@@ -10,5 +10,5 @@ import lombok.*;
 public class TogetherFileVO {
     @EqualsAndHashCode.Include
         private Long id;
-        private Long togetherFeedId;
+        private Long feedId;
 }

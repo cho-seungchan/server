@@ -17,5 +17,5 @@ public interface VolunteerScheduleMapper {
     List<String> getCourseDetail(Long volunteerId);
 
     // 추천 코스 수정 :: 모두 삭제 후 모두 등록
-    void deleteEditCourse(Long volunteerId);
+    void deleteCourseDetail(Long volunteerId);
 }

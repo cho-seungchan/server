@@ -1041,3 +1041,35 @@ html [type="button"],
 #lightboxBackdrop > div button[class^="arrow_"] svg {
     fill: #fff;
 }
+.FvtMb {
+    cursor: pointer;
+    justify-items: flex-end;
+}
+button, html [type="button"], [type="reset"], [type="submit"] {
+    -webkit-appearance: button;
+}
+.bBEXIV {
+    padding: 0px 20px 10px;
+    font-size: 16px;
+    line-height: 20px;
+    color: rgb(78, 89, 104);
+}
+* {
+    outline: none;
+    font-family: inherit;
+}
+*, ::before, ::after {
+    background-repeat: no-repeat;
+    box-sizing: inherit;
+}
+.cUlkXY:last-child {
+    border-bottom: initial;
+}
+.cUlkXY {
+    display: block;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+    padding: 10px 0px;
+    border-bottom: 1px solid rgb(238, 238, 238);
+}

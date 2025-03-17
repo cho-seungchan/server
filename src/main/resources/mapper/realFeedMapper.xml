@@ -49,7 +49,7 @@
                      JOIN     TBL_REAL_FEED r
                               ON       f.ID = r.ID
                      LEFT JOIN     TBL_REAL_STAR s
-                              ON       f.ID  =  s.REAL_FEED_ID
+                              ON       f.ID  =  s.FEED_ID
         WHERE    r.MEMBER_ID = #{memberId}
     </select>
 
@@ -65,7 +65,7 @@
                      JOIN     TBL_REAL_FEED r
                               ON       f.ID = r.ID
                      LEFT JOIN     TBL_REAL_STAR s
-                                   ON       f.ID  =  s.REAL_FEED_ID
+                                   ON       f.ID  =  s.FEED_ID
         WHERE    f.ID = #{id}
     </select>
 

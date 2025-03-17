@@ -21,15 +21,15 @@
         DELETE FROM TBL_FILE
         WHERE ID IN (
             SELECT ID FROM TBL_GENERAL_FILE
-            WHERE GENERAL_FEED_ID = #{feedId}
+            WHERE FEED_ID = #{feedId}
         )
            OR ID IN (
             SELECT ID FROM TBL_REAL_FILE
-            WHERE REAL_FEED_ID = #{feedId}
+            WHERE FEED_ID = #{feedId}
         )
            OR ID IN (
             SELECT ID FROM TBL_TOGETHER_FILE
-            WHERE TOGETHER_FEED_ID = #{feedId}
+            WHERE FEED_ID = #{feedId}
         )
     </delete>
 

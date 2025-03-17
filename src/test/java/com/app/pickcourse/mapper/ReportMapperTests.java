@@ -1,6 +1,8 @@
 package com.app.pickcourse.mapper;
 
-import com.app.pickcourse.domain.vo.ReportVO;
+import com.app.pickcourse.domain.dto.ReportListDTO;
+import com.app.pickcourse.util.Pagination;
+import com.app.pickcourse.util.Search;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +18,7 @@ public class ReportMapperTests {
 
     @Test
     public void saveFeedReport() {
-        List<ReportVO> list = mapper.getReportList();
+        List<ReportListDTO> list = mapper.getReportList(new Pagination(), new Search());
         list.forEach(System.out::println);
     }
 

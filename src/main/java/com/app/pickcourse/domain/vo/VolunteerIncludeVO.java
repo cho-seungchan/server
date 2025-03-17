@@ -9,8 +9,8 @@ public class VolunteerIncludeVO {
     @EqualsAndHashCode.Include
     private Long   id;
 
-    private String volunteerIncludeContent;
-    private Long   courseId;
+    private String includeContent;
+    private Long   volunteerId;
     private String createdDate;
     private String updatedDate;
 }

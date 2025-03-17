@@ -2,7 +2,7 @@ package com.app.pickcourse.mapper;
 
 import com.app.pickcourse.domain.dto.FeedDTO;
 import com.app.pickcourse.domain.dto.FeedListDTO;
-import com.app.pickcourse.domain.dto.ReviewDTO;
+import com.app.pickcourse.domain.dto.ReplyDetailDTO;
 import com.app.pickcourse.domain.vo.FeedVO;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -24,4 +24,5 @@ public interface FeedMapper {
 
     void deleteFeedModifyList(Long id);
 
+    Optional<ReplyDetailDTO> getReportDetail(Long id);
 }

@@ -54,7 +54,6 @@ html [type="button"],
 [type="reset"],
 [type="submit"] {
     -webkit-appearance: button;
-    appearance: button; /* 표준 속성 */
 }
 
 .iaElYN {
@@ -164,7 +163,7 @@ button {
 }
 .button-container{
     margin-left: auto;
-};
+}
 .cpLLyp {
     display: flex;
     -webkit-box-pack: justify;
@@ -971,7 +970,6 @@ html [type="button"],
 [type="reset"],
 [type="submit"] {
     -webkit-appearance: button;
-    appearance: button;
 }
 #lightboxBackdrop > div button[class^="arrow_"] svg {
     fill: #fff;
@@ -1011,7 +1009,6 @@ html [type="button"],
 [type="reset"],
 [type="submit"] {
     -webkit-appearance: button;
-    appearance: button;
 }
 #lightboxBackdrop > div button[class^="arrow_"] svg {
     fill: #fff;

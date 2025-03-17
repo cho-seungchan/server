@@ -1,18 +1,18 @@
-let menuBtn = document.querySelector(".AppLayout_expandNavButton__NTEwM");
-let nav = document.querySelector(".AppNavbarLayout_container__NmY5O");
-
-menuBtn.addEventListener("click", function () {
-    nav.classList.toggle("active");
-});
-
-let div = document.querySelector(".AppLayout_contents__Nzg1Z");
-menuBtn.addEventListener("click", function () {
-    div.classList.toggle("active");
-});
-
-menuBtn.addEventListener("click", function () {
-    menuBtn.classList.toggle("active");
-});
+// let menuBtn = document.querySelector(".AppLayout_expandNavButton__NTEwM");
+// let nav = document.querySelector(".AppNavbarLayout_container__NmY5O");
+//
+// menuBtn.addEventListener("click", function () {
+//     nav.classList.toggle("active");
+// });
+//
+// let div = document.querySelector(".AppLayout_contents__Nzg1Z");
+// menuBtn.addEventListener("click", function () {
+//     div.classList.toggle("active");
+// });
+//
+// menuBtn.addEventListener("click", function () {
+//     menuBtn.classList.toggle("active");
+// });
 
 // 시작일자가 오늘 날짜보다 작은지 확인. 종료일자가 시작일자보다 적은지 확인. 모집 마감일자가 종료일자보다 적은지 확인
 const firstDate = document.querySelector(".gcqwwh.startdate");
@@ -105,7 +105,7 @@ kebabmenu.addEventListener("click", () => {
         detailOfDateContainer.innerHTML += ` <p>${i + 1}일차 계획서</p>
             <textarea data-index=${i} placeholder="상세 일정을 적어보세요"
             maxlength="1200"  class="Textarea__StyledTextarea-sc-1b9phu6-1 kmqQeBdetail"></textarea>
-            <p class="Textarea__Count-sc-1b9phu6-2 jvAusQdetail">0 / 1200</p>`;
+            <p class="Textarea__Count-sc-1b9phu6-2 jvAusQdetail">0/1200</p>`;
     }
     numberOfPerson.parentNode.insertBefore(
         detailOfDateContainer,
@@ -117,7 +117,7 @@ kebabmenu.addEventListener("click", () => {
         .querySelector(".DetailOfDateContainer")
         .addEventListener("input", (e) => {
             if (e.target.classList.contains("kmqQeBdetail")) {
-                e.target.nextElementSibling.textContent = `${e.target.value.length} / 1200 (추천 글자수: 30자 이내)`;
+                e.target.nextElementSibling.textContent = `${e.target.value.length}/1200`;
             }
         });
     // textarea에 글자 입력시 입력된 글자 수 보여주기
@@ -418,9 +418,27 @@ function removeDestination(index) {
         let listItems = document.querySelectorAll("#destinationList li");
         listItems[index].remove();
 
-        // 📌 ✅ 삭제 후 번호 다시 정렬
+
+        // 25.03.12 조승찬 추가 시작 :: 지도에 나오는 태그 순번 수정
+        // 기존 모든 textOverlays 제거
+        textOverlays.forEach(overlay => overlay.setMap(null));
+        // textOverlays 비우기
+        textOverlays = [];
+        // 25.03.12 조승찬 추가 시작 :: 지도에 나오는 태그 순번 수정
+        // 삭제 후 번호 다시 정렬
         tourSpots.forEach((spot, i) => {
             spot.number = i + 1;
+
+            // // 25.03.12 조승찬 추가 시작 :: 지도에 나오는 태그 순번 수정
+            let textOverlay = new kakao.maps.CustomOverlay({
+                content: createOverlayContent(spot, i),
+                position: spot.latlng,
+                yAnchor: 1.2,
+                zIndex: 2,
+            });
+            textOverlay.setMap(map);
+            textOverlays.push(textOverlay);
+            // // 25.03.12 조승찬 추가 시작 :: 지도에 나오는 태그 순번 수정
         });
 
         // 전체 UI 다시 렌더링 (정확한 번호 정렬 보장)
@@ -526,14 +544,18 @@ function addDestination() {
 }
 
 // ✅ 지도 경로 업데이트 (총 거리 정상 표시)
+// 25.03.12 조승찬 수정 시작 :: 총거리 보여지도록 수정
 function updateRoute() {
     if (clickLine) clickLine.setMap(null);
     if (totalDistanceOverlay) totalDistanceOverlay.setMap(null);
 
     let linePath = tourSpots.map((spot) => spot.latlng);
 
-    if (tourSpots.length === 0) {
-        totalDistanceInput.value = "";
+    if (tourSpots.length < 2) {
+        if (previousDistanceOverlay) {
+            previousDistanceOverlay.setMap(null);  // 기존 오버레이 삭제
+        }
+        totalDistanceInput.value = "0 km";
         return;
     }
 
@@ -548,8 +570,157 @@ function updateRoute() {
 
     let totalDistance = (clickLine.getLength() / 1000).toFixed(1);
 
+
     totalDistanceInput.value = `${totalDistance} km`;
+    // // ✅ 거리 정보 HTML 생성 및 표시
+    let distanceInfoHTML = getTimeHTML(totalDistance);
+    showDistance(distanceInfoHTML, linePath[linePath.length - 1], map);
 }
+// 25.03.12 조승찬 수정 끝 :: 총거리 보여지도록 수정
+
+// 선을 그리는 함수
+function drawLine(tourSpots, map) {
+    let linePath = [];
+    tourSpots.forEach((tourSpot) => {
+        linePath.push(tourSpot.latlng);
+    });
+
+    clickLine = new kakao.maps.Polyline({
+        map: map,
+        path: linePath,
+        strokeWeight: 3,
+        strokeColor: "#db4040",
+        strokeOpacity: 1,
+        strokeStyle: "solid",
+    });
+
+    // 각 지점에 대한 거리 정보 표시
+    let distance = (Math.round(clickLine.getLength()) / 1000).toFixed(1);
+    let path = clickLine.getPath();
+    displayCircleDot(tourSpots[0].latlng, distance, map);
+
+    let content = getTimeHTML(distance); // 거리와 시간을 HTML로 변환
+    showDistance(content, path[path.length - 1], map);
+}
+
+
+// 거리와 시간을 표시하는 함수
+function getTimeHTML(distance) {
+    // 도보 시간 계산
+    let walkkTime = (distance / 0.067) | 0;
+    let walkHour = "",
+        walkMin = "";
+
+    if (walkkTime > 60) {
+        walkHour =
+            '<span class="number">' +
+            Math.floor(walkkTime / 60) +
+            "</span>시간 ";
+    }
+    walkMin = '<span class="number">' + (walkkTime % 60) + "</span>분";
+
+    // 자전거 시간 계산
+    let bycicleTime = (distance / 0.227) | 0;
+    let bycicleHour = "",
+        bycicleMin = "";
+
+    if (bycicleTime > 60) {
+        bycicleHour =
+            '<span class="number">' +
+            Math.floor(bycicleTime / 60) +
+            "</span>시간 ";
+    }
+    bycicleMin = '<span class="number">' + (bycicleTime % 60) + "</span>분";
+
+    let content = '<ul class="dotOverlay distanceInfo">';
+    content += "    <li>";
+    content +=
+        '        <span class="label">총거리</span><span class="number">' +
+        distance +
+        "</span>Km";
+    content += "    </li>";
+    content += "    <li>";
+    content += '        <span class="label">도보</span>' + walkHour + walkMin;
+    content += "    </li>";
+    content += "    <li>";
+    content +=
+        '        <span class="label">자전거</span>' + bycicleHour + bycicleMin;
+    content += "    </li>";
+    content += "</ul>";
+
+    return content;
+}
+
+
+// 거리 표시 함수
+let previousDistanceOverlay = null;
+function showDistance(content, position, map) {   // displayCircleDot 에 유사 기능 있음
+    // 이전에 표시된 오버레이가 있다면 삭제
+    if (previousDistanceOverlay) {
+        previousDistanceOverlay.setMap(null);  // 기존 오버레이 삭제
+    }
+
+    const distanceOverlay = new kakao.maps.CustomOverlay({
+        map: map,
+        content: content,
+        position: position,
+        xAnchor: 0,
+        yAnchor: -1,
+        zIndex: 3,
+    });
+
+    previousDistanceOverlay = distanceOverlay;
+}
+
+// 지점에 빨간 동그라미 표시하는 함수
+function displayCircleDot(position, distance, map) {   //createMarkers, showDistance 를 합친 기능과 유사
+    const circleOverlay = new kakao.maps.CustomOverlay({
+        content: '<span class="dot"></span>',
+        position: position,
+        zIndex: 1,
+    });
+    circleOverlay.setMap(map);
+
+    // if (distance > 0) {
+    //     const distanceOverlay = new kakao.maps.CustomOverlay({
+    //         content:
+    //             '<div class="dotOverlay">거리 <span class="number">' +
+    //             distance +
+    //             "</span>Km</div>",
+    //         position: position,
+    //         yAnchor: 2.2,
+    //         zIndex: 2,
+    //     });
+    //     distanceOverlay.setMap(map);
+    // }
+}
+
+
+// 화면 확장 축소
+document.querySelector("#fullMap").addEventListener("click", (e) => {
+    if (mapContainer.style.position === "fixed") {
+        mapContainer.style.position = "relative";
+        mapContainer.style.width = "100%";
+        mapContainer.style.height = "40vh";
+        mapContainer.style.zIndex = ""; // 맵이 다른 요소 위에 오도록 설정한거 해제
+        document.querySelector("#fullMap").style.position = "absolute";
+        // 지도의 중심을 새로운 좌표로 설정
+        map.relayout();
+        map.setCenter(initialCenter);
+    } else {
+        mapContainer.style.position = "fixed";
+        mapContainer.style.top = "0";
+        mapContainer.style.left = "0";
+        mapContainer.style.width = "100%";
+        mapContainer.style.height = "100vh";
+        mapContainer.style.zIndex = "1000"; // 맵이 다른 요소 위에 오도록 설정
+        document.querySelector("#fullMap").style.position = "fixed";
+        // 지도의 중심을 새로운 좌표로 설정
+        map.relayout();
+        map.setCenter(initialCenter);
+    }
+});
+// 화면 확장 축소
 
 // ✅ 중복 리스너 제거 후 다시 등록
 searchInput.removeEventListener("keypress", handleAddressEnter);

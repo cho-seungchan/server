@@ -12,5 +12,5 @@ public class RealStarVO {
     private Long id;
 
     private int realStar;
-    private Long realFeedId;
+    private Long feedId;
 }
