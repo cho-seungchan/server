@@ -13,7 +13,8 @@ function addReplyListAndPage(replys, pagination) {
                         <div class="Ratio" style="display: block" >
                             <div class="Ratio-ratio" style=" height: 0px; position: relative; width: 100%; padding-top: 100%; " >
                                 <div class="Ratio-content" style=" height: 100%; left: 0px; position: absolute; top: 0px; width: 100%; " >
-                                    <img class="Image__StyledImage-v97gyx-1 hPRDQO" width="36" height="36" src="https://res.cloudinary.com/frientrip/image/upload/c_fill,f_auto,g_center,q_auto/ios_image_391885_20230825111921027_79e3016429b8c2ed57ec60c14e00ba3680af64a25fa7349505f5db3a078839a2"/>
+<!--                                    <img class="Image__StyledImage-v97gyx-1 hPRDQO" width="36" height="36" src="https://res.cloudinary.com/frientrip/image/upload/c_fill,f_auto,g_center,q_auto/ios_image_391885_20230825111921027_79e3016429b8c2ed57ec60c14e00ba3680af64a25fa7349505f5db3a078839a2"/> -->
+                                    <img class="Image__StyledImage-v97gyx-1 hPRDQO" width="36" height="36" src="/images/feeds/reply.png"> 
                                 </div>
                             </div>
                         </div>

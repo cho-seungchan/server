@@ -2,6 +2,8 @@ package com.app.pickcourse.repository;
 
 import com.app.pickcourse.domain.dto.ReplyListDTO;
 import com.app.pickcourse.domain.dto.ReplyDetailDTO;
+import com.app.pickcourse.domain.vo.ReplyVO;
+import com.app.pickcourse.mapper.FeedMapper;
 import com.app.pickcourse.mapper.ReplyMapper;
 import com.app.pickcourse.util.Pagination;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ReplyDAO {
     private final ReplyMapper replyMapper;
+    private final FeedMapper feedMapper;
 
     public ReplyDetailDTO getReportDetail(Long id) {
         return replyMapper.getReportDetail(id).orElseThrow(() -> new RuntimeException("Report detail with ID " + id + " not found"));
@@ -28,5 +31,13 @@ public class ReplyDAO {
 
     public void deleteReplyList(Long id) {
         replyMapper.deleteReplyList(id);
+    }
+
+    public void postReplyList(ReplyVO replyVO) {
+        replyMapper.postReplyList(replyVO);
+    }
+
+    public String selectTypeOfFeed(Long feedId) {
+        return feedMapper.selectTypeOfFeed(feedId);
     }
 }

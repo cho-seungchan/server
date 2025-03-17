@@ -17,6 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 document.querySelector(
                     ".CurrentTextAreaSection__SubmitButton-sc-1l5sqeb-5"
                 ).style.cursor = "pointer";
+                document.querySelector(".reply_regist_button").disabled = false;
             } else {
                 document
                     .querySelector(".CurrentTextAreaSection__SubmitButton-sc-1l5sqeb-5")
@@ -27,13 +28,13 @@ document.addEventListener("DOMContentLoaded", function () {
                 document.querySelector(
                     ".CurrentTextAreaSection__SubmitButton-sc-1l5sqeb-5"
                 ).style.cursor = "not-allowed";
+                document.querySelector(".reply_regist_button").disabled = false;
             }
         }
     })
 
 
     document.body.addEventListener("click", e => {
-
         // 댓글 삭제 버튼 클릭시 이벤트
         if (e.target.classList.contains("kosXvh")){
             if (e.target.textContent.trim() == "삭제"){
@@ -41,7 +42,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (userConfirmed) {
                     const  id = e.target.closest(".lcexfU").querySelector(".replyIdDiv").textContent.trim();
                     const feedId = document.querySelector(".replyFeedId").value;
-                    // alert("삭제합니다 "+id+" "+feedId)
                     deleteReplyList(id, feedId);  // 삭제하고 처음부터 조회 레스트컨트롤러 함수
                 }
             } else if (e.target.textContent.trim() == "신고") {
@@ -55,7 +55,6 @@ document.addEventListener("DOMContentLoaded", function () {
         if (e.target.className == "moreReplyList") {
             const feedId = document.querySelector(".replyFeedId").value;
             const page = e.target.value; // 다음 조회할 페이지 설정
-            console.log(" 더보기 클릭 "+feedId+" "+page);
             fetchReplyListApi(feedId, page);
         }
 
@@ -83,7 +82,17 @@ document.addEventListener("DOMContentLoaded", function () {
             alert("신고 되었습니다. ")
         }
 
+        // 25.03.17 조승찬 시작
+        // 댓글 등록 버튼 클릭시
+        if (e.target.classList.contains("reply_regist_button")) {
+            const sendData = {
+                replyContent : document.querySelector(".reply_content_input").value,
+                feedId : document.querySelector(".replyFeedId").value
+            }
+            replyReplyList(sendData);   // 댓글 등록하고 처음부터 조회해서 등록 확인
+        }
 
+        // 25.03.17 조승찬 끝.
     })
 
 });

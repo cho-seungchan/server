@@ -2,6 +2,7 @@ package com.app.pickcourse.mapper;
 
 import com.app.pickcourse.domain.dto.ReplyListDTO;
 import com.app.pickcourse.domain.dto.ReplyDetailDTO;
+import com.app.pickcourse.domain.vo.ReplyVO;
 import com.app.pickcourse.util.Pagination;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -14,11 +15,12 @@ public interface ReplyMapper {
 
     int getCountAll(Long feedId);
 
-    void postReplyList(ReplyListDTO replyListDTO);
+    void postReplyList(ReplyVO replyVO);
 
     Optional<ReplyDetailDTO> getReportDetail(Long id);
 
     List<ReplyListDTO> getReplyList(@Param("feedId") Long feedId, @Param("pagination") Pagination pagination);
 
     void deleteReplyList(Long id);
+
 }

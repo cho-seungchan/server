@@ -33,7 +33,7 @@ public class ReportDAO {
         reportMapper.postReportReplyList(reportIdVO);
     }
 
-    public void deleteReplyList(Long replyId) {
-        reportMapper.deleteReplyList(replyId);
+    public void deleteReplyList(Long id) {
+        reportMapper.deleteReplyList(id);
     }
 }

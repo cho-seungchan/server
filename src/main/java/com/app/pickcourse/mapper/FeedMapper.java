@@ -25,4 +25,6 @@ public interface FeedMapper {
     void deleteFeedModifyList(Long id);
 
     Optional<ReplyDetailDTO> getReportDetail(Long id);
+
+    String selectTypeOfFeed(Long id);
 }

@@ -61,7 +61,7 @@ public class FeedsController {
     }
 
     // 댓글 신고 25.03.16 조승찬
-    @PostMapping("/reply-list")
+    @PostMapping("/reply-list/report")
     @ResponseBody
     public void postReportReplyList(@RequestBody ReportVO reportVO) {
         log.info("postReportReplyList  들어옴");
@@ -69,10 +69,29 @@ public class FeedsController {
         feedsService.postReportReplyList(reportVO);
     }
 
-    @PostMapping("/reply")
-    public String postReplyList(Model model) {
-        return "/feeds/reply-list";
+    // 댓글 등록  25.03.17 조승찬
+    @PostMapping("/reply-list")
+    @ResponseBody
+    public Map<String, Object> postReplyList(@RequestBody ReplyVO replyVO) {
+        log.info("Map<String, Object> postReplyList에 들어옴 "+replyVO.toString());
+        feedsService.postReplyList(replyVO);
+
+        Map<String, Object> response = new HashMap<>();
+        // 댓글 등록 후 첫 페이지로 이동 :: 등록 확인을 위해
+        response.put("redirectUrl", "/feeds/reply-list/" + replyVO.getFeedId() + "?page=" + 1);
+
+        return response;
     }
+
+    // 나의 댓글 목록 조회 :: 25.03.17 조승찬
+    @GetMapping("/my/reply-list")
+    public String getMyReplyList(Pagination pagination, Model model) {
+
+        List<ReplyListDTO> replys = feedsService.getMyReplyList(1l, pagination);  //로그인수정
+        model.addAttribute("replys", replys);  // 댓글 목록
+        return "/feeds/my-reply-list";
+    }
+
 
     @GetMapping("/list")
     public String getFeedList(Model model) {

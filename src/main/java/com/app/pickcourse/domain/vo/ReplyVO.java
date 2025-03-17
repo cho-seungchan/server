@@ -9,8 +9,10 @@ import lombok.*;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class ReplyVO {
     @EqualsAndHashCode.Include
-    private Long id;
+    private Long   id;
     private String replyContent;
+    private Long   memberId;
+    private Long   feedId;
     private String createDate;
     private String updateDate;
 }
