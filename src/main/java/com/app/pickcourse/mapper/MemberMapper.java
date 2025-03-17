@@ -61,5 +61,7 @@ public interface MemberMapper {
     // 닉네임 중복검사
     public Optional<MemberVO> findByNickname(String nickname);
 
+//    비밀번호 변경
+    public void updatePassword(MemberVO memberVO);
 
 }
