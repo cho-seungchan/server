@@ -3,6 +3,7 @@ package com.app.pickcourse.mapper;
 import com.app.pickcourse.domain.dto.ReceiveMessageDTO;
 import com.app.pickcourse.domain.dto.SendMessageDTO;
 import com.app.pickcourse.domain.vo.MessageVO;
+import com.app.pickcourse.util.Pagination;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,7 @@ public class MessageMapperTest {
         MessageVO messageVO = new MessageVO();
         messageVO.setContent(sendMessageDTO.getContent());
         messageMapper.insertMessage(messageVO); //슈퍼키 테이블 저장
+        log.info(messageVO.toString());
 
         // 메시지 ID 설정
         sendMessageDTO.setId(messageVO.getId());
@@ -63,10 +65,10 @@ public class MessageMapperTest {
 
     @Test
     public void testSelectReceivedMessages() {
-        Long receiverId = 1L; // 받은 사람 ID (테스트 계정)
+        Long receiverId = 2L; // 받은 사람 ID (테스트 계정)
 
         // 받은 쪽지 조회
-        List<ReceiveMessageDTO> receivedMessages = receiveMapper.selectReceiveMessagesByReceiverId(receiverId);
+        List<ReceiveMessageDTO> receivedMessages = receiveMapper.selectAllReceiveMessage(receiverId, new Pagination());
 
         // 로그 출력
         if (!receivedMessages.isEmpty()) {
@@ -85,8 +87,15 @@ public class MessageMapperTest {
         Long id = 3L;
 
         receiveMapper.deleteReceiveMessageById(id);
+    }
 
-
+    @Test
+    public void testSelectReceiveMessages() {
+        Pagination pagination = new Pagination();
+        Long receiverId = 2L;
+        pagination.create(5);
+        List<ReceiveMessageDTO> receivedMessages = receiveMapper.selectAllReceiveMessage(receiverId, pagination);
+        log.info(receivedMessages.toString());
     }
 
 }
