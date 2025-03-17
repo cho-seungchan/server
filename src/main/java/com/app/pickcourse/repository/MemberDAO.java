@@ -22,9 +22,27 @@ public class MemberDAO {
         return memberMapper.getCountAll(search);
     }
 
+    //    활동회원 전체 건수
+    public int getCountAllActY(Search search) {
+        return memberMapper.getCountAll(search);
+    }
+
+    //    활동정지 회원 전체 건수
+    public int getCountAllActN(Search search) {
+        return memberMapper.getCountAll(search);
+    }
+
     //    전체 멤버 조회
     public List<MemberVO> getMemberList(Pagination pagination, Search search) {
         return memberMapper.getMemberList(pagination, search);
+    }
+    //    활동회원 전체 멤버 조회
+    public List<MemberVO> getMemberListActY(Pagination pagination, Search search) {
+        return memberMapper.getMemberListActY(pagination, search);
+    }
+    //    활동정지 회원 전체 멤버 조회
+    public List<MemberVO> getMemberListActN(Pagination pagination, Search search) {
+        return memberMapper.getMemberListActN(pagination, search);
     }
 
     //    추가

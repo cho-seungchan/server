@@ -18,7 +18,7 @@ function fetchCourseList(page, type, keyWord){
 };
 
 function updateCourseType(sendData,page,type,keyWord) {
-    fetch("/admin/course-list", {
+    return fetch("/admin/course-list", {
         method: "PUT",
         headers: {"Content-type": "application/json"},
         body: JSON.stringify(sendData)

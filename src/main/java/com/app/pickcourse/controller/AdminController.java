@@ -40,13 +40,14 @@ public class AdminController {
 
     // 회원 관리 목록 조회 25.03.03 조승찬
     @GetMapping("/member-list")
-    public String getMemberList(Pagination pagination, Search search, Model model) {
+    public String getMemberList(@RequestParam(value = "isAct", required = false) Character isAct,
+                                Pagination pagination, Search search, Model model) {
 
-        log.info("회원 목록 "+pagination.toString()+" "+search.toString());
 
-        List<MemberVO> members = adminService.getMemberList(pagination, search);
+        List<MemberVO> members = adminService.getMemberList(isAct, pagination, search);
         model.addAttribute("members", members);
 
+        log.info("회원 목록 "+isAct+" "+pagination.toString()+" "+search.toString());
         return "/admin/member-list";
     }
 
@@ -91,7 +92,6 @@ public class AdminController {
     @GetMapping("/manage-admin-list")
     public String getManageAdminList(Pagination pagination, Search search, Model model) {
 
-        log.info(pagination.toString());
         List<AdminVO> admins = adminService.getManageAdminList(pagination, search);
         model.addAttribute("admins", admins);
         model.addAttribute("admin", new AdminVO());

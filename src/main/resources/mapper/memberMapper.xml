@@ -42,6 +42,55 @@
         <include refid="search"/>
     </select>
 
+    <select id="getMemberListActY" resultType="memberVO">
+        SELECT ID, MEMBER_EMAIL, MEMBER_PASSWORD, MEMBER_NICKNAME, MEMBER_TELL, MEMBER_BIRTH, MEMBER_GENDER, MEMBER_POINT, MEMBER_IS_ACT, CREATED_DATE, UPDATED_DATE
+        FROM
+        (SELECT ROWNUM R, ID, MEMBER_EMAIL, MEMBER_PASSWORD, MEMBER_NICKNAME, MEMBER_TELL, MEMBER_BIRTH, MEMBER_GENDER, MEMBER_POINT, MEMBER_IS_ACT, CREATED_DATE, UPDATED_DATE
+        FROM
+        (SELECT ID, MEMBER_EMAIL, MEMBER_PASSWORD, MEMBER_NICKNAME, MEMBER_TELL, MEMBER_BIRTH, MEMBER_GENDER, MEMBER_POINT, MEMBER_IS_ACT, CREATED_DATE, UPDATED_DATE
+        FROM    TBL_MEMBER
+        <include refid="search"/>
+        ORDER  BY ID DESC )  B
+        <![CDATA[
+            WHERE  ROWNUM <= #{pagination.endRow}   )
+        WHERE  R >= #{pagination.startRow} ]]>
+        AND    MEMBER_IS_ACT = 'Y'
+    </select>
+
+    <select id="getCountAllActY" resultType="_int">
+        SELECT COUNT(*)
+        FROM
+        (SELECT *
+        FROM TBL_MEMBER
+        <include refid="search"/>)
+        WHERE MEMBER_IS_ACT = 'Y'
+    </select>
+
+    <select id="getMemberListActN" resultType="memberVO">
+        SELECT ID, MEMBER_EMAIL, MEMBER_PASSWORD, MEMBER_NICKNAME, MEMBER_TELL, MEMBER_BIRTH, MEMBER_GENDER, MEMBER_POINT, MEMBER_IS_ACT, CREATED_DATE, UPDATED_DATE
+        FROM
+        (SELECT ROWNUM R, ID, MEMBER_EMAIL, MEMBER_PASSWORD, MEMBER_NICKNAME, MEMBER_TELL, MEMBER_BIRTH, MEMBER_GENDER, MEMBER_POINT, MEMBER_IS_ACT, CREATED_DATE, UPDATED_DATE
+        FROM
+        (SELECT ID, MEMBER_EMAIL, MEMBER_PASSWORD, MEMBER_NICKNAME, MEMBER_TELL, MEMBER_BIRTH, MEMBER_GENDER, MEMBER_POINT, MEMBER_IS_ACT, CREATED_DATE, UPDATED_DATE
+        FROM    TBL_MEMBER
+        <include refid="search"/>
+        ORDER  BY ID DESC )  B
+        <![CDATA[
+            WHERE  ROWNUM <= #{pagination.endRow}   )
+        WHERE  R >= #{pagination.startRow} ]]>
+        AND    MEMBER_IS_ACT = 'N'
+    </select>
+
+    <select id="getCountAllActN" resultType="_int">
+        SELECT COUNT(*)
+            FROM
+            (SELECT *
+            FROM TBL_MEMBER
+            <include refid="search"/>)
+        WHERE MEMBER_IS_ACT = 'N'
+    </select>
+
+
     <update id="patchMemberListPause">
         UPDATE    TBL_MEMBER
         SET

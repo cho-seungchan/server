@@ -84,7 +84,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         // 검색 클릭시 검색 요청
-        if (e.target.classList.contains("fa-search")) {
+        if (e.target.classList.contains("fa-courseList-search")) {
 
             console.log("검색 요청 들어옴");
             e.preventDefault(); // 기본 이벤트 막기

@@ -85,7 +85,7 @@ function createCourseList() {
                                                            <option value="u">Using Course</option>
                                                        </select>
                                                        <input type="text" name="keyWord">
-                                                       <a class="search button primary icon solid fa-search">검색</a>
+                                                       <a class="search button primary icon solid fa-courseList-search">검색</a>
                                                    </div>
                                                </div>
                                            </div>

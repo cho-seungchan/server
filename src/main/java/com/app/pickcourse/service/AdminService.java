@@ -70,10 +70,20 @@ public class AdminService {
     }
 
     // 회원 목록
-    public List<MemberVO> getMemberList(Pagination pagination, Search search) {
-        pagination.create(memberDAO.getCountAll(search));
-        log.info(pagination.toString());
-        return memberDAO.getMemberList(pagination, search);
+    public List<MemberVO> getMemberList(Character isAct, Pagination pagination, Search search) {
+
+        List<MemberVO> list = null;
+        if (isAct == null || isAct == ' ') {
+            pagination.create(memberDAO.getCountAll(search));
+            list = memberDAO.getMemberList(pagination, search);
+        } else if (isAct.equals('Y')) {  // 활동 회원
+            pagination.create(memberDAO.getCountAllActY(search));
+            list = memberDAO.getMemberListActY(pagination, search);
+        } else if (isAct.equals('N')) { // 비활동 회원
+            pagination.create(memberDAO.getCountAllActN(search));
+            list = memberDAO.getMemberListActN(pagination, search);
+        }
+        return list;
     }
 
     // 회원 정지

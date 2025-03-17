@@ -443,6 +443,7 @@ p, label {
     display: flex;           /* 가로 정렬 */
     align-items: center;     /* 세로 중앙 정렬 */
     gap: 10px;
+    margin-bottom: 10px;
 }
 
 .addCourseBtn{
@@ -652,7 +653,7 @@ select:focus, input[type="text"]:focus {
     background-color: #0056b3;  /* 버튼 hover 시 색상 변화 */
 }
 
-.search.button.primary.icon.solid.fa-search {
+.search.button.primary.icon.solid.fa-courseList-search {
     font-size: 16px;
     margin-left: 10px;
 }
