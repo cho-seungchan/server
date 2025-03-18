@@ -12,7 +12,7 @@ import java.util.Optional;
 @Mapper
 public interface FeedMapper {
 
-    void postFeedWrite(FeedVO feedVO);
+    void postFeedWrite(FeedDTO feedDTO);
 
     Optional<FeedDTO> getFeedModify(Long id);
 

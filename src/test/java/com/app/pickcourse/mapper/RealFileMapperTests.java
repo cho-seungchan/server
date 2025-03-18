@@ -21,7 +21,7 @@ public class RealFileMapperTests {
     @Autowired
     private RealFeedMapper realFeedMapper;
     @Autowired
-    private FeedTagMapper feedTagMapper;
+    private TagMapper feedTagMapper;
     @Autowired
     private FeedMapper feedMapper;
 

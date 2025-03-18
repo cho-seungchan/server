@@ -1,11 +1,14 @@
 package com.app.pickcourse.service;
 
+import com.app.pickcourse.domain.dto.FeedDTO;
+import com.app.pickcourse.domain.vo.FeedVO;
 import com.app.pickcourse.domain.dto.ReplyListDTO;
 import com.app.pickcourse.domain.vo.ReplyVO;
 import com.app.pickcourse.domain.vo.ReportIdVO;
 import com.app.pickcourse.domain.vo.ReportVO;
+import com.app.pickcourse.mapper.GeneralFeedMapper;
+import com.app.pickcourse.mapper.GeneralFileMapper;
 import com.app.pickcourse.repository.*;
-import com.app.pickcourse.util.Pagination;
 import com.app.pickcourse.util.PaginationOnePage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,8 +27,15 @@ public class FeedsService {
     private final RealReplyDAO realReplyDAO;
     private final ReportDAO reportDAO;
     private final ReplyReportDAO replyReportDAO;
+    private final FeedDAO feedDAO;
+    private final GeneralFeedDAO generalFeedDAO;
+    private final TogetherFeedDAO togetherFeedDAO;
+    private final TagDAO tagDAO;
+    private final FileDAO fileDAO;
+    private final GeneralFileDAO generalFileDAO;
+    private final TogetherFileDAO togetherFileDAO;
 
-    public List<ReplyListDTO> getReplyList(Long feedId, PaginationOnePage pagination) {
+    public List<ReplyListDTO> getReplyList(Long loginId, Long feedId, PaginationOnePage pagination) {
         pagination.create(replyDAO.getCountAll(feedId));
         log.info("replyDAO.getCountAll(feedId) "+replyDAO.getCountAll(feedId));
 
@@ -33,7 +43,7 @@ public class FeedsService {
 
         // 로그인 회원과 작성자가 같으면 '삭제' 다르면 '신고'
         list.forEach( reply -> {
-            if ( reply.getMemberId() == 21){  // 로그인수정
+            if ( reply.getMemberId() == loginId){
                 reply.setReplyAction("삭제");
             } else {
                 reply.setReplyAction("신고");
@@ -60,14 +70,14 @@ public class FeedsService {
 
     }
 
-    public void postReportReplyList(ReportVO reportVO) {
+    public void postReportReplyList(ReportVO reportVO, Long loginId) {
         ReportIdVO reportId = new ReportIdVO();
         reportDAO.postReportReplyList(reportId); // 슈퍼키 가져오기
-        replyReportDAO.postReportReplyList(reportId.getId(), reportVO.getId(), reportVO.getReportedReason(), 1l); // 로그인수정
+        replyReportDAO.postReportReplyList(reportId.getId(), reportVO.getId(), reportVO.getReportedReason(), loginId);
 
     }
 
-    public void postReplyList(ReplyVO replyVO) {
+    public void postReplyList(ReplyVO replyVO, Long loginId) {
         // 댓글 슈퍼키 입력
         replyDAO.postReplyList(replyVO);
 
@@ -75,7 +85,7 @@ public class FeedsService {
         String typeOfFeed = replyDAO.selectTypeOfFeed(replyVO.getFeedId());
 
         // 피드 종류별 댓글 입력
-        replyVO.setMemberId(21l);   // 로그인수정
+        replyVO.setMemberId(loginId);
         if (typeOfFeed.equals("GENERAL FEED")) {
             generalReplyDAO.postReplyList(replyVO);
         } else if (typeOfFeed.equals("REAL FEED")) {
@@ -97,5 +107,38 @@ public class FeedsService {
         });
 
         return list;
+    }
+
+    public void postFeedWrite(Long loginId, FeedDTO feedDTO) {
+        // 피드 슈퍼키 입력
+        feedDAO.postFeedWrite(feedDTO);
+        // 피드 타입에 따라 제네럴, 투게더 피드 입력
+        if (feedDTO.getFeedType().equals("GENERAL")) {
+            generalFeedDAO.postFeedWrite(loginId, feedDTO.toFeedVO());
+        } else if (feedDTO.getFeedType().equals("TOGETHER")) {
+            togetherFeedDAO.postFeedWrite(loginId, feedDTO.toFeedVO());
+        }
+
+        // 태크 입력
+        if (feedDTO.getTags().size() != 0 || feedDTO.getTags() != null) {
+            feedDTO.getTags().forEach( tagContent -> {
+                tagDAO.postFeedWrite(tagContent, feedDTO.getId());
+            });
+        }
+
+        // 파일 입력
+        if (feedDTO.getFiles().size() != 0 || feedDTO.getFiles() != null) {
+            feedDTO.getFiles().forEach( file -> {
+
+                fileDAO.postFeedWrite(file); // 슈퍼키 입력
+
+                // 피드 타입에 따라 제네럴, 투게더 파일 입력
+                if (feedDTO.getFeedType().equals("GENERAL")) {
+                    generalFileDAO.postFeedWrite(file.getId(), feedDTO.getId());
+                } else if (feedDTO.getFeedType().equals("TOGETHER")) {
+                    togetherFileDAO.postFeedWrite(file.getId(), feedDTO.getId());
+                }
+            });
+        }
     }
 }

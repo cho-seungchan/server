@@ -1,6 +1,7 @@
 // 2025.02.24 조승찬
 package com.app.pickcourse.controller;
 
+import com.app.pickcourse.domain.dto.FeedDTO;
 import com.app.pickcourse.domain.dto.ReplyActionDTO;
 import com.app.pickcourse.domain.dto.ReplyListDTO;
 import com.app.pickcourse.domain.vo.ReplyVO;
@@ -30,7 +31,7 @@ public class FeedsController {
     @GetMapping("/reply-list/{feedId}")
     public String getReplyList(@PathVariable Long feedId, PaginationOnePage pagination, Model model) {
 
-        List<ReplyListDTO> replys = feedsService.getReplyList(feedId, pagination);
+        List<ReplyListDTO> replys = feedsService.getReplyList(1l, feedId, pagination);  // 로그인수정
         log.info("pagination  "+pagination.toString());
         model.addAttribute("replys", replys);  // 댓글 목록
         model.addAttribute("replyAction", new ReplyActionDTO()); // 입력될 댓글을 받아올 객체
@@ -43,7 +44,7 @@ public class FeedsController {
     @ResponseBody
     public ResponseEntity<Map<String, Object>> getReplyListApi(@PathVariable Long feedId, PaginationOnePage pagination) {
 
-        List<ReplyListDTO> replys = feedsService.getReplyList(feedId, pagination);
+        List<ReplyListDTO> replys = feedsService.getReplyList(1l, feedId, pagination);  //로그인수정
         Map<String, Object> response = new HashMap<>();
         response.put("replys", replys);
         response.put("pagination", pagination);
@@ -69,7 +70,7 @@ public class FeedsController {
     public void postReportReplyList(@RequestBody ReportVO reportVO) {
         log.info("postReportReplyList  들어옴");
 
-        feedsService.postReportReplyList(reportVO);
+        feedsService.postReportReplyList(reportVO, 1l);  // 로그인수정
     }
 
     // 댓글 등록  25.03.17 조승찬
@@ -77,7 +78,7 @@ public class FeedsController {
     @ResponseBody
     public Map<String, Object> postReplyList(@RequestBody ReplyVO replyVO) {
         log.info("Map<String, Object> postReplyList에 들어옴 "+replyVO.toString());
-        feedsService.postReplyList(replyVO);
+        feedsService.postReplyList(replyVO, 1l);   // 로그인수정
 
         Map<String, Object> response = new HashMap<>();
         // 댓글 등록 후 첫 페이지로 이동 :: 등록 확인을 위해
@@ -90,7 +91,7 @@ public class FeedsController {
     @GetMapping("/my/reply-list")
     public String getMyReplyList(PaginationOnePage pagination, Model model) {
 
-        List<ReplyListDTO> replys = feedsService.getMyReplyList(21l, pagination);  //로그인수정
+        List<ReplyListDTO> replys = feedsService.getMyReplyList(1l, pagination);  //로그인수정
         model.addAttribute("replys", replys);  // 댓글 목록
         model.addAttribute("replyAction", new ReplyActionDTO()); // 입력될 댓글을 받아올 객체
         model.addAttribute("pagination", pagination);
@@ -98,12 +99,12 @@ public class FeedsController {
         return "/feeds/my-reply-list";
     }
 
-    // 댓글 목록 추가 조회 레스트컨트롤러 방식:: 25.03.17 조승찬
+    // 나의 댓글 목록 추가 조회 레스트컨트롤러 방식:: 25.03.17 조승찬
     @GetMapping("/my/reply-list/api")
     @ResponseBody
     public ResponseEntity<Map<String, Object>> getMyReplyListApi(PaginationOnePage pagination) {
 
-        List<ReplyListDTO> replys = feedsService.getMyReplyList(21l, pagination); // 로그인수정
+        List<ReplyListDTO> replys = feedsService.getMyReplyList(1l, pagination); // 로그인수정
         Map<String, Object> response = new HashMap<>();
         response.put("replys", replys);
         response.put("pagination", pagination);
@@ -111,7 +112,7 @@ public class FeedsController {
 
     }
 
-    // 댓글 삭제 레스트컨트롤러 방식 => 컨트롤러 방식으로 redirect :: 25.03.17 조승찬
+    // 나의 댓글 삭제 레스트컨트롤러 방식 => 컨트롤러 방식으로 redirect :: 25.03.17 조승찬
     @DeleteMapping("/my/reply-list/{id}")
     @ResponseBody
     public Map<String, Object> deleteMyReplyList(@PathVariable Long id) {
@@ -122,19 +123,27 @@ public class FeedsController {
         return response;
     }
 
+    // 피드 작성 25.03.18 조승찬
+    @GetMapping("/feed-write")
+    public String getFeedWrite(Model model) {
+        FeedDTO feedDTO = new FeedDTO();
+        model.addAttribute("feedDTO", feedDTO);
+        return "/feeds/feed-write";
+    }
+
+    // 피드 작성 25.03.18 조승찬
+    @PostMapping("/feed-write")
+    public String postFeedWrite(FeedDTO feedDTO) {
+        log.info(feedDTO.toString());
+
+        feedsService.postFeedWrite(1l, feedDTO); //로그인수정
+
+        return "redirect:/feeds/list";
+    }
+
     @GetMapping("/list")
     public String getFeedList(Model model) {
         return "/feeds/list";
-    }
-
-    @GetMapping("/write")
-    public String getFeedWrite(Model model) {
-        return "/feeds/feed-write";
-    }
-
-    @PostMapping("/write")
-    public String postFeedWrite(Model model) {
-        return "/feeds/feed-write";
     }
 
     @GetMapping("/modify")
