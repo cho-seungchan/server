@@ -9,4 +9,8 @@ import org.springframework.stereotype.Repository;
 @RequiredArgsConstructor
 public class RealFileDAO {
     private final RealFileMapper realFileMapper;
+
+    public void postFeedWrite(Long id, Long feedId) {
+        realFileMapper.postFeedWrite(id, feedId);
+    }
 }

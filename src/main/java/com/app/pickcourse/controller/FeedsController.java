@@ -2,12 +2,12 @@
 package com.app.pickcourse.controller;
 
 import com.app.pickcourse.domain.dto.FeedDTO;
+import com.app.pickcourse.domain.dto.RealDTO;
 import com.app.pickcourse.domain.dto.ReplyActionDTO;
 import com.app.pickcourse.domain.dto.ReplyListDTO;
 import com.app.pickcourse.domain.vo.ReplyVO;
 import com.app.pickcourse.domain.vo.ReportVO;
 import com.app.pickcourse.service.FeedsService;
-import com.app.pickcourse.util.Pagination;
 import com.app.pickcourse.util.PaginationOnePage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -141,6 +141,25 @@ public class FeedsController {
         return "redirect:/feeds/list";
     }
 
+    // 리얼 후기 작성 25.03.18 조승찬
+    @GetMapping("/real-write")
+    public String ReviewWrite(@RequestParam("planId") Long planId, Model model) {
+        RealDTO realDTO = new RealDTO();
+        realDTO.setPlanId(planId);
+        model.addAttribute("realDTO", realDTO);
+        return "/feeds/real-write";
+    }
+
+    // 리얼 후기 작성 25.03.18 조승찬
+    @PostMapping("/real-write")
+    public String postRealWrite(RealDTO realDTO) {
+        log.info(realDTO.toString());
+
+        feedsService.postRealWrite(1l, realDTO); //로그인수정
+
+        return "redirect:/feeds/list";
+    }
+
     @GetMapping("/list")
     public String getFeedList(Model model) {
         return "/feeds/list";
@@ -159,16 +178,6 @@ public class FeedsController {
     @GetMapping("/modify-list")
     public String getFeedModifyList(Model model) {
         return "/feeds/modifylist";
-    }
-
-    @GetMapping("/review-write")
-    public String ReviewWrite(Model model) {
-        return "/feeds/reviewwrite";
-    }
-
-    @PostMapping("/review-write")
-    public String postReviewWrite(Model model) {
-        return "/feeds/reviewwrite";
     }
 
     @GetMapping("/review-list")

@@ -1,6 +1,7 @@
 package com.app.pickcourse.service;
 
 import com.app.pickcourse.domain.dto.FeedDTO;
+import com.app.pickcourse.domain.dto.RealDTO;
 import com.app.pickcourse.domain.vo.FeedVO;
 import com.app.pickcourse.domain.dto.ReplyListDTO;
 import com.app.pickcourse.domain.vo.ReplyVO;
@@ -30,10 +31,12 @@ public class FeedsService {
     private final FeedDAO feedDAO;
     private final GeneralFeedDAO generalFeedDAO;
     private final TogetherFeedDAO togetherFeedDAO;
+    private final RealFeedDAO realFeedDAO;
     private final TagDAO tagDAO;
     private final FileDAO fileDAO;
     private final GeneralFileDAO generalFileDAO;
     private final TogetherFileDAO togetherFileDAO;
+    private final RealFileDAO realFileDAO;
 
     public List<ReplyListDTO> getReplyList(Long loginId, Long feedId, PaginationOnePage pagination) {
         pagination.create(replyDAO.getCountAll(feedId));
@@ -119,15 +122,15 @@ public class FeedsService {
             togetherFeedDAO.postFeedWrite(loginId, feedDTO.toFeedVO());
         }
 
-        // 태크 입력
-        if (feedDTO.getTags().size() != 0 || feedDTO.getTags() != null) {
+        // 태그 입력
+        if (feedDTO.getTags() != null && feedDTO.getTags().size() != 0) {
             feedDTO.getTags().forEach( tagContent -> {
                 tagDAO.postFeedWrite(tagContent, feedDTO.getId());
             });
         }
 
         // 파일 입력
-        if (feedDTO.getFiles().size() != 0 || feedDTO.getFiles() != null) {
+        if (feedDTO.getFiles() != null && feedDTO.getFiles().size() != 0) {
             feedDTO.getFiles().forEach( file -> {
 
                 fileDAO.postFeedWrite(file); // 슈퍼키 입력
@@ -138,6 +141,30 @@ public class FeedsService {
                 } else if (feedDTO.getFeedType().equals("TOGETHER")) {
                     togetherFileDAO.postFeedWrite(file.getId(), feedDTO.getId());
                 }
+            });
+        }
+    }
+
+    public void postRealWrite(long loginId, RealDTO realDTO) {
+        // 피드 슈퍼키 입력
+        feedDAO.postRealWrite(realDTO);
+        // 리얼 입력
+        realFeedDAO.postFeedWrite(realDTO.getId(), loginId, realDTO.getPlanId());
+
+        // 태그 입력
+        if (realDTO.getTags() != null && realDTO.getTags().size() != 0) {
+            realDTO.getTags().forEach( tagContent -> {
+                tagDAO.postFeedWrite(tagContent, realDTO.getId());
+            });
+        }
+
+        // 파일 입력
+        if (realDTO.getFiles() != null && realDTO.getFiles().size() != 0) {
+            realDTO.getFiles().forEach( file -> {
+
+                fileDAO.postFeedWrite(file); // 슈퍼키 입력
+
+                realFileDAO.postFeedWrite(file.getId(), realDTO.getId());
             });
         }
     }

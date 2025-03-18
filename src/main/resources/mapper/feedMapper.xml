@@ -12,6 +12,17 @@
                #{feedContent})
     </insert>
 
+    <insert id="postRealWrite">
+        <selectKey keyProperty="id" resultType="long" order="BEFORE">
+            SELECT SEQ_FEED.NEXTVAL FROM DUAL
+        </selectKey>
+        INSERT INTO TBL_FEED
+        (ID,
+        FEED_CONTENT)
+        VALUES(#{id},
+        #{feedContent})
+    </insert>
+
     <select id="getFeedModify" resultType="feedDTO">
         SELECT
             ID,

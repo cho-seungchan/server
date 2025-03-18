@@ -1,77 +1,5 @@
 // 2025 조승찬 작성
 
-// ? 버튼을 눌렀을 때 모달창이 열리고, 모달창 이외 부분을 누르면 모달창이 닫히게 작동
-const questionButton = document.querySelector(".bSEWFr");
-const modal = document.querySelector("#modal-root");
-const modalDiv = document.createElement("div");
-modalDiv.innerHTML = `<div class="ActionSheet__Container-akkdcx-0 jgFMVr">
-        <div class="ActionSheet__Overlay-akkdcx-1 eCzJv"></div>
-        <div class="ActionSheet__Content-akkdcx-2 cyEVkt">
-            <header class="ActionSheet__Header-akkdcx-3 dNCiPY"></header>
-            <header class="Ver4__TitleVer4-d1i4tu-0 kNwzQK">피드 유형</header>
-            <div class="WhatIsFeedTypeActionSheet__Body-sc-1ifwafz-0 gKShYF">
-                <div class="WhatIsFeedTypeActionSheet__InformationContainer-sc-1ifwafz-1 bwbCin">
-                    <strong class="WhatIsFeedTypeActionSheet__Summary-sc-1ifwafz-2 bXAzoH">일반 피드</strong>
-                    <p class="WhatIsFeedTypeActionSheet__Description-sc-1ifwafz-3 cDJNKc">
-                        일상, 취미, 여행 등 다양한 주제에 대해 자유롭게 이야기하고, 다른 크루와 소통해 보세요.
-                    </p>
-                </div>
-                <div style="width: 100%; border: 0.5px solid lightgray;"></div>
-                <div class="WhatIsFeedTypeActionSheet__InformationContainer-sc-1ifwafz-1 bwbCin">
-                    <strong class="WhatIsFeedTypeActionSheet__Summary-sc-1ifwafz-2 bXAzoH">같이해요</strong>
-                    <p class="WhatIsFeedTypeActionSheet__Description-sc-1ifwafz-3 cDJNKc">
-                        원하는 프립을 소개하고, 함께 할 크루를 찾아보세요. 새로운 인연을 만들며 다양한 경험을 해보세요.
-                    </p>
-                    <p class="WhatIsFeedTypeActionSheet__Comment-sc-1ifwafz-4 hDGrky">
-                        #같이해요 태그가 자동 생성됩니다.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>`;
-
-questionButton.addEventListener("click", () => {
-    setTimeout(() => {
-        modal.appendChild(modalDiv);
-
-        const noModal = document.querySelector(".eCzJv"); // 모달창이 열렸을 때 생기는 요소이므로 EventListener 내에서 설정
-        noModal.addEventListener("click", () => {
-            modal.removeChild(modalDiv);
-        });
-    }, 300); // 1000 밀리초 = 1초
-});
-
-// ? 버튼을 눌렀을 때 모달창이 열리고, 모달창 이외 부분을 누르면 모달창이 닫히게 작동
-
-// 일반피드 같이해요  버튼을 눌렀을 때 양쪽의 바탕색과 글자색이 반대로 바뀌도록 함
-const generalFeed = document.querySelector("#general");
-const togetherFeed = document.querySelector("#together");
-const textarea = document.querySelector(".Textarea__StyledTextarea-sc-1b9phu6-1.kmqQeB");
-
-generalFeed.addEventListener("click", () => {
-    if (!generalFeed.classList.contains("ennMMJ")) {
-        generalFeed.classList.remove("jkxdpP");
-        generalFeed.classList.add("ennMMJ");
-        togetherFeed.classList.remove("ennMMJ");
-        togetherFeed.classList.add("jkxdpP");
-        textarea.placeholder = "오늘 어떤 것을 경험하고 느끼셨나요?";
-        // 피드타입 세팅 25.03.18 조승찬
-        document.querySelector(".feedType-input").value = "GENERAL";
-    }
-});
-togetherFeed.addEventListener("click", () => {
-    if (!togetherFeed.classList.contains("ennMMJ")) {
-        togetherFeed.classList.remove("jkxdpP");
-        togetherFeed.classList.add("ennMMJ");
-        generalFeed.classList.remove("ennMMJ");
-        generalFeed.classList.add("jkxdpP");
-        textarea.placeholder = "저랑 같이 피커스 하실래요?";
-        // 피드타입 세팅 25.03.18 조승찬
-        document.querySelector(".feedType-input").value = "TOGETHER";
-    }
-});
-// 일반피드 같이해요  버튼을 눌렀을 때 양쪽의 바탕색과 글자색이 반대로 바뀌도록 함
-
 // textarea에 글자 입력시 입력된 글자 수 보여주기
 document.querySelector(".kmqQeB").addEventListener("input", (e) => {
     e.target.closest(".iFxPyq").querySelector(".jvAusQ").textContent = `${
@@ -229,10 +157,10 @@ document.querySelector(".jULzvQ").addEventListener("click", (e) => {
 	            <input type="hidden" name="files[${index}].fileSize" value="${li.dataset.fileSize}">
 			 `;
     });
-    document['feed-input-form'].insertAdjacentHTML("beforeend", text)
-//  document['feed-input-form'].append(text);    //form은 텍스트 형식을 받는데, text는 html 방식이라서 오류가 남
+    document['real-input-form'].insertAdjacentHTML("beforeend", text)
+//  document['real-input-form'].append(text);    //form은 텍스트 형식을 받는데, text는 html 방식이라서 오류가 남
 
-    document['feed-input-form'].submit();  // form  제출
+    document['real-input-form'].submit();  // form  제출
 });
 
 
