@@ -3,84 +3,92 @@ const firstDate = document.querySelector(".gcqwwh.startdate");
 const secondDate = document.querySelector(".gcqwwh.enddate");
 const thirdDate = document.querySelector(".gcqwwh.deadline");
 const today = new Date().toISOString().split("T")[0];
+let schedules = plan.scheduleContents;
 let startDate = 0;
 let endDate = 0;
 let deadline = 0;
-firstDate.addEventListener("change", () => {
-    startDate = firstDate.value;
-    if (startDate <= today) {
-        // alert(`시작일("${startDate}")은 오늘("${today}") 이후만 가능합니다.`);
-        let message = `시작일(${startDate})은 오늘(${today}) 이후만 가능합니다.`;
-        showAlertModal(message);
-        firstDate.value = "";
-        startDate = 0;
-    } else if (endDate != 0 && endDate < startDate) {
-        // alert(`시작 날짜("${startDate}")가 종료 날짜("${endDate}") 보다 큽니다.`);
-        secondDate.value = "";
-        endDate = 0;
-    } else if (deadline != 0 && deadline > startDate) {
-        // alert(`시작 날짜("${startDate}")가 마감 날짜("${deadline}") 보다 작습니다.`);
-        thirdDate.value = "";
-        deadline = 0;
-    }
-});
-
-secondDate.addEventListener("change", () => {
-    endDate = secondDate.value;
-    if (endDate <= today) {
-        // alert(`종료일("${endDate}")은 오늘("${today}") 이후만 가능합니다.`);
-        let message = `종료일(${endDate})은 오늘(${today}) 이후만 가능합니다.`;
-        showAlertModal(message);
-        secondDate.value = "";
-        endDate = 0;
-    } else if (deadline != 0 && deadline > endDate) {
-        // alert(`종료 날짜("${endDate}")가 마감 날짜("${deadline}") 보다 작습니다.`);
-        firstDate.value = "";
-        thirdDate.value = "";
-        startDate = 0;
-        deadline = 0;
-    } else if (startDate != 0 && startDate > endDate) {
-        // alert(`종료 날짜("${endDate}")가 시작 날짜("${startDate}") 보다 작습니다.`);
-        firstDate.value = "";
-        startDate = 0;
-    }
-});
-
-thirdDate.addEventListener("change", () => {
-    deadline = thirdDate.value;
-    if (deadline < today) {
-        // alert(`마감일("${deadline}")은 오늘("${today}") 부터 가능합니다.`);
-        let message = `마감일(${deadline})은 오늘(${today}) 부터 가능합니다.`;
-        showAlertModal(message);
-        thirdDate.value = "";
-        deadline = 0;
-    } else if (startDate != 0 && startDate <= deadline) {
-        // alert(`마감일("${deadline}")이 시작일("${startDate}") 보다 작아야 합니다.`);
-        let message = `마감일(${deadline})이 시작일(${startDate}) 보다 작아야 합니다.`;
-        showAlertModal(message);
-        thirdDate.value = "";
-        deadline = 0;
-    } else if (endDate != 0 && endDate <= deadline) {
-        // alert(`마감일("${deadline}")이 종료일("${endDate}") 보다 작아야 합니다.`);
-        let message = `마감일(${deadline})이 종료일(${endDate}) 보다 작아야 합니다.`;
-        showAlertModal(message);
-        thirdDate.value = "";
-        deadline = 0;
-    }
-});
+let deleteScheduleIds = new Array();
+let deleteIncludeIds = new Array();
+let deleteExcludeIds = new Array();
+let deletePrepareIds = new Array();
+// firstDate.addEventListener("change", () => {
+//     startDate = firstDate.value;
+//     if (startDate <= today) {
+//         // alert(`시작일("${startDate}")은 오늘("${today}") 이후만 가능합니다.`);
+//         let message = `시작일(${startDate})은 오늘(${today}) 이후만 가능합니다.`;
+//         showAlertModal(message);
+//         firstDate.value = "";
+//         startDate = 0;
+//     } else if (endDate != 0 && endDate < startDate) {
+//         // alert(`시작 날짜("${startDate}")가 종료 날짜("${endDate}") 보다 큽니다.`);
+//         secondDate.value = "";
+//         endDate = 0;
+//     } else if (deadline != 0 && deadline > startDate) {
+//         // alert(`시작 날짜("${startDate}")가 마감 날짜("${deadline}") 보다 작습니다.`);
+//         thirdDate.value = "";
+//         deadline = 0;
+//     }
+// });
+//
+// secondDate.addEventListener("change", () => {
+//     endDate = secondDate.value;
+//     if (endDate <= today) {
+//         // alert(`종료일("${endDate}")은 오늘("${today}") 이후만 가능합니다.`);
+//         let message = `종료일(${endDate})은 오늘(${today}) 이후만 가능합니다.`;
+//         showAlertModal(message);
+//         secondDate.value = "";
+//         endDate = 0;
+//     } else if (deadline != 0 && deadline > endDate) {
+//         // alert(`종료 날짜("${endDate}")가 마감 날짜("${deadline}") 보다 작습니다.`);
+//         firstDate.value = "";
+//         thirdDate.value = "";
+//         startDate = 0;
+//         deadline = 0;
+//     } else if (startDate != 0 && startDate > endDate) {
+//         // alert(`종료 날짜("${endDate}")가 시작 날짜("${startDate}") 보다 작습니다.`);
+//         firstDate.value = "";
+//         startDate = 0;
+//     }
+// });
+//
+// thirdDate.addEventListener("change", () => {
+//     deadline = thirdDate.value;
+//     if (deadline < today) {
+//         // alert(`마감일("${deadline}")은 오늘("${today}") 부터 가능합니다.`);
+//         let message = `마감일(${deadline})은 오늘(${today}) 부터 가능합니다.`;
+//         showAlertModal(message);
+//         thirdDate.value = "";
+//         deadline = 0;
+//     } else if (startDate != 0 && startDate <= deadline) {
+//         // alert(`마감일("${deadline}")이 시작일("${startDate}") 보다 작아야 합니다.`);
+//         let message = `마감일(${deadline})이 시작일(${startDate}) 보다 작아야 합니다.`;
+//         showAlertModal(message);
+//         thirdDate.value = "";
+//         deadline = 0;
+//     } else if (endDate != 0 && endDate <= deadline) {
+//         // alert(`마감일("${deadline}")이 종료일("${endDate}") 보다 작아야 합니다.`);
+//         let message = `마감일(${deadline})이 종료일(${endDate}) 보다 작아야 합니다.`;
+//         showAlertModal(message);
+//         thirdDate.value = "";
+//         deadline = 0;
+//     }
+// });
 
 // 케밥버튼을 눌러서 시작일 부터 종료일까지 상세 일정 입력
 const kebabmenu = document.querySelector(".FvtMb");
 const numberOfPerson = document.querySelector(".NumberOfPerson");
 const detailOfDateContainer = document.createElement("div");
 detailOfDateContainer.className = "DetailOfDateContainer";
-const schedules = new Array();
 
 kebabmenu.addEventListener("click", () => {
     if (document.querySelector(".DetailOfDateContainer")) {
         document.querySelector(".DetailOfDateContainer").remove();
         return;
     }
+
+    startDate = firstDate.value;
+    endDate = secondDate.value;
+    deadline = thirdDate.value;
 
     if (startDate == 0 || endDate == 0 || deadline == 0) {
         // alert(`날짜를 모두 입력하세요`);
@@ -93,12 +101,23 @@ kebabmenu.addEventListener("click", () => {
     const startDateConv = new Date(startDate); // 날짜 객체로 변환해야 계산이 가능함.
     const endDateConv = new Date(endDate);
     const days = Math.floor((endDateConv - startDateConv) / (1000 * 60 * 60 * 24)) + 1;
+    console.log(days)
+
+    const scheduleLength = schedules.length;
     for (let i = 0; i < days; i++) {
-        detailOfDateContainer.innerHTML += ` <p>${i + 1}일차 계획서</p>
+        if(i < scheduleLength){
+            const scheduleContent = schedules[i].scheduleContent;
+            const contentLength = schedules[i].scheduleContent.length;
+             detailOfDateContainer.innerHTML += ` <p>${i + 1}일차 계획서</p>
+            <textarea data-index=${i} placeholder="상세 일정을 적어보세요 (아래 사진첨부로 대체 가능)"
+            maxlength="1200"  class="Textarea__StyledTextarea-sc-1b9phu6-1 kmqQeBdetail detaleContent">${scheduleContent}</textarea>
+            <p class="Textarea__Count-sc-1b9phu6-2 jvAusQdetail">${contentLength} / 1200 (추천 글자수: 30자 이내)</p>`;
+        }else{
+            detailOfDateContainer.innerHTML += ` <p>${i + 1}일차 계획서</p>
             <textarea data-index=${i} placeholder="상세 일정을 적어보세요 (아래 사진첨부로 대체 가능)"
             maxlength="1200"  class="Textarea__StyledTextarea-sc-1b9phu6-1 kmqQeBdetail detaleContent"></textarea>
-            <p class="Textarea__Count-sc-1b9phu6-2 jvAusQdetail">0 / 1200</p>`;
-
+            <p class="Textarea__Count-sc-1b9phu6-2 jvAusQdetail"> 0 / 1200 (추천 글자수: 30자 이내)</p>`;
+        }
     }
 
     numberOfPerson.parentNode.insertBefore(detailOfDateContainer, numberOfPerson);
@@ -117,22 +136,13 @@ kebabmenu.addEventListener("click", () => {
 // 케밥버튼을 눌러서  시작일 부터 종료일까지 상세 일정 입력
 
 // 포함 사항 불포함 사항 준비물 입력시 태그 생성
-const gcqwwhinclude = document.querySelector(".gcqwwh.include"); // 포함 사항
-const gcqwwhexclude = document.querySelector(".gcqwwh.exclude"); // 불포함 사항
-const gcqwwhprepare = document.querySelector(".gcqwwh.prepare"); // 준비물
-const bDBbNifirst = document.querySelector(".bDBbNifirst");
-const bDBbNisecond = document.querySelector(".bDBbNisecond");
-const bDBbNithird = document.querySelector(".bDBbNithird");
-const includes = new Array();
-const excludes = new Array();
-const prepares = new Array();
-
-
-let firstTagCount = 0;
-let secondTagCount = 0;
-let thirdTagCount = 0;
 let parentDiv = ``;
+let newIncludes = new Array();
+let newExcludes = new Array();
+let newPrepares = new Array();
+let newSchedules = new Array();
 gcqwwhinclude.addEventListener("keyup", (e) => {
+
     if (e.key === "Enter") {
         if (firstTagCount > 9) {
             // alert(`10개 까지만 입력 가능합니다.`);
@@ -148,7 +158,7 @@ gcqwwhinclude.addEventListener("keyup", (e) => {
                                       </header>
                                       <div class="Stuff__StuffContainer-sc-8zlrc8-0 iXEvmI"></div>`;
         }
-        includes.push(e.target.value);
+        newIncludes.push(e.target.value);
 
 
         parentDiv = bDBbNifirst.querySelector(".iXEvmI");
@@ -182,7 +192,7 @@ gcqwwhexclude.addEventListener("keyup", (e) => {
                                       <div class="Stuff__StuffContainer-sc-8zlrc8-0 iXEvmI"></div>`;
         }
 
-        excludes.push(e.target.value);
+        newExcludes.push(e.target.value);
 
         parentDiv = bDBbNisecond.querySelector(".iXEvmI");
         const secondchildDiv = document.createElement("div");
@@ -213,8 +223,7 @@ gcqwwhprepare.addEventListener("keyup", (e) => {
                                       </header>
                                       <div class="Stuff__StuffContainer-sc-8zlrc8-0 iXEvmI"></div>`;
         }
-
-        prepares.push(e.target.value);
+        newPrepares.push(e.target.value);
 
         parentDiv = bDBbNithird.querySelector(".iXEvmI");
         const thirdchildDiv = document.createElement("div");
@@ -234,7 +243,14 @@ gcqwwhprepare.addEventListener("keyup", (e) => {
 // 태그의 이미지(x)를 눌렀을 때 div 삭제 :: 동적으로 생성된 요소일 때는 부모 요소에 위임
 bDBbNifirst.addEventListener("click", (e) => {
     if (e.target.tagName == "IMG") {
-        e.target.closest(".jXxsiv").remove();
+        const deleteElement = e.target.closest(".jXxsiv");
+        const targetId = deleteElement.getAttribute("data-index")
+        deleteIncludeIds.push(targetId);
+
+        deleteElement.closest(".jXxsiv").remove();
+
+        const targetContent = e.target.previousElementSibling.textContent.replace("#","")
+        includes = includes.filter(item => item.includeContent !== targetContent);
 
         firstTagCount -= 1;
         if (firstTagCount === 0) {
@@ -246,7 +262,14 @@ bDBbNifirst.addEventListener("click", (e) => {
 
 bDBbNisecond.addEventListener("click", (e) => {
     if (e.target.tagName == "IMG") {
+        const deleteElement = e.target.closest(".eMLPLA");
+        const targetId = deleteElement.getAttribute("data-index")
+        deleteExcludeIds.push(targetId);
+
         e.target.closest(".eMLPLA").remove();
+
+        const targetContent = e.target.previousElementSibling.textContent.replace("#", "")
+        excludes = excludes.filter(item => item.excludeContent !== targetContent);
 
         secondTagCount -= 1;
         if (secondTagCount === 0) {
@@ -258,7 +281,14 @@ bDBbNisecond.addEventListener("click", (e) => {
 
 bDBbNithird.addEventListener("click", (e) => {
     if (e.target.tagName == "IMG") {
+        const deleteElement = e.target.closest(".eISlhn");
+        const targetId = deleteElement.getAttribute("data-index")
+        deletePrepareIds.push(targetId);
+
         e.target.closest(".eISlhn").remove();
+
+        const targetContent = e.target.previousElementSibling.textContent.replace("#", "")
+        prepares = prepares.filter(item => item.prepareContent !== targetContent);
 
         thirdTagCount -= 1;
         if (thirdTagCount === 0) {
@@ -271,17 +301,17 @@ bDBbNithird.addEventListener("click", (e) => {
 
 // 태그의 text들을 서버로 보낼 배열에 담는 함수
 
-function collectTexts(tagClassName) {
-    const texts = [];
-    const tagDivs = document.querySelectorAll(tagClassName);
-    tagDivs.forEach((child) => {
-        const span = child.querySelector("span");
-        if (span) {
-            texts.push(span.textContent);
-        }
-    });
-    return texts;
-}
+// function collectTexts(tagClassName) {
+//     const texts = [];
+//     const tagDivs = document.querySelectorAll(tagClassName);
+//     tagDivs.forEach((child) => {
+//         const span = child.querySelector("span");
+//         if (span) {
+//             texts.push(span.textContent);
+//         }
+//     });
+//     return texts;
+// }
 // 태그의 text들을 서버로 보낼 배열에 담는 함수
 
 // // textarea에 글자 입력시 입력된 글자 수 보여주기
@@ -321,100 +351,16 @@ fileInput.addEventListener("change", (e) => {
 // 선택파일의 이미지(x)를 눌렀을 때 전체 dev 삭제 :: 동적으로 생성된 요소일 때는 부모 요소에 위임
 fileParentDiv.addEventListener("click", (e) => {
     if (e.target.classList.contains("ImageList__IconDelete-sc-9v1mt2-2")) {
+
         e.target.closest(".ImageList__ImageWrapper-sc-9v1mt2-1").remove();
     }
 });
 // 선택파일의 이미지(x)를 눌렀을 때 전체 dev 삭제 :: 동적으로 생성된 요소일 때는 부모 요소에 위임
 
-// 모이는 장소 :: 카카오맵 처리하기
-// 외부 스크립트 추가. 지도 맵 동적 생성
-document.querySelector(".gcqwwh.gather").addEventListener("keyup", (e) => {
-    if (e.key == "Enter") {
-        if (document.querySelector("#mapContainer")) {
-            document.querySelector("#mapContainer").remove();
-            document.querySelector(".gcqwwh.gather1").remove();
-        }
-
-        let geocoder = new kakao.maps.services.Geocoder();
-        geocoder.addressSearch(document.querySelector(".gcqwwh.gather").value, (result, status) => {
-            if (status === kakao.maps.services.Status.OK) {
-                const mapDiv = document.createElement("div");
-                mapDiv.id = "mapContainer";
-                mapDiv.innerHTML = `<div id="map"></div>
-                <div id="fullMap">
-                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='none' viewBox='0 0 24 24'%3E %3Cpath stroke='%23333' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M17 3h4v4M15 9l6-6M7 21H3v-4M9 15l-6 6M4 11V6c0-1.105.895-2 2-2h5M20 13v5c0 1.105-.895 2-2 2h-6'/%3E %3C/svg%3E" alt="map fullscreen">
-                </div>`;
-                // const mapDiv = document.createElement("div");
-                // mapDiv.id = "map";
-                document.querySelector(".GatheringPlace").appendChild(mapDiv);
-
-                // const mapInput = document.createElement("input");
-                // mapInput.className = "SocialRecruiteTagsContainer__SocialRecruiteTagsInput-sc-2762su-1 gcqwwh gather1";
-                // mapInput.placeholder = "참가자들이 이해하기 쉽게 설명해주세요";
-                // document.querySelector(".GatheringPlace").appendChild(mapInput);
-
-                document.querySelector("#fullMap").addEventListener("click", (e) => {
-                    if (mapContainer.style.position === "fixed") {
-                        mapContainer.style.position = "relative";
-                        mapContainer.style.width = "100%";
-                        mapContainer.style.height = "25vh";
-                        mapContainer.style.zIndex = ""; // 맵이 다른 요소 위에 오도록 설정한거 해제
-                        document.querySelector("#fullMap").style.position = "absolute";
-                    } else {
-                        mapContainer.style.position = "fixed";
-                        mapContainer.style.top = "0";
-                        mapContainer.style.left = "0";
-                        mapContainer.style.width = "100%";
-                        mapContainer.style.height = "100vh";
-                        mapContainer.style.zIndex = "1000"; // 맵이 다른 요소 위에 오도록 설정
-                        document.querySelector("#fullMap").style.position = "fixed";
-                    }
-                    map.relayout();
-                    // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-                    map.setCenter(coords);
-                });
-
-                let coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-                let mapContainer = document.getElementById("map"), // 지도를 표시할 div
-                    mapOption = {
-                        center: coords,
-                        level: 3, // 지도의 확대 레벨
-                    };
-                // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
-                let map = new kakao.maps.Map(mapContainer, mapOption);
-                // 결과값으로 받은 위치를 마커로 표시합니다
-                let marker = new kakao.maps.Marker({
-                    map: map,
-                    position: coords,
-                });
-                // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-                map.setCenter(coords);
-            }
-        });
-    }
-});
-
-// 모이는 장소 :: 카카오맵 처리하기
-//
 // 등록 하기
 const button = document.querySelector(".saveButton");
 
 button.addEventListener("click", () => {
-    // 태그에 들어 온 텍스트 모으기 => 서버로 보내기 위해
-    let tagClassName, texts;
-    tagClassName = `.Tag__RoundTag-sxb61j-1.jXxsiv`;
-
-
-    texts = collectTexts(tagClassName);
-
-    tagClassName = `.Tag__RoundTag-sxb61j-1.eMLPLA`;
-
-    texts = collectTexts(tagClassName);
-
-    tagClassName = `.Tag__RoundTag-sxb61j-1.eISlhn`;
-
-    texts = collectTexts(tagClassName);
-
     let max = parseInt(document.querySelector(".gcqwwh.max").value, 10);
     let min = parseInt(document.querySelector(".gcqwwh.min").value, 10);
     if (max < min) {
@@ -423,45 +369,89 @@ button.addEventListener("click", () => {
         showAlertModal(message);
         return;
     }
+
     // 배열로 받은 것들을 단일객체화하여 input태그에 속성 부여 후 form태그에 appendChild로 생성
-    includes.forEach((include, i) => {
+    newIncludes.forEach((include, i) => {
         const input = document.createElement("input");
         input.type = "text";
         input.name=`includeContents[${i}].includeContent`;
         input.value = include;
-        document['write-form'].appendChild(input);
+        document['modify-form'].appendChild(input);
     })
-    excludes.forEach((exclude, i)=>{
+
+    newExcludes.forEach((exclude, i)=>{
         const input = document.createElement("input");
         input.type = "text";
         input.name = `excludeContents[${i}].excludeContent`;
         input.value = exclude;
-        document['write-form'].appendChild(input);
+        document['modify-form'].appendChild(input);
     })
-    prepares.forEach((prepare, i) => {
+
+    newPrepares.forEach((prepare, i) => {
         const input = document.createElement("input");
         input.type = "text";
         input.name = `prepareContents[${i}].prepareContent`
         input.value = prepare;
-        document['write-form'].appendChild(input);
+        document['modify-form'].appendChild(input);
     })
+
     const textareas = document.querySelectorAll("textarea[data-index]")
+    const hasEmpty = Array.from(textareas).some(textarea => textarea.value.trim() === "");
+
+    if (hasEmpty) {
+        alert("계획서를 작성해주세요.");
+        return;
+    }
+    schedules.forEach((schedule)=>{
+        deleteScheduleIds.push(schedule.id);
+    })
 
     textareas.forEach((textarea) => {
         const index = textarea.getAttribute('data-index'); // data-index 값
         const value = textarea.value; // 입력된 텍스트
-        schedules.push(value);
+        newSchedules.push(value);
     })
-
-    schedules.forEach((schedule, i) => {
+    newSchedules.forEach((schedule, i) => {
         const input = document.createElement("input");
         input.type = "text";
         input.name = `scheduleContents[${i}].scheduleContent`
         input.value = schedule;
-        document['write-form'].appendChild(input);
+        document['modify-form'].appendChild(input);
     })
 
-    document['write-form'].submit();
+    deleteScheduleIds.forEach((scheduleId, i) => {
+        const input = document.createElement("input");
+        input.type = "text";
+        input.name = `deleteSchedules[${i}]`
+        input.value = scheduleId;
+        document['modify-form'].appendChild(input);
+    })
+
+    deleteIncludeIds.forEach((includeId, i) => {
+        const input = document.createElement("input");
+        input.type = "text";
+        input.name = `deleteIncludes[${i}]`
+        input.value = includeId;
+        document['modify-form'].appendChild(input);
+    })
+
+    deleteExcludeIds.forEach((excludeId, i) => {
+        const input = document.createElement("input");
+        input.type = "text";
+        input.name = `deleteExcludes[${i}]`
+        input.value = excludeId;
+        document['modify-form'].appendChild(input);
+    })
+
+    deletePrepareIds.forEach((prepareId, i) => {
+        const input = document.createElement("input");
+        input.type = "text";
+        input.name = `deletePrepares[${i}]`
+        input.value = prepareId;
+        document['modify-form'].appendChild(input);
+    })
+
+    document['modify-form'].submit();
 });
 
 // 모달 열기 함수

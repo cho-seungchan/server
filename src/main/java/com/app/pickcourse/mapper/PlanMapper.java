@@ -18,7 +18,7 @@ public interface PlanMapper {
     public List<PlanVO> selectAll();
 
 //    ID로 조회
-    public Optional<PlanDTO> selectById(Long Id);
+    public Optional<PlanDTO> selectById(Long planId);
 
 //    수정
     public void update(PlanDTO planDTO);

@@ -24,8 +24,8 @@ public class QuestionPagination {
     }
 
     public void create(int total) {
-        this.rowCount = 4;
-        this.pageCount = 2;
+        this.rowCount = 1;
+        this.pageCount = 1;
 
         this.endPage = (int)(Math.ceil(this.page / (double)pageCount)) * pageCount;
         this.startPage = endPage - (pageCount - 1);

@@ -87,7 +87,6 @@ text = `
 startAddress.innerHTML = text;
 
 text = ``;
-console.log(planDetail.member == null);
 
 const buttonForm = document.querySelector(".form");
 
@@ -124,6 +123,111 @@ else{
     `;
     buttonForm.innerHTML = text;
 }
+
+
+const readLayOut = (() => {
+    const showList = (questionListData) => {
+        const questionWrap = document.querySelector("#question-wrap");
+        let text = ``;
+        questionListData.questionList.forEach((question, i)=>{
+            if(planDetail.member == null) {
+                text += `
+           <li id="${question.id}">
+    <div class="profile">
+        <div class="photo" icid="b940dab6-e56b-4103-b120-a1f4c83c5e25" style="background-image:url(https://phinf.pstatic.net/contact/20210105_226/1609820759733fLo89_PNG/avatar_profile.png)">
+        </div>
+        <span class="ico"><img src="https://korean.visitkorea.or.kr/resources/images/sub/ico_naver.png" alt="네이버"></span>
+    </div>
+    <div class="txt_reply">
+        <p>${question.questionContent}</p>
+        <div class="date">
+            <em class="name">${question.memberNickname}</em>
+            <span>${question.createDate}</span>
+        </div>
+    </div>
+    <span class="replyBtn active">
+        <button data-index="${question.id}" type="button" class="btn2" listener="true" title="선택됨">
+            <em class="blind">댓글</em>
+        </button>
+    </span>
+    <div class="replyBox" style="display: none;">
+        <ul>
+            <li class="inputcomment">
+                <div class="mLine">
+                    <div class="replyForm">
+                        <form name="form">
+                            <label class="blind" for="replyForm">글을 입력하세요.</label>
+                            <span class="writeForm" style="height: 80px;">
+                                <textarea id="replyForm" rows="" placeholder="로그인 후 소중한 글을 남겨주세요." cols="" readonly="readonly" listener="true"></textarea>
+                                <p class="Textarea__Count-sc-1b9phu6-2 jvAusQ">0 / 1200 (추천 글자수: 30자 이내)</p>
+                            </span>
+                            <div class="btn">
+                                <span class="fileRegbtn">
+                                    <input type="file" class="fileUp" id="fileUpb940dab6-e56b-4103-b120-a1f4c83c5e25" name="fileUpb940dab6-e56b-4103-b120-a1f4c83c5e25" onchange="fileChange(this)" disabled="disabled">
+                                        <label for="fileUpb940dab6-e56b-4103-b120-a1f4c83c5e25" class="btn_fileUp">파일찾기</label>
+                                </span>
+                                <a href="/login/login" class="btn_apply ContentComment" listener="true">로그인</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div></li>
+    `;
+            }else {
+                text += `
+           <li id="${question.id}">
+    <div class="profile">
+        <div class="photo" icid="b940dab6-e56b-4103-b120-a1f4c83c5e25" style="background-image:url(https://phinf.pstatic.net/contact/20210105_226/1609820759733fLo89_PNG/avatar_profile.png)">
+        </div>
+        <span class="ico"><img src="https://korean.visitkorea.or.kr/resources/images/sub/ico_naver.png" alt="네이버"></span>
+    </div>
+    <div class="txt_reply">
+        <p>${question.questionContent}</p>
+        <div class="date">
+            <em class="name">${question.memberNickname}</em>
+            <span>${question.createDate}</span>
+        </div>
+    </div>
+    <span class="replyBtn active">
+        <button data-index="${question.id}" type="button" class="btn2" listener="true" title="선택됨">
+            <em class="blind">댓글</em>
+        </button>
+    </span>
+    <div class="replyBox" style="display: none;">
+        <ul>
+            <li class="inputcomment">
+                <div class="mLine">
+                    <div class="replyForm">
+                        <form name="form">
+                            <label class="blind" for="replyForm">글을 입력하세요.</label>
+                            <span class="writeForm" style="height: 80px;">
+                                <textarea class="answer-comment" id="replyForm" rows="" placeholder="글을 남겨주세요." cols=""  listener="true"></textarea>
+                                <p class="Textarea__Count-sc-1b9phu6-2 jvAusQ">0 / 1200 (추천 글자수: 30자 이내)</p>
+                            </span>
+                            <div class="btn">
+                                <span class="fileRegbtn">
+                                    <input type="file" class="fileUp" id="fileUpb940dab6-e56b-4103-b120-a1f4c83c5e25" name="fileUpb940dab6-e56b-4103-b120-a1f4c83c5e25" onchange="fileChange(this)" disabled="disabled">
+                                        <label for="fileUpb940dab6-e56b-4103-b120-a1f4c83c5e25" class="btn_fileUp">파일찾기</label>
+                                </span>
+                                                <button class="btn_apply ContentComment insertAnswerButton" data-index="${question.id}">등록</button>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div></li>
+    `;
+            }
+        })
+        questionWrap.innerHTML = text;
+    }
+
+    return {showList: showList}
+})();
 
 
 

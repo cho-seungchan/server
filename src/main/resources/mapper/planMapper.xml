@@ -20,8 +20,33 @@
     </select>
 
     <select id="selectById" resultType="planDTO">
-        SELECT * FROM TBL_PLAN
-        WHERE ID = #{id}
+        SELECT
+            M.MEMBER_NICKNAME,
+            P.ID,
+            P.PLAN_NAME,
+            TO_CHAR(P.PLAN_START_DATE, 'YYYY-MM-DD') AS PLAN_START_DATE,
+            TO_CHAR(P.PLAN_END_DATE, 'YYYY-MM-DD') AS PLAN_END_DATE,
+            TO_CHAR(P.PLAN_DEADLINE, 'YYYY-MM-DD') AS PLAN_DEADLINE,
+            P.PLAN_MAX_PERSONNEL,
+            P.PLAN_MIN_PERSONNEL,
+            P.PLAN_PRICE,
+            P.PLAN_START_ADDRESS,
+            P.PLAN_CONTENT,
+            P.PLAN_FILE_PATH,
+            P.PLAN_FILE_SIZE,
+            P.PLAN_FILE_NAME,
+            P.MEMBER_ID,
+            P.COURSE_ID,
+            P.CREATED_DATE,
+            P.UPDATED_DATE
+        FROM
+            TBL_MEMBER M
+                JOIN
+            TBL_PLAN P
+            ON
+                M.ID = P.MEMBER_ID
+        WHERE
+            P.ID = #{id}
     </select>
 
     <update id="update">
@@ -36,10 +61,7 @@
             PLAN_PRICE = #{planPrice},
             PLAN_START_ADDRESS = #{planStartAddress},
             PLAN_CONTENT = #{planContent},
-            PLAN_FILE_PATH = #{planFilePath},
-            PLAN_FILE_SIZE = #{planFileSize},
-            PLAN_FILE_NAME = #{planFileName},
-            UPDATED_DATE = #{updatedDate}
+            UPDATED_DATE = SYSDATE
         WHERE ID = #{id}
     </update>
 

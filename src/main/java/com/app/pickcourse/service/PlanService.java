@@ -1,13 +1,11 @@
 package com.app.pickcourse.service;
 
 import com.app.pickcourse.domain.dto.*;
-import com.app.pickcourse.domain.vo.FeedVO;
-import com.app.pickcourse.domain.vo.MemberVO;
-import com.app.pickcourse.domain.vo.PlanVO;
-import com.app.pickcourse.domain.vo.QuestionVO;
+import com.app.pickcourse.domain.vo.*;
 import com.app.pickcourse.mapper.QuestionMapper;
 import com.app.pickcourse.repository.*;
 import com.app.pickcourse.util.Pagination;
+import com.app.pickcourse.util.QuestionPagination;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Param;
@@ -32,6 +30,8 @@ public class PlanService {
     private final MemberDAO memberDAO;
     private final FeedDAO feedDAO;
     private final QuestionDAO questionDAO;
+    private final Pagination pagination;
+    private final ScheduleVO scheduleVO;
 
 
     //    여행계획작성
@@ -56,7 +56,6 @@ public class PlanService {
             schedule.setPlanId(planVO.getId());
             scheduleDAO.save(schedule.toVO());
             });
-        log.info("check2 {}", planDTO.getPlanContent());
     }
 
 //    나의 계획 목록
@@ -126,7 +125,49 @@ public class PlanService {
         questionDAO.saveQuestion(questionVO);
     }
 
+//    planId의 질문 조회
+    public QuestionListDTO findQuestionLists(Long planId) {
+        QuestionListDTO questionListDTO = new QuestionListDTO();
+
+        questionListDTO.setQuestionList(questionDAO.findQuestion(planId));
+
+        return questionListDTO;
+    }
+// 계획수정
+    public void updatePlan(PlanDTO planDTO) {
+        planDAO.setPlan(planDTO);
+
+        planDTO.getDeleteExcludes().forEach(writeExcludeDAO::delete);
+        planDTO.getDeleteIncludes().forEach(writeIncludeDAO::delete);
+        planDTO.getDeletePrepares().forEach(writePrepareDAO::delete);
+        planDTO.getDeleteSchedules().forEach((schedule) -> {
+            ScheduleVO scheduleVO = new ScheduleVO();
+            scheduleVO.setId(schedule);
+            scheduleVO.setStatus("DISABLED");
+            scheduleDAO.setSchedule(scheduleVO);
+        });
+
+        planDTO.getExcludeContents().forEach( exclude -> {
+            exclude.setPlanId(planDTO.getId());
+            writeExcludeDAO.save(exclude.toVO());
+        });
+        planDTO.getIncludeContents().forEach(include -> {
+            include.setPlanId(planDTO.getId());
+            writeIncludeDAO.save(include.toVO());
+        });
+        planDTO.getPrepareContents().forEach(prepare -> {
+            prepare.setPlanId(planDTO.getId());
+            writePrepareDAO.save(prepare.toVO());
+        });
+        planDTO.getScheduleContents().forEach(schedule -> {
+            schedule.setPlanId(planDTO.getId());
+            scheduleDAO.save(schedule.toVO());
+        });
+    }
+
 }
+
+
 
 
 

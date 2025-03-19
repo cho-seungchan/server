@@ -69,7 +69,7 @@ public class PlanMapperTests {
 
     @Test
     public void testSelectById() {
-        Optional<PlanDTO> foundPlanDTO = planMapper.selectById(1L);
+        Optional<PlanDTO> foundPlanDTO = planMapper.selectById(113L);
         foundPlanDTO.ifPresent(plan -> log.info(plan.toString()));
     }
 

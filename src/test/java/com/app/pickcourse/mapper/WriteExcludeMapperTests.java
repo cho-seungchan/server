@@ -38,9 +38,9 @@ public class WriteExcludeMapperTests {
     public void testUpdate() {
         WriteExcludeVO exclude = new WriteExcludeVO();
 
-        exclude.setPlanId(1L);
+        exclude.setPlanId(113L);
         exclude.setExcludeContent("변경된내용1");
-        exclude.setId(2L);
+        exclude.setId(339L);
 
         writeExcludeMapper.update(exclude);
     }

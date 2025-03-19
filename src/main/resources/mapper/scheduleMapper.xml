@@ -14,7 +14,7 @@
 
     <update id="update">
         UPDATE TBL_SCHEDULE
-        SET SCHEDULE_CONTENT = #{scheduleContent}
+        SET STATUS = #{status}
         WHERE ID = #{id}
     </update>
 

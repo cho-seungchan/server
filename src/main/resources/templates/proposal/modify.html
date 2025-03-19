@@ -22,6 +22,8 @@
                 <div id="header-placeholder"></div>
 
                 <div class="PageWrapper-sc-1w87j10-0 bScXKt">
+                    <form action="/proposal/modifyUpdate" method="post" name="modify-form" th:object="${planDTO}">
+                        <input type="hidden" name="id" th:value="${planDTO.id}">
                     <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block">
                         <div class="Center__Wrapper-sc-19p29je-0 hcLOFI">
                             <h3>여행 계획 수정</h3>
@@ -31,15 +33,16 @@
                             <div class="SocialRecruiteTagsContainer__SocialRecruiteTagsWrapper-sc-2762su-0 bmexYY">
                                 <input placeholder="여행명"
                                 class="SocialRecruiteTagsContainer__SocialRecruiteTagsInput-sc-2762su-1 gcqwwh name"
-                                value=>
-                                <div class="DurationOfTourContainer">
+                                th:field="*{planName}"
+                                th:value="${planDTO.planName}">
+                                <div class="DurationOfTourContainer date-wrap">
                                     <input type="date" placeholder="시작일"
                                     class="SocialRecruiteTagsContainer__SocialRecruiteTagsInput-sc-2762su-1 gcqwwh
-                                    startdate" value=><span>~</span><input type="date" placeholder="종료일"
+                                    startdate" th:field="*{planStartDate}" th:value="${planDTO.planStartDate}"><span>~</span><input type="date" placeholder="종료일"
                                     class="SocialRecruiteTagsContainer__SocialRecruiteTagsInput-sc-2762su-1 gcqwwh
-                                    enddate" value=><span>마감일</span><input type="date" placeholder="모집 마감일"
+                                    enddate" th:field="*{planEndDate}" th:value="${planDTO.planEndDate}"><span>마감일</span><input type="date" placeholder="모집 마감일"
                                     class="SocialRecruiteTagsContainer__SocialRecruiteTagsInput-sc-2762su-1 gcqwwh
-                                    deadline" value=><button
+                                    deadline" th:field="*{planDeadline}" th:value="${planDTO.planDeadline}"><button
                                         type="button"
                                         class="CurrentProfile__MoreButton-sc-1u92qay-6 FvtMb"
                                     >
@@ -52,12 +55,15 @@
                                 <div class="NumberOfPerson">
                                     <input placeholder="모집 인원"
                                     class="SocialRecruiteTagsContainer__SocialRecruiteTagsInput-sc-2762su-1 gcqwwh max"
-                                    value=> <input placeholder="최소 출발 인원"
+                                           th:field="*{planMaxPersonnel}"
+                                    th:value="${planDTO.planMaxPersonnel}"> <input placeholder="최소 출발 인원"
                                     class="SocialRecruiteTagsContainer__SocialRecruiteTagsInput-sc-2762su-1 gcqwwh min"
-                                    value=><input
+                                           th:field="*{planMinPersonnel}"
+                                    th:value="${planDTO.planMinPersonnel}"><input
                                         placeholder="비용"
                                         class="SocialRecruiteTagsContainer__SocialRecruiteTagsInput-sc-2762su-1 gcqwwh cost"
-                                        value=""
+                                        th:field="*{planPrice}"
+                                        th:value="${planDTO.planPrice}"
                                     />
                                 </div>
                             </div>
@@ -86,9 +92,12 @@
                                 <p class="Textarea__Count-sc-1b9phu6-2 jvAusQ">입력 후 엔터를 누르면 태그가 생성되요</p>
 
                                 <section class="ProductDetailPage__SectionContainer-sc-126q1k2-4 bDBbNi">
-                                    <article class="bDBbNifirst"></article>
-                                    <article class="bDBbNisecond"></article>
-                                    <article class="bDBbNithird"></article>
+                                    <article class="bDBbNifirst">
+                                    </article>
+                                    <article class="bDBbNisecond">
+                                    </article>
+                                    <article class="bDBbNithird">
+                                    </article>
                                 </section>
                             </div>
                         </div>
@@ -97,18 +106,20 @@
                             <input
                                 placeholder="모이는 장소 (지도로 대체)"
                                 class="SocialRecruiteTagsContainer__SocialRecruiteTagsInput-sc-2762su-1 gcqwwh gather"
-                                value=""
+                                th:field="*{planStartAddress}"
+                                th:value="${planDTO.planStartAddress}"
                             />
                         </div>
 
                         <div class="WriteRecruitePage__Divider-bnh5u-2 hgZork"></div>
-                        <div class="Textarea__Wrapper-sc-1b9phu6-0 iFxPyq">
+                        <div class="Textarea__Wrapper-sc-1b9phu6-0 iFxPyq textarea-wrap">
                             <textarea
                                 placeholder="이 모임의 매력 포인트, 이벤트, 기타 유의 사항, 전하고 싶은 마음 등을 적어보세요"
                                 maxlength="1200"
                                 class="Textarea__StyledTextarea-sc-1b9phu6-1 kmqQeB"
+                                th:field="*{planContent}"
+                                th:text="${planDTO.planContent}"
                             ></textarea>
-                            <p class="Textarea__Count-sc-1b9phu6-2 jvAusQ">0 / 1200 (추천 글자수: 30자 이내)</p>
                         </div>
                         <div class="WriteRecruitePage__Divider-bnh5u-2 hgZork"></div>
 
@@ -123,9 +134,10 @@
                             </div>
                         </div>
                         <div class="Footer__ButtonWrapper-sc-1kxogbb-0 jULzvQ">
-                            <button width="290px" color="white" class="Button-bqxlp0-0 jwcODp">수정하기</button>
+                            <button type="button" width="290px" color="white" class="Button-bqxlp0-0 jwcODp saveButton">수정하기</button>
                         </div>
                     </div>
+                    </form>
                 </div>
 
                 <!-- Footer will be dynamically inserted here -->
@@ -144,7 +156,11 @@
         </div>
         <div id="dnd-root"></div>
     </body>
-
+    <script th:inline="javascript">
+        const plan = [[${planDTO}]]
+    </script>
     <script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=dca5cc5ce3946cf9a7295748f1aa7d12&libraries=services"></script>
-    <script src="/js/proposal/write.js"></script>
+    <script src="/js/proposal/modify-layout.js"></script>
+    <script src="/js/proposal/modify-event.js"></script>
+    <script src="/js/proposal/modify-service.js"></script>
 </html>

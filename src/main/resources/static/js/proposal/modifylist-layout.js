@@ -5,6 +5,7 @@ const planLayout = (() => {
         const buttonWrap = document.querySelector("#button-wrap");
         const leftButtons = document.querySelector(".left-button-wrap");
         const rightButtons = document.querySelector(".right-button-wrap");
+        const modalWrap = document.querySelector(".modal-wrap");
         const pagination = planListData.pagination;
         let text = ``;
 
@@ -180,6 +181,7 @@ const planLayout = (() => {
 
                                                 <div class="button-container">
                                                     <button
+                                                    data-index="${plan.id}"
                                                         type="button"
                                                         class="CurrentProfile__MoreButton-sc-1u92qay-6 FvtMb"
                                                     >
@@ -225,6 +227,9 @@ const planLayout = (() => {
             `;
         }
         buttonWrap.innerHTML = text;
+
+
+
     }
 
     return {showList: showList}

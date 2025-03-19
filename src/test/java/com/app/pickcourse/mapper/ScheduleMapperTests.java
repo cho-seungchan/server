@@ -37,8 +37,8 @@ public class ScheduleMapperTests {
     public void testUpdate() {
         ScheduleVO scheduleVO = new ScheduleVO();
 
-        scheduleVO.setId(18L);
-        scheduleVO.setPlanId(1L);
+        scheduleVO.setId(234L);
+        scheduleVO.setPlanId(113L);
         scheduleVO.setScheduleContent("변경된내용1");
 
         scheduleMapper.update(scheduleVO);

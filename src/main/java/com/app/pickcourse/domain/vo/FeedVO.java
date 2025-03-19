@@ -10,7 +10,6 @@ import lombok.*;
 public class FeedVO {
     @EqualsAndHashCode.Include
     private Long id;
-
     private String feedContent;
     private String createDate;
     private String updateDate;

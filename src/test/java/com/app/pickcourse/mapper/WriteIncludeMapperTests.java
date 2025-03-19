@@ -36,8 +36,8 @@ public class WriteIncludeMapperTests {
     public void testUpdate() {
         WriteIncludeVO writeIncludeVO = new WriteIncludeVO();
 
-        writeIncludeVO.setId(3L);
-        writeIncludeVO.setPlanId(1L);
+        writeIncludeVO.setId(343L);
+        writeIncludeVO.setPlanId(113L);
         writeIncludeVO.setIncludeContent("변경된내용1");
 
         writeIncludeMapper.update(writeIncludeVO);

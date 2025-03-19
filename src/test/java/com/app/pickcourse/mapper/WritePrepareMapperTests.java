@@ -35,8 +35,8 @@ public class WritePrepareMapperTests {
     public void testUpdate() {
         WritePrepareVO writePrepareVO = new WritePrepareVO();
 
-        writePrepareVO.setId(4L);
-        writePrepareVO.setPlanId(1L);
+        writePrepareVO.setId(350L);
+        writePrepareVO.setPlanId(113L);
         writePrepareVO.setPrepareContent("변경된내용1");
 
         writePrepareMapper.update(writePrepareVO);

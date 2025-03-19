@@ -1,5 +1,9 @@
 const buttonWrap = document.querySelector(".form")
-console.log(loginMember);
+const answerButton = document.querySelector("#question-wrap");
+
+
+
+
 
 buttonWrap.addEventListener("keyup", (e)=>{
     if(e.target.classList.contains("comment"))
@@ -8,12 +12,99 @@ buttonWrap.addEventListener("keyup", (e)=>{
 
 buttonWrap.addEventListener("click", async (e) => {
     if(e.target.classList.contains("insertButton")) {
+        findPlanId = planDetail.plan.id;
         const questionContent = document.querySelector(".comment");
-        await readService.writeQuestion({planId: findPlanID, memberId: findMemberId, content:questionContent.value});
-        console.log(planDetail.plan.id);
-        console.log(member.id);
-        console.log(questionContent.value);
+        await readService.writeQuestion({
+            planId: findPlanId,
+            memberId: loginMember.id,
+            questionContent: questionContent.value
+        });
         questionContent.value = "";
-
+        readService.getList(planDetail.plan.id, readLayOut.showList);
     }
+
+});
+
+
+
+const moreQuestion = document.querySelector(".btn_more");
+const questionWrap = document.querySelector("#question-wrap");
+
+moreQuestion.addEventListener("click", (e) => {
+    readService.getList(planDetail.plan.id, readLayOut.showList);
+})
+
+questionWrap.addEventListener("click", async (e) => {
+    if (e.target.classList.contains("btn2")) {
+        const questionItem = e.target.closest("li");
+        const questionId = questionItem.id; // <li id="questionId"> 구조이므로 id 속성 사용
+        const replyBox = questionItem.querySelector(".replyBox");
+
+        // 이미 열려 있다면 닫기
+        if (replyBox.style.display === "block") {
+            replyBox.style.display = "none";
+            return;
+        }
+
+        replyBox.style.display = "block";
+
+        // 답변 목록 가져오기
+        await readService.getAnswerList(planDetail.plan.id, (answerListData) => {
+
+            let answerHTML = "";
+                answerHTML += `
+                    <li>
+                        <div class="txt_reply">
+                            <p>${answerListData.answerContent}</p>
+                            <div class="date">
+                                <em class="name">${answerListData.memberNickname}</em>
+                            </div>
+                        </div>
+                    </li>
+                `;
+
+            // 답변 목록 업데이트
+            replyBox.querySelector("ul").innerHTML = answerHTML;
+        }, questionId);
+    }
+});
+
+
+questionWrap.addEventListener("keyup", (e) => {
+    if(e.target.classList.contains("coment")){
+        e.target.nextElementSibling.textContent = `${e.target.value.length} / 1200 (추천 글자수: 30자 이내)`;
+    }
+})
+
+answerButton.addEventListener("click", async (e) => {
+    if(e.target.classList.contains("insertAnswerButton")){
+        findPlanId = planDetail.plan.id;
+        answerId = planDetail.plan.memberId;
+        targetQuestionId = e.target.getAttribute("data-index")
+
+        const answerContent = e.target.parentElement.previousElementSibling.querySelector(".answer-comment");
+        readService.writeAnswer({
+            memberId: answerId,
+            planId: findPlanId,
+            questionId: targetQuestionId,
+            answerContent: answerContent.value});
+        answerContent.value = "";
+
+        readService.getAnswerList(planDetail.plan.id, (answerListData) => {
+            let text = "";
+            text += `
+                    <li>
+                        <div class="txt_reply">
+                            <p>${answerListData.answerContent}</p>
+                            <div class="date">
+                                <em class="name">${answerListData.memberNickname}</em>
+                            </div>
+                        </div>
+                    </li>
+                `;
+
+            // 답변 목록 업데이트
+        }, questionId);
+            replyBox.querySelector("ul").innerHTML = text;
+        }
 })

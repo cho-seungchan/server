@@ -596,7 +596,7 @@
                             <div class="db_cont_detail">
                                 <div id="replyGo">
                                     <div class="replyWrap"><!-- login 추가시 로그인 후 form -->
-                                        <h3 class="tit_reply">질의/응답<span>9</span></h3>
+                                        <h3 class="tit_reply">질의/응답<span class="questionCount"></span></h3>
                                         <div class="write">
                                                 <div class="form">
                                                 </div>
@@ -613,7 +613,7 @@
                                         </div>
                                         <div class="wrap_reply">
                                             <div class="list_reply">
-                                                <ul>
+                                                <ul id="question-wrap">
                                                 </ul>
 
                                                 <div class="btn_center" id="commentMore" style=>
@@ -664,7 +664,7 @@
 </body>
 <script th:inline="javascript">
     const planDetail = [[${planDetailDTO}]];
-    const loginMember = [[${session.loginUser}]];
+    const loginMember = [[${session.member}]];
 </script>
 <script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=dca5cc5ce3946cf9a7295748f1aa7d12&libraries=services"></script>
 <script src="/js/proposal/read.js"></script>

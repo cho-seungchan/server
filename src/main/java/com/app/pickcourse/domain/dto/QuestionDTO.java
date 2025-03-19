@@ -11,16 +11,17 @@ import org.springframework.stereotype.Component;
 public class QuestionDTO {
     @EqualsAndHashCode.Include
     Long id;
-    String content;
+    String questionContent;
     Long memberId;
     Long planId;
     String createDate;
+    String memberNickname;
 
     public QuestionVO toVO() {
         QuestionVO questionVO = new QuestionVO();
 
         questionVO.setId(id);
-        questionVO.setContent(content);
+        questionVO.setContent(questionContent);
         questionVO.setMemberId(memberId);
         questionVO.setPlanId(planId);
         questionVO.setCreateDate(createDate);
