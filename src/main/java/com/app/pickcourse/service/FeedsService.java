@@ -2,17 +2,15 @@ package com.app.pickcourse.service;
 
 import com.app.pickcourse.domain.dto.FeedDTO;
 import com.app.pickcourse.domain.dto.RealDTO;
-import com.app.pickcourse.domain.vo.FeedVO;
+import com.app.pickcourse.domain.vo.*;
 import com.app.pickcourse.domain.dto.ReplyListDTO;
-import com.app.pickcourse.domain.vo.ReplyVO;
-import com.app.pickcourse.domain.vo.ReportIdVO;
-import com.app.pickcourse.domain.vo.ReportVO;
 import com.app.pickcourse.mapper.GeneralFeedMapper;
 import com.app.pickcourse.mapper.GeneralFileMapper;
 import com.app.pickcourse.repository.*;
 import com.app.pickcourse.util.PaginationOnePage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.catalina.util.StandardSessionIdGenerator;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -168,4 +166,147 @@ public class FeedsService {
             });
         }
     }
+
+    public FeedDTO getFeedModify(Long id, String feedType) {
+        FeedDTO feedDTO = null;
+        // 피드 정보 가져오기
+        if (feedType.equals("GENERAL")) {
+           feedDTO = generalFeedDAO.getFeedModify(id);
+        } else if (feedType.equals("TOGETHER")) {
+            feedDTO = togetherFeedDAO.getFeedModify(id);
+        }
+
+        // tag 가져오기
+        List<String> tagContent = tagDAO.getFeedModify(id);
+        feedDTO.setTags(tagContent);
+
+        // file 가져오기
+        List<FileVO> fileList = null;
+        if (feedType.equals("GENERAL")) {
+            fileList = generalFileDAO.getFeedModify(id);
+        } else if (feedType.equals("TOGETHER")) {
+            fileList = togetherFileDAO.getFeedModify(id);
+        }
+        feedDTO.setFiles(fileList);
+
+        return feedDTO;
+    }
+
+    public void postFeedModify(FeedDTO feedDTO) {
+
+        // 피드 정보 수정
+        feedDAO.postFeedModify(feedDTO.toFeedVO());
+
+        // tag 삭제 후 재입력
+        if (feedDTO.getTags() != null && feedDTO.getTags().size() != 0) {
+            // 삭제
+            tagDAO.deleteFeedModify(feedDTO.getId());
+            // 재등록
+            feedDTO.getTags().forEach( tagContent -> {
+                tagDAO.postFeedWrite(tagContent, feedDTO.getId());
+            });
+        }
+
+        // 삭제대상 기존 파일file 삭제
+
+        // 삭제
+        if (feedDTO.getDeleteFileId() != null && feedDTO.getDeleteFileId().size() != 0) {
+            feedDTO.getDeleteFileId().forEach( id -> {
+                fileDAO.deleteFeedModify(id);
+                if (feedDTO.getFeedType().equals("GENERAL")) {
+                    generalFileDAO.deleteFeedModify(id);
+                } else if (feedDTO.equals("TOGETHER")) {
+                    togetherFileDAO.deleteFeedModify(id);
+                }
+            });
+        }
+
+        // 신규 파일 등록
+        if (feedDTO.getFiles() != null && feedDTO.getFiles().size() != 0) {
+            feedDTO.getFiles().forEach( file -> {
+                fileDAO.postFeedWrite(file); // 슈퍼키 입력
+                log.info("신규 파일 등록  "+file.getId()+" "+feedDTO.getId());
+                if (feedDTO.getFeedType().equals("GENERAL")) {
+                    generalFileDAO.postFeedWrite(file.getId(), feedDTO.getId());
+                } else if (feedDTO.getFeedType().equals("TOGETHER")) {
+                    togetherFileDAO.postFeedWrite(file.getId(), feedDTO.getId());
+                }
+            });
+        }
+    }
+
+    public void deleteFeedModify(Long id, String feedType) {
+
+        // 피드 정보 삭제
+        feedDAO.deleteFeedModify(id);
+
+        // 피드 타입에 따라 제네럴, 투게더 피드 삭제
+        if (feedType.equals("GENERAL")) {
+            generalFeedDAO.deleteFeedModify(id);
+        } else if (feedType.equals("TOGETHER")) {
+            togetherFeedDAO.deleteFeedModify(id);
+        }
+
+        // tag 삭제
+        tagDAO.deleteFeedModify(id);
+
+        // 파일 삭제
+        fileDAO.deleteFeedModifyByFeedId(id);   // feedid로 삭제 확인
+        if (feedType.equals("GENERAL")) {
+            generalFileDAO.deleteFeedModify(id);
+        } else if (feedType.equals("TOGETHER")) {
+            togetherFileDAO.deleteFeedModify(id);
+        }
+
+    }
+
+    public RealDTO getRealModify(Long id) {
+
+        // 리얼 정보 가져오기
+        RealDTO realDTO  = realFeedDAO.getRealModify(id);
+
+        // tag 가져오기
+        List<String> tagContent = tagDAO.getFeedModify(id);
+        realDTO.setTags(tagContent);
+
+        // file 가져오기
+        List<FileVO> fileList = realFileDAO.getRealModify(id);
+        realDTO.setFiles(fileList);
+
+        return realDTO;
+    }
+
+    public void postRealModify(RealDTO realDTO) {
+
+        // 리얼 정보 수정
+        feedDAO.postFeedModify(realDTO.toFeedVO());
+
+        // tag 삭제 후 재입력
+        if (realDTO.getTags() != null && realDTO.getTags().size() != 0) {
+            // 삭제
+            tagDAO.deleteFeedModify(realDTO.getId());
+            // 재등록
+            realDTO.getTags().forEach( tagContent -> {
+                tagDAO.postFeedWrite(tagContent, realDTO.getId());
+            });
+        }
+
+        // 삭제대상 기존 파일file 삭제
+        // 삭제
+        if (realDTO.getDeleteFileId() != null && realDTO.getDeleteFileId().size() != 0) {
+            realDTO.getDeleteFileId().forEach( id -> {
+                fileDAO.deleteFeedModify(id);
+                realFileDAO.deleteRealModify(id);
+            });
+        }
+
+        // 신규 파일 등록
+        if (realDTO.getFiles() != null && realDTO.getFiles().size() != 0) {
+            realDTO.getFiles().forEach( file -> {
+                fileDAO.postFeedWrite(file); // 슈퍼키 입력
+                realFileDAO.postFeedWrite(file.getId(), realDTO.getId());
+            });
+        }
+    }
+
 }

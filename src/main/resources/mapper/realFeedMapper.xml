@@ -11,62 +11,47 @@
                #{planId})
     </insert>
 
-    <select id="getFeedList" resultType="feedListDto">
-        SELECT
-            g.ID,
-            f.FEED_CONTENT,
-            f.CREATED_DATE,
-            f.UPDATED_DATE,
-            g.MEMBER_ID
-        FROM TBL_REAL_FEED g
-                 JOIN TBL_FEED f ON g.ID = f.ID
-        ORDER BY f.CREATED_DATE DESC
-    </select>
-
-    <select id="getFeedModifyList" resultType="feedListDto">
-        SELECT
-            g.ID,
-            f.FEED_CONTENT,
-            f.CREATED_DATE,
-            f.UPDATED_DATE,
-            g.MEMBER_ID
-        FROM TBL_REAL_FEED g
-                 JOIN TBL_FEED f ON g.ID = f.ID
-        WHERE g.ID = #{id}
-        ORDER BY f.CREATED_DATE DESC
-    </select>
-
-
-    <select id="getReviewList" resultType="reviewDTO">
+    <select id="getRealList" resultType="feedListDto">
         SELECT   f.ID,
                  f.FEED_CONTENT,
                  f.CREATED_DATE,
                  f.UPDATED_DATE,
-                 s.REAL_STAR,
                  r.MEMBER_ID,
                  r.PLAN_ID
         FROM     TBL_FEED f
                      JOIN     TBL_REAL_FEED r
                               ON       f.ID = r.ID
-                     LEFT JOIN     TBL_REAL_STAR s
-                              ON       f.ID  =  s.FEED_ID
+    </select>
+
+    <select id="getMyRealList" resultType="feedListDto">
+        SELECT   f.ID,
+                 f.FEED_CONTENT,
+                 f.CREATED_DATE,
+                 f.UPDATED_DATE,
+                 r.MEMBER_ID,
+                 r.PLAN_ID
+        FROM     TBL_FEED f
+                     JOIN     TBL_REAL_FEED r
+                              ON       f.ID = r.ID
         WHERE    r.MEMBER_ID = #{memberId}
     </select>
 
-    <select id="getReviewModify" resultType="reviewDTO">
+    <select id="getRealModify" resultType="realDTO">
         SELECT   f.ID,
                  f.FEED_CONTENT,
                  f.CREATED_DATE,
                  f.UPDATED_DATE,
-                 s.REAL_STAR,
                  r.MEMBER_ID,
                  r.PLAN_ID
         FROM     TBL_FEED f
                      JOIN     TBL_REAL_FEED r
                               ON       f.ID = r.ID
-                     LEFT JOIN     TBL_REAL_STAR s
-                                   ON       f.ID  =  s.FEED_ID
         WHERE    f.ID = #{id}
     </select>
 
+    <delete id="deleteRealModify">
+        DELETE
+        FROM TBL_REAL_FEED
+        WHERE ID = #{id}
+    </delete>
 </mapper>

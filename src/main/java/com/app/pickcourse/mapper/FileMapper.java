@@ -13,5 +13,7 @@ public interface FileMapper {
     void postFeedWrite(FileVO fileVO);
 
     // 슈퍼키만 삭제하면 자식들도 삭제
-    void deleteModifyFeed(Long feedId);
+    void deleteFeedModify(Long id);
+
+    void deleteModifyFeedByFeedId(Long feedId);
 }

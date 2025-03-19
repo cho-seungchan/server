@@ -21,7 +21,7 @@
         ORDER BY f.CREATED_DATE DESC
     </select>
 
-    <select id="getFeedModifyList" resultType="feedListDto">
+    <select id="getFeedModify" resultType="feedDto">
         SELECT
             g.ID,
             f.FEED_CONTENT,
@@ -33,4 +33,10 @@
         WHERE g.ID = #{id}
         ORDER BY f.CREATED_DATE DESC
     </select>
+
+    <delete id="deleteFeedModify">
+        DELETE
+        FROM TBL_TOGETHER_FEED
+        WHERE ID = #{id}
+    </delete>
 </mapper>

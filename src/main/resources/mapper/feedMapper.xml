@@ -109,7 +109,7 @@
 
     </update>
 
-    <delete id="deleteFeedModifyList">
+    <delete id="deleteFeedModify">
         DELETE
         FROM TBL_FEED
         WHERE ID = #{id}

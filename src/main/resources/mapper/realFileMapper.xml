@@ -9,18 +9,24 @@
                #{feedId})
     </insert>
 
-    <select id="getFileList" resultType="fileVO">
+    <select id="getRealModify" resultType="fileVO">
         SELECT
             g.ID,
             f.FILE_PATH,
             f.FILE_NAME,
             f.FILE_SIZE,
             f.CREATED_DATE,
-            f.UPDATED_DATE
+            f.UPDATED_DATE,
+            g.FEED_ID
         FROM TBL_REAL_FILE g
                  JOIN TBL_FILE f ON g.ID = f.ID
         WHERE g.FEED_ID = #{feedId}
         ORDER BY f.CREATED_DATE DESC
     </select>
 
+    <delete id="deleteRealModify">
+        DELETE
+        FROM   TBL_REAL_FILE
+        WHERE  ID  =  #{id}
+    </delete>
 </mapper>

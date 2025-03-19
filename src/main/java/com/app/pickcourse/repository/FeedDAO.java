@@ -3,6 +3,7 @@ package com.app.pickcourse.repository;
 import com.app.pickcourse.domain.dto.FeedDTO;
 import com.app.pickcourse.domain.dto.RealDTO;
 import com.app.pickcourse.domain.dto.ReplyDetailDTO;
+import com.app.pickcourse.domain.vo.FeedVO;
 import com.app.pickcourse.mapper.FeedMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -22,5 +23,13 @@ public class FeedDAO {
 
     public void postRealWrite(RealDTO realDTO) {
         feedMapper.postRealWrite(realDTO);
+    }
+
+    public void postFeedModify(FeedVO feedVO) {
+        feedMapper.PostFeedModify(feedVO);
+    }
+
+    public void deleteFeedModify(Long id) {
+        feedMapper.deleteFeedModify(id);
     }
 }

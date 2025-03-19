@@ -168,7 +168,7 @@ fileInput.addEventListener("change", (e) => {
     allFiles.forEach( file => {
        formData.append("files", file);
     });
-
+    console.log(allFiles);
     // const files = e.target.files;
     //
     // // 서버로 보낼 데이타 형태로 변경

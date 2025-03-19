@@ -13,5 +13,7 @@ public interface TogetherFileMapper {
 
     List<FileVO> getFileList(Long feedId);
 
+    List<FileVO> getFeedModify(Long id);
 
+    void deleteFeedModify(Long id);
 }

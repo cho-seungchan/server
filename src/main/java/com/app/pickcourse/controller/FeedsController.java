@@ -123,7 +123,7 @@ public class FeedsController {
         return response;
     }
 
-    // 피드 작성 25.03.18 조승찬
+    // 피드 작성용 화면 랜딩 25.03.18 조승찬
     @GetMapping("/feed-write")
     public String getFeedWrite(Model model) {
         FeedDTO feedDTO = new FeedDTO();
@@ -137,6 +137,42 @@ public class FeedsController {
         log.info(feedDTO.toString());
 
         feedsService.postFeedWrite(1l, feedDTO); //로그인수정
+
+        return "redirect:/feeds/list";
+    }
+
+    // 피드 수정용 조회 25.03.19 조승찬
+    @GetMapping("/feed-modify")
+    public String getFeedModify(@RequestParam("id") Long id, @RequestParam("feedType") String feedType, Model model) {
+
+        FeedDTO feedDTO = feedsService.getFeedModify(id, feedType);
+        feedDTO.setId(id);
+        feedDTO.setFeedType(feedType);
+        model.addAttribute("feedDTO", feedDTO);
+
+        log.info("조회로 던져 준 데이타 ::  "+feedDTO.toString());
+
+        return "/feeds/feed-modify";
+    }
+
+    // 피드 수정 25.03.19 조승찬
+    @PostMapping("/feed-modify")
+    public String postFeedModify(FeedDTO feedDTO) {
+
+        log.info("수정하라고 받은 데이타 ::  " + feedDTO.toString() + " DELETE " + feedDTO.getDeleteFileId());
+
+        feedsService.postFeedModify(feedDTO); //로그인수정
+
+        return "redirect:/feeds/list";
+    }
+
+    // 피드 삭제 25.03.19 조승찬
+    @DeleteMapping("/feed-modify")
+    public String deleteFeedModify(FeedDTO feedDTO) {
+
+        log.info("수정하라고 받은 데이타 ::  "+feedDTO.toString());
+
+        feedsService.deleteFeedModify(feedDTO.getId(), feedDTO.getFeedType()); //로그인수정
 
         return "redirect:/feeds/list";
     }
@@ -160,19 +196,34 @@ public class FeedsController {
         return "redirect:/feeds/list";
     }
 
+
+    // 리얼 후기 수정용 조회 25.03.19 조승찬
+    @GetMapping("/real-modify")
+    public String getRealModify(@RequestParam("id") Long id, Model model) {
+
+        RealDTO realDTO = feedsService.getRealModify(id);
+        realDTO.setId(id);
+        model.addAttribute("realDTO", realDTO);
+
+        log.info("조회로 던져 준 데이타 ::  "+realDTO.toString());
+
+        return "/feeds/real-modify";
+    }
+
+    // 리얼 후기 수정 25.03.19 조승찬
+    @PostMapping("/real-modify")
+    public String postRealModify(RealDTO realDTO) {
+
+        log.info("수정하라고 받은 데이타 ::  "+realDTO.toString()+" DELETE "+realDTO.getDeleteFileId());
+
+        feedsService.postRealModify(realDTO);
+
+        return "redirect:/feeds/list";
+    }
+
     @GetMapping("/list")
     public String getFeedList(Model model) {
         return "/feeds/list";
-    }
-
-    @GetMapping("/modify")
-    public String getFeedModify(Model model) {
-        return "/feeds/modify";
-    }
-
-    @PostMapping("/modify")
-    public String postFeedModify(Model model) {
-        return "/feeds/modify";
     }
 
     @GetMapping("/modify-list")
@@ -183,16 +234,6 @@ public class FeedsController {
     @GetMapping("/review-list")
     public String getReviewList(Model model) {
         return "/feeds/reviewlist";
-    }
-
-    @GetMapping("/review-modify")
-    public String getReviewModify(Model model) {
-        return "/feeds/reviewmodify";
-    }
-
-    @PostMapping("/review-modify")
-    public String postReviewModify(Model model) {
-        return "/feeds/reviewmodify";
     }
 
     @GetMapping("/tour-list")

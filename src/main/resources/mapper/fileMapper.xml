@@ -17,20 +17,13 @@
              #{fileSize})
     </insert>
 
-    <delete id="deleteModifyFeed">
+    <delete id="deleteFeedModify">
         DELETE FROM TBL_FILE
-        WHERE ID IN (
-            SELECT ID FROM TBL_GENERAL_FILE
-            WHERE FEED_ID = #{feedId}
-        )
-           OR ID IN (
-            SELECT ID FROM TBL_REAL_FILE
-            WHERE FEED_ID = #{feedId}
-        )
-           OR ID IN (
-            SELECT ID FROM TBL_TOGETHER_FILE
-            WHERE FEED_ID = #{feedId}
-        )
+        WHERE ID = #{id}
     </delete>
 
+    <delete id="deleteModifyFeedByFeedId">
+        DELETE FROM TBL_FILE
+        WHERE FEED_ID = #{feedId}
+    </delete>
 </mapper>

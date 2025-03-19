@@ -420,38 +420,56 @@ label {
 
 /*25.03.18 조승찬 추가 시작*/
 /* 파일 업로드 아이템 스타일 */
+
 .uploadFile {
-    position: relative; /* 내부 요소 위치를 기준으로 절대 위치 지정 가능 */
-    display: inline-block; /* 이미지와 버튼을 그룹화 */
-    width: 150px; /* 아이템의 전체 너비 */
-    height: auto; /* 높이는 콘텐츠에 따라 자동 */
-    margin: 10px; /* 아이템 간격 */
-    border: 1px solid #ccc; /* 테두리 */
-    border-radius: 5px; /* 둥근 모서리 */
-    overflow: hidden; /* 이미지가 넘어가지 않도록 */
-    background-color: #f9f9f9; /* 배경색 */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 약간의 그림자 효과 */
+    position: relative;
+    display: inline-block;
+    width: 150px; /* 박스 너비 */
+    height: 150px; /* 박스 높이 */
+    margin: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* 표시 이미지 스타일 */
-.display-image {
-    width: 100%; /* 부모 요소에 맞게 크기 조정 */
-    height: auto; /* 가로 세로 비율 유지 */
-    display: block; /* 이미지 아래 다른 요소가 표시되지 않도록 */
+.uploadFile .image-files {
+    width: 100%; /* 이미지 박스에 맞추기 */
+    height: 100%;
+    object-fit: cover; /* 이미지 비율 유지 */
+    vertical-align: middle;
 }
 
-/* 취소 버튼 스타일 */
 .file-cancel {
-    position: absolute; /* 부모 요소(uploadFile)를 기준으로 위치 지정 */
-    top: 5px; /* 위쪽 여백 */
-    right: 5px; /* 오른쪽 여백 */
-    width: 15px; /* 버튼 크기 */
-    height: 15px; /* 버튼 크기 */
-    cursor: pointer; /* 마우스 커서를 포인터로 변경 */
-    z-index: 10; /* 다른 콘텐츠 위에 표시 */
-    background-color: rgba(255, 255, 255, 0.8); /* 반투명 배경 */
-    border-radius: 50%; /* 동그란 버튼 */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
+    position: absolute;
+    top: 5px; /* 박스의 위쪽에서 5px */
+    right: 5px; /* 박스의 오른쪽에서 5px */
+    width: 20px; /* 버튼 크기를 작게 설정 */
+    height: 20px;
+    cursor: pointer;
+    z-index: 10;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 50%; /* 둥근 버튼 */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    display: flex; /* 버튼 안의 콘텐츠를 정렬하기 위함 */
+    justify-content: center;
+    align-items: center;
+}
+/*25.03.18 조승찬 추가 시작*/
+
+/*25.03.19 조승찬 추가 시작*/
+/*삭제버튼 추가 등록버튼과 가운데 가로 정렬*/
+
+.Button-bqxlp0-0 {
+    width: 150px; /* 버튼 너비 설정 */
+    color: white;
+    text-align: center; /* 버튼 텍스트 중앙 정렬 */
+    margin-left: 10px;
 }
 
-/*25.03.18 조승찬 추가 시작*/
+.Button-bqxlp0-0:hover {
+    background-color: rgb(41, 141, 245); /* 호버 시 배경색 변경 */
+    color: lightgray; /* 호버 시 텍스트 색상 변경 */
+}
+/*25.03.19 조승찬 추가 끝*/
