@@ -4,7 +4,6 @@ import com.app.pickcourse.domain.dto.FeedDTO;
 import com.app.pickcourse.domain.dto.FeedListDTO;
 import com.app.pickcourse.domain.vo.FileVO;
 import lombok.extern.slf4j.Slf4j;
-import net.bytebuddy.asm.Advice;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,7 +21,7 @@ public class TogetherFileMapperTests {
     @Autowired
     private TogetherFeedMapper togetherFeedMapper;
     @Autowired
-    private FeedTagMapper feedTagMapper;
+    private TagMapper feedTagMapper;
     @Autowired
     private FeedMapper feedMapper;
 

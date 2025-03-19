@@ -12,6 +12,17 @@
                #{feedContent})
     </insert>
 
+    <insert id="postRealWrite">
+        <selectKey keyProperty="id" resultType="long" order="BEFORE">
+            SELECT SEQ_FEED.NEXTVAL FROM DUAL
+        </selectKey>
+        INSERT INTO TBL_FEED
+        (ID,
+        FEED_CONTENT)
+        VALUES(#{id},
+        #{feedContent})
+    </insert>
+
     <select id="getFeedModify" resultType="feedDTO">
         SELECT
             ID,
@@ -56,9 +67,9 @@
     <select id="getReportDetail" resultType="replyDetailDTO">
         SELECT
             CASE
-                WHEN GF.ID IS NOT NULL THEN 'GENERAL FEED REPORT'
-                WHEN RF.ID IS NOT NULL THEN 'REAL FEED REPORT'
-                WHEN TF.ID IS NOT NULL THEN 'TOGETHER FEED REPORT'
+                WHEN GF.ID IS NOT NULL THEN 'GENERAL FEED'
+                WHEN RF.ID IS NOT NULL THEN 'REAL FEED'
+                WHEN TF.ID IS NOT NULL THEN 'TOGETHER FEED'
                 ELSE 'UNKNOWN'
             END AS source,
             F.ID AS id,
@@ -71,6 +82,21 @@
                  LEFT JOIN TBL_REAL_FEED RF ON F.ID = RF.ID
                  LEFT JOIN TBL_TOGETHER_FEED TF ON F.ID = TF.ID
                  LEFT JOIN TBL_MEMBER M ON COALESCE(GF.MEMBER_ID, RF.MEMBER_ID, TF.MEMBER_ID) = M.ID
+        WHERE F.ID   =  #{id}
+    </select>
+
+    <select id="selectTypeOfFeed"  resultType="string">
+        SELECT
+            CASE
+                WHEN GF.ID IS NOT NULL THEN 'GENERAL FEED'
+                WHEN RF.ID IS NOT NULL THEN 'REAL FEED'
+                WHEN TF.ID IS NOT NULL THEN 'TOGETHER FEED'
+                ELSE 'UNKNOWN'
+                END AS source
+        FROM TBL_FEED F
+                 LEFT JOIN TBL_GENERAL_FEED GF ON F.ID = GF.ID
+                 LEFT JOIN TBL_REAL_FEED RF ON F.ID = RF.ID
+                 LEFT JOIN TBL_TOGETHER_FEED TF ON F.ID = TF.ID
         WHERE F.ID   =  #{id}
     </select>
 

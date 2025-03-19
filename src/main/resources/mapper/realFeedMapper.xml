@@ -6,7 +6,7 @@
             (ID,
              MEMBER_ID,
              PLAN_ID)
-        VALUES(#{feedId},
+        VALUES(#{id},
                #{memberId},
                #{planId})
     </insert>

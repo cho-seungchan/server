@@ -9,7 +9,7 @@ import java.util.List;
 @Mapper
 public interface RealFileMapper {
 
-    void postFeedWrite(@Param("fileId") Long fileId, @Param("feedId") Long feedId);
+    void postFeedWrite(@Param("id") Long fileId, @Param("feedId") Long feedId);
 
     List<FileVO> getFileList(Long feedId);
 

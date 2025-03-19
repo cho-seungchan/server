@@ -1,3 +1,5 @@
+// 2025 조승찬 작성
+
 // ? 버튼을 눌렀을 때 모달창이 열리고, 모달창 이외 부분을 누르면 모달창이 닫히게 작동
 const questionButton = document.querySelector(".bSEWFr");
 const modal = document.querySelector("#modal-root");
@@ -53,6 +55,8 @@ generalFeed.addEventListener("click", () => {
         togetherFeed.classList.remove("ennMMJ");
         togetherFeed.classList.add("jkxdpP");
         textarea.placeholder = "오늘 어떤 것을 경험하고 느끼셨나요?";
+        // 피드타입 세팅 25.03.18 조승찬
+        document.querySelector(".feedType-input").value = "GENERAL";
     }
 });
 togetherFeed.addEventListener("click", () => {
@@ -62,6 +66,8 @@ togetherFeed.addEventListener("click", () => {
         generalFeed.classList.remove("ennMMJ");
         generalFeed.classList.add("jkxdpP");
         textarea.placeholder = "저랑 같이 피커스 하실래요?";
+        // 피드타입 세팅 25.03.18 조승찬
+        document.querySelector(".feedType-input").value = "TOGETHER";
     }
 });
 // 일반피드 같이해요  버튼을 눌렀을 때 양쪽의 바탕색과 글자색이 반대로 바뀌도록 함
@@ -78,8 +84,11 @@ document.querySelector(".kmqQeB").addEventListener("input", (e) => {
 let tagCount = 0;
 const tagParentDiv = document.querySelector(".bmexYY-container");
 const tagInput = document.querySelector(".SocialFeedTagsContainer__SocialFeedTagsWrapper-sc-2762su-0.bmexYY input");
-tagInput.addEventListener("keyup", (e) => {
+tagInput.addEventListener("keydown", (e) => {
+
     if (e.key == "Enter") {
+        e.preventDefault(); //  폼 제출 방지 keyup이면 이미 제출되므로 keydown으로 바꾸고
+
         if (tagCount > 9) {
             //alert(`10개 까지만 입력 가능합니다.`);
             showAlertModal(`10개 까지만 입력 가능합니다.`);
@@ -100,68 +109,14 @@ tagInput.addEventListener("keyup", (e) => {
 
 // 태그의 이미지(x)를 눌렀을 때 div 삭제 :: 동적으로 생성된 요소일 때는 부모 요소에 위임
 tagParentDiv.addEventListener("click", (e) => {
+    e.preventDefault(); // 폼 제출 방지
+
     if (e.target.tagName == "IMG") {
         e.target.closest(".SocialFeedTagsContainer__TagsItemContainer-sc-2762su-2").remove();
 
         tagCount -= 1;
         tagInput.placeholder = `태그를 입력 후 엔터를 누르면 태그가 생성돼요! (${tagCount}/10)`;
     }
-});
-// 태그의 이미지(x)를 눌렀을 때 div 삭제 :: 동적으로 생성된 요소일 때는 부모 요소에 위임
-
-// 태그의 text들을 서버로 보낼 배열에 담는 함수
-function collectTexts() {
-    const texts = [];
-    const tagChildDiv = document.querySelectorAll(".SocialFeedTagsContainer__TagsItemContainer-sc-2762su-2.bJjaqH");
-    tagChildDiv.forEach((child) => {
-        const span = child.querySelector("span");
-        if (span) {
-            texts.push(span.textContent);
-        }
-    });
-    return texts;
-}
-// 태그의 text들을 서버로 보낼 배열에 담는 함수
-
-// 서버에 올리지 않고 화면에 보이도록 처리
-const fileParentDiv = document.querySelector(".ImageList-sc-9v1mt2-0.hGJMVS");
-const fileInput = document.querySelector(".InputImageReview__Wrapper-sc-1oapt4s-0.ipbuZD input");
-
-fileInput.addEventListener("change", (e) => {
-    const files = e.target.files;
-
-    Array.from(files).forEach((file) => {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            const fileDiv = document.createElement("div");
-            fileDiv.className = "ImageList__ImageWrapper-sc-9v1mt2-1 kZTsQf";
-            fileDiv.innerHTML = `<div class="Image__Wrapper-v97gyx-0 gDuKGF"><div class="Ratio " style="display: block;">
-                    <div class="Ratio-ratio " style="height: 0px; position: relative; width: 100%; padding-top: 100%;">
-                    <div class="Ratio-content " style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">
-                    <img src="${e.target.result}" alt="후기 이미지" class="Image__DefaultImage-v97gyx-3 hVNKgp"></div></div></div></div>
-                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'%3E %3Cg fill='none' fill-rule='nonzero'%3E %3Cpath fill='%23FFF' fill-opacity='0' d='M0 0h18v18H0z'/%3E %3Cg stroke='%23FFF' stroke-linecap='square'%3E %3Cpath d='M11.828 6.172l-5.656 5.656M11.828 11.828L6.172 6.172'/%3E %3C/g%3E %3C/g%3E %3C/svg%3E" class="ImageList__IconDelete-sc-9v1mt2-2 benIbu">`;
-
-            fileParentDiv.appendChild(fileDiv);
-        };
-        // 파일 읽기 시작 (중요)
-        reader.readAsDataURL(file);
-    });
-});
-// 서버에 올리지 않고 화면에 보이도록 처리
-
-// 선택파일의 이미지(x)를 눌렀을 때 전체 dev 삭제 :: 동적으로 생성된 요소일 때는 부모 요소에 위임
-fileParentDiv.addEventListener("click", (e) => {
-    if (e.target.classList.contains("ImageList__IconDelete-sc-9v1mt2-2")) {
-        e.target.closest(".ImageList__ImageWrapper-sc-9v1mt2-1").remove();
-    }
-});
-// 선택파일의 이미지(x)를 눌렀을 때 전체 dev 삭제 :: 동적으로 생성된 요소일 때는 부모 요소에 위임
-
-const jULzvQ = document.querySelector(".jULzvQ");
-
-jULzvQ.addEventListener("click", () => {
-    const texts = collectTexts();
-    console.log(texts.length);
 });
 
 // 모달 열기 함수
@@ -187,3 +142,98 @@ function showAlertModal(message) {
         }
     };
 }
+
+//25.03.18 조승찬 추가 시작
+
+// 파일 추가시 기존 파일에 추가되는 형식으로 모여서 서버로 전송
+const fileParentDiv = document.querySelector(".ImageList-sc-9v1mt2-0.hGJMVS");
+const fileInput = document.querySelector(".InputImageReview__Wrapper-sc-1oapt4s-0.ipbuZD input");
+const allFiles = []; // 파일 추가시 기존 파일 유지되게 하기 위한 배열
+fileInput.addEventListener("change", (e) => {
+
+    const files = e.target.files;
+
+    Array.from(files).forEach(newFile => {
+        // 중복이 있는지 확인하고 없을 때 추가
+        const isDup = allFiles.some(existingFile => {
+            return existingFile.name == newFile.name && existingFile.size == newFile.size;
+        });
+
+        if (!isDup) { // 중복이 없을 때만 추가
+            allFiles.push(newFile);
+        }
+    });
+
+    const formData = new FormData();
+    allFiles.forEach( file => {
+       formData.append("files", file);
+    });
+
+    // const files = e.target.files;
+    //
+    // // 서버로 보낼 데이타 형태로 변경
+    // const formData = new FormData();
+    // Array.from(files).forEach((file) => {
+    //     formData.append("files", file);
+    // });
+    // // FormData 내용 출력
+    // console.log("--- FormData 내용 출력 ---");
+    // for (let [key, value] of formData.entries()) {
+    //     console.log(`${key}:`, value);
+    //     if (value instanceof File) {
+    //         console.log(`\t파일명: ${value.name}`);
+    //         console.log(`\t파일 크기: ${value.size} bytes`);
+    //         console.log(`\t파일 타입: ${value.type}`);
+    //     }
+    // }
+
+    // 서버로 전송하여 path와 썸네일 생성
+    inputFileUpload(formData);
+});
+
+// 새로 생성된 썸네일 삭제버튼 클릭시
+// 신규 추가된 파일이 추가될 수 있도록 기존 배열에서 삭제처리
+document.querySelector(".ImageList-sc-9v1mt2-0.hGJMVS").addEventListener("click", e => {
+    if (e.target.className == "file-cancel"){
+        const index = e.target.closest("li").dataset.index; // 클릭된곳의 인덱스 찾아오기
+        allFiles.splice(index, 1); // 배열에서 파일 제거
+        e.target.closest(".uploadFile").remove()
+    }
+})
+
+// 등록하기 버튼 클릭시 태그와 파일 정보들을 모아서 input value에 세팅
+// 텍스트에어리어에 글자가 없으면 경고
+document.querySelector(".jULzvQ").addEventListener("click", (e) => {
+    if (document.querySelector(".kmqQeB").value.length == 0){
+        alert("피드 내용을 입력하세요 ");
+        return;
+    }
+
+    e.preventDefault(); // 폼 제출 방지
+
+    // DOM 요소가 동적으로 생성되는 경우, 부모 요소에 이벤트를 위임한다.
+    // 서버로 전송할 인풋 데이터 생성
+    let text = "";
+    document.querySelector(".bmexYY-container").querySelectorAll(".bJjaqH span").forEach((span, index) => {
+        text += `
+	            <input type="hidden" name="tags[${index}]" value="${span.textContent}">
+			 `;
+    })
+
+    // DOM 요소가 동적으로 생성되는 경우, 부모 요소에 이벤트를 위임한다.
+    // 서버로 전송할 인풋 데이터 생성
+    document.querySelector(".ImageList-sc-9v1mt2-0.hGJMVS").querySelectorAll(".uploadFile").forEach((li, index) => {
+        text += `
+	            <input type="hidden" name="files[${index}].fileName" value="${li.dataset.fileName}">
+	            <input type="hidden" name="files[${index}].filePath" value="${li.dataset.filePath}">
+	            <input type="hidden" name="files[${index}].fileSize" value="${li.dataset.fileSize}">
+			 `;
+    });
+    document['feed-input-form'].insertAdjacentHTML("beforeend", text)
+//  document['feed-input-form'].append(text);    //form은 텍스트 형식을 받는데, text는 html 방식이라서 오류가 남
+
+    document['feed-input-form'].submit();  // form  제출
+});
+
+
+// 25.03.18 조승찬 추가 끝.

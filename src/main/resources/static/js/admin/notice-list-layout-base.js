@@ -1,6 +1,6 @@
 // 2025.03.15 조승찬 작성
 
-// 코스 목록 생성하는 함수
+// 초기 화면 생성 함수
 function createNoticeList() {
 
     const baseContainer = document.querySelector(".AppLayout_contents__YmI3N");

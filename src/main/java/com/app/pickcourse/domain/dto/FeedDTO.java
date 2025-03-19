@@ -2,8 +2,9 @@ package com.app.pickcourse.domain.dto;
 
 import com.app.pickcourse.domain.vo.FeedVO;
 import com.app.pickcourse.domain.vo.FileVO;
-import com.app.pickcourse.domain.vo.FeedTagVO;
+import com.app.pickcourse.domain.vo.TagVO;
 import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -13,11 +14,12 @@ import java.util.List;
 @ToString
 public class FeedDTO {
     private Long id;
+    private String feedType;
     private String feedContent;
+    private List<String> tags;
+    private List<FileVO> files;
     private String createDate;
     private String updateDate;
-    private List<FileVO> files;
-    private List<FeedTagVO> feedTags;
 
     public FeedVO toFeedVO() {
         FeedVO feedVO = new FeedVO();
