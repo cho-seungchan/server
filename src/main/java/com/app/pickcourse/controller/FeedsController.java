@@ -221,6 +221,11 @@ public class FeedsController {
         return "redirect:/feeds/list";
     }
 
+    @GetMapping("/tour-list")
+    public String getTourList(Model model) {
+        return "/feeds/tour-list";
+    }
+
     @GetMapping("/list")
     public String getFeedList(Model model) {
         return "/feeds/list";
@@ -236,8 +241,4 @@ public class FeedsController {
         return "/feeds/reviewlist";
     }
 
-    @GetMapping("/tour-list")
-    public String getTourList(Model model) {
-        return "/feeds/tourlist";
-    }
 }
