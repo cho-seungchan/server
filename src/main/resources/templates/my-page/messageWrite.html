@@ -48,7 +48,7 @@
             </head>
             <body class="fontLoaded">
             <header th:replace="/all/header.html :: #main-header"></header>
-            <form action="/my-page/messageWrite" method="post" th:object="${sendMessageDTO}">
+            <form action="/my-page/messageWrite" method="post" th:object="${sendMessageDTO}" enctype="multipart/form-data">
                 <div id="app">
                     <div class="App__AppWrapper-nc5ti6-0 idXWQn">
                         <div class="PageWrapper-sc-1w87j10-0 bScXKt">
@@ -67,6 +67,8 @@
                                     <span>받는 사람 : </span>
                                     <input
                                         type="text"
+                                        id="receiverEmail"
+                                        name="receiverEmail"
                                         class="inputBox"
                                         placeholder="받는 사람을 입력해주세요!"
                                         th:field="*{receiverEmail}"
@@ -99,10 +101,16 @@
                                             class="InputImageReview__Wrapper-sc-1oapt4s-0 ipbuZD uploadButton"
                                             ><input
                                                 type="file"
+                                                name="file"
                                                 accept=".jpg, .jpeg, .png"
-                                                multiple=""
-                                            /><span> 사진 첨부하기</span></label
+                                            /><span> 사진 첨부하기</span>
+                                            </label
                                         >
+                                        <p
+                                                class="Textarea__Count-sc-1b9phu6-2 jvAusQ characters"
+                                        >
+                                            사진은 한 장만 첨부할 수 있으며, 파일 형식은 .jpg, .jpeg, .png만 가능합니다. (최대 40MB)
+                                        </p>
                                     </div>
                                 </div>
 

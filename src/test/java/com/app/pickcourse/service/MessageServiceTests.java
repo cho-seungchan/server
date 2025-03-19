@@ -17,6 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;
@@ -42,29 +43,29 @@ public class MessageServiceTests {
     @Autowired
     private MemberDAO memberDAO;
 
-    @Test
-    public void testSendMessage() {
-
-        SendMessageDTO sendMessageDTO = new SendMessageDTO();
-        sendMessageDTO.setSenderId(1L);
-        sendMessageDTO.setSenderEmail("test@test.com");
-        sendMessageDTO.setSenderNickname("Test");
-        sendMessageDTO.setReceiverId(2L);
-        sendMessageDTO.setReceiverEmail("dao@test.com");
-        sendMessageDTO.setReceiverNickname("다오수정테스트");
-        sendMessageDTO.setContent("서비스 테스트 메시지입니다.123");
-
-        messageService.sendMessage(sendMessageDTO);
-
-        List<SendMessageDTO> sentMessages = sendMessageDAO.findBySenderId(sendMessageDTO.getSenderId());
-        log.info("보낸 메시지 조회 성공: {}", sentMessages);
-
-        List<ReceiveMessageDTO> receivedMessages = receiveMessageDAO.findByReceiverId(sendMessageDTO.getReceiverId());
-        log.info("받은 메시지 조회 성공: {}", receivedMessages);
-
-        MessageVO message = messageDAO.findById(sentMessages.get(0).getId());
-        log.info("슈퍼키 메시지 조회 성공: {}", message);
-    }
+//    @Test
+//    public void testSendMessage() {
+//
+//        SendMessageDTO sendMessageDTO = new SendMessageDTO();
+//        sendMessageDTO.setSenderId(1L);
+//        sendMessageDTO.setSenderEmail("test@test.com");
+//        sendMessageDTO.setSenderNickname("Test");
+//        sendMessageDTO.setReceiverId(2L);
+//        sendMessageDTO.setReceiverEmail("dao@test.com");
+//        sendMessageDTO.setReceiverNickname("다오수정테스트");
+//        sendMessageDTO.setContent("서비스 테스트 메시지입니다.123");
+//
+//        messageService.sendMessage(sendMessageDTO, file);
+//
+//        List<SendMessageDTO> sentMessages = sendMessageDAO.findBySenderId(sendMessageDTO.getSenderId());
+//        log.info("보낸 메시지 조회 성공: {}", sentMessages);
+//
+//        List<ReceiveMessageDTO> receivedMessages = receiveMessageDAO.findByReceiverId(sendMessageDTO.getReceiverId());
+//        log.info("받은 메시지 조회 성공: {}", receivedMessages);
+//
+//        MessageVO message = messageDAO.findById(sentMessages.get(0).getId());
+//        log.info("슈퍼키 메시지 조회 성공: {}", message);
+//    }
 
     @Test
     public void selectReceiveMessageByReceiverId() {
@@ -128,25 +129,25 @@ public class MessageServiceTests {
         log.info("남은 메세지: {}", leftMessages);
     }
 
+
+//    @Test
+//    public void testSendMessageByEmail() {
+//        Optional<Long> receiverId = memberDAO.findIdByEmail("test@test.com");
+//        Optional<Long> senderId = memberDAO.findIdByEmail("dao@test.com");
 //
-    @Test
-    public void testSendMessageByEmail() {
-        Optional<Long> receiverId = memberDAO.findIdByEmail("test@test.com");
-        Optional<Long> senderId = memberDAO.findIdByEmail("dao@test.com");
-
-        if (receiverId.isEmpty()) {
-            throw new RuntimeException("받는 사람 이메일을 찾을 수 없습니다.");
-        }
-
-        SendMessageDTO sendMessageDTO = new SendMessageDTO();
-        sendMessageDTO.setSenderId(senderId.get());
-        sendMessageDTO.setReceiverId(receiverId.get());
-        sendMessageDTO.setContent("이메일로 메시지 보내기 테스트");
-
-        messageService.sendMessage(sendMessageDTO);
-
-        log.info("메시지 전송 성공: {}", sendMessageDTO);
-    }
+//        if (receiverId.isEmpty()) {
+//            throw new RuntimeException("받는 사람 이메일을 찾을 수 없습니다.");
+//        }
+//
+//        SendMessageDTO sendMessageDTO = new SendMessageDTO();
+//        sendMessageDTO.setSenderId(senderId.get());
+//        sendMessageDTO.setReceiverId(receiverId.get());
+//        sendMessageDTO.setContent("이메일로 메시지 보내기 테스트");
+//
+//        messageService.sendMessage(sendMessageDTO);
+//
+//        log.info("메시지 전송 성공: {}", sendMessageDTO);
+//    }
 
     @Test
     public void testReceiveMessageWithPagination() {

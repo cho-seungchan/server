@@ -75,4 +75,7 @@ public class MemberService {
         return memberDAO.checkNicknameDuplicate(memberNickname);
     }
 
+    public Optional<MemberDTO> findEmailByNickname(String memberNickname) {
+        return memberDAO.findEmailByNickname(memberNickname);
+    }
 }

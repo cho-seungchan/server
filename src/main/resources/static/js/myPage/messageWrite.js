@@ -65,3 +65,13 @@ document.addEventListener("click", (e) => {
         }
     }
 });
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const receiverEmail = urlParams.get("receiver");
+
+    if (receiverEmail) {
+        document.getElementById("receiverEmail").value = receiverEmail;
+    }
+});

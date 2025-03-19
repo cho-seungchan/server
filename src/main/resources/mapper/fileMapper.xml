@@ -33,4 +33,20 @@
         )
     </delete>
 
+    <insert id="insertMessageFile">
+        <selectKey keyProperty="id" resultType="long" order="BEFORE">
+            SELECT SEQ_FILE.NEXTVAL FROM DUAL
+        </selectKey>
+        INSERT INTO TBL_FILE
+        (ID,
+        FILE_PATH,
+        FILE_NAME,
+        FILE_SIZE )
+        VALUES
+        (#{id},
+        #{filePath},
+        #{fileName},
+        #{fileSize})
+    </insert>
+
 </mapper>

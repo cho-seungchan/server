@@ -17,18 +17,10 @@
                 </a>
 
                 <!-- 일반 회원 프로필 링크 -->
-                <a th:if="${session.member != null and session.memberStatus != 'admin'}"
+                <a th:if="${session.member != null}"
                    class="withLink__StyledLink-zuberk-0 lQqkn" href="/my-page/myPageModify">
                     <div class="GlobalNavigationBar__TopNavMenu-og74wb-4 kgHgrk">
                         <span th:text="${session.member.memberNickname}"></span> 님
-                    </div>
-                </a>
-
-                <!-- 관리자 프로필 링크 -->
-                <a th:if="${session.member != null and session.memberStatus == 'admin'}"
-                   class="withLink__StyledLink-zuberk-0 lQqkn" href="/admin/dashboard">
-                    <div class="GlobalNavigationBar__TopNavMenu-og74wb-4 kgHgrk">
-                        <span th:text="'관리자 ' + ${session.member.adminName}"></span> 님
                     </div>
                 </a>
 

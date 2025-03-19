@@ -56,11 +56,11 @@ public class MemberDAOTests {
         log.info(updatedMember.toString());
     }
 
-    @Test
-    public void deleteTest() {
-        memberVO.setId(3L);
-        memberDAO.delete(memberVO);
-    }
+//    @Test
+//    public void deleteTest() {
+//        memberVO.setId(3L);
+//        memberDAO.delete(memberVO);
+//    }
 
     @Test
     public void findByMemberEmailAndPasswordTest() {

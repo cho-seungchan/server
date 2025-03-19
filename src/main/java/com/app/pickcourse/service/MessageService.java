@@ -4,23 +4,26 @@ import com.app.pickcourse.domain.dto.ReceiveMessageDTO;
 import com.app.pickcourse.domain.dto.ReceivePaginationDTO;
 import com.app.pickcourse.domain.dto.SendMessageDTO;
 import com.app.pickcourse.domain.dto.SendPaginationDTO;
-import com.app.pickcourse.domain.vo.MessageVO;
-import com.app.pickcourse.domain.vo.ReceiveMessageVO;
-import com.app.pickcourse.domain.vo.SendMessageVO;
+import com.app.pickcourse.domain.vo.*;
 import com.app.pickcourse.mapper.MessageMapper;
 import com.app.pickcourse.mapper.ReceiveMessageMapper;
 import com.app.pickcourse.mapper.SendMessageMapper;
-import com.app.pickcourse.repository.MemberDAO;
-import com.app.pickcourse.repository.MessageDAO;
-import com.app.pickcourse.repository.ReceiveMessageDAO;
-import com.app.pickcourse.repository.SendMessageDAO;
+import com.app.pickcourse.repository.*;
 import com.app.pickcourse.util.Pagination;
 import lombok.RequiredArgsConstructor;
+import net.coobird.thumbnailator.Thumbnailator;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -31,18 +34,105 @@ public class MessageService {
     private final SendMessageDAO sendMessageDAO; // 보낸 메시지 DAO
     private final ReceiveMessageDAO receiveMessageDAO; // 받은 메시지 DAO
     private final MemberDAO memberDAO;
+    private final FileDAO fileDAO;
+    private final SendMessageFileDAO sendMessageFileDAO;
+    private final ReceiveMessageFileDAO receiveMessageFileDAO;
+
+//    // 메세지 보내기
+//    public void sendMessage(SendMessageDTO sendMessageDTO, MultipartFile file){
+//        String todayPath = getPath();
+//        String rootPath = "C:/upload/" + todayPath;
+//
+//        // 메시지 내용 저장 (슈퍼키)
+//        MessageVO messageVO = new MessageVO();
+//        messageVO.setContent(sendMessageDTO.getContent());
+//        messageDAO.save(messageVO); // DAO 사용
+//
+//        // 보낸 메시지 테이블에 저장
+//        SendMessageVO sendMessageVO = sendMessageDTO.toVO(); // DTO -> VO 변환
+//        sendMessageVO.setId(messageVO.getId()); // 슈퍼키 설정
+//        sendMessageDAO.save(sendMessageVO); // DAO 사용
+//
+//        // 받은 메시지 테이블에도 저장
+//        ReceiveMessageVO receiveMessageVO = new ReceiveMessageVO();
+//        receiveMessageVO.setId(messageVO.getId()); // 슈퍼키 설정
+//        receiveMessageVO.setSenderId(sendMessageDTO.getSenderId()); // 보낸 사람 ID
+//        receiveMessageVO.setReceiverId(sendMessageDTO.getReceiverId()); // 받는 사람 ID
+//        receiveMessageVO.setContent(sendMessageDTO.getContent()); // 메시지 내용
+//        receiveMessageDAO.save(receiveMessageVO); // DAO 사용
+//
+//        File directory = new File(rootPath);
+//        if(!directory.exists()){
+//            directory.mkdirs();
+//        }
+//
+//        UUID uuid = UUID.randomUUID();
+//        if(file.getOriginalFilename().equals("")){
+//            return;
+//        }
+//        FileVO fileVO = new FileVO();
+//        SendMessageFileVO sendMessageFileVO = new SendMessageFileVO();
+//        ReceiveMessageFileVO receiveMessageFileVO = new ReceiveMessageFileVO();
+//
+//        fileVO.setFileName(uuid.toString() + file.getOriginalFilename());
+//        fileVO.setFileSize(String.valueOf(file.getSize()));
+//        fileVO.setFilePath(todayPath);
+//
+//        fileDAO.saveMessageFile(fileVO);
+//
+//        sendMessageFileVO.setId(sendMessageFileVO.getId());
+//        sendMessageFileVO.setSendMessageFileId(sendMessageVO.getId());
+//
+//        sendMessageFileDAO.saveMessageFile(sendMessageFileVO);
+//
+//        receiveMessageFileVO.setId(receiveMessageVO.getId());
+//        receiveMessageFileVO.setReceiveMessageFileId(receiveMessageVO.getId());
+//
+//        receiveMessageFileDAO.saveMessageFile(receiveMessageFileVO);
+//
+//
+//        try {
+//            file.transferTo(new File(rootPath, uuid.toString() + "_" + file.getOriginalFilename()));
+//
+////            썸네일 가공
+//            if(file.getContentType().startsWith("image")){
+//                FileOutputStream out = new FileOutputStream(new File(rootPath, "t_" + uuid.toString() + "_" + file.getOriginalFilename()));
+//                Thumbnailator.createThumbnail(file.getInputStream(), out, 100, 100);
+//                out.close();
+//            }
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
+
 
     // 메세지 보내기
-    public void sendMessage(SendMessageDTO sendMessageDTO) {
+    public void sendMessage(SendMessageDTO sendMessageDTO, MultipartFile file){
+        String todayPath = getPath();
+        String rootPath = "C:/upload/" + todayPath;
+
+        // 디버깅 ==
+        System.out.println("메시지 전송 시작");
+        System.out.println("보낸 사람 ID: " + sendMessageDTO.getSenderId());
+        System.out.println("받는 사람 ID: " + sendMessageDTO.getReceiverId());
+        System.out.println("메시지 내용: " + sendMessageDTO.getContent());
+        // 디버깅 ==
+
         // 메시지 내용 저장 (슈퍼키)
         MessageVO messageVO = new MessageVO();
         messageVO.setContent(sendMessageDTO.getContent());
         messageDAO.save(messageVO); // DAO 사용
 
+        // 디버깅
+        System.out.println("메시지 저장 완료, 메시지 ID: " + messageVO.getId());
+
         // 보낸 메시지 테이블에 저장
         SendMessageVO sendMessageVO = sendMessageDTO.toVO(); // DTO -> VO 변환
         sendMessageVO.setId(messageVO.getId()); // 슈퍼키 설정
         sendMessageDAO.save(sendMessageVO); // DAO 사용
+
+        // 디버깅
+        System.out.println("보낸 메시지 저장 완료, ID: " + sendMessageVO.getId());
 
         // 받은 메시지 테이블에도 저장
         ReceiveMessageVO receiveMessageVO = new ReceiveMessageVO();
@@ -51,6 +141,70 @@ public class MessageService {
         receiveMessageVO.setReceiverId(sendMessageDTO.getReceiverId()); // 받는 사람 ID
         receiveMessageVO.setContent(sendMessageDTO.getContent()); // 메시지 내용
         receiveMessageDAO.save(receiveMessageVO); // DAO 사용
+
+        // 디버깅
+        System.out.println("받은 메시지 저장 완료, ID: " + receiveMessageVO.getId());
+
+        UUID uuid = UUID.randomUUID();
+        if(file.getOriginalFilename().equals("")){
+            return;
+        }
+        FileVO fileVO = new FileVO();
+        SendMessageFileVO sendMessageFileVO = new SendMessageFileVO();
+        ReceiveMessageFileVO receiveMessageFileVO = new ReceiveMessageFileVO();
+
+        fileVO.setFileName(uuid.toString() + "_" + file.getOriginalFilename());
+        fileVO.setFileSize(String.valueOf(file.getSize()));
+        fileVO.setFilePath(todayPath);
+
+        fileDAO.saveMessageFile(fileVO);
+        // 디버깅
+        System.out.println("파일 정보 저장 완료, 파일 ID: " + fileVO.getId());
+
+        sendMessageFileVO.setId(fileVO.getId());
+        sendMessageFileVO.setSendMessageFileId(sendMessageVO.getId());
+
+        sendMessageFileDAO.saveMessageFile(sendMessageFileVO);
+        // 디버깅
+        System.out.println("보낸 메시지-파일 관계 저장 완료, ID: " + sendMessageFileVO.getId());
+
+        receiveMessageFileVO.setId(fileVO.getId());
+        receiveMessageFileVO.setReceiveMessageFileId(receiveMessageVO.getId());
+
+        receiveMessageFileDAO.saveMessageFile(receiveMessageFileVO);
+        // 디버깅
+        System.out.println("받은 메시지-파일 관계 저장 완료 ID: " + receiveMessageFileVO.getId());
+
+        File directory = new File(rootPath);
+        if(!directory.exists()){
+            // 디버깅
+            System.out.println("파일이 첨부되지 않음 메시지만 전송 완료");
+            directory.mkdirs();
+        }
+
+        try {
+            file.transferTo(new File(rootPath, uuid.toString() + "_" + file.getOriginalFilename()));
+            // 디버깅
+            System.out.println("파일 저장 완료: " + rootPath + "/" + uuid.toString() + "_" + file.getOriginalFilename());
+    //            썸네일 가공
+            if(file.getContentType().startsWith("image")){
+                FileOutputStream out = new FileOutputStream(new File(rootPath, "t_" + uuid.toString() + "_" + file.getOriginalFilename()));
+                Thumbnailator.createThumbnail(file.getInputStream(), out, 100, 100);
+                out.close();
+                // 디버깅
+                System.out.println("썸네일 생성 완료");
+            }
+        } catch (IOException e) {
+            // 디버깅
+            System.err.println("파일 저장 중 오류 발생: " + e.getMessage());
+            throw new RuntimeException(e);
+        }
+        // 디버깅
+        System.out.println("메시지 및 파일 전송 완료!");
+    }
+
+    private String getPath(){
+        return LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
     }
 
     // 받은 메세지 조회
@@ -63,14 +217,29 @@ public class MessageService {
         return sendMessageDAO.findBySenderId(senderId);
     }
 
-    // 받은 메세지 삭제
-    public void deleteReceiveMessageById(Long id) {
-        receiveMessageDAO.delete(id);
+    public boolean deleteReceiveMessageById(Long id) {
+        // 메시지가 존재하는지 확인
+        ReceiveMessageDTO message = receiveMessageDAO.findMessageById(id);
+        if (message == null) {
+            return false; // 메시지가 존재하지 않으면 삭제 불가
+        }
+
+        // 삭제 수행
+        int deletedRows = receiveMessageDAO.deleteReceiveMessage(id);
+        return deletedRows > 0;
     }
 
     // 보낸 메세지 삭제
-    public void deleteSendMessageById(Long id) {
-        sendMessageDAO.delete(id);
+    public boolean deleteSendMessageById(Long id) {
+        // 메시지가 존재하는지 확인
+        SendMessageDTO message = sendMessageDAO.findMessageById(id);
+        if (message == null) {
+            return false; // 메시지가 존재하지 않으면 삭제 불가
+        }
+
+        // 삭제 수행
+        int deletedRows = sendMessageDAO.deleteSendMessage(id);
+        return deletedRows > 0;
     }
 
     // 슈퍼키 메세지 삭제
@@ -80,30 +249,15 @@ public class MessageService {
 
 
     // ID로 이메일을 찾고 이메일로 메시지 전송
-    public void sendMessageByEmail(SendMessageDTO sendMessageDTO) {
+    public void sendMessageByEmail(SendMessageDTO sendMessageDTO, MultipartFile file) {
         Long receiverId = memberDAO.findIdByEmail(sendMessageDTO.getReceiverEmail())
                 .orElseThrow(() -> new RuntimeException("해당 이메일을 가진 사용자가 없습니다."));
 
         sendMessageDTO.setReceiverId(receiverId);
 
-        sendMessage(sendMessageDTO);
+        sendMessage(sendMessageDTO, file);
     }
 
-//    // 받은 메시지 목록과 페이지네이션 데이터를 함께 반환하는 메서드
-//    public Map<String, Object> getReceivedMessages(Long receiverId, int page) {
-//        int totalMessages = getReceiveMessageCount(receiverId);
-//
-//        Pagination pagination = new Pagination();
-//        pagination.setPage(page);
-//        pagination.create(totalMessages);
-//
-//        List<ReceiveMessageDTO> receivedMessages = findReceiveMessages(receiverId, page, 5);
-//
-//        return Map.of(
-//                "receivedMessages", receivedMessages,
-//                "pagination", pagination
-//        );
-//    }
 
     // 받은 메시지 개수 조회
     public int getReceiveMessageCount(Long receiverId) {
@@ -114,18 +268,6 @@ public class MessageService {
     public List<ReceiveMessageDTO> findReceiveMessages(Long receiverId, Pagination pagination) {
         return receiveMessageDAO.findByReceiverIdWithPagination(receiverId, pagination);
     }
-
-
-//    // 받은 메시지 조회
-//    public List<ReceiveMessageDTO> findReceiveMessages(Long receiverId, int page, int rowCount) {
-//        int startRow = (page - 1) * rowCount;
-//        return receiveMessageDAO.findByReceiverIdWithPagination(receiverId, startRow, rowCount);
-//    }
-//
-//    // 받은 메시지 개수 조회
-//    public int getReceiveMessageCount(Long receiverId) {
-//        return receiveMessageDAO.countByReceiverId(receiverId);
-//    }
 
     // 보낸 메시지 조회
     public List<SendMessageDTO> findSendMessages(Long senderId, int page, int rowCount) {
@@ -165,4 +307,6 @@ public class MessageService {
     public int getTotalSendMessage(Long senderId) {
         return sendMessageDAO.findTotalSendMessage(senderId);
     }
+
+
 }

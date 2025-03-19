@@ -59,35 +59,5 @@ public class LoginController {
     @GetMapping("updatePasswordLogin")
     public void updatePasswordLogin(@ModelAttribute MemberDTO memberDTO) {}
 
-//    AdminController
-//    @GetMapping("adminLogin")
-//    public String goToAdminLoginForm(Model model) {
-//        return "login/adminLogin";
-//    }
-//
-//    @PostMapping("adminLogin")
-//    public String adminLogin(@ModelAttribute AdminVO adminVO) {
-//
-//        adminVO.setAdminAccount(adminVO.getAdminAccount());
-//        adminVO.setAdminPassword(adminVO.getAdminPassword());
-//
-//        Optional<AdminVO> optionalAdmin = adminService.adminLogin(adminVO);
-//
-//        if (optionalAdmin.isEmpty()) {
-//            return "redirect:/login/adminLogin";
-//        }
-//
-//        AdminVO admin = optionalAdmin.get();
-//
-//        if (admin.getAdminPassword() == null ||
-//                !admin.getAdminPassword().equals(adminVO.getAdminPassword())) {
-//            return "redirect:/login/adminLogin";
-//        }
-//
-//        session.setAttribute("admin", admin);
-//        return "redirect:/admin/admin";
-//    }
-
-
 
 }

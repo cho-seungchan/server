@@ -70,4 +70,8 @@ public interface MemberMapper {
 
     int countByNickname(@Param("memberNickname") String memberNickname);
 
+    // 닉네임으로 이메일조회(답장기능)
+
+    Optional<MemberDTO> findEmailByNickname(String memberNickname);
+
 }

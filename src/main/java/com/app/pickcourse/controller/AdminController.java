@@ -9,6 +9,7 @@ import com.app.pickcourse.domain.vo.NoticeVO;
 import com.app.pickcourse.service.AdminService;
 import com.app.pickcourse.util.Pagination;
 import com.app.pickcourse.util.Search;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/admin")
@@ -29,6 +31,7 @@ public class AdminController {
 
 
     private final AdminService adminService;
+    private final HttpSession session;
 
     // 관리자 메인 페이지
     @GetMapping("/admin")
@@ -284,6 +287,47 @@ public class AdminController {
         log.info("deleteNoticeDetail  "+id);
 
         adminService.deleteNoticeDetail(id);
+    }
+
+//   Admin Login
+    @GetMapping("adminLogin")
+    public String goToAdminLoginForm(Model model) {
+        model.addAttribute("adminVO", new AdminVO());
+        return "admin/adminLogin";
+    }
+
+    @PostMapping("adminLogin")
+    public String adminLogin(@ModelAttribute AdminVO adminVO) {
+
+        adminVO.setAdminAccount(adminVO.getAdminAccount());
+        adminVO.setAdminPassword(adminVO.getAdminPassword());
+
+        Optional<AdminVO> optionalAdmin = adminService.adminLogin(adminVO);
+
+        if (optionalAdmin.isEmpty()) {
+            return "redirect:/admin/adminLogin";
+        }
+
+        AdminVO admin = optionalAdmin.get();
+
+        if (admin.getAdminPassword() == null ||
+                !admin.getAdminPassword().equals(adminVO.getAdminPassword())) {
+            return "redirect:/admin/adminLogin";
+        }
+
+        session.setAttribute("admin", admin);
+        return "redirect:/admin/admin";
+    }
+
+    @PostMapping("/logout")
+    public String logout() {
+        if (session.getAttribute("admin") != null) {
+            session.invalidate();
+            log.info("관리자 로그아웃 완료");
+        } else {
+            log.warn("로그아웃 실패: 로그인된 관리자가 없음");
+        }
+        return "redirect:/admin/adminLogin";
     }
 
 }

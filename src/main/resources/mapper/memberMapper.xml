@@ -145,10 +145,7 @@
         FROM TBL_MEMBER WHERE MEMBER_EMAIL = #{memberEmail} AND MEMBER_PASSWORD = #{memberPassword}
     </select>
 
-<!--    <select id="selectByAdminAccountAndAdminPassword" resultType="adminVO">-->
-<!--        SELECT ID, ADMIN_ACCOUNT, ADMIN_PASSWORD, ADMIN_NAME, ADMIN_PHONE, ADMIN_EMAIL, CREATED_DATE, UPDATED_DATE -->
-<!--        FROM TBL_ADMIN WHERE ADMIN_ACCOUNT = #{adminAccount} AND ADMIN_PASSWORD = #{adminPassword}-->
-<!--    </select>-->
+
 
     <select id="findByEmailForKakao" resultType="memberVO">
         SELECT * FROM TBL_MEMBER
@@ -198,4 +195,10 @@
         WHERE MEMBER_NICKNAME = #{memberNickname}
     </select>
 
+    <select id="findEmailByNickname" parameterType="String" resultType="memberDTO">
+        SELECT ID, MEMBER_EMAIL, MEMBER_PASSWORD, MEMBER_NICKNAME, MEMBER_TELL, MEMBER_BIRTH,
+               MEMBER_GENDER, MEMBER_POINT, MEMBER_IS_ACT, CREATED_DATE, UPDATED_DATE
+        FROM TBL_MEMBER
+        WHERE MEMBER_NICKNAME = #{memberNickname}
+    </select>
 </mapper>

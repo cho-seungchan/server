@@ -7,9 +7,11 @@ import com.app.pickcourse.domain.vo.SendMessageVO;
 import com.app.pickcourse.repository.MemberDAO;
 import com.app.pickcourse.repository.ReceiveMessageDAO;
 import com.app.pickcourse.repository.SendMessageDAO;
+import com.app.pickcourse.repository.SendMessageFileDAO;
 import com.app.pickcourse.service.MemberService;
 import com.app.pickcourse.service.MessageService;
 import com.app.pickcourse.util.Pagination;
+import jakarta.mail.Multipart;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +21,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -39,6 +42,7 @@ public class MyPageController {
     private final MemberService memberService;
     private final MemberVO memberVO;
     private final HttpSession session;
+    private final SendMessageFileDAO sendMessageFileDAO;
 
     @GetMapping("changePassword")
     public String getChangePassword(){
@@ -134,45 +138,83 @@ public class MyPageController {
         return messageService.getReceiveList(receiverId, pagination);
     }
 
+    @PostMapping("/deleteReceiveMessage")
+    @ResponseBody
+    public boolean deleteMessage(@RequestParam Long id) {
+        MemberDTO member = (MemberDTO) session.getAttribute("member");
 
-    @GetMapping("messageWrite")
-    public String getMessageWrite(Model model) {
-        model.addAttribute("sendMessageDTO", new SendMessageDTO());
+        if (member == null) {
+            return false;
+        }
+        return messageService.deleteReceiveMessageById(id);
+    }
+
+    @PostMapping("/deleteSendMessage")
+    @ResponseBody
+    public boolean deleteSendMessage(@RequestParam Long id) {
+        MemberDTO member = (MemberDTO) session.getAttribute("member");
+
+        if (member == null) {
+            return false;
+        }
+        return messageService.deleteSendMessageById(id);
+    }
+
+
+
+    @GetMapping("/my-page/messageWrite")
+    public String showMessageWritePage(
+            @RequestParam(value = "receiver", required = false, defaultValue = "") String receiverEmail,
+            Model model
+    ) {
+        SendMessageDTO sendMessageDTO = new SendMessageDTO();
+
+        if (!receiverEmail.isEmpty()) {
+            sendMessageDTO.setReceiverEmail(receiverEmail);
+        }
+
+        model.addAttribute("sendMessageDTO", sendMessageDTO);
         return "my-page/messageWrite";
     }
 
-    @PostMapping("messageWrite")
-    public String sendMessage(@ModelAttribute SendMessageDTO sendMessageDTO, HttpSession session) {
-        // 로그인된 사용자 정보 가져오기
+    @PostMapping("/my-page/messageWrite")
+    public String sendMessage(
+            @ModelAttribute("sendMessageDTO") SendMessageDTO sendMessageDTO,
+            @RequestParam("file") MultipartFile file,
+            RedirectAttributes redirectAttributes
+    ) {
+        log.info("파일 이름: {}", file.getOriginalFilename());
+
         MemberDTO member = (MemberDTO) session.getAttribute("member");
 
-        // 로그인된 사용자가 없으면 에러 페이지로 리다이렉트
         if (member == null) {
             return "redirect:/login/login";
         }
 
-        // 받은 사람 이메일이 비어있는 경우
-        if (sendMessageDTO.getReceiverEmail() == null || sendMessageDTO.getReceiverEmail().isEmpty()) {
-            return "redirect:/error-page";
+        if (sendMessageDTO.getReceiverEmail() == null || sendMessageDTO.getReceiverEmail().trim().isEmpty()) {
+            redirectAttributes.addFlashAttribute("error", "받는 사람을 입력해주세요.");
+            return "redirect:/my-page/messageWrite";
         }
 
-        // 받은 사람 이메일로 ID 조회
         Optional<Long> receiverId = memberDAO.findIdByEmail(sendMessageDTO.getReceiverEmail());
         if (receiverId.isEmpty()) {
-            return "redirect:/error-page";
+            redirectAttributes.addFlashAttribute("error", "받는 사람 이메일을 찾을 수 없습니다.");
+            return "redirect:/my-page/messageWrite";
         }
 
-        // receiverId 설정
         sendMessageDTO.setReceiverId(receiverId.get());
-        // senderId를 세션에서 가져온 로그인된 사용자 ID로 설정
         sendMessageDTO.setSenderId(member.getId());
 
-        // 메시지 전송
-        messageService.sendMessage(sendMessageDTO);
+        try {
+            messageService.sendMessage(sendMessageDTO, file);
+            redirectAttributes.addFlashAttribute("success", "메시지가 성공적으로 전송되었습니다.");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "메시지 전송 중 오류가 발생했습니다.");
+        }
 
-        // 전송 성공 후 리스트로 이동
         return "redirect:/my-page/messageList_Send";
     }
+
 
 
     @GetMapping("myCourse")
@@ -264,5 +306,36 @@ public class MyPageController {
 
         return "redirect:/";
     }
+
+    @GetMapping("/getEmailByNickname")
+    public ResponseEntity<MemberDTO> getEmailByNickname(@RequestParam String memberNickname) {
+        return memberService.findEmailByNickname(memberNickname)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+    }
+
+
+    @GetMapping("/files/{messageId}")
+    @ResponseBody
+    public SendMessageFileDTO getSendMessageFile(@PathVariable Long messageId) {
+        System.out.println("📌 [DEBUG] 파일 조회 요청: messageId = " + messageId);
+
+        SendMessageFileDTO file = sendMessageFileDAO.selectBySendMessageId(messageId);
+
+        if (file == null) {
+            System.out.println("⚠ [DEBUG] 파일이 없음: messageId = " + messageId);
+            return null; // 파일이 없을 경우, 클라이언트에서 null을 받음
+        }
+
+        // ✅ 파일이 존재하는 경우, 디버깅 로그 출력
+        System.out.println("✅ [DEBUG] 파일 조회 완료: " + file.getFileName());
+        System.out.println("✅ [DEBUG] 파일 전체 경로: C:/upload/" + file.getFileName());
+        System.out.println("✅ [DEBUG] 웹에서 접근 가능한 경로: /uploads/" + file.getFileName());
+
+        return file;  // 단일 파일 반환
+    }
+
+
+
 
 }

@@ -110,4 +110,7 @@ public class MemberDAO {
         return memberMapper.selectById(id);
     }
 
+    public Optional<MemberDTO> findEmailByNickname(String memberNickname) {return memberMapper.findEmailByNickname(memberNickname);}
+
+
 }

@@ -11,7 +11,6 @@ public class ReceiveMessageFileVO {
 
     @EqualsAndHashCode.Include
     private Long id;
+    private Long receiveMessageFileId;
 
-    private Long receiveMessageId;
-    private Long fileId;
 }

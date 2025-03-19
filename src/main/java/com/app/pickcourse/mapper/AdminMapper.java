@@ -31,13 +31,7 @@ public interface AdminMapper {
     // 조회(아이디/비밀번호) (mapper)
     public Optional<AdminVO> selectByAdminAccountAndAdminPassword(AdminVO adminVO);
 
-//    // 로그인 (DAO)
-//    public Optional<AdminVO> findByAdminAccountAndPassword(AdminVO adminVO){
-//        return adminMapper.selectByAdminAccountAndAdminPassword(adminVO);
-//    }
 
-//    // Admin 로그인 (Service)
-//    public Optional<AdminVO> adminLogin(AdminVO adminVO) {
-//        return adminDAO.findByAdminAccountAndPassword(adminVO);
-//    }
+
+
 }
