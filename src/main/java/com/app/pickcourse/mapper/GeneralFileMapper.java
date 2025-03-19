@@ -16,4 +16,6 @@ public interface GeneralFileMapper {
     List<FileVO> getFeedModify(Long feedId);
 
     void deleteFeedModify(Long id);
+
+    void deleteFeedModifyByFeedId(Long feedId);
 }

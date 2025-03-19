@@ -14,15 +14,20 @@ public class RealFileDAO {
     private final RealFileMapper realFileMapper;
 
     public void postFeedWrite(Long id, Long feedId) {
+
         realFileMapper.postFeedWrite(id, feedId);
     }
 
-
     public List<FileVO> getRealModify(Long id) {
+
         return realFileMapper.getRealModify(id);
     }
 
     public void deleteRealModify(Long id) {
         realFileMapper.deleteRealModify(id);
+    }
+
+    public void deleteRealModifyByFeedId(Long feedId) {
+        realFileMapper.deleteRealModifyByFeedId(feedId);
     }
 }

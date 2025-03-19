@@ -19,4 +19,8 @@ public class RealFeedDAO {
     public RealDTO getRealModify(Long id) {
         return realFeedMapper.getRealModify(id).orElseThrow(()-> new RuntimeException("RealDTO not found"));
     }
+
+    public void deleteRealModify(Long id) {
+        realFeedMapper.deleteRealModify(id);
+    }
 }

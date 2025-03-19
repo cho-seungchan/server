@@ -24,4 +24,8 @@ public class GeneralFileDAO {
     public void deleteFeedModify(Long id) {
         generalFileMapper.deleteFeedModify(id);
     }
+
+    public void deleteFeedModifyByFeedId(Long feedId) {
+        generalFileMapper.deleteFeedModifyByFeedId(feedId);
+    }
 }

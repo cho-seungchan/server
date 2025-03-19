@@ -26,7 +26,13 @@
 
     <delete id="deleteRealModify">
         DELETE
-        FROM   TBL_REAL_FILE
-        WHERE  ID  =  #{id}
+        FROM    TBL_REAL_FILE
+        WHERE   ID  =  #{id}
+    </delete>
+
+    <delete id="deleteRealModifyByFeedId">
+        DELETE
+        FROM    TBL_REAL_FILE
+        WHERE   FEED_ID  =  #{feedId}
     </delete>
 </mapper>

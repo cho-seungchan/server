@@ -15,9 +15,8 @@ public interface RealFeedMapper {
     // postReviewWrite(리얼후기 작성)
     void postFeedWrite(@Param("id") Long id, @Param("memberId") Long memberId, @Param("planId") Long planId);
 
-    List<FeedListDTO> getRealList();
-
-    List<FeedListDTO>  getMyRealList(Long memberId);
-
     Optional<RealDTO> getRealModify(Long id);
+
+    void deleteRealModify(Long id);
+
 }

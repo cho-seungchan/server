@@ -29,4 +29,10 @@
         FROM     TBL_TOGETHER_FILE
         WHERE    ID  = #{id}
     </delete>
+
+    <delete id="deleteRealModifyByFeedId">
+        DELETE
+        FROM    TBL_REAL_FILE
+        WHERE   ID  =  #{feedid}
+    </delete>
 </mapper>

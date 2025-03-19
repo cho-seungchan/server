@@ -29,7 +29,7 @@
                         <div class="WriteFeedPage__Divider-bnh5u-2 hgZork"></div>
 
 <!--                        FORM 형태로 수정  25.03.19 조승찬 시작 -->
-                        <form th:action="@{/feeds/real-modify}" name="feed-input-form" id="feed-input-form" method="post" th:object="${realDTO}" enctype="multipart/form-data">
+                        <form name="feed-input-form" id="feed-input-form" method="post" th:object="${realDTO}" enctype="multipart/form-data">
                             <input type="hidden" name="id" class="id-input" th:field="*{id}" th:value="*{id}">
                             <input type="hidden" name="planId" class="planId-input" th:field="*{planId}" th:value="*{planId}">
                             <input type="hidden" name="tags" class="tagArray-input" >

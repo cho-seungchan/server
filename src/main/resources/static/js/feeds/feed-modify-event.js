@@ -195,9 +195,20 @@ document.querySelector(".feed-modify").addEventListener("click", (e) => {
 
     document['feed-input-form'].insertAdjacentHTML("beforeend", text)
 //  document['feed-input-form'].append(text);    //form은 텍스트 형식을 받는데, text는 html 방식이라서 오류가 남
-    console.log(document['feed-input-form'].outerHTML);
+    document['feed-input-form'].setAttribute("action", "/feeds/feed-modify");
     document['feed-input-form'].submit();  // form  제출
 });
 
+// 삭제버튼 클릭시
+document.querySelector(".feed-delete").addEventListener("click", (e) => {
 
+    const userConfirmed = confirm("정말 삭제 하시겠습니까?");
+    if (userConfirmed) {
+        const id       = document.querySelector(".id-input").value;
+        const feedType = document.querySelector(".feedType-input").value;
+
+        document['feed-input-form'].setAttribute("action", `/feeds/feed-delete?id=${id}&type=${feedType}`);
+        document['feed-input-form'].submit();  // form  제출
+    }
+});
 // 25.3.19 조승찬 추가 끝

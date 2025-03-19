@@ -24,4 +24,8 @@ public class TogetherFileDAO {
     public void deleteFeedModify(Long id) {
         togetherFileMapper.deleteFeedModify(id);
     }
+
+    public void deleteFeedModifyByFeedId(Long feedId) {
+        togetherFileMapper.deleteFeedModify(feedId);
+    }
 }

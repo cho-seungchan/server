@@ -225,7 +225,6 @@ public class FeedsService {
         if (feedDTO.getFiles() != null && feedDTO.getFiles().size() != 0) {
             feedDTO.getFiles().forEach( file -> {
                 fileDAO.postFeedWrite(file); // 슈퍼키 입력
-                log.info("신규 파일 등록  "+file.getId()+" "+feedDTO.getId());
                 if (feedDTO.getFeedType().equals("GENERAL")) {
                     generalFileDAO.postFeedWrite(file.getId(), feedDTO.getId());
                 } else if (feedDTO.getFeedType().equals("TOGETHER")) {
@@ -251,11 +250,11 @@ public class FeedsService {
         tagDAO.deleteFeedModify(id);
 
         // 파일 삭제
-        fileDAO.deleteFeedModifyByFeedId(id);   // feedid로 삭제 확인
+        fileDAO.deleteFeedModifyByFeedId(id);
         if (feedType.equals("GENERAL")) {
-            generalFileDAO.deleteFeedModify(id);
+            generalFileDAO.deleteFeedModifyByFeedId(id);
         } else if (feedType.equals("TOGETHER")) {
-            togetherFileDAO.deleteFeedModify(id);
+            togetherFileDAO.deleteFeedModifyByFeedId(id);
         }
 
     }
@@ -309,4 +308,20 @@ public class FeedsService {
         }
     }
 
+    public void deleteRealModify(Long id) {
+
+        // 피드 정보 삭제
+        feedDAO.deleteFeedModify(id);
+
+        // 리얼 피드 삭제
+        realFeedDAO.deleteRealModify(id);
+
+        // tag 삭제
+        tagDAO.deleteFeedModify(id);
+
+        // 파일 삭제
+        fileDAO.deleteFeedModify(id);
+        realFileDAO.deleteRealModifyByFeedId(id);
+
+    }
 }

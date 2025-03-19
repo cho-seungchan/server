@@ -30,4 +30,10 @@
         WHERE    ID  = #{id}
     </delete>
 
+    <delete id="deleteFeedModifyByFeedId">
+        DELETE
+        FROM     TBL_TOGETHER_FILE
+        WHERE    ID  = #{feedId}
+    </delete>
+
 </mapper>

@@ -150,8 +150,6 @@ public class FeedsController {
         feedDTO.setFeedType(feedType);
         model.addAttribute("feedDTO", feedDTO);
 
-        log.info("조회로 던져 준 데이타 ::  "+feedDTO.toString());
-
         return "/feeds/feed-modify";
     }
 
@@ -159,20 +157,18 @@ public class FeedsController {
     @PostMapping("/feed-modify")
     public String postFeedModify(FeedDTO feedDTO) {
 
-        log.info("수정하라고 받은 데이타 ::  " + feedDTO.toString() + " DELETE " + feedDTO.getDeleteFileId());
-
         feedsService.postFeedModify(feedDTO); //로그인수정
 
         return "redirect:/feeds/list";
     }
 
     // 피드 삭제 25.03.19 조승찬
-    @DeleteMapping("/feed-modify")
-    public String deleteFeedModify(FeedDTO feedDTO) {
+    @PostMapping("/feed-delete")
+    public String deleteFeedModify(@RequestParam("id") Long id, @RequestParam("feedType") String feedType) {
 
-        log.info("수정하라고 받은 데이타 ::  "+feedDTO.toString());
+        log.info("deleteFeedModify 들어옴 ::  "+id+" "+feedType);
 
-        feedsService.deleteFeedModify(feedDTO.getId(), feedDTO.getFeedType()); //로그인수정
+        feedsService.deleteFeedModify(id, feedType);
 
         return "redirect:/feeds/list";
     }
@@ -196,7 +192,6 @@ public class FeedsController {
         return "redirect:/feeds/list";
     }
 
-
     // 리얼 후기 수정용 조회 25.03.19 조승찬
     @GetMapping("/real-modify")
     public String getRealModify(@RequestParam("id") Long id, Model model) {
@@ -205,8 +200,6 @@ public class FeedsController {
         realDTO.setId(id);
         model.addAttribute("realDTO", realDTO);
 
-        log.info("조회로 던져 준 데이타 ::  "+realDTO.toString());
-
         return "/feeds/real-modify";
     }
 
@@ -214,9 +207,16 @@ public class FeedsController {
     @PostMapping("/real-modify")
     public String postRealModify(RealDTO realDTO) {
 
-        log.info("수정하라고 받은 데이타 ::  "+realDTO.toString()+" DELETE "+realDTO.getDeleteFileId());
-
         feedsService.postRealModify(realDTO);
+
+        return "redirect:/feeds/list";
+    }
+
+    // 리얼 후기 삭제 25.03.19 조승찬
+    @PostMapping("/real-delete")
+    public String deleteFeedModify(@RequestParam("id") Long id) {
+
+        feedsService.deleteRealModify(id);
 
         return "redirect:/feeds/list";
     }

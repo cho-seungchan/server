@@ -38,7 +38,6 @@ public class FileService {
 
 //            썸네일 가공
             if(file.getContentType().startsWith("image")){
-                log.info("file name  :: "+file.getOriginalFilename());
                 fileName = "t_" + uuid.toString() + "_" + file.getOriginalFilename();
                 FileOutputStream out = new FileOutputStream(new File(rootPath, fileName));
                 Thumbnailator.createThumbnail(file.getInputStream(), out, 100, 100);

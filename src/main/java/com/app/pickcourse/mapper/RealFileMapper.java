@@ -14,4 +14,6 @@ public interface RealFileMapper {
     List<FileVO> getRealModify(Long feedId);
 
     void deleteRealModify(Long id);
+
+    void deleteRealModifyByFeedId(Long feedId);
 }
