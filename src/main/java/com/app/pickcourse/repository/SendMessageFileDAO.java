@@ -24,4 +24,9 @@ public class SendMessageFileDAO {
     public SendMessageFileDTO selectBySendMessageId(Long sendMessageId) {
         return sendMessageFileMapper.selectBySendMessageId(sendMessageId);
     }
+
+//    파일 삭제
+    public void deleteBySendMessageId(Long sendMessageId){
+        sendMessageFileMapper.deleteBySendMessageId(sendMessageId);
+    }
 }

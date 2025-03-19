@@ -14,6 +14,7 @@ public class FileDAO {
 //    추가하기
     public void saveMessageFile(FileVO fileVO) {
         fileMapper.insertMessageFile(fileVO);
+    }
     public void postFeedWrite(FileVO file) {
         fileMapper.postFeedWrite(file);
     }

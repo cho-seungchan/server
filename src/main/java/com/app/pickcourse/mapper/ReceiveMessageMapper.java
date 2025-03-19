@@ -32,8 +32,12 @@ public interface ReceiveMessageMapper {
             @Param("receiverId") Long receiverId,
             @Param("pagination") Pagination pagination);
 
-    ReceiveMessageDTO selectMessageById(@Param("id") Long id);
+    public ReceiveMessageDTO selectMessageById(@Param("id") Long id);
 
-    int deleteReceiveMessageById(@Param("id") Long id);
+    public int deleteReceiveMessageById(@Param("id") Long id);
+
+//    public String updateToChecked(Long id);
+
+    public int updateToChecked(Long id);
 
 }

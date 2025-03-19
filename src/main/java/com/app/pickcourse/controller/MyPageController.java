@@ -4,10 +4,7 @@ package com.app.pickcourse.controller;
 import com.app.pickcourse.domain.dto.*;
 import com.app.pickcourse.domain.vo.MemberVO;
 import com.app.pickcourse.domain.vo.SendMessageVO;
-import com.app.pickcourse.repository.MemberDAO;
-import com.app.pickcourse.repository.ReceiveMessageDAO;
-import com.app.pickcourse.repository.SendMessageDAO;
-import com.app.pickcourse.repository.SendMessageFileDAO;
+import com.app.pickcourse.repository.*;
 import com.app.pickcourse.service.MemberService;
 import com.app.pickcourse.service.MessageService;
 import com.app.pickcourse.util.Pagination;
@@ -43,6 +40,7 @@ public class MyPageController {
     private final MemberVO memberVO;
     private final HttpSession session;
     private final SendMessageFileDAO sendMessageFileDAO;
+    private final ReceiveMessageFileDAO receiveMessageFileDAO;
 
     @GetMapping("changePassword")
     public String getChangePassword(){
@@ -137,6 +135,17 @@ public class MyPageController {
 
         return messageService.getReceiveList(receiverId, pagination);
     }
+
+    @PostMapping("/readMessage")
+    public ResponseEntity<Boolean> markAsRead(@RequestParam Long id) {
+        Boolean updatedStatus = messageService.updateToChecked(id);
+        return ResponseEntity.ok(updatedStatus);
+    }
+
+//    @PostMapping("/readMessage")
+//    public String markAsRead(@RequestParam Long id) {
+//        return messageService.updateToChecked(id);
+//    }
 
     @PostMapping("/deleteReceiveMessage")
     @ResponseBody
@@ -315,27 +324,23 @@ public class MyPageController {
     }
 
 
-    @GetMapping("/files/{messageId}")
+    @GetMapping("/files/send/{sendMessageId}")
     @ResponseBody
-    public SendMessageFileDTO getSendMessageFile(@PathVariable Long messageId) {
-        System.out.println("📌 [DEBUG] 파일 조회 요청: messageId = " + messageId);
+    public SendMessageFileDTO getSendMessageFile(@PathVariable Long sendMessageId) {
 
-        SendMessageFileDTO file = sendMessageFileDAO.selectBySendMessageId(messageId);
+        SendMessageFileDTO file = sendMessageFileDAO.selectBySendMessageId(sendMessageId);
 
-        if (file == null) {
-            System.out.println("⚠ [DEBUG] 파일이 없음: messageId = " + messageId);
-            return null; // 파일이 없을 경우, 클라이언트에서 null을 받음
-        }
-
-        // ✅ 파일이 존재하는 경우, 디버깅 로그 출력
-        System.out.println("✅ [DEBUG] 파일 조회 완료: " + file.getFileName());
-        System.out.println("✅ [DEBUG] 파일 전체 경로: C:/upload/" + file.getFileName());
-        System.out.println("✅ [DEBUG] 웹에서 접근 가능한 경로: /uploads/" + file.getFileName());
-
-        return file;  // 단일 파일 반환
+        return file;
     }
 
+    @GetMapping("/files/receive/{receiveMessageId}")
+    @ResponseBody
+    public ReceiveMessageFileDTO getReceiveMessageFile(@PathVariable Long receiveMessageId) {
 
+        ReceiveMessageFileDTO file = receiveMessageFileDAO.selectByReceiveMessageId(receiveMessageId);
+
+        return file;
+    }
 
 
 }

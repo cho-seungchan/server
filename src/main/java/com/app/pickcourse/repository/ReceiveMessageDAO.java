@@ -55,5 +55,11 @@ public class ReceiveMessageDAO {
         return receiveMessageMapper.deleteReceiveMessageById(id);
     }
 
+//    public String updateToChecked(Long id) {
+//        return receiveMessageMapper.updateToChecked(id);
+//    }
 
+    public int updateToChecked(Long id) {
+        return receiveMessageMapper.updateToChecked(id);
+    }
 }

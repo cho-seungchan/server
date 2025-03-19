@@ -9,10 +9,15 @@
 
     <select id="selectBySendMessageId" resultType="sendMessageFileDTO">
         SELECT ID, FILE_PATH, FILE_NAME, FILE_SIZE,
-               TO_CHAR(CREATE_DATE, 'YYYY/MM/DD') AS CREATE_DATE,
-               TO_CHAR(UPDATE_DATE, 'YYYY/MM/DD') AS UPDATE_DATE,
+               TO_CHAR(CREATED_DATE, 'YYYY/MM/DD') AS CREATE_DATE,
+               TO_CHAR(UPDATED_DATE, 'YYYY/MM/DD') AS UPDATE_DATE,
                SEND_MESSAGE_FILE_ID AS SEND_MESSAGE_ID
         FROM VIEW_SEND_MESSAGE_FILE_FILE
         WHERE SEND_MESSAGE_FILE_ID = #{sendMessageId}
     </select>
+
+    <delete id="deleteBySendMessageId">
+        DELETE FROM TBL_SEND_MESSAGE_FILE WHERE SEND_MESSAGE_FILE_ID = #{sendMessageId}
+    </delete>
+
 </mapper>

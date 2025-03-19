@@ -15,4 +15,6 @@ public interface SendMessageFileMapper {
 //  파일 조회
     public SendMessageFileDTO selectBySendMessageId(Long sendMessageId);
 
+// 파일 삭제
+    public void deleteBySendMessageId(Long sendMessageId);
 }
