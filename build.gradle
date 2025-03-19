@@ -32,6 +32,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
 	implementation group: 'net.nurigo', name: 'javaSDK', version: '2.2'
 	implementation 'org.json:json:20210307'
+	implementation 'net.coobird:thumbnailator:0.4.14'
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'com.oracle.database.jdbc:ojdbc11'
 	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'

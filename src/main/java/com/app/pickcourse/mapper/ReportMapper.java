@@ -19,5 +19,5 @@ public interface ReportMapper {
 
     void postReportReplyList(ReportIdVO reportIdVO);
 
-    void deleteReplyList(Long replyId);
+    void deleteReplyList(Long id);
 }

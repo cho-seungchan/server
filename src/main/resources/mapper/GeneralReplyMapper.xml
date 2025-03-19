@@ -8,7 +8,7 @@
                  MEMBER_ID,
                  FEED_ID)
         VALUES
-                (#{replyId},
+                (#{id},
                  #{memberId},
                  #{feedId})
     </insert>

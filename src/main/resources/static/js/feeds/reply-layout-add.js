@@ -13,7 +13,8 @@ function addReplyListAndPage(replys, pagination) {
                         <div class="Ratio" style="display: block" >
                             <div class="Ratio-ratio" style=" height: 0px; position: relative; width: 100%; padding-top: 100%; " >
                                 <div class="Ratio-content" style=" height: 100%; left: 0px; position: absolute; top: 0px; width: 100%; " >
-                                    <img class="Image__StyledImage-v97gyx-1 hPRDQO" width="36" height="36" src="https://res.cloudinary.com/frientrip/image/upload/c_fill,f_auto,g_center,q_auto/ios_image_391885_20230825111921027_79e3016429b8c2ed57ec60c14e00ba3680af64a25fa7349505f5db3a078839a2"/>
+<!--                                    <img class="Image__StyledImage-v97gyx-1 hPRDQO" width="36" height="36" src="https://res.cloudinary.com/frientrip/image/upload/c_fill,f_auto,g_center,q_auto/ios_image_391885_20230825111921027_79e3016429b8c2ed57ec60c14e00ba3680af64a25fa7349505f5db3a078839a2"/> -->
+                                    <img class="Image__StyledImage-v97gyx-1 hPRDQO" width="36" height="36" src="/images/feeds/reply.png"> 
                                 </div>
                             </div>
                         </div>
@@ -36,8 +37,9 @@ function addReplyListAndPage(replys, pagination) {
         `;
 
         document.querySelector(".replyList-container").appendChild(replyAddLine); // 새로 생성된 리스트 추가
-
+        replyAddLine.scrollIntoView({ behavior: "smooth", block: "start" });
     })
+
     document.querySelector("footer").innerHTML = ``; // 기존의 더보기 삭제
     if (pagination.next) {  // 다음 페이지가 존재하면 더보기 추가
         document.querySelector("footer").innerHTML = `

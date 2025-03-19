@@ -1,7 +1,7 @@
 package com.app.pickcourse.mapper;
 
 import com.app.pickcourse.domain.dto.FeedDTO;
-import com.app.pickcourse.domain.vo.FeedTagVO;
+import com.app.pickcourse.domain.vo.TagVO;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,16 +11,16 @@ import java.util.Optional;
 
 @SpringBootTest
 @Slf4j
-public class FeedTagMapperTests {
+public class TagMapperTests {
     @Autowired
-    FeedTagMapper mapper;
+    TagMapper mapper;
     @Autowired
     FeedMapper feedMapper;
 
     @Test
     public void postFeedWrite() {
-        FeedTagVO tagVO = new FeedTagVO();
-        tagVO.setFeedTagContent("가벼운");
+        TagVO tagVO = new TagVO();
+        tagVO.settagContent("가벼운");
         tagVO.setFeedId(47l);
         mapper.postFeedWrite(tagVO);
     }

@@ -3,6 +3,7 @@ package com.app.pickcourse.mapper;
 import com.app.pickcourse.domain.dto.ReplyListDTO;
 import com.app.pickcourse.domain.vo.FeedVO;
 import com.app.pickcourse.domain.vo.MemberVO;
+import com.app.pickcourse.domain.vo.ReplyVO;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class GeneralReplyMapperTests {
 
     @Test
     public void postReplyListTest() {
-        ReplyListDTO replyListDTO = new ReplyListDTO();
+        ReplyVO replyListDTO = new ReplyVO();
         replyListDTO.setReplyContent("아름다운 밤이에요test");
         replyMapper.postReplyList(replyListDTO);
 

@@ -2,6 +2,7 @@ package com.app.pickcourse.mapper;
 
 import com.app.pickcourse.domain.dto.FeedDTO;
 import com.app.pickcourse.domain.dto.FeedListDTO;
+import com.app.pickcourse.domain.dto.RealDTO;
 import com.app.pickcourse.domain.dto.ReplyDetailDTO;
 import com.app.pickcourse.domain.vo.FeedVO;
 import org.apache.ibatis.annotations.Mapper;
@@ -12,7 +13,7 @@ import java.util.Optional;
 @Mapper
 public interface FeedMapper {
 
-    void postFeedWrite(FeedVO feedVO);
+    void postFeedWrite(FeedDTO feedDTO);
 
     Optional<FeedDTO> getFeedModify(Long id);
 
@@ -25,4 +26,8 @@ public interface FeedMapper {
     void deleteFeedModifyList(Long id);
 
     Optional<ReplyDetailDTO> getReportDetail(Long id);
+
+    String selectTypeOfFeed(Long id);
+
+    void postRealWrite(RealDTO realDTO);
 }

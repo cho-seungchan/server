@@ -41,12 +41,8 @@
                                     <div class="CurrentIndex__Wrapper-lgen36-0 dSDVFj">
                                         <div class="CurrentIndex__Profile-lgen36-1 eqCOjz">
                                             <div class="Image__Wrapper-v97gyx-0 gDuKGF">
-                                                <img
-                                                        class="Image__StyledImageLoader-v97gyx-2 bUFcfh"
-                                                        width="36"
-                                                        height="36"
-                                                        src="https://res.cloudinary.com/frientrip/image/upload/c_fill,f_auto,g_center,q_auto/ios_image_391885_20230825111921027_79e3016429b8c2ed57ec60c14e00ba3680af64a25fa7349505f5db3a078839a2"
-                                                />
+<!--                                                <img class="Image__StyledImageLoader-v97gyx-2 bUFcfh" width="36" height="36" src="https://res.cloudinary.com/frientrip/image/upload/c_fill,f_auto,g_center,q_auto/ios_image_391885_20230825111921027_79e3016429b8c2ed57ec60c14e00ba3680af64a25fa7349505f5db3a078839a2"/>-->
+                                                <img class="Image__StyledImage-v97gyx-1 hPRDQO" width="36" height="36" src="/images/feeds/reply.png">
                                                 <div
                                                         class="Fade__Wrapper-sc-1s0ipfq-0 koasSX"
                                                         style="opacity: 1; display: block"
@@ -167,14 +163,14 @@
                                 </div>
                             </div>
 
-                            <form th:action="@{/feeds/reply-list/${feedId}}" name="replyActionForm" method="post" th:object="${replyAction}">
+                            <form name="replyActionForm" method="post" th:object="${replyAction}">
                                 <input type="hidden" name="feedId" class="replyFeedId" th:value="${feedId}">  <!-- 피드 번호 -->
                                 <input type="hidden" name="page"  class="replyPage">   <!-- 다음 조회 페이지 -->
                                 <input type="hidden" id="replyId" th:value="*{id}"/>   <!-- 삭제, 신고할 댓글 번호-->
                                 <input type="hidden" id="replyAction" th:value="*{replyAction}"/>
                                 <div class="CurrentTextAreaSection__TextareaWrapper-sc-1l5sqeb-3 buraBz">
-                                    <textarea th:value="*{replyContent}" placeholder="댓글 달기..." maxlength="500" class="CurrentTextAreaSection__Textarea-sc-1l5sqeb-4 oflaA" style="height: 46px" ></textarea >
-                                    <button disabled="" class="CurrentTextAreaSection__SubmitButton-sc-1l5sqeb-5 FEhZA" > 등록 </button>
+                                    <textarea th:value="*{replyContent}" placeholder="댓글 달기..." maxlength="500" class="CurrentTextAreaSection__Textarea-sc-1l5sqeb-4 reply_content_input oflaA" style="height: 46px" ></textarea >
+                                    <button type="button" disabled="true" class="CurrentTextAreaSection__SubmitButton-sc-1l5sqeb-5 reply_regist_button FEhZA " > 등록 </button>
                                 </div>
                             </form>
                         </div>

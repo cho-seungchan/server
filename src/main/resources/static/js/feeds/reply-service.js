@@ -23,7 +23,7 @@ function deleteReplyList(id, feedId) {
         .then(response => response.json())
         .then(data => {
 
-            window.location.href = data.redirectUrl;  // 직접 @GetMapping("/reply-list/{feedId}") 호출
+            window.location.href = data.redirectUrl;  // json 방식의 메서드로 부터 직접 @GetMapping("/reply-list/{feedId}") 호출하는 방식
 
         })
         .catch(error => {
@@ -34,7 +34,7 @@ function deleteReplyList(id, feedId) {
 
 // 댓글 신고
 function reportReplyList(sendData) {
-    return fetch(`/feeds/reply-list`, {
+    return fetch(`/feeds/reply-list/report`, {
         method: "POST",
         headers: {"Content-type": "application/json"},
         body: JSON.stringify(sendData)
@@ -50,3 +50,23 @@ function reportReplyList(sendData) {
             throw error;
         });
 }
+
+// 25.03.17 조승찬 시작
+// 댓글 등록
+function replyReplyList(sendData) {
+    return fetch (`/feeds/reply-list`, {
+        method: "POST",
+        headers: {"Content-type": "application/json"},
+        body: JSON.stringify(sendData)
+    })
+        .then(response => response.json())
+        .then(data => {
+            window.location.href = data.redirectUrl;  // json 방식의 메서드로 부터 직접 @GetMapping("/reply-list/{feedId}") 호출하는 방식
+
+        })
+        .catch(error => {
+            console.error("reply 데이타 등록을 요청하는 중 오류", error);
+            throw error;
+        });
+}
+// 25.03.17 조승찬 시작
