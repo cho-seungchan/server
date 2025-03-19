@@ -1,6 +1,6 @@
 package com.app.pickcourse.domain.dto;
 
-import com.app.pickcourse.domain.vo.FeedTagVO;
+import com.app.pickcourse.domain.vo.TagVO;
 import com.app.pickcourse.domain.vo.FeedVO;
 import com.app.pickcourse.domain.vo.FileVO;
 import lombok.Getter;
@@ -22,7 +22,7 @@ public class FeedListDTO {
     private Long   memberId;
     private Long   planId;
     private List<FileVO> files;
-    private List<FeedTagVO> feedTags;
+    private List<TagVO> feedTags;
 
     public FeedVO toFeedVO() {
         FeedVO feedVO = new FeedVO();

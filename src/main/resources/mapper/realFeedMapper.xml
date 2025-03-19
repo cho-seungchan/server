@@ -7,6 +7,7 @@
              MEMBER_ID,
              PLAN_ID)
         VALUES(#{feedId},
+        VALUES(#{id},
                #{memberId},
                #{planId})
     </insert>
@@ -50,6 +51,7 @@
                               ON       f.ID = r.ID
                      LEFT JOIN     TBL_REAL_STAR s
                               ON       f.ID  =  s.REAL_FEED_ID
+                              ON       f.ID  =  s.FEED_ID
         WHERE    r.MEMBER_ID = #{memberId}
     </select>
 
@@ -63,7 +65,13 @@
         FROM     TBL_FEED f
                      JOIN     TBL_REAL_FEED r
                               ON       f.ID = r.ID
+<<<<<<< HEAD
         WHERE    r.PLAN_ID = ${planId}
+=======
+                     LEFT JOIN     TBL_REAL_STAR s
+                                   ON       f.ID  =  s.FEED_ID
+        WHERE    f.ID = #{id}
+>>>>>>> beae14ae538352a3eb0b1f84accfb4e3388f64c4
     </select>
 
     <insert id="insertReview">

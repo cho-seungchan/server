@@ -13,9 +13,10 @@ function addCourseList(courses) {
                     <input type="radio" name="courseSelection" class="usersRadio"/>
                 </label>
                 <div class="courseIdDiv">${course.id}</div>
-                <div class="adminNameDiv">${course.adminName}</div>
+                <div class="courseadminNameDiv">${course.adminName}</div>
                 <div class="courseNameDiv">${course.courseName}</div>
                 <div class="courseThemeDiv">${course.courseTheme}</div>
+                <div class="courseIsVolunteerDiv">${course.courseIsVolunteer}</div>
                 <div class="courseTypeDiv">${courseType}</div>
             </div>`;
 

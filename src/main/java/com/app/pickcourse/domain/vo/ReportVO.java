@@ -9,9 +9,9 @@ import lombok.*;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class ReportVO {
     @EqualsAndHashCode.Include
-    private Long id;
-    private Long reportedId;
-    private Long memberId;
+    private Long   id;
+    private String reportedReason;
+    private Long   feedId;
     private String createDate;
     private String updateDate;
 }

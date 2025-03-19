@@ -1,7 +1,7 @@
 CREATE SEQUENCE SEQ_COURSE;
 CREATE TABLE TBL_COURSE(
                            ID NUMBER CONSTRAINT PK_COURSE PRIMARY KEY,
-                           COURSE_TYPE VARCHAR2(10),
+                           COURSE_TYPE VARCHAR2(20),
                            COURSE_IS_VOLUNTEER CHAR(1) DEFAULT 'N',
                            COURSE_NAME VARCHAR2(1000) NOT NULL,
                            COURSE_DISTANCE VARCHAR2(1000) NOT NULL,

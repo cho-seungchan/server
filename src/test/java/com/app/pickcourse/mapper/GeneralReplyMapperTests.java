@@ -1,8 +1,9 @@
 package com.app.pickcourse.mapper;
 
-import com.app.pickcourse.domain.dto.ReplyDTO;
+import com.app.pickcourse.domain.dto.ReplyListDTO;
 import com.app.pickcourse.domain.vo.FeedVO;
 import com.app.pickcourse.domain.vo.MemberVO;
+import com.app.pickcourse.domain.vo.ReplyVO;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,20 +21,20 @@ public class GeneralReplyMapperTests {
 
     @Test
     public void postReplyListTest() {
-        ReplyDTO replyDTO = new ReplyDTO();
-        replyDTO.setReplyContent("아름다운 밤이에요test");
-        replyMapper.postReplyList(replyDTO);
+        ReplyVO replyListDTO = new ReplyVO();
+        replyListDTO.setReplyContent("아름다운 밤이에요test");
+        replyMapper.postReplyList(replyListDTO);
 
         MemberVO memberVO = new MemberVO();
         memberVO.setId(1l);
         FeedVO feedVO = new FeedVO();
         feedVO.setId(2l);
-        mapper.postReplyList(replyDTO.getId(),memberVO.getId(),feedVO.getId());
+        mapper.postReplyList(replyListDTO.getId(),memberVO.getId(),feedVO.getId());
     }
 
     @Test
     public void getReplyListTest() {
-        List<ReplyDTO> replyList = mapper.getReplyList(2l);
+        List<ReplyListDTO> replyList = mapper.getReplyList(2l);
         replyList.forEach(System.out::println);
     }
 }

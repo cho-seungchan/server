@@ -20,7 +20,7 @@
         WHERE VOLUNTEER_ID =  #{volunteerId}
     </select>
 
-    <delete id="deleteEditCourse">
+    <delete id="deleteCourseDetail">
         DELETE FROM TBL_VOLUNTEER_PREPARE
         WHERE VOLUNTEER_ID = #{volunteerId}
     </delete>

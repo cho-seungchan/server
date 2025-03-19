@@ -21,7 +21,7 @@ public class GeneralFileMapperTests {
     @Autowired
     private GeneralFeedMapper GeneralfeedMapper;
     @Autowired
-    private FeedTagMapper feedTagMapper;
+    private TagMapper feedTagMapper;
     @Autowired
     private FeedMapper feedMapper;
 

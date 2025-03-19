@@ -1,6 +1,7 @@
 package com.app.pickcourse.mapper;
 
-import com.app.pickcourse.domain.dto.ReplyDTO;
+import com.app.pickcourse.domain.dto.ReplyListDTO;
+import com.app.pickcourse.domain.vo.ReplyVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -9,7 +10,9 @@ import java.util.List;
 @Mapper
 public interface RealReplyMapper {
 
-    void postReplyList(@Param("replyId") Long replyId, @Param("memberId") Long memberId, @Param("feedId") Long feedId);
+    void postReplyList(ReplyVO replyVO);
 
-    List<ReplyDTO> getReplyList(Long feedId);
+    List<ReplyListDTO> getReplyList(Long feedId);
+
+    void deleteReplyList(Long id);
 }
