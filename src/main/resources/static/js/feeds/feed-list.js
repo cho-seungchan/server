@@ -353,7 +353,8 @@ class="WhatIsActionSheet__ImageBanner-sc-10e5q0f-4 kYigqi"></div>
         }
     });
 
-// 수정 삭제 모달창 처리
+//     25.03.20 조승찬 신고 모달처리로 변경
+// 신고 모달창 처리
     document.querySelectorAll(".FvtMb").forEach((kebab) => {
         kebab.addEventListener("click", (e) => {
             document.querySelector("#modal-root").style.display = "flex";
@@ -370,7 +371,6 @@ class="WhatIsActionSheet__ImageBanner-sc-10e5q0f-4 kYigqi"></div>
             });
         });
     });
-
 
 // 25.03.20 피드 타입별 조회 송신을 위해 조승찬 수정
 // ALL 조회
@@ -435,88 +435,27 @@ class="WhatIsActionSheet__ImageBanner-sc-10e5q0f-4 kYigqi"></div>
     })
 
 
-// 모달창의 수정, 삭제 버튼 클릭시
-// 수정 버튼 클릭시
-    document.querySelector(".cUlkXY.Update").addEventListener("click", e => {
-        // 수정할 피드아이디, 피드타입 가져오기
-        const id = document.querySelector(".cyEVkt .server-using-id").textContent.trim();
-        const feedType = document.querySelector(".cyEVkt .server-using-feedType").textContent.trim();
-
-        // 폼 요소를 동적으로 생성
-        const form = document.createElement("form");
-        form.setAttribute("method", "GET");
-        if ( feedType == 'REAL') {
-            form.setAttribute("action", "/feeds/real-modify");
-
-            // 파라미터를 추가하기 위해 숨겨진 input 요소 추가
-            const input = document.createElement("input");
-            input.setAttribute("type", "hidden");
-            input.setAttribute("name", "id");
-            input.setAttribute("value", id);
-            form.appendChild(input);
-        } else {
-            form.setAttribute("action", "/feeds/feed-modify");
-
-            // 파라미터를 추가하기 위해 숨겨진 input 요소 추가
-            let input = document.createElement("input");
-            input.setAttribute("type", "hidden");
-            input.setAttribute("name", "id");
-            input.setAttribute("value", id);
-            form.appendChild(input);
-
-            input = document.createElement("input");
-            input.setAttribute("type", "hidden");
-            input.setAttribute("name", "feedType");
-            input.setAttribute("value", feedType);
-            form.appendChild(input);
-        }
-
-        // 폼 제출
-        document.body.appendChild(form); // 폼을 body에 추가
-        form.submit(); // 폼 제출
-        document.body.removeChild(form); // 제출 후 폼 삭제
-
-    })
-
-// 삭제 버튼 클릭시
-    document.querySelector(".cUlkXY.Delete").addEventListener("click", e => {
-        // 수정할 피드아이디, 피드타입 가져오기
-        const id = document.querySelector(".cyEVkt .server-using-id").textContent.trim();
-        const feedType = document.querySelector(".cyEVkt .server-using-feedType").textContent.trim();
-
-        // 폼 요소를 동적으로 생성
-        const form = document.createElement("form");
-        form.setAttribute("method", "POST");
-        if ( feedType == 'REAL') {
-            form.setAttribute("action", "/feeds/real-delete");
-
-            // 파라미터를 추가하기 위해 숨겨진 input 요소 추가
-            const input = document.createElement("input");
-            input.setAttribute("type", "hidden");
-            input.setAttribute("name", "id");
-            input.setAttribute("value", id);
-            form.appendChild(input);
-        } else {
-            form.setAttribute("action", "/feeds/feed-delete");
-
-            // 파라미터를 추가하기 위해 숨겨진 input 요소 추가
-            let input = document.createElement("input");
-            input.setAttribute("type", "hidden");
-            input.setAttribute("name", "id");
-            input.setAttribute("value", id);
-            form.appendChild(input);
-
-            input = document.createElement("input");
-            input.setAttribute("type", "hidden");
-            input.setAttribute("name", "feedType");
-            input.setAttribute("value", feedType);
-            form.appendChild(input);
-        }
-
-        // 폼 제출
-        document.body.appendChild(form); // 폼을 body에 추가
-        form.submit(); // 폼 제출
-        document.body.removeChild(form); // 제출 후 폼 삭제
+// 모달창의 신고 버튼 클릭시
+    document.querySelector(".cUlkXY.report").addEventListener("click", e => {
+        // 기존 신고하기 모달창 안보이기
+        document.querySelector("#modal-root").style.display = "none";
+        // 신고 내용 입력할 모달창 띄우기
+        document.querySelector(".feed-report-modal-body").innerHTML = `
+        <div class="feed-report-modal">
+            <div class="modal-header">
+                <span> 신고 사유 작성 </span>
+                <span class="closeFeedReportModal">&times;</span>
+            </div>
+            <div class="feed-report-container">
+                <div class="feed-report-content-container border-box">
+                    <textarea class="feed-reportModal-ContentInput"></textarea>
+                </div>
+                <div class="feed-report-button-container">
+                    <button class="feed-reportConfirmBtn">확  인</button>
+                </div>             
+            </div>
+        </div>`;
+        document.querySelector(".feed-report-modal-body").style.display = "flex";
 
     })
 
@@ -598,7 +537,47 @@ class="WhatIsActionSheet__ImageBanner-sc-10e5q0f-4 kYigqi"></div>
 
         }
 
+        // 신고 내용 입력 모달창 x 버튼 클릭시 모달 삭제
+        if (e.target.className == "closeFeedReportModal") {
+            // e.target.classList.remove("clicked");
+            document.querySelector(".feed-report-modal-body").innerHTML = ``;
+            document.querySelector(".feed-report-modal-body").style.display = "none";
+        }
+
+        // 신고 확인 버튼 클릭 시
+        if (e.target.className == "feed-reportConfirmBtn") {
+            // 신고 json data 생성
+            const sendData = {
+                // 모달창 생성될 때 div로 만들어 놓은 곳에서 id 가져오기
+                id : document.querySelector("#modal-root .server-using-id").textContent.trim(), // 신고된 피드 아이디
+                reportedReason : document.querySelector(".feed-report-modal-body").querySelector(".feed-reportModal-ContentInput").value.trim() // 신고 내용
+            }
+            reportFeedList(sendData);  // 신고처리만 하면 종료
+            // 모달창 클리어
+            document.querySelector(".feed-report-modal-body").innerHTML = ``;
+            document.querySelector(".feed-report-modal-body").style.display = "none";
+            alert("신고 되었습니다. ")
+        }
     });
 
 // 25.03.20 피드 타입별 조회 송신을 위해 조승찬 수정
 });
+
+// 피드 신고
+function reportFeedList(sendData) {
+    return fetch(`/feeds/feed-list/report`, {
+        method: "POST",
+        headers: {"Content-type": "application/json"},
+        body: JSON.stringify(sendData)
+    })
+        .then(response => {
+            if (!response.ok){
+                console.error("reply 신고 데이타를 처리하는 중 오류", error);
+                throw error;
+            }
+        })
+        .catch(error => {
+            console.error("reply 신고를 요청하는 중 오류", error);
+            throw error;
+        });
+}

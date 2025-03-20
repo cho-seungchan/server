@@ -6,6 +6,7 @@ import com.app.pickcourse.domain.vo.ReplyVO;
 import com.app.pickcourse.domain.vo.ReportVO;
 import com.app.pickcourse.service.FeedsService;
 import com.app.pickcourse.util.PaginationOnePage;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -135,7 +136,9 @@ public class FeedsController {
 
         feedsService.postFeedWrite(1l, feedDTO); //로그인수정
 
+        // 조회 타입 정하기
         String listType = feedDTO.getFeedType().equals("TOGETHER") ? "TOGETHER" : "ALL";
+
         return "redirect:/feeds/feed-list?listType=" + listType;
     }
 
@@ -187,7 +190,7 @@ public class FeedsController {
     public String postRealWrite(RealDTO realDTO) {
         log.info(realDTO.toString());
 
-        feedsService.postRealWrite(1l, realDTO); //로그인수정
+        feedsService.postRealWrite(2l, realDTO); //로그인수정
 
         return "redirect:/feeds/feed-list?listType=REAL";
     }
@@ -220,6 +223,15 @@ public class FeedsController {
 
         return "redirect:/feeds/feed-list?listType=REAL";
     }
+
+    // 피드 신고 25.03.20 조승찬
+    @PostMapping("/feed-list/report")
+    @ResponseBody
+    public void postReportFeedList(@RequestBody ReportVO reportVO) {
+
+        feedsService.postReportFeedList(reportVO, 1l);  // 로그인수정
+    }
+
 
     // 피드 리스트  25.03.20 조승찬
     @GetMapping("/feed-list")

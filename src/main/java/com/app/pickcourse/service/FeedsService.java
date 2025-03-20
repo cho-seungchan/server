@@ -27,6 +27,7 @@ public class FeedsService {
     private final RealReplyDAO realReplyDAO;
     private final ReportDAO reportDAO;
     private final ReplyReportDAO replyReportDAO;
+    private final FeedReportDAO feedReportDAO;
     private final FeedDAO feedDAO;
     private final GeneralFeedDAO generalFeedDAO;
     private final TogetherFeedDAO togetherFeedDAO;
@@ -384,5 +385,12 @@ public class FeedsService {
         });
 
         return list;
+    }
+
+    public void postReportFeedList(ReportVO reportVO, Long loginId) {
+        ReportIdVO reportId = new ReportIdVO();
+        reportDAO.postReportReplyList(reportId); // 슈퍼키 가져오기
+        feedReportDAO.postReportFeedList(reportId.getId(), reportVO.getId(), reportVO.getReportedReason(), loginId);
+
     }
 }

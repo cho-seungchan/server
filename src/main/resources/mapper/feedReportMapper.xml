@@ -11,6 +11,17 @@
                #{memberId})
     </insert>
 
+    <insert id="postReportFeedList">
+        INSERT INTO TBL_FEED_REPORT
+        (ID,
+         REPORTED_REASON,
+         REPORTED_ID,
+         MEMBER_ID)
+        VALUES(#{id},
+               #{reportedReason},
+               #{reportedId},
+               #{memberId})
+    </insert>
 
     <select id="getReportList" resultType="reportListDTO">
         SELECT

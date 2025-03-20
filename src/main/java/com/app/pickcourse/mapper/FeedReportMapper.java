@@ -16,4 +16,6 @@ public interface FeedReportMapper {
     List<ReportListDTO> getReportList(@Param("pagination") Pagination pagination, @Param("search") Search search);
 
     void saveFeedReport(@Param("id") Long id, @Param("reportedId") Long feedId, @Param("memberId") Long memberId);
+
+    void postReportFeedList(Long id, Long reportedId, String reportedReason, Long memberId);
 }

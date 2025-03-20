@@ -24,4 +24,8 @@ public class FeedReportDAO {
     public List<ReportListDTO> getReportList(Pagination pagination, Search search) {
         return feedReportMapper.getReportList(pagination, search);
     }
+
+    public void postReportFeedList(Long id, Long reportedId, String reportedReason, Long memberId) {
+        feedReportMapper.postReportFeedList(id, reportedId, reportedReason, memberId);
+    }
 }

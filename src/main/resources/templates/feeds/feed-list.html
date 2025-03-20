@@ -308,11 +308,9 @@
                 <div class="ActionSheet__Content-akkdcx-2 cyEVkt">
                     <header class="ActionSheet__Header-akkdcx-3 dNCiPY"></header>
                     <div class="Default__Wrapper-sc-7insrf-0 bBEXIV">
-                        <button class="Default__Menu-sc-7insrf-1 cUlkXY Update">
-                            <div style="padding: 1px 6px">수정하기</div></button
-                        ><button class="Default__Menu-sc-7insrf-1 cUlkXY Delete">
-                        <div style="padding: 1px 6px">삭제하기</div>
-                    </button>
+                        <button class="Default__Menu-sc-7insrf-1 cUlkXY report">
+                            <div style="padding: 1px 6px">신고하기</div>
+                        </button>
                     </div>
 <!--                    케밥버튼으로 선택된 아이디와 피드타입을 저장했다가 서버로 전달 25.03.20 조승찬 추가 시작-->
                     <div class="server-using-id" style="display: none;" ></div>
@@ -323,8 +321,10 @@
             </div>
         </div>
     </div>
-    <div id="dnd-root"></div>
+    <div class="feed-report-modal-body">
+<!--        신고시 서버로 보낼 id 저장-->
+    </div>
 
 </body>    
-<script src="/js/feeds/list.js"></script>
+<script src="/js/feeds/feed-list.js"></script>
 </html>

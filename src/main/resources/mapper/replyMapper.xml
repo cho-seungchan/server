@@ -40,7 +40,7 @@
                 WHEN TR.FEED_ID IS NOT NULL THEN 'TOGETHER_REPLY'
             ELSE 'UNKNOWN'
             END AS source,
-            R.REPLY_CONTENT,
+            R.REPLY_CONTENT AS content,
             R.ID AS id,
             M.MEMBER_NICKNAME AS memberNickname,
             M.ID AS memberId,
