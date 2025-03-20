@@ -1,11 +1,14 @@
 package com.app.pickcourse.repository;
 
+import com.app.pickcourse.domain.dto.FeedListDTO;
 import com.app.pickcourse.domain.dto.RealDTO;
 import com.app.pickcourse.domain.vo.FeedVO;
 import com.app.pickcourse.mapper.GeneralFeedMapper;
 import com.app.pickcourse.mapper.RealFeedMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
@@ -22,5 +25,13 @@ public class RealFeedDAO {
 
     public void deleteRealModify(Long id) {
         realFeedMapper.deleteRealModify(id);
+    }
+
+    public List<FeedListDTO> getFeedList() {
+        return realFeedMapper.getFeedList();
+    }
+
+    public List<FeedListDTO> getMyFeedList(Long loginId) {
+        return realFeedMapper.getMyFeedList(loginId);
     }
 }

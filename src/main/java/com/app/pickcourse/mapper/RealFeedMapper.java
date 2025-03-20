@@ -19,4 +19,7 @@ public interface RealFeedMapper {
 
     void deleteRealModify(Long id);
 
+    List<FeedListDTO> getFeedList();
+
+    List<FeedListDTO> getMyFeedList(Long loginId);
 }

@@ -30,4 +30,6 @@ public interface FeedMapper {
     String selectTypeOfFeed(Long id);
 
     void postRealWrite(RealDTO realDTO);
+
+    List<FeedListDTO> getMyFeedList(Long loginId);
 }

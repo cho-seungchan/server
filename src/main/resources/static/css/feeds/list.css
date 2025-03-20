@@ -505,6 +505,7 @@ button {
     display: flex;
     -webkit-box-align: center;
     align-items: center;
+    cursor: pointer;
 }
 .dIHOdO {
     display: flex;
@@ -562,6 +563,9 @@ label {
 }
 .jPHhJb {
     margin-top: 10px;
+}
+.no-pointer {
+    cursor: default; /* 기본 커서로 설정 */
 }
 .JMTjP {
     padding: 0px;

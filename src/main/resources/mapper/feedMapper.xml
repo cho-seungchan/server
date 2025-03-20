@@ -35,33 +35,58 @@
 
     <select id="getFeedList" resultType="feedListDTO">
         SELECT
-            f.ID,
-            f.FEED_CONTENT,
-            f.CREATED_DATE,
-            f.UPDATED_DATE,
-            COALESCE(g.MEMBER_ID, r.MEMBER_ID, t.MEMBER_ID) AS MEMBER_ID,
-            r.PLAN_ID
-        FROM TBL_FEED f
-                 LEFT JOIN TBL_GENERAL_FEED g ON g.ID = f.ID
-                 LEFT JOIN TBL_REAL_FEED r ON r.ID = f.ID
-                 LEFT JOIN TBL_TOGETHER_FEED t ON t.ID = f.ID
-        ORDER BY f.CREATED_DATE DESC
+            f.ID AS id,
+            CASE
+                WHEN gf.ID IS NOT NULL THEN 'GENERAL'
+                WHEN tf.ID IS NOT NULL THEN 'TOGETHER'
+                WHEN rf.ID IS NOT NULL THEN 'REAL'
+                END AS feedType,
+            f.FEED_CONTENT AS feedContent,
+            TO_CHAR(f.CREATED_DATE, 'YYYY-MM-DD') AS createdDate,
+            TO_CHAR(f.UPDATED_DATE, 'YYYY-MM-DD') AS updatedDate,
+            m.ID AS memberId,
+            m.MEMBER_NICKNAME AS memberNickname,
+            rf.PLAN_ID AS planId
+        FROM
+            TBL_FEED f
+                LEFT JOIN
+            TBL_GENERAL_FEED gf ON f.ID = gf.ID
+                LEFT JOIN
+            TBL_TOGETHER_FEED tf ON f.ID = tf.ID
+                LEFT JOIN
+            TBL_REAL_FEED rf ON f.ID = rf.ID
+                LEFT JOIN
+            TBL_MEMBER m ON gf.MEMBER_ID = m.ID OR tf.MEMBER_ID = m.ID OR rf.MEMBER_ID = m.ID
+        ORDER BY ID DESC
     </select>
 
-    <select id="getFeedModifyList" resultType="feedListDTO">
+    <select id="getMyFeedList" resultType="feedListDTO">
         SELECT
-            f.ID,
-            f.FEED_CONTENT,
-            f.CREATED_DATE,
-            f.UPDATED_DATE,
-            COALESCE(g.MEMBER_ID, r.MEMBER_ID, t.MEMBER_ID) AS MEMBER_ID,
-            r.PLAN_ID
-        FROM TBL_FEED f
-                 LEFT JOIN TBL_GENERAL_FEED g ON g.ID = f.ID
-                 LEFT JOIN TBL_REAL_FEED r ON r.ID = f.ID
-                 LEFT JOIN TBL_TOGETHER_FEED t ON t.ID = f.ID
-        WHERE f.ID = #{id}
-        ORDER BY f.CREATED_DATE DESC
+            f.ID AS id,
+            CASE
+                WHEN gf.ID IS NOT NULL THEN 'GENERAL'
+                WHEN tf.ID IS NOT NULL THEN 'TOGETHER'
+                WHEN rf.ID IS NOT NULL THEN 'REAL'
+                END AS feedType,
+            f.FEED_CONTENT AS feedContent,
+            TO_CHAR(f.CREATED_DATE, 'YYYY-MM-DD') AS createdDate,
+            TO_CHAR(f.UPDATED_DATE, 'YYYY-MM-DD') AS updatedDate,
+            m.ID AS memberId,
+            m.MEMBER_NICKNAME AS memberNickname,
+            rf.PLAN_ID AS planId
+        FROM
+            TBL_FEED f
+                LEFT JOIN
+            TBL_GENERAL_FEED gf ON f.ID = gf.ID
+                LEFT JOIN
+            TBL_TOGETHER_FEED tf ON f.ID = tf.ID
+                LEFT JOIN
+            TBL_REAL_FEED rf ON f.ID = rf.ID
+                LEFT JOIN
+            TBL_MEMBER m ON gf.MEMBER_ID = m.ID OR tf.MEMBER_ID = m.ID OR rf.MEMBER_ID = m.ID
+        WHERE
+            m.ID = #{loginId}
+        ORDER BY ID DESC
     </select>
 
     <select id="getReportDetail" resultType="replyDetailDTO">

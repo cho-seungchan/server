@@ -1,6 +1,7 @@
 package com.app.pickcourse.service;
 
 import com.app.pickcourse.domain.dto.FeedDTO;
+import com.app.pickcourse.domain.dto.FeedListDTO;
 import com.app.pickcourse.domain.dto.RealDTO;
 import com.app.pickcourse.domain.vo.*;
 import com.app.pickcourse.domain.dto.ReplyListDTO;
@@ -97,7 +98,7 @@ public class FeedsService {
 
     }
 
-    public List<ReplyListDTO> getMyReplyList(long loginId, PaginationOnePage pagination) {
+    public List<ReplyListDTO> getMyReplyList(Long loginId, PaginationOnePage pagination) {
         pagination.create(replyDAO.getMyCountAll(loginId));
 
         List<ReplyListDTO> list = replyDAO.getMyReplyList(loginId, pagination);
@@ -143,7 +144,7 @@ public class FeedsService {
         }
     }
 
-    public void postRealWrite(long loginId, RealDTO realDTO) {
+    public void postRealWrite(Long loginId, RealDTO realDTO) {
         // 피드 슈퍼키 입력
         feedDAO.postRealWrite(realDTO);
         // 리얼 입력
@@ -323,5 +324,65 @@ public class FeedsService {
         fileDAO.deleteFeedModify(id);
         realFileDAO.deleteRealModifyByFeedId(id);
 
+    }
+
+    public List<FeedListDTO> getFeedList(String listType) {
+        List<FeedListDTO> list = null;
+
+        // 피드 가져오기
+        if (listType.equals("ALL")) {
+            list = feedDAO.getFeedList();
+        } else if (listType.equals("TOGETHER")) {
+            list = togetherFeedDAO.getFeedList();
+        } else if (listType.equals("REAL")) {
+            list = realFeedDAO.getFeedList();
+        }
+
+        // tag, 파일 가져오기
+        list.forEach(feed -> {
+            feed.setTags(tagDAO.getFeedModify(feed.getId()));
+
+            List<FileVO> fileList = null;
+            if (feed.getFeedType().equals("GENERAL")) {
+                fileList = generalFileDAO.getFeedModify(feed.getId());
+            } else if (feed.getFeedType().equals("TOGETHER")) {
+                fileList = togetherFileDAO.getFeedModify(feed.getId());
+            } else if (feed.getFeedType().equals("REAL")) {
+                fileList = realFileDAO.getRealModify(feed.getId());
+            }
+            feed.setFiles(fileList);
+        });
+
+        return list;
+    }
+
+    public List<FeedListDTO> getMyFeedList(Long loginId, String listType) {
+        List<FeedListDTO> list = null;
+
+        // 피드 가져오기
+        if (listType.equals("ALL")) {
+            list = feedDAO.getMyFeedList(loginId);
+        } else if (listType.equals("TOGETHER")) {
+            list = togetherFeedDAO.getMyFeedList(loginId);
+        } else if (listType.equals("REAL")) {
+            list = realFeedDAO.getMyFeedList(loginId);
+        }
+
+        // tag, 파일 가져오기
+        list.forEach(feed -> {
+            feed.setTags(tagDAO.getFeedModify(feed.getId()));
+
+            List<FileVO> fileList = null;
+            if (feed.getFeedType().equals("GENERAL")) {
+                fileList = generalFileDAO.getFeedModify(feed.getId());
+            } else if (feed.getFeedType().equals("TOGETHER")) {
+                fileList = togetherFileDAO.getFeedModify(feed.getId());
+            } else if (feed.getFeedType().equals("REAL")) {
+                fileList = realFileDAO.getRealModify(feed.getId());
+            }
+            feed.setFiles(fileList);
+        });
+
+        return list;
     }
 }

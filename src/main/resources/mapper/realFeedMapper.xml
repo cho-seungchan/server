@@ -11,29 +11,43 @@
                #{planId})
     </insert>
 
-    <select id="getRealList" resultType="feedListDto">
-        SELECT   f.ID,
-                 f.FEED_CONTENT,
-                 f.CREATED_DATE,
-                 f.UPDATED_DATE,
-                 r.MEMBER_ID,
-                 r.PLAN_ID
-        FROM     TBL_FEED f
-                     JOIN     TBL_REAL_FEED r
-                              ON       f.ID = r.ID
+    <select id="getFeedList" resultType="feedListDTO">
+        SELECT
+            f.ID AS id,
+            'REAL' AS feedType,
+            f.FEED_CONTENT AS feedContent,
+            TO_CHAR(f.CREATED_DATE, 'YYYY-MM-DD') AS createdDate,
+            TO_CHAR(f.UPDATED_DATE, 'YYYY-MM-DD') AS updatedDate,
+            m.ID AS memberId,
+            m.MEMBER_NICKNAME AS memberNickname,
+            rf.PLAN_ID AS planId
+        FROM
+            TBL_FEED f
+                JOIN
+            TBL_REAL_FEED rf ON f.ID = rf.ID
+                JOIN
+            TBL_MEMBER m ON  rf.MEMBER_ID = m.ID
+        ORDER BY ID DESC
     </select>
 
-    <select id="getMyRealList" resultType="feedListDto">
-        SELECT   f.ID,
-                 f.FEED_CONTENT,
-                 f.CREATED_DATE,
-                 f.UPDATED_DATE,
-                 r.MEMBER_ID,
-                 r.PLAN_ID
-        FROM     TBL_FEED f
-                     JOIN     TBL_REAL_FEED r
-                              ON       f.ID = r.ID
-        WHERE    r.MEMBER_ID = #{memberId}
+    <select id="getMyFeedList" resultType="feedListDto">
+        SELECT
+            f.ID AS id,
+            'REAL' AS feedType,
+            f.FEED_CONTENT AS feedContent,
+            TO_CHAR(f.CREATED_DATE, 'YYYY-MM-DD') AS createdDate,
+            TO_CHAR(f.UPDATED_DATE, 'YYYY-MM-DD') AS updatedDate,
+            m.ID AS memberId,
+            m.MEMBER_NICKNAME AS memberNickname,
+            rf.PLAN_ID AS planId
+        FROM
+            TBL_FEED f
+                JOIN
+            TBL_REAL_FEED rf ON f.ID = rf.ID
+                JOIN
+            TBL_MEMBER m ON  rf.MEMBER_ID = m.ID
+        WHERE    m.ID = #{loginId}
+        ORDER BY ID DESC
     </select>
 
     <select id="getRealModify" resultType="realDTO">

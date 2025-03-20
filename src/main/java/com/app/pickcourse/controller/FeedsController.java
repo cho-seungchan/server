@@ -1,10 +1,7 @@
 // 2025.02.24 조승찬
 package com.app.pickcourse.controller;
 
-import com.app.pickcourse.domain.dto.FeedDTO;
-import com.app.pickcourse.domain.dto.RealDTO;
-import com.app.pickcourse.domain.dto.ReplyActionDTO;
-import com.app.pickcourse.domain.dto.ReplyListDTO;
+import com.app.pickcourse.domain.dto.*;
 import com.app.pickcourse.domain.vo.ReplyVO;
 import com.app.pickcourse.domain.vo.ReportVO;
 import com.app.pickcourse.service.FeedsService;
@@ -16,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -134,11 +132,11 @@ public class FeedsController {
     // 피드 작성 25.03.18 조승찬
     @PostMapping("/feed-write")
     public String postFeedWrite(FeedDTO feedDTO) {
-        log.info(feedDTO.toString());
 
         feedsService.postFeedWrite(1l, feedDTO); //로그인수정
 
-        return "redirect:/feeds/list";
+        String listType = feedDTO.getFeedType().equals("TOGETHER") ? "TOGETHER" : "ALL";
+        return "redirect:/feeds/feed-list?listType=" + listType;
     }
 
     // 피드 수정용 조회 25.03.19 조승찬
@@ -159,7 +157,8 @@ public class FeedsController {
 
         feedsService.postFeedModify(feedDTO); //로그인수정
 
-        return "redirect:/feeds/list";
+        String listType = feedDTO.getFeedType().equals("TOGETHER") ? "TOGETHER" : "ALL";
+        return "redirect:/feeds/feed-list?listType=" + listType;
     }
 
     // 피드 삭제 25.03.19 조승찬
@@ -170,7 +169,8 @@ public class FeedsController {
 
         feedsService.deleteFeedModify(id, feedType);
 
-        return "redirect:/feeds/list";
+        String listType = feedType.equals("TOGETHER") ? "TOGETHER" : "ALL";
+        return "redirect:/feeds/feed-list?listType=" + listType;
     }
 
     // 리얼 후기 작성 25.03.18 조승찬
@@ -189,7 +189,7 @@ public class FeedsController {
 
         feedsService.postRealWrite(1l, realDTO); //로그인수정
 
-        return "redirect:/feeds/list";
+        return "redirect:/feeds/feed-list?listType=REAL";
     }
 
     // 리얼 후기 수정용 조회 25.03.19 조승찬
@@ -209,7 +209,7 @@ public class FeedsController {
 
         feedsService.postRealModify(realDTO);
 
-        return "redirect:/feeds/list";
+        return "redirect:/feeds/feed-list?listType=REAL";
     }
 
     // 리얼 후기 삭제 25.03.19 조승찬
@@ -218,22 +218,31 @@ public class FeedsController {
 
         feedsService.deleteRealModify(id);
 
-        return "redirect:/feeds/list";
+        return "redirect:/feeds/feed-list?listType=REAL";
+    }
+
+    // 피드 리스트  25.03.20 조승찬
+    @GetMapping("/feed-list")
+    public String getFeedList(@RequestParam("listType") String listType, Model model) {
+
+        List<FeedListDTO> feedListDTO = feedsService.getFeedList(listType);
+        model.addAttribute("feedListDTO", feedListDTO);
+        model.addAttribute("listType", listType);
+        return "/feeds/feed-list";
+    }
+
+    // 나의 피드 리스트 25.03.20 조승찬
+    @GetMapping("/my/feed-list")
+    public String getFeedModifyList(@RequestParam("listType") String listType, Model model) {
+        List<FeedListDTO> feedListDTO = feedsService.getMyFeedList(1l, listType); //  로그인수정
+        model.addAttribute("feedListDTO", feedListDTO);
+        model.addAttribute("listType", listType);
+        return "/feeds/my-feed-list";
     }
 
     @GetMapping("/tour-list")
     public String getTourList(Model model) {
         return "/feeds/tour-list";
-    }
-
-    @GetMapping("/list")
-    public String getFeedList(Model model) {
-        return "/feeds/list";
-    }
-
-    @GetMapping("/modify-list")
-    public String getFeedModifyList(Model model) {
-        return "/feeds/modifylist";
     }
 
     @GetMapping("/review-list")

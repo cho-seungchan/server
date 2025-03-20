@@ -18,4 +18,6 @@ public interface TogetherFeedMapper {
     Optional<FeedDTO> getFeedModify(Long id);
 
     void deleteFeedModify(Long id);
+
+    List<FeedListDTO> getMyFeedList(Long loginId);
 }
