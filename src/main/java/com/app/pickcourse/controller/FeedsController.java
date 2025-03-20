@@ -161,7 +161,7 @@ public class FeedsController {
         feedsService.postFeedModify(feedDTO); //로그인수정
 
         String listType = feedDTO.getFeedType().equals("TOGETHER") ? "TOGETHER" : "ALL";
-        return "redirect:/feeds/feed-list?listType=" + listType;
+        return "redirect:/feeds/my/feed-list?listType=" + listType;
     }
 
     // 피드 삭제 25.03.19 조승찬
@@ -173,7 +173,7 @@ public class FeedsController {
         feedsService.deleteFeedModify(id, feedType);
 
         String listType = feedType.equals("TOGETHER") ? "TOGETHER" : "ALL";
-        return "redirect:/feeds/feed-list?listType=" + listType;
+        return "redirect:/feeds/my/feed-list?listType=" + listType;
     }
 
     // 리얼 후기 작성 25.03.18 조승찬
@@ -212,7 +212,7 @@ public class FeedsController {
 
         feedsService.postRealModify(realDTO);
 
-        return "redirect:/feeds/feed-list?listType=REAL";
+        return "redirect:/feeds/my/feed-list?listType=REAL";
     }
 
     // 리얼 후기 삭제 25.03.19 조승찬
@@ -221,7 +221,7 @@ public class FeedsController {
 
         feedsService.deleteRealModify(id);
 
-        return "redirect:/feeds/feed-list?listType=REAL";
+        return "redirect:/feeds/my/feed-list?listType=REAL";
     }
 
     // 피드 신고 25.03.20 조승찬
@@ -252,8 +252,10 @@ public class FeedsController {
         return "/feeds/my-feed-list";
     }
 
+    // 나의 여행 목록 25.03.21 조승찬
     @GetMapping("/tour-list")
     public String getTourList(Model model) {
+
         return "/feeds/tour-list";
     }
 
