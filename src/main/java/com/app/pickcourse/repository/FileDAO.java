@@ -11,7 +11,15 @@ import org.springframework.stereotype.Repository;
 public class FileDAO {
     private final FileMapper fileMapper;
 
+//    추가하기
+    public void saveMessageFile(FileVO fileVO) {
+        fileMapper.insertMessageFile(fileVO);
+    }
     public void postFeedWrite(FileVO file) {
         fileMapper.postFeedWrite(file);
+    }
+
+    public FileVO findLastInsertedFile() {
+        return fileMapper.selectLastInsertedFile();
     }
 }

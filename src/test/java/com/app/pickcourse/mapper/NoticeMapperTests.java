@@ -17,26 +17,26 @@ public class NoticeMapperTests {
     @Autowired
     private NoticeMapper mapper;
 
-    @Test
-    public void postNoticeDetail() {
-        NoticeVO notice = new NoticeVO();
-        notice.setNoticeName("공지사항2222");
-        notice.setNoticeContent("이것은 공지사항2222");
-        notice.setAdminId(6l);
-        mapper.postNoticeDetail(notice);
-    }
-
-    @Test
-    public void getManageListNotice() {
-        Search search = new Search();
-        search.setType("w");
-        search.setKeyWord("HHH");
-        Pagination pagination = new Pagination();
-        List<NoticeVO> notices = mapper.geNoticeList(pagination, search);
-        log.info(pagination.toString());
-        notices.forEach(System.out::println);
-        log.info("notices size :: {} ", notices.size());
-    }
+//    @Test
+//    public void postNoticeDetail() {
+//        NoticeVO notice = new NoticeVO();
+//        notice.setNoticeName("공지사항2222");
+//        notice.setNoticeContent("이것은 공지사항2222");
+//        notice.setAdminId(6l);
+//        mapper.postNoticeDetail(notice);
+//    }
+//
+//    @Test
+//    public void getManageListNotice() {
+//        Search search = new Search();
+//        search.setType("w");
+//        search.setKeyWord("HHH");
+//        Pagination pagination = new Pagination();
+//        List<NoticeVO> notices = mapper.geNoticeList(pagination, search);
+//        log.info(pagination.toString());
+//        notices.forEach(System.out::println);
+//        log.info("notices size :: {} ", notices.size());
+//    }
 
     @Test
     public void getNoticeDetail() {

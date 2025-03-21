@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -302,5 +303,10 @@ public class AdminService {
 
         notice.setAdminId(4l);  // 로그인수정
         noticeDAO.postNoticeDetail(notice);
+    }
+
+    // Admin 로그인 (Service)
+    public Optional<AdminVO> adminLogin(AdminVO adminVO) {
+        return adminDAO.findByAdminAccountAndPassword(adminVO);
     }
 }

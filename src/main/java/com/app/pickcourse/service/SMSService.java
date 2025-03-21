@@ -21,8 +21,8 @@ import java.util.Random;
 public class SMSService {
 
     //CoolSMS API Key & Secret Key
-    private final String apiKey = "NCSN47IFHNQQTMWI";  // 여기에 API 키 입력
-    private final String apiSecret = "OXIGINEZ3L7Y59XDJLH54AAC3LOUODQP";  // 여기에 API Secret 입력
+    private final String apiKey = "";  // 여기에 API 키 입력
+    private final String apiSecret = "";  // 여기에 API Secret 입력
 
     /**
      * 인증번호 전송 메서드

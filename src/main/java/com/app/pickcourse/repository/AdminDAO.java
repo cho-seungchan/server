@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
@@ -36,4 +37,8 @@ public class AdminDAO {
         adminMapper.deleteManageAdminList(adminId);
     }
 
+        // 로그인 (DAO)
+    public Optional<AdminVO> findByAdminAccountAndPassword(AdminVO adminVO){
+        return adminMapper.selectByAdminAccountAndAdminPassword(adminVO);
+    }
 }

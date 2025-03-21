@@ -18,9 +18,6 @@ public interface ReceiveMessageMapper {
     // 받은 메시지 조회
     List<ReceiveMessageDTO> selectReceiveMessagesByReceiverId(Long receiverId);
 
-    // 받은 메시지 삭제
-    void deleteReceiveMessageById(Long messageId);
-
     // 받은 메시지 개수 조회 (페이징을 위해 추가)
     int countByReceiverId(Long receiverId);
 
@@ -35,5 +32,12 @@ public interface ReceiveMessageMapper {
             @Param("receiverId") Long receiverId,
             @Param("pagination") Pagination pagination);
 
+    public ReceiveMessageDTO selectMessageById(@Param("id") Long id);
+
+    public int deleteReceiveMessageById(@Param("id") Long id);
+
+//    public String updateToChecked(Long id);
+
+    public int updateToChecked(Long id);
 
 }

@@ -46,4 +46,20 @@ public class ReceiveMessageDAO {
     public List<ReceiveMessageDTO> findAllReceiveMessage(Long receiverId, Pagination pagination) {
         return receiveMessageMapper.selectAllReceiveMessage(receiverId, pagination);
     }
+
+    public ReceiveMessageDTO findMessageById(Long id) {
+        return receiveMessageMapper.selectMessageById(id);
+    }
+
+    public int deleteReceiveMessage(Long id) {
+        return receiveMessageMapper.deleteReceiveMessageById(id);
+    }
+
+//    public String updateToChecked(Long id) {
+//        return receiveMessageMapper.updateToChecked(id);
+//    }
+
+    public int updateToChecked(Long id) {
+        return receiveMessageMapper.updateToChecked(id);
+    }
 }

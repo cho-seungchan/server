@@ -29,3 +29,10 @@ checkbox.forEach((input) => {
         }
     });
 });
+
+
+function confirmDelete() {
+    if (confirm("정말 픽커스를 탈퇴하시겠습니까?")) {
+        document.getElementById("deleteForm").submit();
+    }
+}

@@ -369,3 +369,24 @@ b, strong {
 .eNIHag>button:hover, .gIsDDT>button:hover {
     background-color: rgb(238, 238, 238);
 }
+
+/********************************************/
+
+.thumbnailImage {
+    max-width: 150px;
+    max-height: 150px;
+}
+
+.appearWrap{
+    position: absolute;
+}
+
+.thumbnailDiv {
+    bottom: 10%;
+    position: relative;
+}
+
+.userListDiv.read {
+    background-color: #f0f0f0;
+    color: #888;
+}

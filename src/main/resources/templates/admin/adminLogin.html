@@ -46,7 +46,7 @@
                     rel="stylesheet"
                 />
 
-                <title>로그인</title>
+                <title>관리자 로그인</title>
             </head>
             <body class="fontLoaded">
             <header th:replace="/all/header.html :: #main-header"></header>
@@ -60,7 +60,7 @@
                                 <h3>로그인</h3>
                             </div>
                             <form
-                                    action="/login/adminLogin" method="post" th:object="${adminDTO}"
+                                    action="/admin/adminLogin" method="post" th:object="${adminVO}"
                                     class="LoginRegister__LoginRegisterForm-gtp545-0 fjvnva"
                             >
                                 <div>
