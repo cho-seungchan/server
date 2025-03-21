@@ -46,7 +46,6 @@ public class AdminController {
 
     // 회원 관리 목록 조회 25.03.03 조승찬
     @GetMapping("/member-list")
-    public String getMemberList(@RequestParam(value = "isAct", required = false) Character isAct,
     public String getMemberList(@SessionAttribute(name = "admin", required = false) AdminVO admin,
                                 @RequestParam(value = "isAct", required = false) Character isAct,
                                 Pagination pagination, Search search, Model model) {
@@ -64,44 +63,66 @@ public class AdminController {
 
     // 회원 정지 25.03.03 조승찬
     @PostMapping("/member-list-pause")
-    public String patchMemberListpause(@RequestParam("selectedIds") String selectedIds,
+    public String patchMemberListpause(@SessionAttribute(name = "admin", required = false) AdminVO admin,
+                                       @RequestParam("selectedIds") String selectedIds,
                                        @RequestParam(value = "page", required = false) String page,
                                        @RequestParam(value = "type", required = false) String type,
                                        @RequestParam(value = "keyWord", required = false) String keyWord,
                                        @RequestParam(value = "isAct", required = false) String isAct,
                                        RedirectAttributes redirectAttributes) {
-        log.info("회원정지 "+selectedIds+" "+page+" "+type+" "+keyWord+" "+isAct);
+
+        if (admin == null) {
+            return "redirect:adminLogin";
+        }
+
         adminService.patchMemberListPause(selectedIds);
         return "redirect:/admin/member-list?page=" +page+"&type="+type+"&keyWord="+keyWord+"&isAct="+isAct;
     }
 
     // 회원 정지 해제 25.03.03 조승찬
     @PostMapping("/member-list-restart")
-    public String patchMemberListRestart(@RequestParam("selectedIds") String selectedIds,
-                                               @RequestParam(value = "page", required = false) String page,
-                                               @RequestParam(value = "type", required = false) String type,
-                                               @RequestParam(value = "keyWord", required = false) String keyWord,
-                                               @RequestParam(value = "isAct", required = false) String isAct,
-                                               RedirectAttributes redirectAttributes) {
+    public String patchMemberListRestart(@SessionAttribute(name = "admin", required = false) AdminVO admin,
+                                         @RequestParam("selectedIds") String selectedIds,
+                                         @RequestParam(value = "page", required = false) String page,
+                                         @RequestParam(value = "type", required = false) String type,
+                                         @RequestParam(value = "keyWord", required = false) String keyWord,
+                                         @RequestParam(value = "isAct", required = false) String isAct,
+                                         RedirectAttributes redirectAttributes) {
+
+        if (admin == null) {
+            return "redirect:adminLogin";
+        }
+
         adminService.patchMemberListRestart(selectedIds);
         return "redirect:/admin/member-list?page=" +page+"&type="+type+"&keyWord="+keyWord+"&isAct="+isAct;
     }
 
     // 회원 추방 25.03.03 조승찬
     @PostMapping("/member-list-delete")
-    public String deleteMemberList(@RequestParam("selectedIds") String selectedIds,
+    public String deleteMemberList(@SessionAttribute(name = "admin", required = false) AdminVO admin,
+                                   @RequestParam("selectedIds") String selectedIds,
                                    @RequestParam(value = "page", required = false) String page,
                                    @RequestParam(value = "type", required = false) String type,
                                    @RequestParam(value = "keyWord", required = false) String keyWord,
                                    @RequestParam(value = "isAct", required = false) String isAct,
                                    RedirectAttributes redirectAttributes) {
+
+        if (admin == null) {
+            return "redirect:adminLogin";
+        }
+
         adminService.deleteMemberList(selectedIds);
         return "redirect:/admin/member-list?page=" +page+"&type="+type+"&keyWord="+keyWord+"&isAct="+isAct;
     }
 
     // 관리자 관리 화면 :: 목록 조회 25.03.03 조승찬
     @GetMapping("/manage-admin-list")
-    public String getManageAdminList(Pagination pagination, Search search, Model model) {
+    public String getManageAdminList(@SessionAttribute(name = "admin", required = false) AdminVO admin,
+                                     Pagination pagination, Search search, Model model) {
+
+        if (admin == null) {
+            return "redirect:adminLogin";
+        }
 
         List<AdminVO> admins = adminService.getManageAdminList(pagination, search);
         model.addAttribute("admins", admins);
@@ -113,7 +134,13 @@ public class AdminController {
 
     // 관리자 관리 화면 :: 등록 25.03.03 조승찬
     @PostMapping("/manage-admin-list")
-    public String postManageAdminList(AdminVO adminVO, RedirectAttributes redirectAttributes) {
+    public String postManageAdminList(@SessionAttribute(name = "admin", required = false) AdminVO admin,
+                                      AdminVO adminVO, RedirectAttributes redirectAttributes) {
+
+        if (admin == null) {
+            return "redirect:adminLogin";
+        }
+
         try {
             adminService.postManageAdminList(adminVO);
         } catch (com.app.pickcourse.exception.DuplicateException e){
@@ -124,18 +151,31 @@ public class AdminController {
 
     // 관리자 관리 화면 :: 삭제  25.03.03 조승찬
     @PostMapping("/manage-admin-list-delete")
-    public String deleteManageAdminList(@RequestParam("selectedIds") String selectedIds,
+    public String deleteManageAdminList(@SessionAttribute(name = "admin", required = false) AdminVO admin,
+                                        @RequestParam("selectedIds") String selectedIds,
                                         @RequestParam(value = "page", required = false) String page,
                                         @RequestParam(value = "type", required = false) String type,
                                         @RequestParam(value = "keyWord", required = false) String keyWord,
                                         RedirectAttributes redirectAttributes) {
+
+        if (admin == null) {
+            return "redirect:adminLogin";
+        }
+
         adminService.deleteManageAdminList(selectedIds);
         return "redirect:/admin/manage-admin-list?page=" + page + "&type=" + type + "&keyWord=" + keyWord;
     }
 
     // 신규 코스 조회 화면 25.03.07 조승찬
     @GetMapping("/add-course")
-    public String getAddCourse(Model model) {return "/admin/add-course";}
+    public String getAddCourse(@SessionAttribute(name = "admin", required = false) AdminVO admin,
+                               Model model) {
+
+        if (admin == null) {
+            return "redirect:adminLogin";
+        }
+
+        return "/admin/add-course";}
 
     // 신규 코스 작성  25.03.07 조승찬
     @PostMapping("/add-course")
