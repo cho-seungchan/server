@@ -78,7 +78,6 @@ public class ProposalController {
     @GetMapping("/pay")
     public String getPay(Model model, Long planId) {
         MemberVO loginMember = (MemberVO) session.getAttribute("member");
-        log.info(loginMember.toString());
 
         if(loginMember == null) {
             return "redirect:/login/login";

@@ -6,7 +6,6 @@ const discountWrapper = document.querySelector(".discountWrapper")
 const price = plan.planPrice;
 const point = loginMember.memberPoint;
 console.log(point)
-console.log(loginMember)
 const startDate =new Date(plan.planStartDate);
 
 const formatStartDate = `${startDate.getMonth()+1}월 ${startDate.getDate()}일`;
