@@ -92,11 +92,9 @@ public class MemberDAO {
     }
 
 //    ID로 회원 조회
-    public Optional<MemberVO> findById(Long id) {
+    public Optional<MemberDTO> findById(Long id) {
         return memberMapper.selectById(id);
     }
-//    비밀번호 변경
-    public void updateMemberPassword(MemberVO memberVO) {memberMapper.updatePassword(memberVO);}
 
     // 기존 비밀번호 조회
     public String getCurrentPassword(Long id) {
@@ -111,11 +109,6 @@ public class MemberDAO {
     public boolean checkNicknameDuplicate(String memberNickname) {
         return memberMapper.countByNickname(memberNickname) > 0;
     }
-
-    public Optional<MemberDTO> findById(Long id) {
-        return memberMapper.selectById(id);
-    }
-
     public Optional<MemberDTO> findEmailByNickname(String memberNickname) {return memberMapper.findEmailByNickname(memberNickname);}
 
 //    프로필사진

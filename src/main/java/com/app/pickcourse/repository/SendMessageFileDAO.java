@@ -3,8 +3,8 @@ package com.app.pickcourse.repository;
 import com.app.pickcourse.domain.dto.SendMessageFileDTO;
 import com.app.pickcourse.domain.vo.FileVO;
 import com.app.pickcourse.domain.vo.SendMessageFileVO;
-import com.app.pickcourse.mapper.FileMapper;
 import com.app.pickcourse.mapper.SendMessageFileMapper;
+import com.app.pickcourse.mapper.FileMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 

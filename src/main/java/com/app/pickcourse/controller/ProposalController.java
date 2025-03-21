@@ -51,7 +51,7 @@ public class ProposalController {
 
     @GetMapping("/modify")
     public String getModify(Model model, Long id) {
-        MemberVO loginMember = (MemberVO) session.getAttribute("member");
+        MemberDTO loginMember = (MemberDTO) session.getAttribute("member");
 
         if(loginMember == null) {
             return "redirect:/login/login";
@@ -67,7 +67,7 @@ public class ProposalController {
 
     @GetMapping("/modifylist")
     public String getModifyList(Model model) {
-        MemberVO loginUser = (MemberVO) session.getAttribute("member");
+        MemberDTO loginUser = (MemberDTO) session.getAttribute("member");
         if (loginUser == null) {
             return "redirect:/login/login";
         }else {
@@ -77,7 +77,7 @@ public class ProposalController {
 
     @GetMapping("/pay")
     public String getPay(Model model, Long planId) {
-        MemberVO loginMember = (MemberVO) session.getAttribute("member");
+        MemberDTO loginMember = (MemberDTO) session.getAttribute("member");
 
         if(loginMember == null) {
             return "redirect:/login/login";
@@ -92,10 +92,10 @@ public class ProposalController {
 
     @GetMapping("/read")
     public String getRead(Model model, Long id) {
-        MemberVO loginUser = (MemberVO) session.getAttribute("member");
+        MemberDTO loginUser = (MemberDTO) session.getAttribute("member");
 
         PlanDetailDTO planDetailDTO = planService.getPlanDetailById(id);
-        planDetailDTO.setMember(loginUser);
+        planDetailDTO.setMember(loginUser.toVO());
 
         model.addAttribute("planDetailDTO", planDetailDTO);
 
@@ -114,7 +114,7 @@ public class ProposalController {
 
     @GetMapping("/viewlist")
     public String getVeiwList(Model model, Long courseId) {
-        MemberVO loginUser = (MemberVO) session.getAttribute("member");
+        MemberDTO loginUser = (MemberDTO) session.getAttribute("member");
 
         CourseSelectDTO course = courseService.findCourseById(51L);
         log.info(course.toString());
@@ -125,7 +125,7 @@ public class ProposalController {
     }
     @PostMapping("/viewlist")
     public RedirectView check(Long courseId, RedirectAttributes redirectAttributes) {
-        MemberVO loginUser = (MemberVO) session.getAttribute("member");
+        MemberDTO loginUser = (MemberDTO) session.getAttribute("member");
         if(loginUser == null) {
             return new RedirectView("/login/login");
         }
@@ -136,7 +136,7 @@ public class ProposalController {
 
     @GetMapping("/write")
     public String getWrite(PlanDTO planDTO, @ModelAttribute("courseId") Long courseId) {
-        MemberVO loginMember = (MemberVO)session.getAttribute("member");
+        MemberDTO loginMember = (MemberDTO)session.getAttribute("member");
         if(loginMember == null) {
             return "redirect:/login/login";
         }
@@ -146,7 +146,7 @@ public class ProposalController {
 
     @PostMapping("/write")
     public RedirectView writePlan(PlanDTO planDTO) {
-        MemberVO loginMember = (MemberVO)session.getAttribute("member");
+        MemberDTO loginMember = (MemberDTO)session.getAttribute("member");
         if(loginMember == null) {
             return new RedirectView("/login/login");
         }
@@ -161,7 +161,7 @@ public class ProposalController {
     @GetMapping("/modifylists")
     @ResponseBody
     public MyPLanListDTO getMyPlan(Pagination pagination) {
-        MemberVO loginMember = (MemberVO) session.getAttribute("member");
+        MemberDTO loginMember = (MemberDTO) session.getAttribute("member");
 
         Long id = loginMember.getId();
         return planService.getMyPlanList(pagination, id);
@@ -191,7 +191,7 @@ public class ProposalController {
 
     @PostMapping("/modifyUpdate")
     public RedirectView modifyPlan(PlanDTO planDTO, RedirectAttributes redirectAttributes) {
-        MemberVO loginMember = (MemberVO) session.getAttribute("member");
+        MemberDTO loginMember = (MemberDTO) session.getAttribute("member");
 
         planDTO.setMemberId(loginMember.getId());
         redirectAttributes.addFlashAttribute("planId", planDTO.getId());

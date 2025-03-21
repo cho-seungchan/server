@@ -87,7 +87,7 @@ public class PlanService {
 //    여행 상세 조회
     public Optional<PlanDTO> getPlanById(Long id) {
         PlanDTO planDTO = new PlanDTO();
-        MemberVO memberVO = new MemberVO();
+        MemberDTO memberVO = new MemberDTO();
 
         Optional<PlanDTO> foundPlan = planDAO.findById(id);
 
@@ -109,7 +109,7 @@ public class PlanService {
         PlanDetailDTO planDetailDTO = new PlanDetailDTO();
         List<ScheduleDTO> scheduleDTO = new ArrayList<>();
         PlanDTO planDTO = new PlanDTO();
-        MemberVO memberVO = new MemberVO();
+        MemberDTO memberVO = new MemberDTO();
         List<FeedDTO> feedDTOList = new ArrayList<>();
 
         Optional<PlanDTO> foundPlan = planDAO.findById(id);

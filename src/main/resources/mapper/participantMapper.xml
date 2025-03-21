@@ -37,6 +37,7 @@
                 ORDER BY PL.PLAN_END_DATE DESC
              )
         WHERE ROWNUM = 1
+    </select>
     <select id="selectByPlanId" resultType="participantDTO">
         SELECT * FROM TBL_PARTICIPANT
         WHERE PLAN_ID = #{planId}

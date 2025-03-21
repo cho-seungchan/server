@@ -1,6 +1,7 @@
 package com.app.pickcourse.repository;
 
-import com.app.pickcourse.domain.dto.RecentCourse;
+import com.app.pickcourse.domain.dto.ParticipantDTO;
+import com.app.pickcourse.domain.vo.ParticipantVO;
 import com.app.pickcourse.mapper.ParticipantMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -14,8 +15,6 @@ public class ParticipantDAO {
 
     private final ParticipantMapper participantMapper;
 
-    public int getNormalCourseParticipationCount(Long memberId) {
-        return participantMapper.getNormalCourseParticipationCount(memberId);
 //    추가
     public void save(ParticipantVO participantVO) {
         participantMapper.insert(participantVO);
@@ -23,13 +22,9 @@ public class ParticipantDAO {
 //    조회
     public List<ParticipantDTO> findByPlanId(Long planId) {
         return participantMapper.selectByPlanId(planId);
-
+    }
     public int getVolunteerCourseParticipationCount(Long memberId) {
         return participantMapper.getVolunteerCourseParticipationCount(memberId);
-    }
-
-    public RecentCourse getRecentCourse(Long memberId) {
-        return participantMapper.getRecentCourse(memberId);
     }
 
 }

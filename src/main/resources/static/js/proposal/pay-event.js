@@ -1,6 +1,6 @@
 const payButton = document.querySelector(".pay-button");
 
-payButton.addEventListener("click", () => {
+payButton.addEventListener("click", (e) => {
     payService.kakaoPay();
 })
 

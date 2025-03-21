@@ -339,11 +339,6 @@ public class MyPageController {
         return file;
     }
 
-    @GetMapping("/normalCourseParticipationCount")
-    public ResponseEntity<Integer> getNormalCourseParticipationCount(@RequestParam Long memberId) {
-        int count = participantService.getNormalCourseParticipationCount(memberId);
-        return ResponseEntity.ok(count);
-    }
 
     @GetMapping("/volunteerCourseParticipationCount")
     public ResponseEntity<Integer> getVolunteerCourseParticipationCount(@RequestParam Long memberId) {
@@ -351,17 +346,6 @@ public class MyPageController {
         return ResponseEntity.ok(count);
     }
 
-    @GetMapping("/recentCourse")
-    public ResponseEntity<RecentCourse> getRecentCourse(@SessionAttribute(name = "member", required = false) MemberDTO member) {
-        Long memberId = member.getId();
-
-        if (memberId == null) {
-            return ResponseEntity.badRequest().build();
-        }
-
-        RecentCourse recentCourse = participantService.getRecentCourse(memberId);
-        return ResponseEntity.ok(recentCourse);
-    }
 
     @PostMapping("upload")
     @ResponseBody
