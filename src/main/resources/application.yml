@@ -22,3 +22,4 @@ mybatis:
     config-location: classpath:/config/config.xml
     mapper-locations: classpath*:/mapper/*.xml
     type-aliases-package: com.app.pickcourse.domain.**
+

@@ -3,12 +3,9 @@ package com.app.pickcourse.controller;
 
 import com.app.pickcourse.domain.dto.*;
 import com.app.pickcourse.domain.vo.MemberVO;
-import com.app.pickcourse.domain.vo.SendMessageVO;
 import com.app.pickcourse.repository.*;
-import com.app.pickcourse.service.MemberService;
-import com.app.pickcourse.service.MessageService;
+import com.app.pickcourse.service.*;
 import com.app.pickcourse.util.Pagination;
-import jakarta.mail.Multipart;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -20,12 +17,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.servlet.view.RedirectView;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 @RequestMapping("/my-page/*")
@@ -41,6 +35,9 @@ public class MyPageController {
     private final HttpSession session;
     private final SendMessageFileDAO sendMessageFileDAO;
     private final ReceiveMessageFileDAO receiveMessageFileDAO;
+    private final ParticipantService participantService;
+    private final HttpServletResponse response;
+    private final FileService fileService;
 
     @GetMapping("changePassword")
     public String getChangePassword(){
@@ -84,8 +81,8 @@ public class MyPageController {
     public void getHeart(){}
 
     @GetMapping("/messageList_Send")
-    public String goToSendListPage(HttpSession session) {
-        MemberDTO member = (MemberDTO) session.getAttribute("member");
+    public String goToSendListPage(@SessionAttribute(name = "member", required = false) MemberDTO member) {
+//        MemberDTO member = (MemberDTO) session.getAttribute("member");
 
         if (member == null) {
             return "redirect:/login/login";
@@ -96,8 +93,8 @@ public class MyPageController {
 
     @GetMapping("/messageList_Sends")
     @ResponseBody
-    public SendPaginationDTO getSendMessages(Pagination pagination, HttpSession session, HttpServletResponse response)  throws IOException {
-        MemberDTO member = (MemberDTO) session.getAttribute("member");
+    public SendPaginationDTO getSendMessages(Pagination pagination, @SessionAttribute(name = "member", required = false) MemberDTO member, HttpServletResponse response)  throws IOException {
+//        MemberDTO member = (MemberDTO) session.getAttribute("member");
         if (member == null) {
             response.sendRedirect("/login/login");
             return null;
@@ -112,8 +109,8 @@ public class MyPageController {
 
 
     @GetMapping("/messageListReceive")
-    public String goToReceiveListPage(HttpSession session) {
-        MemberDTO member = (MemberDTO) session.getAttribute("member");
+    public String goToReceiveListPage(@SessionAttribute(name = "member", required = false) MemberDTO member) {
+//        MemberDTO member = (MemberDTO) session.getAttribute("member");
 
         if (member == null) {
             return "redirect:/login/login";
@@ -124,8 +121,8 @@ public class MyPageController {
 
     @GetMapping("/messageListReceives")
     @ResponseBody
-    public ReceivePaginationDTO getReceivedMessages(Pagination pagination, HttpSession session, HttpServletResponse response)  throws IOException {
-        MemberDTO member = (MemberDTO) session.getAttribute("member");
+    public ReceivePaginationDTO getReceivedMessages(Pagination pagination, @SessionAttribute(name = "member", required = false) MemberDTO member)  throws IOException {
+//        MemberDTO member = (MemberDTO) session.getAttribute("member");
         if (member == null) {
             response.sendRedirect("/login/login");
             return null;
@@ -340,6 +337,30 @@ public class MyPageController {
         ReceiveMessageFileDTO file = receiveMessageFileDAO.selectByReceiveMessageId(receiveMessageId);
 
         return file;
+    }
+
+    @GetMapping("/normalCourseParticipationCount")
+    public ResponseEntity<Integer> getNormalCourseParticipationCount(@RequestParam Long memberId) {
+        int count = participantService.getNormalCourseParticipationCount(memberId);
+        return ResponseEntity.ok(count);
+    }
+
+    @GetMapping("/volunteerCourseParticipationCount")
+    public ResponseEntity<Integer> getVolunteerCourseParticipationCount(@RequestParam Long memberId) {
+        int count = participantService.getVolunteerCourseParticipationCount(memberId);
+        return ResponseEntity.ok(count);
+    }
+
+    @GetMapping("/recentCourse")
+    public ResponseEntity<RecentCourse> getRecentCourse(@SessionAttribute(name = "member", required = false) MemberDTO member) {
+        Long memberId = member.getId();
+
+        if (memberId == null) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        RecentCourse recentCourse = participantService.getRecentCourse(memberId);
+        return ResponseEntity.ok(recentCourse);
     }
 
 

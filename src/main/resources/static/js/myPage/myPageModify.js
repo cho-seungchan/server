@@ -34,3 +34,5 @@ fileInput.addEventListener("change", (e) => {
         reader.readAsDataURL(file);
     }
 });
+
+

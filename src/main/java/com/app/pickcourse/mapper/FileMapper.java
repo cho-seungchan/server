@@ -18,4 +18,9 @@ public interface FileMapper {
 
 //    메세지 파일
     public void insertMessageFile(FileVO fileVO);
+
+    void insertFile(FileVO fileVO);
+
+    // 최근 추가된 파일 조회
+    FileVO selectLastInsertedFile();
 }

@@ -67,8 +67,8 @@
                                         </ul>
                                         <span>피드</span>
                                         <ul>
-                                            <li><a href="/feeds/my/reply-list">- 내가 작성한 피드</a></li>
-                                            <li><a href="/my-page/myReply">- 내 댓글 목록</a></li>
+                                            <li><a href="/feeds/modify-list">- 내가 작성한 피드</a></li>
+                                            <li><a href="/feeds/my/reply-list">- 내 댓글 목록</a></li>
                                         </ul>
                                         <span>쪽지함</span>
                                         <ul>
@@ -93,7 +93,8 @@
                                                 class="UserInfo__TextWrapper-bt0psx-2 dPypOl"
                                             >
                                                 <div class="UserInfo__Nickname-bt0psx-3 hewsYu">
-                                                    <span th:text="${session.member != null ? session.member.memberNickname : ''}"></span>
+                                                    <span th:data-id="${session.member != null ? session.member.id : ''}"
+                                                          th:text="${session.member != null ? session.member.memberNickname : ''}"></span>
                                                 </div>
 
                                                 <div class="UserInfo__Account-bt0psx-4 hOMBPU">
@@ -109,7 +110,7 @@
                                         <div class="imgContainer">
                                             <ul>
                                                 <li
-                                                    class="list_badge complete_badge"
+                                                    class="list_badge course_badge none_complete_badge"
                                                 >
                                                     <img
                                                         src="/images/myPage/1054988_running_person_walking_icon.png"
@@ -118,13 +119,13 @@
                                                     <span class="first_comment"
                                                         >코스완주</span
                                                     >
-                                                    <span class="second_comment"
-                                                        >1회</span
+                                                    <span class="second_comment noneCount"
+                                                        >0회</span
                                                     >
                                                 </li>
                                                 <!-- 완료 횟수가 올라가면 none_complete_badge 클래스를 삭제한다 -->
                                                 <li
-                                                    class="list_badge none_complete_badge"
+                                                    class="list_badge volunteer_badge none_complete_badge"
                                                 >
                                                     <img
                                                         src="/images/myPage/9853856_angel_emoji_smiley_emoticon_icon.png"
@@ -142,7 +143,7 @@
                                                     >
                                                 </li>
                                                 <li
-                                                    class="list_badge none_complete_badge"
+                                                    class="list_badge feed_badge none_complete_badge"
                                                 >
                                                     <img
                                                         src="/images/myPage/4830806_heart_love_smiley_icon.png"
@@ -157,7 +158,7 @@
                                                     >
                                                 </li>
                                                 <li
-                                                    class="list_badge none_complete_badge"
+                                                    class="list_badge reply_badge none_complete_badge"
                                                 >
                                                     <img
                                                         src="/images/myPage/8725663_comment_alt_heart_icon.png"
@@ -206,29 +207,42 @@
                                         >
                                     </div>
                                     <hr class="MyPage__Hr-sc-8hrgc7-4 cLsnpe" />
-                                    <div
-                                        class="MyPage__DomainWrapper-sc-8hrgc7-3 hoWpsw"
-                                    >
-                                        <header class="courceHeader">
-                                            최근 코스
-                                        </header>
-                                        <span class="courceName">C 코스</span>
-                                        <a href="/my/purchases">
-                                            <div
-                                                class="TableBase-sc-2cq8bo-0 cEHhVW courceContainer"
-                                            >
-                                                <div
-                                                    class="TableRow__ContentWrapper-j0fs67-0 jfwBqf courceWarp"
-                                                >
+                                    <div class="MyPage__DomainWrapper-sc-8hrgc7-3 hoWpsw">
+                                        <header class="courceHeader">최근 코스</header>
+                                        <span class="courceName">최근 다녀온 코스 없음</span>
+                                        <a href="javascript:void(0);" id="recentCourseLink">
+                                            <div class="TableBase-sc-2cq8bo-0 cEHhVW courceContainer">
+                                                <div class="TableRow__ContentWrapper-j0fs67-0 jfwBqf courceWarp">
                                                     <div class="imgWrap">
-                                                        <img
-                                                            src="/images/main/namwon.jpg"
-                                                            alt=""
-                                                        />
+                                                        <img id="recentCourseImg" src="/images/default-course.jpg" alt="최근 코스 이미지">
                                                     </div>
-                                                </div></div
-                                        ></a>
+                                                </div>
+                                            </div>
+                                        </a>
                                     </div>
+<!--                                    <div-->
+<!--                                        class="MyPage__DomainWrapper-sc-8hrgc7-3 hoWpsw"-->
+<!--                                    >-->
+<!--                                        <header class="courceHeader">-->
+<!--                                            최근 코스-->
+<!--                                        </header>-->
+<!--                                        <span class="courceName">C 코스</span>-->
+<!--                                        <a href="/my/purchases">-->
+<!--                                            <div-->
+<!--                                                class="TableBase-sc-2cq8bo-0 cEHhVW courceContainer"-->
+<!--                                            >-->
+<!--                                                <div-->
+<!--                                                    class="TableRow__ContentWrapper-j0fs67-0 jfwBqf courceWarp"-->
+<!--                                                >-->
+<!--                                                    <div class="imgWrap">-->
+<!--                                                        <img-->
+<!--                                                            src="/images/main/namwon.jpg"-->
+<!--                                                            alt=""-->
+<!--                                                        />-->
+<!--                                                    </div>-->
+<!--                                                </div></div-->
+<!--                                        ></a>-->
+<!--                                    </div>-->
                                     <hr
                                         size="32"
                                         type="Line"

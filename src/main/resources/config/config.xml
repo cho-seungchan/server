@@ -32,5 +32,8 @@
         <typeAlias type="com.app.pickcourse.domain.dto.SendMessageDTO" alias="sendMessageDTO"/>
         <typeAlias type="com.app.pickcourse.domain.vo.ReceiveMessageVO" alias="receiveMessageVO"/>
         <typeAlias type="com.app.pickcourse.domain.vo.SendMessageVO" alias="sendMessageVO"/>
+        <typeAlias type="com.app.pickcourse.domain.vo.ParticipantVO" alias="participantVO"/>
+        <typeAlias type="com.app.pickcourse.domain.dto.ParticipantDTO" alias="participantDTO"/>
+        <typeAlias type="com.app.pickcourse.domain.dto.RecentCourse" alias="recentDTO"/>
     </typeAliases>
 </configuration>

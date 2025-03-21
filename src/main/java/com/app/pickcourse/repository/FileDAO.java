@@ -18,4 +18,8 @@ public class FileDAO {
     public void postFeedWrite(FileVO file) {
         fileMapper.postFeedWrite(file);
     }
+
+    public FileVO findLastInsertedFile() {
+        return fileMapper.selectLastInsertedFile();
+    }
 }

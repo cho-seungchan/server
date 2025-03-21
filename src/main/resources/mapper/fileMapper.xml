@@ -49,4 +49,14 @@
         #{fileSize})
     </insert>
 
+    <select id="selectLastInsertedFile" resultType="fileVO">
+        SELECT ID, FILE_PATH, FILE_NAME, FILE_SIZE
+        FROM (
+                 SELECT ID, FILE_PATH, FILE_NAME, FILE_SIZE
+                 FROM TBL_FILE
+                 ORDER BY ID DESC
+             ) WHERE ROWNUM = 1
+    </select>
+
+
 </mapper>
