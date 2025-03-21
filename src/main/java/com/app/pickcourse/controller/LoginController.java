@@ -5,6 +5,7 @@ import com.app.pickcourse.domain.vo.AdminVO;
 import com.app.pickcourse.domain.vo.MemberVO;
 import com.app.pickcourse.service.AdminService;
 import com.app.pickcourse.service.MemberService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +27,7 @@ public class LoginController {
     private final MemberService memberService;
     private final MemberVO memberVO;
     private final HttpSession session;
+    private final HttpServletRequest request;
 
     @GetMapping("login")
     public String goToLoginForm(Model model) {
@@ -51,6 +53,12 @@ public class LoginController {
         MemberDTO member = optionalMember.get();
         session.setAttribute("memberStatus", "email");
         session.setAttribute("member", member);
+
+        String redirectUrl = (String) session.getAttribute("redirectAfterLogin");
+        if (redirectUrl != null) {
+            session.removeAttribute("redirectAfterLogin");
+            return "redirect:" + redirectUrl;
+        }
 
         return "redirect:/";
     }
