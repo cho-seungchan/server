@@ -177,6 +177,13 @@ public class MyPageController {
     ) {
         SendMessageDTO sendMessageDTO = new SendMessageDTO();
 
+        MemberDTO member = (MemberDTO) session.getAttribute("member");
+
+        if (member == null) {
+            session.setAttribute("redirectAfterLogin", request.getRequestURI());
+            return "redirect:/login/login";
+        }
+
         if (!receiverEmail.isEmpty()) {
             sendMessageDTO.setReceiverEmail(receiverEmail);
         }
@@ -233,6 +240,7 @@ public class MyPageController {
         MemberDTO member = (MemberDTO) session.getAttribute("member");
 
         if (member == null) {
+            session.setAttribute("redirectAfterLogin", request.getRequestURI());
             return "redirect:/login/login";
         }
 
