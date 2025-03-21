@@ -46,9 +46,13 @@ public class AdminController {
 
     // 회원 관리 목록 조회 25.03.03 조승찬
     @GetMapping("/member-list")
-    public String getMemberList(@RequestParam(value = "isAct", required = false) Character isAct,
+    public String getMemberList(@SessionAttribute(name = "admin", required = false) AdminVO admin,
+                                @RequestParam(value = "isAct", required = false) Character isAct,
                                 Pagination pagination, Search search, Model model) {
 
+        if (admin == null) {
+            return "redirect:adminLogin";
+        }
 
         List<MemberVO> members = adminService.getMemberList(isAct, pagination, search);
         model.addAttribute("members", members);
