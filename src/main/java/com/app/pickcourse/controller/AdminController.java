@@ -326,6 +326,13 @@ public class AdminController {
         }
 
         session.setAttribute("admin", admin);
+
+        String redirectUrl = (String) session.getAttribute("redirectAfterLogin");
+        if (redirectUrl != null) {
+            session.removeAttribute("redirectAfterLogin");
+            return "redirect:" + redirectUrl;
+        }
+        
         return "redirect:/admin/admin";
     }
 
