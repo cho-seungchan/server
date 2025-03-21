@@ -33,18 +33,19 @@
                                 <div class="PageWrapper-sc-1w87j10-0 bScXKt">
                                     <h1 class="H1-sc-1jinm0d-0 MagazineListPage__PageTitle-hh1ck3-0 ecnmXp"></h1>
                                     <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block">
-<!--                                form 데이타로 수정 25.03.20 조승찬 시작-->
-<!--                                        <th:block th:each="file:${feedDTO.getFiles()}">-->
+<!--                                form 데이타로 수정 25.03.21 조승찬 시작-->
+                                        <th:block th:each="tour:${tourListDTO}">
                                             <div>
                                                 <div class="MagazineListPage__MagazineWrapper-hh1ck3-2 jZtIEr">
                                                     <a class="MagazineListPage__Magazine-hh1ck3-3 hHOLgL" href="/magazines/20157317" >
                                                         <div class="Image__Wrapper-v97gyx-0 gDuKGF">
-                                                            <img class="Image__StyledImageLoader-v97gyx-2 bUFcfh" width="160" src="https://res.cloudinary.com/frientrip/image/upload/c_fill,f_auto,g_center,h_240,q_auto,w_200/thm_%EC%9D%B4%EB%B2%88%EC%A3%BC%EB%A7%90%EB%AD%90%ED%95%98%EC%A7%80%20(13)_d1a9b6efdfcb34b9d97243819cefc83f4f656f479bdc1686ba582b3c4368848c"/>
+<!--                                                            <img src="/default-image-path/default-image.jpg" th:if="${tour.planFileName == null || tour.planFileName.isEmpty()}">-->
+<!--                                                            <img th:src="@{/files/display(path=|${tour.planFilePath}/${tour.planFileName}|)}" th:if="${tour.planFileName != null && !tour.planFileName.isEmpty()}" >-->
                                                             <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block" >
                                                                 <div class="Ratio" style="display: block">
                                                                     <div class="Ratio-ratio" style=" height: 0px; position: relative; width: 100%; padding-top: 120%; " >
                                                                         <div class="Ratio-content" style=" height: 100%; left: 0px; position: absolute; top: 0px; width: 100%; " >
-                                                                            <img alt="매거진 커버 이미지" class="Image__StyledImage-v97gyx-1 VUNpu" width="160" src="https://res.cloudinary.com/frientrip/image/upload/c_fill,f_auto,g_center,h_240,q_auto,w_200/thm_%EC%9D%B4%EB%B2%88%EC%A3%BC%EB%A7%90%EB%AD%90%ED%95%98%EC%A7%80%20(13)_d1a9b6efdfcb34b9d97243819cefc83f4f656f479bdc1686ba582b3c4368848c"/>
+                                                                            <img th:src="@{/files/display(path=|${tour.planFilePath}/${tour.planFileName}|)}" th:if="${tour.planFileName != null && !tour.planFileName.isEmpty()}">
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -52,21 +53,21 @@
                                                         </div>
                                                         <div>
                                                             <div class="MagazineListPage__Title-hh1ck3-4 kBOcSr">
-                                                                <span>지리산에서 자바?</span><br />
-                                                                <span>일정 : 1월 27일 ~ 1월 31일</span><br />
-                                                                <span>비용 : 50,000원</span><br />
-                                                                <span>참가 : 3/10(참여/목표)</span><br />
+                                                                <span class="planName" th:text="'제목 :: ' + ${tour.planName}"></span><br />
+                                                                <span class="planSchedule" th:text="'일정 :: ' + ${tour.planStartDate} + ' ~ ' + ${tour.planEndDate}"></span><br />
+                                                                <span class="planPrice" th:text="'비용 :: ' + ${tour.planPrice}"></span><br />
+                                                                <span class="planParticipants" th:text="'참여 :: ' + ${tour.participants} + '/' + ${tour.planMaxPersonnel}"></span><br />
                                                             </div>
-                                                            <div class="MagazineListPage__CatchPhrase-hh1ck3-5 dfnTnv"> 캡틴 : 조승찬 </div>
+                                                            <div class="MagazineListPage__CatchPhrase-hh1ck3-5 dfnTnv memberNickname" th:text="'캡틴 :: ' + ${tour.memberNickname}"></div>
                                                         </div>
                                                     </a>
-                                                    <div class="button-container">
+                                                    <div class="button-container real-feed">
                                                         <button>리얼후기</button>
                                                     </div>
                                                 </div>
                                             </div>
 <!--                                        </th:block>-->
-<!--                                    form 데이타로 수정 25.03.20 조승찬 시작    -->
+<!--                                    form 데이타로 수정 25.03.21 조승찬 시작    -->
                                     </div>
                                 </div>
                             </div>
@@ -84,3 +85,4 @@
         <div id="dnd-root"></div>
     </body>
 </html>
+<script src="/js/feeds/tour-list.js"></script>

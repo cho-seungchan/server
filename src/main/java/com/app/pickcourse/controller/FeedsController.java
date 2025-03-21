@@ -256,6 +256,9 @@ public class FeedsController {
     @GetMapping("/tour-list")
     public String getTourList(Model model) {
 
+        List<TourListDTO> tourListDTO = feedsService.getTourList(1l); // 로그인 수정
+        model.addAttribute("tourListDTO", tourListDTO);
+
         return "/feeds/tour-list";
     }
 

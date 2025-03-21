@@ -1,10 +1,7 @@
 package com.app.pickcourse.service;
 
-import com.app.pickcourse.domain.dto.FeedDTO;
-import com.app.pickcourse.domain.dto.FeedListDTO;
-import com.app.pickcourse.domain.dto.RealDTO;
+import com.app.pickcourse.domain.dto.*;
 import com.app.pickcourse.domain.vo.*;
-import com.app.pickcourse.domain.dto.ReplyListDTO;
 import com.app.pickcourse.mapper.GeneralFeedMapper;
 import com.app.pickcourse.mapper.GeneralFileMapper;
 import com.app.pickcourse.repository.*;
@@ -37,6 +34,7 @@ public class FeedsService {
     private final GeneralFileDAO generalFileDAO;
     private final TogetherFileDAO togetherFileDAO;
     private final RealFileDAO realFileDAO;
+    private final PlanDAO2 planDAO;
 
     public List<ReplyListDTO> getReplyList(Long loginId, Long feedId, PaginationOnePage pagination) {
         pagination.create(replyDAO.getCountAll(feedId));
@@ -392,5 +390,12 @@ public class FeedsService {
         reportDAO.postReportReplyList(reportId); // 슈퍼키 가져오기
         feedReportDAO.postReportFeedList(reportId.getId(), reportVO.getId(), reportVO.getReportedReason(), loginId);
 
+    }
+
+    public List<TourListDTO> getTourList(Long memberId) {
+        List<TourListDTO> list = planDAO.getTourList(memberId);
+
+
+        return list;
     }
 }
