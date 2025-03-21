@@ -97,9 +97,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 courseSchedule: document.querySelector(".gcqwwh.min").value,
                 courseTheme: document.querySelector(".gcqwwh.cost").value,
                 courseContent: document.querySelector(".Textarea_textarea__MWJjO").value,
-                // courseFilePath: ,
-                // courseFileSize: ,
-                // courseFileName: ,
+                courseFilePath: document.querySelector(".ImageList-sc-9v1mt2-0.hGJMVS").querySelector(".uploadFile").dataset.filePath,
+                courseFileSize: document.querySelector(".ImageList-sc-9v1mt2-0.hGJMVS").querySelector(".uploadFile").dataset.fileSize,
+                courseFileName: document.querySelector(".ImageList-sc-9v1mt2-0.hGJMVS").querySelector(".uploadFile").dataset.fileName,
                 // adminId: ,
                 // createdDate: ,
                 // updatedDate: ,
@@ -130,11 +130,34 @@ document.addEventListener("DOMContentLoaded", function () {
             console.log(".deleteCourseDtail  "+courseId+" "+page+" "+type+" "+keyWord);
             deleteCourseDetail(courseId, page, type, keyWord);
         }
-        // 2025.03.13 조승찬 추가 시작 :: 수정 클릭시 update 함수 삭제 클릭시 delete 함수 호출
+        // 2025.03.13 조승찬 추가 끝 :: 수정 클릭시 update 함수 삭제 클릭시 delete 함수 호출
 
-
+        // 2025.03.22 조승찬 추가 시작
+        // 조회된 파일의 이미지(x)를 눌렀을 때 전체 dev 삭제
+        if (e.target.className == "file-cancel") {
+            e.target.closest(".uploadFile").remove()
+        }
+        // 2025.03.22 조승찬 추가 끝
 
     });
+
+    // 25.03.22 조승찬 추가 시작
+    // 파일  입력시 컨트롤러로 전송해서 썸네일 정보를 받아서 보여준다
+    document.body.addEventListener("change", e=>{
+        if (e.target.matches(".InputImageReview__Wrapper-sc-1oapt4s-0.ipbuZD input[type='file']")) {
+            const file = e.target.files[0];
+
+            // multipart/form-data 형식으로 데이터를 자동 처리
+            const formData = new FormData();
+            formData.append("file", file);
+
+            console.log("form data "+formData);
+            // 서버로 전송하여 path와 썸네일 생성
+            inputFileUpload(formData);
+        };
+    });
+    // 25.03.22 조승찬 추가 끝
+
 
 });
 

@@ -56,10 +56,14 @@
 
     <select id="getReplyList" resultType="replyListDTO">
         <![CDATA[
-        SELECT ID, REPLY_CONTENT, createdDate, feedId, memberId, MEMBER_NICKNAME
+        SELECT ID, REPLY_CONTENT, createdDate, feedId, memberId, MEMBER_NICKNAME,
+               MEMBER_FILE_PATH,
+               MEMBER_FILE_NAME
         FROM
         (
-            SELECT ROWNUM R, ID, REPLY_CONTENT, createdDate, feedId, memberId, MEMBER_NICKNAME
+            SELECT ROWNUM R, ID, REPLY_CONTENT, createdDate, feedId, memberId, MEMBER_NICKNAME,
+                   MEMBER_FILE_PATH,
+                   MEMBER_FILE_NAME
             FROM
                 (
                  SELECT
@@ -68,7 +72,9 @@
                     TO_CHAR(R.CREATED_DATE, 'YYYY-MM-DD') AS createdDate,
                     COALESCE(GR.FEED_ID, RR.FEED_ID, TR.FEED_ID) AS feedId,
                     M.ID AS memberId,
-                    M.MEMBER_NICKNAME
+                    M.MEMBER_NICKNAME,
+                    M.MEMBER_FILE_PATH,
+                    M.MEMBER_FILE_NAME
                 FROM
                     TBL_REPLY R
                         LEFT JOIN TBL_GENERAL_REPLY GR ON R.ID = GR.ID
@@ -86,10 +92,14 @@
 
     <select id="getMyReplyList" resultType="replyListDTO">
         <![CDATA[
-        SELECT ID, REPLY_CONTENT, createdDate, feedId, memberId, MEMBER_NICKNAME
+        SELECT ID, REPLY_CONTENT, createdDate, feedId, memberId, MEMBER_NICKNAME,
+               MEMBER_FILE_PATH,
+               MEMBER_FILE_NAME
         FROM
             (
-                SELECT ROWNUM R, ID, REPLY_CONTENT, createdDate, feedId, memberId, MEMBER_NICKNAME
+                SELECT ROWNUM R, ID, REPLY_CONTENT, createdDate, feedId, memberId, MEMBER_NICKNAME,
+                       MEMBER_FILE_PATH,
+                       MEMBER_FILE_NAME
                 FROM
                     (
                         SELECT
@@ -98,7 +108,9 @@
                             TO_CHAR(R.CREATED_DATE, 'YYYY-MM-DD') AS createdDate,
                             COALESCE(GR.FEED_ID, RR.FEED_ID, TR.FEED_ID) AS feedId,
                             M.ID AS memberId,
-                            M.MEMBER_NICKNAME
+                            M.MEMBER_NICKNAME,
+                            M.MEMBER_FILE_PATH,
+                            M.MEMBER_FILE_NAME
                         FROM
                             TBL_REPLY R
                                 LEFT JOIN TBL_GENERAL_REPLY GR ON R.ID = GR.ID

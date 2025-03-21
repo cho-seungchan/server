@@ -189,6 +189,7 @@ public class AdminController {
 
         courseDTO.setAdminId(admin.getId());
         adminService.postAddCourse(courseDTO);
+
         return "redirect:/admin/add-course";
     }
 

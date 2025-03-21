@@ -40,12 +40,15 @@ public class FeedsController {
         }
 
         Long memberId = member.getId();
+        // 로그인 멤버 프로필 조회용 정보 가져오기
+        MemberFileDTO memberFileDTO = feedsService.getMemberFileInfo(memberId);
 
         // memberId는 댓글 "삭제", "신고" 를 구분하기 위해서 사용
         List<ReplyListDTO> replys = feedsService.getReplyList(memberId, feedId, pagination);
         log.info("pagination  "+pagination.toString());
         model.addAttribute("replys", replys);  // 댓글 목록
         model.addAttribute("replyAction", new ReplyActionDTO()); // 입력될 댓글을 받아올 객체
+        model.addAttribute("memberFile", memberFileDTO);
         model.addAttribute("pagination", pagination);
         return "/feeds/reply-list";
     }
@@ -111,9 +114,15 @@ public class FeedsController {
             return "redirect:/login/login";
         }
 
-        List<ReplyListDTO> replys = feedsService.getMyReplyList(member.getId(), pagination);
+        Long memberId = member.getId();
+        // 로그인 멤버 프로필 조회용 정보 가져오기
+        MemberFileDTO memberFileDTO = feedsService.getMemberFileInfo(memberId);
+
+        // memberId는 댓글 "삭제", "신고" 를 구분하기 위해서 사용
+        List<ReplyListDTO> replys = feedsService.getMyReplyList(memberId, pagination);
         model.addAttribute("replys", replys);  // 댓글 목록
         model.addAttribute("replyAction", new ReplyActionDTO()); // 입력될 댓글을 받아올 객체
+        model.addAttribute("memberFile", memberFileDTO);
         model.addAttribute("pagination", pagination);
 
         return "/feeds/my-reply-list";

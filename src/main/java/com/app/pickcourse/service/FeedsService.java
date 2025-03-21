@@ -37,6 +37,7 @@ public class FeedsService {
     private final TogetherFileDAO togetherFileDAO;
     private final RealFileDAO realFileDAO;
     private final PlanDAO2 planDAO;
+    private final MemberDAO2 memberDAO;
 
     public List<ReplyListDTO> getReplyList(Long memberId, Long feedId, PaginationOnePage pagination) {
         pagination.create(replyDAO.getCountAll(feedId));
@@ -400,6 +401,10 @@ public class FeedsService {
         List<TourListDTO> list = planDAO.getTourList(memberId,pagination);
 
         return list;
+    }
+
+    public MemberFileDTO getMemberFileInfo(Long id) {
+        return memberDAO.getMemberFileInfo(id);
     }
 }
 

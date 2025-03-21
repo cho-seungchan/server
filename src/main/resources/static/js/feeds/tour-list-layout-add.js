@@ -64,7 +64,7 @@ function addTourListAndPage(tours, pagination) {
 
 
         document.querySelector(".tourList-container").appendChild(tourAddLine); // 새로 생성된 리스트 추가
-        tourAddLine.scrollIntoView({ behavior: "smooth", block: "start" });
+        tourAddLine.scrollIntoView({ behavior: "smooth", block: "start" });   // 추가된 행들이 처지지 않게 위치 잡아주기
     })
 
     document.querySelector("footer").innerHTML = ``; // 기존의 더보기 삭제

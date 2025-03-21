@@ -8,13 +8,13 @@ function addReplyListAndPage(replys, pagination) {
         replyAddLine.innerHTML = `
             <div class="CurrentIndex__Profile-lgen36-1 eqCOjz">
                 <div class="Image__Wrapper-v97gyx-0 gDuKGF">
-                    <img class="Image__StyledImageLoader-v97gyx-2 bUFcfh" width="36" height="36" src="https://res.cloudinary.com/frientrip/image/upload/c_fill,f_auto,g_center,q_auto/ios_image_391885_20230825111921027_79e3016429b8c2ed57ec60c14e00ba3680af64a25fa7349505f5db3a078839a2"/>
+<!--                    <img class="Image__StyledImageLoader-v97gyx-2 bUFcfh" width="36" height="36" src="https://res.cloudinary.com/frientrip/image/upload/c_fill,f_auto,g_center,q_auto/ios_image_391885_20230825111921027_79e3016429b8c2ed57ec60c14e00ba3680af64a25fa7349505f5db3a078839a2"/>-->
                     <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block" >
                         <div class="Ratio" style="display: block" >
                             <div class="Ratio-ratio" style=" height: 0px; position: relative; width: 100%; padding-top: 100%; " >
                                 <div class="Ratio-content" style=" height: 100%; left: 0px; position: absolute; top: 0px; width: 100%; " >
 <!--                                    <img class="Image__StyledImage-v97gyx-1 hPRDQO" width="36" height="36" src="https://res.cloudinary.com/frientrip/image/upload/c_fill,f_auto,g_center,q_auto/ios_image_391885_20230825111921027_79e3016429b8c2ed57ec60c14e00ba3680af64a25fa7349505f5db3a078839a2"/> -->
-                                    <img class="Image__StyledImage-v97gyx-1 hPRDQO" width="36" height="36" src="/images/feeds/reply.png"> 
+<!--                                    <img class="Image__StyledImage-v97gyx-1 hPRDQO" width="36" height="36" src="/images/feeds/reply.png"> -->
                                 </div>
                             </div>
                         </div>
@@ -36,8 +36,34 @@ function addReplyListAndPage(replys, pagination) {
             </div>
         `;
 
+        // 파일이 존재 할 때만 이미지 태그 추가
+        // **tour.planFilePath와 tour.planFileName이 존재하는 경우에만 이미지 추가**
+        if (reply.memberFilePath && reply.memberFileName) {
+            const imageUrl = `/files/display?path=${encodeURIComponent(reply.memberFilePath)}/${encodeURIComponent(reply.memberFileName)}`;
+
+            // <img> 태그 생성
+            const imgElement = document.createElement("img");
+            imgElement.className = "Image__StyledImage-v97gyx-1 hPRDQO";
+            imgElement.width = 36;
+            imgElement.height = 36;
+            imgElement.src = imageUrl;
+            imgElement.alt = "서버에서 불러온 이미지";
+
+            // `.Image__Wrapper-v97gyx-0.gDuKGF` 내부에 이미지 추가
+            const imageWrapper = replyAddLine.querySelector(".Image__Wrapper-v97gyx-0.gDuKGF");
+            if (imageWrapper) {
+                imageWrapper.prepend(imgElement); // 가장 위에 추가
+            }
+
+            // `.Ratio-content` 내부에도 추가
+            const ratioContent = replyAddLine.querySelector(".Ratio-content");
+            if (ratioContent) {
+                ratioContent.appendChild(imgElement.cloneNode()); // 클론해서 추가
+            }
+        }
+
         document.querySelector(".replyList-container").appendChild(replyAddLine); // 새로 생성된 리스트 추가
-        replyAddLine.scrollIntoView({ behavior: "smooth", block: "start" });
+        replyAddLine.scrollIntoView({ behavior: "smooth", block: "start" }); // 추가된 행들이 처지지 않게 위치 잡아주기
     })
 
     document.querySelector("footer").innerHTML = ``; // 기존의 더보기 삭제

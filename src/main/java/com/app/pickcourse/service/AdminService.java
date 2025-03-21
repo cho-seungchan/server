@@ -121,7 +121,6 @@ public class AdminService {
 
         // 코스정보 입력
         courseDAO.postAddCourse(courseDTO);
-        log.info("postAddCourse service : {}",courseDTO.toString());
 
         if (courseDTO.getCourseIsVolunteer().equals('Y')){
 

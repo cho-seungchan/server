@@ -54,12 +54,12 @@
                                     <div class="CurrentProfile__UserProfileWrapper-sc-1u92qay-1 dIHOdO">
                                         <div class="CurrentProfile__ProfileImageWrapper-sc-1u92qay-2 iLrRBL">
                                             <div class="Image__Wrapper-v97gyx-0 gDuKGF">
-                                                <img class="Image__StyledImageLoader-v97gyx-2 bUFcfh" width="36" height="36" src="https://res.cloudinary.com/frientrip/image/fetch/c_fill,f_auto,g_center,q_auto/https://k.kakaocdn.net/dn/sKAra/btsLAiHNbqY/wJC7eQdTzyylrvK7fgbcP0/img_110x110.jpg">
+                                                <img class="Image__StyledImageLoader-v97gyx-2 bUFcfh" width="36" height="36" th:src="@{/files/display(path=|${feed.memberFilePath}/${feed.memberFileName}|)}" th:if="${feed.memberFileName != null && !feed.memberFileName.isEmpty()}" >
                                                 <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block;">
                                                     <div class="Ratio " style="display: block;">
                                                         <div class="Ratio-ratio " style="height: 0px; position: relative; width: 100%; padding-top: 100%;">
                                                             <div class="Ratio-content " style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">
-                                                                <img class="Image__StyledImage-v97gyx-1 hPRDQO" width="36" height="36" src="https://res.cloudinary.com/frientrip/image/fetch/c_fill,f_auto,g_center,q_auto/https://k.kakaocdn.net/dn/sKAra/btsLAiHNbqY/wJC7eQdTzyylrvK7fgbcP0/img_110x110.jpg">
+                                                                <img class="Image__StyledImage-v97gyx-1 hPRDQO" width="36" height="36" th:src="@{/files/display(path=|${feed.memberFilePath}/${feed.memberFileName}|)}" th:if="${feed.memberFileName != null && !feed.memberFileName.isEmpty()}" >
                                                             </div>
                                                         </div>
                                                     </div>

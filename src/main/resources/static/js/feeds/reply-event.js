@@ -54,6 +54,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (e.target.className == "moreReplyList") {
             const feedId = document.querySelector(".replyFeedId").value;
             const page = e.target.value; // 다음 조회할 페이지 설정
+            console.log("feedId  page"+feedId+" "+page);
             fetchReplyListApi(feedId, page);
         }
 
