@@ -9,7 +9,7 @@
 
     <select id="selectByPlanId" resultType="scheduleVO">
         SELECT * FROM TBL_SCHEDULE
-        WHERE PLAN_ID = #{planID}
+        WHERE PLAN_ID = #{planID} AND STATUS = 'ENABLE'
     </select>
 
     <update id="update">
@@ -22,4 +22,5 @@
         DELETE FROM TBL_SCHEDULE
         WHERE ID = #{id}
     </delete>
+
 </mapper>

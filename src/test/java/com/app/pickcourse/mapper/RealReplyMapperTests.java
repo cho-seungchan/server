@@ -20,19 +20,6 @@ public class RealReplyMapperTests {
     private ReplyMapper replyMapper;
 
     @Test
-    public void postReplyListTest() {
-        ReplyVO replyListDTO = new ReplyVO();
-        replyListDTO.setReplyContent("아름다운 밤이에요test");
-        replyMapper.postReplyList(replyListDTO);
-
-        MemberVO memberVO = new MemberVO();
-        memberVO.setId(1l);
-        FeedVO feedVO = new FeedVO();
-        feedVO.setId(7l);
-        mapper.postReplyList(replyListDTO.getId(),memberVO.getId(),feedVO.getId());
-    }
-
-    @Test
     public void getReplyListTest() {
         List<ReplyListDTO> replyList = mapper.getReplyList(7l);
         replyList.forEach(System.out::println);

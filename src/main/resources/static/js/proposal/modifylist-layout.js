@@ -171,7 +171,7 @@ const planLayout = (() => {
                                                             <span>${plan.planName}</span><br />
                                                             <span>일정 : ${formatStartDate} ~ ${formatEndDate}</span><br />
                                                             <span>비용 : ${formatPrice}원</span><br />
-                                                            <span>참가 : 3/${plan.planMaxPersonnel}(참여/목표)</span><br />
+                                                            <span>참가 : ${plan.participants.length}/${plan.planMaxPersonnel}(참여/목표)</span><br />
                                                         </div>
                                                         <div class="MagazineListPage__CatchPhrase-hh1ck3-5 dfnTnv">
                                                             캡틴 : ${plan.memberNickname}

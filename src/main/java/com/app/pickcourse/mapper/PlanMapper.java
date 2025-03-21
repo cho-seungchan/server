@@ -27,7 +27,7 @@ public interface PlanMapper {
     public void deleteById(Long Id);
 
 //    아이디별 전체조회
-    public List<PlanVO> selectAllById(Long id);
+    public List<PlanDTO> selectAllById(Long id);
 
     public List<Long> selectRankingWeekly();
     public List<Long> selectRankingMonthly();
@@ -41,5 +41,7 @@ public interface PlanMapper {
 //    목록개수
     public int selectCount(Long id);
 
+//    코스ID로 전체조회
+    public List<PlanDTO> selectByCourseId(Long courseId);
 
 }

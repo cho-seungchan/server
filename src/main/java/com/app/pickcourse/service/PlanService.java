@@ -30,8 +30,7 @@ public class PlanService {
     private final MemberDAO memberDAO;
     private final FeedDAO feedDAO;
     private final QuestionDAO questionDAO;
-    private final Pagination pagination;
-    private final ScheduleVO scheduleVO;
+    private final ParticipantDAO participantDAO;
 
 
     //    여행계획작성
@@ -56,6 +55,12 @@ public class PlanService {
             schedule.setPlanId(planVO.getId());
             scheduleDAO.save(schedule.toVO());
             });
+
+        ParticipantDTO participant = new ParticipantDTO();
+        participant.setMemberId(planVO.getMemberId());
+        participant.setPlanId(planVO.getId());
+        participantDAO.save(participant.toVO());
+
     }
 
 //    나의 계획 목록
@@ -66,7 +71,12 @@ public class PlanService {
         pagination.create(planDAO.findTotal(id));
 
         planListDTO.setPagination(pagination);
+
         planListDTO.setPlanList(planDAO.findMyPlan(pagination, id));
+
+        planListDTO.getPlanList().forEach(plan -> {
+            plan.setParticipants(participantDAO.findByPlanId(plan.getId()));
+        });
 
         return planListDTO;
     }
@@ -97,6 +107,7 @@ public class PlanService {
 //    상세조회
     public PlanDetailDTO getPlanDetailById(Long id) {
         PlanDetailDTO planDetailDTO = new PlanDetailDTO();
+        List<ScheduleDTO> scheduleDTO = new ArrayList<>();
         PlanDTO planDTO = new PlanDTO();
         MemberVO memberVO = new MemberVO();
         List<FeedDTO> feedDTOList = new ArrayList<>();
@@ -108,6 +119,8 @@ public class PlanService {
 
 
         planDTO.setMemberNickname(memberVO.getMemberNickname());
+
+
         planDTO.setScheduleContents(scheduleDAO.findByPlanId(id));
         planDTO.setExcludeContents(writeExcludeDAO.findByPlanId(id));
         planDTO.setIncludeContents(writeIncludeDAO.findByPlanId(id));
@@ -163,6 +176,10 @@ public class PlanService {
             schedule.setPlanId(planDTO.getId());
             scheduleDAO.save(schedule.toVO());
         });
+    }
+//    삭제
+    public void deletePlan(Long planId) {
+        planDAO.delete(planId);
     }
 
 }

@@ -98,7 +98,7 @@
         ON M.ID = P.MEMBER_ID AND P.MEMBER_ID = #{memberID}
     </select>
 
-    <select id="selectAllById" resultType="planVO">
+    <select id="selectAllById" resultType="planDTO">
         SELECT * FROM TBL_PLAN
         WHERE  MEMBER_ID = #{memberId}
     </select>
@@ -146,5 +146,18 @@
              )
         WHERE ROWNUM <= 4
         ]]>
+    </select>
+
+    <select id="selectByCourseId" resultType="planDTO">
+        SELECT ID, PLAN_NAME,
+               TO_CHAR(PLAN_START_DATE, 'MM"월 "DD"일"') AS PLAN_START_DATE ,
+               TO_CHAR(PLAN_END_DATE, 'MM"월 "DD"일"') AS PLAN_END_DATE,
+               PLAN_DEADLINE, PLAN_MAX_PERSONNEL,
+               PLAN_MIN_PERSONNEL,
+               PLAN_PRICE,
+               PLAN_START_ADDRESS, PLAN_CONTENT, PLAN_FILE_PATH,
+               PLAN_FILE_SIZE, PLAN_FILE_NAME, MEMBER_ID, COURSE_ID,
+               CREATED_DATE, UPDATED_DATE
+        FROM TBL_PLAN WHERE COURSE_ID = #{courseId}
     </select>
 </mapper>

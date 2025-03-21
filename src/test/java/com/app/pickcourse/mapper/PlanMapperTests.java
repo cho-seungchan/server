@@ -118,7 +118,7 @@ public class PlanMapperTests {
     }
 
     public void testSelectAllById() {
-        List<PlanVO> list = planMapper.selectAllById(1L);
+        List<PlanDTO> list = planMapper.selectAllById(1L);
         list.forEach(System.out::println);
 
     }

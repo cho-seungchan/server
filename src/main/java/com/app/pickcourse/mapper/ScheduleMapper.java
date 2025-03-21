@@ -16,4 +16,6 @@ public interface ScheduleMapper {
     public void update(ScheduleVO scheduleVO);
 //    삭제
     public void delete(Long id);
+//    status로 조회
+    public List<ScheduleDTO> selectByStatus(Long planId);
 }

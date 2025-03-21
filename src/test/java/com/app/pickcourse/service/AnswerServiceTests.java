@@ -14,6 +14,6 @@ public class AnswerServiceTests {
 
     @Test
     public void testFindAnswerByQuestionId() {
-        answerService.getAnswerList(113L, 8L);
+        answerService.getAnswerList(8L);
     }
 }

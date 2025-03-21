@@ -40,9 +40,11 @@ function updateModal() {
         <a href="/proposal/modify?id=${window.targetPlanId}" class="Default__Menu-sc-7insrf-1 cUlkXY">
             <div style="padding: 1px 6px">수정하기</div>
         </a>
-        <a href="/proposal/delete?id=${window.targetPlanId}" class="Default__Menu-sc-7insrf-1 cUlkXY">
-            <div style="padding: 1px 6px">삭제하기</div>
-        </a>
+        <form action="/proposal/delete" method="post" name="delete-form">
+            <a href="/proposal/delete?id=${window.targetPlanId}" class="Default__Menu-sc-7insrf-1 cUlkXY">
+                <div style="padding: 1px 6px">삭제하기</div>
+            </a>
+        </form>
     `;
 
     modalWrap.innerHTML = text;

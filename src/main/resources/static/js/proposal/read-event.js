@@ -45,11 +45,12 @@ questionWrap.addEventListener("click", async (e) => {
             replyBox.style.display = "none";
             return;
         }
+        const targetId = e.target.getAttribute("data-index");
 
         replyBox.style.display = "block";
 
         // 답변 목록 가져오기
-        await readService.getAnswerList(planDetail.plan.id, (answerListData) => {
+        await readService.getAnswerList(targetId, (answerListData) => {
 
             let answerHTML = "";
                 answerHTML += `
@@ -65,7 +66,7 @@ questionWrap.addEventListener("click", async (e) => {
 
             // 답변 목록 업데이트
             replyBox.querySelector("ul").innerHTML = answerHTML;
-        }, questionId);
+        });
     }
 });
 
@@ -90,7 +91,7 @@ answerButton.addEventListener("click", async (e) => {
             answerContent: answerContent.value});
         answerContent.value = "";
 
-        readService.getAnswerList(planDetail.plan.id, (answerListData) => {
+        readService.getAnswerList((answerListData) => {
             let text = "";
             text += `
                     <li>
@@ -104,7 +105,19 @@ answerButton.addEventListener("click", async (e) => {
                 `;
 
             // 답변 목록 업데이트
-        }, questionId);
+        });
             replyBox.querySelector("ul").innerHTML = text;
+            return;
         }
 })
+
+joinWrap.addEventListener("click", (e) => {
+    console.log(e.target.tagName);
+    if(e.target.classList.contains("join-button")){
+        if(loginMember.id == planDetail.plan.memberId){
+        alert("작성자는 참여할 수 없습니다.")
+        return;
+        }
+    }
+})
+

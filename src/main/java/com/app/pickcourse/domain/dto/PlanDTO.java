@@ -36,6 +36,7 @@ public class PlanDTO {
     private List<WriteIncludeDTO> includeContents;
     private List<WritePrepareDTO> prepareContents;
     private List<ScheduleDTO> scheduleContents;
+    private List<ParticipantDTO> participants;
     private List<Long> deleteIncludes;
     private List<Long> deleteExcludes;
     private List<Long> deletePrepares;

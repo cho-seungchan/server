@@ -29,7 +29,7 @@ public class GeneralReplyMapperTests {
         memberVO.setId(1l);
         FeedVO feedVO = new FeedVO();
         feedVO.setId(2l);
-        mapper.postReplyList(replyListDTO.getId(),memberVO.getId(),feedVO.getId());
+        mapper.postReplyList(replyListDTO);
     }
 
     @Test

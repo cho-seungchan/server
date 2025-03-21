@@ -15,7 +15,7 @@
 
         <title>결제 하기</title>
     </head>
-    <body class="fontLoaded">
+    <body class="fontLoaded" th:object="${planDTO}">
         <div id="app">
             <div class="App__AppWrapper-nc5ti6-0 idXWQn">
                 <!-- Header will be dynamically inserted here -->
@@ -37,28 +37,22 @@
                                             />
                                         </div>
                                         <div>
-                                            <div>
-                                                <div class="ProductInfo__SubTitle-sc-1af61ub-2 iFaFrj">피커스단독</div>
-                                                <div class="ProductInfo__Title-sc-1af61ub-3 htnJlC">
-                                                    [2월 22일 출발✨] 눈꽃산행 필수코스, 지리산 눈꽃산행 🚌
-                                                </div>
+                                            <div class="title-wrap">
+
                                             </div>
-                                            <div class="ProductInfo__RatingInfo-sc-1af61ub-4 fRPdLs">
-                                                <img
-                                                    src="data:image/svg+xml,%3Csvg width='16' height='14' viewBox='0 0 16 14' fill='none' xmlns='http://www.w3.org/2000/svg'%3E %3Cpath d='M12.293 8.6189L15.7442 6.00968C16.2325 5.63914 15.9799 4.9135 15.3402 4.88263L10.8957 4.6356C10.6263 4.62016 10.3906 4.46577 10.2896 4.23418L8.65658 0.405277C8.42088 -0.135092 7.59595 -0.135092 7.36026 0.405277L5.72724 4.21874C5.62623 4.45033 5.39053 4.60472 5.12117 4.62016L0.659819 4.86719C0.0200779 4.89806 -0.232451 5.6237 0.255772 5.99424L3.707 8.58802C3.90903 8.74241 4.01004 9.00487 3.9427 9.23646L2.81473 13.2043C2.66322 13.7601 3.31979 14.2079 3.85852 13.8991L7.61279 11.6913C7.84848 11.5523 8.13468 11.5523 8.35354 11.6913L12.1246 13.8991C12.6634 14.2079 13.3199 13.7601 13.1684 13.2043L12.0405 9.2519C11.99 9.02031 12.0741 8.77329 12.293 8.6189Z' fill='%237A29FA'/%3E %3C/svg%3E"
-                                                    alt="별점 아이콘"
-                                                /><span class="ProductInfo__RatingAverage-sc-1af61ub-5 gLgDKQ">5.0</span
-                                                ><span class="ProductInfo__RatingCount-sc-1af61ub-6 LevHf">(6)</span>
-                                            </div>
+<!--                                            <div class="ProductInfo__RatingInfo-sc-1af61ub-4 fRPdLs">-->
+<!--                                                <img-->
+<!--                                                    src="data:image/svg+xml,%3Csvg width='16' height='14' viewBox='0 0 16 14' fill='none' xmlns='http://www.w3.org/2000/svg'%3E %3Cpath d='M12.293 8.6189L15.7442 6.00968C16.2325 5.63914 15.9799 4.9135 15.3402 4.88263L10.8957 4.6356C10.6263 4.62016 10.3906 4.46577 10.2896 4.23418L8.65658 0.405277C8.42088 -0.135092 7.59595 -0.135092 7.36026 0.405277L5.72724 4.21874C5.62623 4.45033 5.39053 4.60472 5.12117 4.62016L0.659819 4.86719C0.0200779 4.89806 -0.232451 5.6237 0.255772 5.99424L3.707 8.58802C3.90903 8.74241 4.01004 9.00487 3.9427 9.23646L2.81473 13.2043C2.66322 13.7601 3.31979 14.2079 3.85852 13.8991L7.61279 11.6913C7.84848 11.5523 8.13468 11.5523 8.35354 11.6913L12.1246 13.8991C12.6634 14.2079 13.3199 13.7601 13.1684 13.2043L12.0405 9.2519C11.99 9.02031 12.0741 8.77329 12.293 8.6189Z' fill='%237A29FA'/%3E %3C/svg%3E"-->
+<!--                                                    alt="별점 아이콘"-->
+<!--                                                /><span class="ProductInfo__RatingAverage-sc-1af61ub-5 gLgDKQ">5.0</span-->
+<!--                                                ><span class="ProductInfo__RatingCount-sc-1af61ub-6 LevHf">(6)</span>-->
+<!--                                            </div>-->
                                         </div>
                                     </div>
                                     <div class="ProductInfo__OptionInfoWrapper-hobypg-1 gylYhP">
                                         <div>
                                             <p class="SubTitle-eeu9i7-0 gVXCTF">옵션정보</p>
-                                            <div class="OptionInfo__OptionGroup-y1f62u-0 fIEivx">
-                                                <p>2월 22일 (토) 오전 7:00</p>
-                                                <p>참가비 (1인) / 1개</p>
-                                                <p class="oneAmount">45,000<span>원</span></p>
+                                            <div class="OptionInfo__OptionGroup-y1f62u-0 fIEivx info-wrap">
                                             </div>
                                         </div>
                                     </div>
@@ -82,8 +76,7 @@
                                         class="Counter__ControlButton-g6dtdl-1 gmHNud"
                                     />
                                 </div>
-                                <div>
-                                    <span class="PurchaseCell__Price-sc-1g4ze9y-5 dOTuYO">45,000</span><span>원</span>
+                                <div class="price-wrap">
                                 </div>
                             </div>
                             <div class="" picoursePoint>
@@ -92,8 +85,7 @@
                                         <p class="SubTitle-eeu9i7-0 gVXCTF">피커스 포인트</p>
                                         <div class="Coupon__CouponChoiceWrapper-p6h1sc-0 gkYnOY">
                                             <div class="discountWrapper">
-                                                <span class="discount">30,000<span>원</span></span>
-                                                <button class="InnerActionButton-io567l-0 cVMMHP">전액</button>
+
                                             </div>
                                             <input type="text" class="Coupon_Input" maxlength="10" />원
                                         </div>
@@ -219,7 +211,7 @@
                         </div>
                     </div>
                     <div class="PageWrapper-sc-1w87j10-0 SubmitButtonArea__Wrapper-sc-16ajvkd-3 hKLTZV">
-                        <button class="Button-bqxlp0-0 BUemN" width="100%" height="56px" color="white" font-size="16px">
+                        <button class="Button-bqxlp0-0 BUemN pay-button" width="100%" height="56px" color="white" font-size="16px">
                             결제하기
                         </button>
                     </div>
@@ -232,6 +224,16 @@
         <div id="modal-root"></div>
         <div id="dnd-root"></div>
     </body>
-
+    <script th:inline="javascript">
+        const plan = [[${planDTO}]];
+        const loginMember = [[${session.member}]]
+    </script>
+    <script
+        src="https://js.bootpay.co.kr/bootpay-5.0.2.min.js"
+        type="application/javascript"
+    ></script>
     <script src="/js/proposal/pay.js"></script>
+    <script src="/js/proposal/pay-service.js"></script>
+    <script src="/js/proposal/pay-layout.js"></script>
+    <script src="/js/proposal/pay-event.js"></script>
 </html>

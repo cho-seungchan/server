@@ -29,7 +29,7 @@ public class ScheduleMapperTests {
 
     @Test
     public void testSelectByPlanId() {
-        List<ScheduleDTO> scheduleVOList = scheduleMapper.selectByPlanId(2L);
+        List<ScheduleDTO> scheduleVOList = scheduleMapper.selectByPlanId(122L);
         log.info(scheduleVOList.toString());
     }
 

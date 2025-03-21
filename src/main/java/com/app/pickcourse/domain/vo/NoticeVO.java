@@ -11,6 +11,7 @@ public class NoticeVO {
 
     private String noticeTitle;
     private String noticeContent;
+    private String noticeName;
     private Long   adminId;
     private String createdDate;
     private String updatedDate;

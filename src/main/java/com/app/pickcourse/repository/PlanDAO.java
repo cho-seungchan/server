@@ -49,4 +49,14 @@ public class PlanDAO {
         return planMapper.selectCount(id);
     }
 
+//    코스ID로 전체 조회
+    public List<PlanDTO> findByCourseId(Long courseId) {
+        return planMapper.selectByCourseId(courseId);
+    }
+
+//    멤버ID로 전체 조회
+    public List<PlanDTO> findByMemberId(Long memberId) {
+        return planMapper.selectAllById(memberId);
+    }
+
 }

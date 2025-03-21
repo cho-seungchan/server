@@ -34,5 +34,10 @@
         <typeAlias type="com.app.pickcourse.domain.dto.QuestionDTO" alias="questionDTO"/>
         <typeAlias type="com.app.pickcourse.domain.vo.AnswerVO" alias="answerVO"/>
         <typeAlias type="com.app.pickcourse.domain.dto.AnswerDTO" alias="answerDTO"/>
+        <typeAlias type="com.app.pickcourse.domain.dto.FeedListDTO" alias="feedListDto"/>
+        <typeAlias type="com.app.pickcourse.domain.dto.ReviewDTO" alias="reviewDTO"/>
+        <typeAlias type="com.app.pickcourse.domain.dto.CourseSelectDTO" alias="courseSelectDTO"/>
+        <typeAlias type="com.app.pickcourse.domain.dto.ScheduleDTO" alias="scheduleDTO"/>
+        <typeAlias type="com.app.pickcourse.domain.dto.ParticipantDTO" alias="participantDTO"/>
     </typeAliases>
 </configuration>

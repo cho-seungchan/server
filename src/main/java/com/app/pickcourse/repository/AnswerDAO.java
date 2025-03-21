@@ -17,8 +17,8 @@ public class AnswerDAO {
         answerMapper.insertAnswer(answerVO);
     }
 
-    public AnswerDTO findAllAnswer(Long planId, Long questionId) {
-        return answerMapper.selectAnswer(planId, questionId);
+    public AnswerDTO findAllAnswer(Long questionId) {
+        return answerMapper.selectAnswer(questionId);
     }
 
 }

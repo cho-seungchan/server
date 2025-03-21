@@ -30,8 +30,8 @@ const readService = (() => {
         }
     }
     // 답변목록 조회
-    const getAnswerList = async (planId, callback, questionId) => {
-        const response = await fetch(`/proposal/getAnswerLists/${planId}/${questionId}`);
+    const getAnswerList = async (questionId, callback) => {
+        const response = await fetch(`/proposal/getAnswerLists/${questionId}`);
         const answerListData = await response.json();
         if(callback) {
             callback(answerListData);

@@ -27,18 +27,6 @@ public class NoticeMapperTests {
     }
 
     @Test
-    public void getManageListNotice() {
-        Search search = new Search();
-        search.setType("w");
-        search.setKeyWord("HHH");
-        Pagination pagination = new Pagination();
-        List<NoticeVO> notices = mapper.geNoticeList(pagination, search);
-        log.info(pagination.toString());
-        notices.forEach(System.out::println);
-        log.info("notices size :: {} ", notices.size());
-    }
-
-    @Test
     public void getNoticeDetail() {
         Optional<NoticeVO> noticeDTO = mapper.getNoticeDetail(7l);
         NoticeVO notice = noticeDTO.orElseThrow(() -> new RuntimeException("NoticeDTO not found"));

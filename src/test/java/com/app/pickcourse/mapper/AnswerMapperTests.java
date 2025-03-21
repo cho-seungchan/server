@@ -26,6 +26,6 @@ public class AnswerMapperTests {
 
     @Test
     public void testSelectAnswer() {
-        log.info(answerMapper.selectAnswer(113L, 8L).toString());
+        log.info(answerMapper.selectAnswer(8L).toString());
     }
 }
