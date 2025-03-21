@@ -377,7 +377,7 @@ public class AdminController {
             session.removeAttribute("redirectAfterLogin");
             return "redirect:" + redirectUrl;
         }
-        
+
         return "redirect:/admin/admin";
     }
 
