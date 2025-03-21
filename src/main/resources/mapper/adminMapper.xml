@@ -73,4 +73,9 @@
         FROM    TBL_ADMIN
         WHERE   ID = #{id}
     </delete>
+
+    <select id="selectByAdminAccountAndAdminPassword" resultType="adminVO">
+        SELECT ID, ADMIN_ACCOUNT, ADMIN_PASSWORD, ADMIN_NAME, ADMIN_PHONE, ADMIN_EMAIL, CREATED_DATE, UPDATED_DATE
+        FROM TBL_ADMIN WHERE ADMIN_ACCOUNT = #{adminAccount} AND ADMIN_PASSWORD = #{adminPassword}
+    </select>
 </mapper>

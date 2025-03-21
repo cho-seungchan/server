@@ -32,7 +32,7 @@ public class KakaoController {
             throw new RuntimeException();
         });
 
-        Optional<MemberVO> foundMember = memberService.getMember(memberDTO.getMemberEmail());
+        Optional<MemberDTO> foundMember = memberService.getMember(memberDTO.getMemberEmail());
         if(!foundMember.isPresent()){
             memberService.kakaoJoin(memberDTO);
         }

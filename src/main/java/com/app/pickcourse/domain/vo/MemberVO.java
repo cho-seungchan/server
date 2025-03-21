@@ -18,6 +18,9 @@ public class MemberVO {
     private String memberGender;
     private int memberPoint;
     private char memberIsAct;
+    private String memberFilePath;
+    private String memberFileName;
+    private String memberFileSize;
     private String createdDate;
     private String updatedDate;
 

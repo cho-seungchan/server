@@ -12,5 +12,5 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Slf4j
 public class IntroduceController {
     @GetMapping("/introduce-main")
-    public void getCustomerService() {}
+    public void getIntroduce() {}
 }

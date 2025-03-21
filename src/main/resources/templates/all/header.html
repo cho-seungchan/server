@@ -5,7 +5,7 @@
                 <div class="GlobalNavigationBar__TopNavMenu-og74wb-4 kgHgrk">함께하는 피커스</div>
             </div>
             <div class="GlobalNavigationBar__TopNavMenuNodeListWrapper-og74wb-3 dlTKtS">
-                <a class="withLink__StyledLink-zuberk-0 lQqkn" href="/intro?redirectPath=%2Fsocial-feeds">
+                <a class="withLink__StyledLink-zuberk-0 lQqkn" href="/introduce/introduce-main">
                     <div class="GlobalNavigationBar__TopNavMenu-og74wb-4 kgHgrk">사이트 소개</div>
                 </a>
                 <!-- 로그인하지 않은 경우 -->
@@ -15,10 +15,12 @@
                 <a th:if="${session.member == null}" class="withLink__StyledLink-zuberk-0 lQqkn" href="/login/login">
                     <div class="GlobalNavigationBar__TopNavMenu-og74wb-4 kgHgrk">로그인</div>
                 </a>
-                <!-- 로그인한 경우 (일반 로그인 or 카카오 로그인) -->
-                <a th:if="${session.member != null}" class="withLink__StyledLink-zuberk-0 lQqkn" href="/my/profile">
+
+                <!-- 일반 회원 프로필 링크 -->
+                <a th:if="${session.member != null}"
+                   class="withLink__StyledLink-zuberk-0 lQqkn" href="/my-page/myPageModify">
                     <div class="GlobalNavigationBar__TopNavMenu-og74wb-4 kgHgrk">
-                        <span th:text="${session.member != null ? session.member.memberNickname : ''}"></span> 님
+                        <span th:text="${session.member.memberNickname}"></span> 님
                     </div>
                 </a>
 
@@ -34,6 +36,7 @@
                         <button type="submit" class="jfHerU">카카오 로그아웃</button>
                     </div>
                 </form>
+
                 <a class="withLink__StyledLink-zuberk-0 lQqkn" href="/help">
                     <div class="GlobalNavigationBar__TopNavMenu-og74wb-4 kgHgrk">자주 묻는 질문</div>
                 </a>
@@ -71,7 +74,7 @@
                         <span class="GlobalNavigationBar__MainLabel-og74wb-12 hqQfQn">피드</span>
                     </div>
                 </a>
-                <a class="withLink__StyledLink-zuberk-0 lQqkn" href="/messageList">
+                <a class="withLink__StyledLink-zuberk-0 lQqkn" href="/my-page/messageListReceive">
                     <div class="GlobalNavigationBar__MainNavMenu-og74wb-10 fqlSHx">
                         <div class="GlobalNavigationBar__IconWrapper-og74wb-11 bXkqmJ">
                             <img src="data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E %3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M5.66816 0H14.3318C17.4622 0 20 2.53538 20 5.66283V10.2346C20 12.0805 19 13.2722 17.7439 14.7485V14.7559L13.1831 18.7067C12.4035 19.382 11.2067 18.8163 11.2067 17.7725V15.8975H5.66816C2.53777 15.8975 0 13.3621 0 10.2346V5.66283C0 2.53538 2.53777 0 5.66816 0ZM6.20039 9.08643C6.86313 9.08643 7.40039 8.53792 7.40039 7.8613C7.40039 7.18469 6.86313 6.63618 6.20039 6.63618C5.53765 6.63618 5.00039 7.18469 5.00039 7.8613C5.00039 8.53792 5.53765 9.08643 6.20039 9.08643ZM11.4 7.8613C11.4 8.53792 10.8627 9.08643 10.2 9.08643C9.53726 9.08643 9 8.53792 9 7.8613C9 7.18469 9.53726 6.63618 10.2 6.63618C10.8627 6.63618 11.4 7.18469 11.4 7.8613ZM14.2002 9.08643C14.8629 9.08643 15.4002 8.53792 15.4002 7.8613C15.4002 7.18469 14.8629 6.63618 14.2002 6.63618C13.5375 6.63618 13.0002 7.18469 13.0002 7.8613C13.0002 8.53792 13.5375 9.08643 14.2002 9.08643Z' fill='%23AAAAAA'/%3E %3C/svg%3E" alt="메시지-icon">
@@ -79,7 +82,7 @@
                         <span class="GlobalNavigationBar__MainLabel-og74wb-12 hqQfQn">메시지</span>
                     </div>
                 </a>
-                <a class="withLink__StyledLink-zuberk-0 lQqkn" href="/my/wishes/frip">
+                <a class="withLink__StyledLink-zuberk-0 lQqkn" href="/my-page/heart">
                     <div class="GlobalNavigationBar__MainNavMenu-og74wb-10 fqlSHx">
                         <div class="GlobalNavigationBar__IconWrapper-og74wb-11 bXkqmJ">
                             <img src="data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E %3Cg clip-path='url(%23clip0_2730_481)'%3E %3Cpath d='M11.5835 20.2971L11.5775 20.2935L11.5547 20.2815C11.0812 20.0239 10.6161 19.7509 10.1603 19.4631C9.07354 18.7793 8.038 18.0173 7.0619 17.1831C4.8539 15.2787 2.3999 12.4215 2.3999 8.9991C2.40001 7.88245 2.74628 6.7933 3.39104 5.8816C4.0358 4.96991 4.94734 4.28052 6.00014 3.90836C7.05295 3.53619 8.19523 3.49955 9.26972 3.80349C10.3442 4.10743 11.298 4.73699 11.9999 5.6055C12.7018 4.73699 13.6556 4.10743 14.7301 3.80349C15.8046 3.49955 16.9469 3.53619 17.9997 3.90836C19.0525 4.28052 19.964 4.96991 20.6088 5.8816C21.2535 6.7933 21.5998 7.88245 21.5999 8.9991C21.5999 12.4215 19.1471 15.2787 16.9379 17.1831C15.5511 18.368 14.0455 19.4063 12.4451 20.2815L12.4223 20.2935L12.4163 20.2971H12.4139C12.2864 20.3646 12.1443 20.4001 12.0001 20.4003C11.8558 20.4005 11.7136 20.3655 11.5859 20.2983L11.5835 20.2971Z' fill='%23AAAAAA'/%3E %3C/g%3E %3Cdefs%3E %3CclipPath id='clip0_2730_481'%3E %3Crect width='24' height='24' fill='white'/%3E %3C/clipPath%3E %3C/defs%3E %3C/svg%3E" alt="찜-icon">
@@ -87,7 +90,7 @@
                         <span class="GlobalNavigationBar__MainLabel-og74wb-12 hqQfQn">찜</span>
                     </div>
                 </a>
-                <a class="withLink__StyledLink-zuberk-0 lQqkn" href="/my/frips/upcoming">
+                <a class="withLink__StyledLink-zuberk-0 lQqkn" href="/my-page/myMain">
                     <div class="GlobalNavigationBar__MainNavMenu-og74wb-10 fqlSHx">
                         <div class="GlobalNavigationBar__IconWrapper-og74wb-11 bXkqmJ">
                             <img src="data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E %3Cpath d='M17 11H3L1 17.4H19L17 11Z' fill='%23AAAAAA'/%3E %3Ccircle cx='10' cy='5' r='4.5' fill='%23AAAAAA'/%3E %3C/svg%3E" alt="마이-icon">

@@ -11,11 +11,11 @@
 
     <!-- 보낸 메시지 조회 -->
     <select id="selectSendMessageById" parameterType="Long" resultType="sendMessageDTO">
-        SELECT sm.ID AS messageId, sm.SENDER_ID AS senderId, sm.RECEIVER_ID AS receiverId,
+        SELECT sm.ID, sm.SENDER_ID AS senderId, sm.RECEIVER_ID AS receiverId,
                m.MESSAGE_ALL_CONTENT AS content, m.MESSAGE_ALL_DATE AS sendDate
         FROM TBL_SEND_MESSAGE sm
                  JOIN TBL_MESSAGE m ON sm.ID = m.ID
-        WHERE sm.ID = #{messageId}
+        WHERE sm.ID = #{id}
     </select>
 
     <delete id="deleteSendMessageById">
@@ -43,15 +43,16 @@
 
     <select id="selectAllSendMessage" resultType="sendMessageDTO">
     <![CDATA[
-        SELECT ID, SENDER_ID, RECEIVER_ID, RECEIVER_NICKNAME, CONTENT, SEND_DATE
+        SELECT ID, SENDER_ID, RECEIVER_ID, RECEIVER_NICKNAME, RECEIVER_EMAIL, CONTENT, SEND_DATE
                FROM (
-                          SELECT A.ID, SENDER_ID, RECEIVER_ID, RECEIVER_NICKNAME, CONTENT, SEND_DATE, ROWNUM AS RNUM
+                          SELECT A.ID, SENDER_ID, RECEIVER_ID, RECEIVER_NICKNAME, RECEIVER_EMAIL, CONTENT, SEND_DATE, ROWNUM AS RNUM
                           FROM (
                                    SELECT
                                        SM.ID AS ID,
                                        SM.SENDER_ID AS SENDER_ID,
                                        SM.RECEIVER_ID AS RECEIVER_ID,
                                        M.MEMBER_NICKNAME AS RECEIVER_NICKNAME,
+                                       M.MEMBER_EMAIL AS RECEIVER_EMAIL,
                                        MSG.MESSAGE_ALL_CONTENT AS CONTENT,
                                        TO_CHAR(MSG.MESSAGE_ALL_DATE, 'YYYY.MM.DD') AS SEND_DATE
                                    FROM TBL_SEND_MESSAGE SM
@@ -65,6 +66,15 @@
         WHERE RNUM >= ${pagination.startRow}
         ]]>
 </select>
+
+    <select id="selectSentMessageById" resultType="sendMessageDTO">
+        SELECT * FROM TBL_SEND_MESSAGE WHERE id = #{id}
+    </select>
+
+    <!-- 메시지 삭제 -->
+    <delete id="deleteSentMessageById">
+        DELETE FROM TBL_SEND_MESSAGE WHERE id = #{id}
+    </delete>
 
 
 </mapper>

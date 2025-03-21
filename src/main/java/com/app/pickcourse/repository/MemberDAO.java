@@ -1,5 +1,6 @@
 package com.app.pickcourse.repository;
 
+import com.app.pickcourse.domain.dto.MemberDTO;
 import com.app.pickcourse.domain.vo.MemberVO;
 import com.app.pickcourse.mapper.MemberMapper;
 import com.app.pickcourse.util.Pagination;
@@ -53,17 +54,15 @@ public class MemberDAO {
     public void save(MemberVO memberVO){
         memberMapper.insert(memberVO);
     }
-//    수정
+    //    수정
     public void set(MemberVO memberVO){
         memberMapper.update(memberVO);
     }
-//    삭제
-    public void delete(MemberVO memberVO){
-        memberMapper.delete(memberVO.getId());
-    }
+    //    삭제
+    public void delete(Long id){memberMapper.delete(id);}
 
     //    조회(이메일)
-    public Optional<MemberVO> findByMemberEmail(String memberEmail){
+    public Optional<MemberDTO> findByMemberEmail(String memberEmail){
         return memberMapper.selectByMemberEmail(memberEmail);
     }
 
@@ -73,8 +72,8 @@ public class MemberDAO {
     }
 
 //    로그인
-    public Optional<MemberVO> findByMemberEmailAndPassword(MemberVO memberVO){
-        return memberMapper.selectByMemberEmailAndMemberPassword(memberVO);
+    public Optional<MemberDTO> findByMemberEmailAndPassword(MemberDTO memberDTO){
+        return memberMapper.selectByMemberEmailAndMemberPassword(memberDTO);
     }
 
 //    관리자 :: 회원 정지
@@ -92,7 +91,30 @@ public class MemberDAO {
         memberMapper.deleteMemberList(memberId);
     }
 
-//    비밀번호 변경
-    public void updateMemberPassword(MemberVO memberVO) {memberMapper.updatePassword(memberVO);}
+
+    // 기존 비밀번호 조회
+    public String getCurrentPassword(Long id) {
+        return memberMapper.getCurrentPassword(id);
+    }
+
+    // 비밀번호 변경
+    public void updatePassword(Long id, String newPassword) {
+        memberMapper.updatePassword(id, newPassword);
+    }
+
+    public boolean checkNicknameDuplicate(String memberNickname) {
+        return memberMapper.countByNickname(memberNickname) > 0;
+    }
+
+    public Optional<MemberDTO> findById(Long id) {
+        return memberMapper.selectById(id);
+    }
+
+    public Optional<MemberDTO> findEmailByNickname(String memberNickname) {return memberMapper.findEmailByNickname(memberNickname);}
+
+//    프로필사진
+    public void updateMemberFile(MemberDTO memberDTO) {
+        memberMapper.updateMemberFile(memberDTO);
+    }
 
 }

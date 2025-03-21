@@ -9,35 +9,37 @@ const messageLayout = (() => {
 
         if (receiveMessages.length === 0) {
             receiveMessageWrap.style.display = "none";
-            pageWrap.style.display = "none"
+            pageWrap.style.display = "none";
             noReceiveMessage.style.display = "block";
         } else {
-            noReceiveMessage.style.display = "none"
+            noReceiveMessage.style.display = "none";
             receiveMessageWrap.style.display = "block";
-            pageWrap.style.display = "flex"
+            pageWrap.style.display = "flex";
 
             let text = ``;
 
-            receiveMessages.forEach(({senderNickname, content, receiveDate}) => {
+            receiveMessages.forEach(({ id, senderEmail, senderNickname, content, receiveDate, receiveMessageCheck }) => {
+                const readClass = receiveMessageCheck === "READ" ? "read" : "";
+
                 text += `
-                    <div class="userListDiv">
+                    <div class="userListDiv ${readClass}" data-id="${id}" data-sender-email="${senderEmail}" data-checked="${receiveMessageCheck === "READ"}">
                         <div class="postList">
                             <a href="">
                               <span>${senderNickname}</span>
                             </a>
                         </div>
-                            <div class="contentHidden">
-                                  <span style="cursor: pointer" class="hiddenText" >${content}</span>
-                            </div>
-                            <div class="comentMessage">
-                                  <span>${receiveDate}</span>
-                            </div>
+                        <div class="contentHidden">
+                            <span style="cursor: pointer" class="hiddenText">${content}</span>
+                        </div>
+                        <div class="comentMessage">
+                            <span>${receiveDate}</span>
+                        </div>
                     </div>
-                `
+                `;
             });
 
             receiveMessageWrap.innerHTML = text;
-
+            console.log(receiveMessages);
             text = ``;
 
             if(pagination.page === 1) {
@@ -157,5 +159,3 @@ const messageLayout = (() => {
     }
     return {showList: showList};
 })();
-
-

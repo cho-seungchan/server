@@ -8,6 +8,21 @@ input::placeholder {
     color: rgb(209, 209, 209);
     opacity: 2;
 }
+.bViOzS {
+    margin-bottom: 6px;
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: -0.36px;
+    color: rgb(222, 28, 34);
+}
+.successMessage{
+    margin-bottom: 6px;
+    font-weight: 700;
+    line-height: 16px;
+    letter-spacing: -0.36px;
+    color: rgb(84 167 202);
+    font-size: 12px;
+}
 
 html {
     box-sizing: border-box;

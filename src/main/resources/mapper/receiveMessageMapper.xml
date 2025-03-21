@@ -17,7 +17,7 @@
             M.MEMBER_NICKNAME AS SENDER_NICKNAME,
             MSG.MESSAGE_ALL_CONTENT AS CONTENT,
             TO_CHAR(MSG.MESSAGE_ALL_DATE, 'YYYY.MM.DD') AS RECEIVE_DATE,
-            RM.RECEIVE_MESSAGE_CHECK AS ISCHECKED
+            RM.RECEIVE_MESSAGE_CHECK AS RECEIVE_MESSAGE_CHECK
         FROM TBL_RECEIVE_MESSAGE RM
                  JOIN TBL_MESSAGE MSG ON RM.ID = MSG.ID
                  JOIN TBL_MEMBER M ON RM.SENDER_ID = M.ID
@@ -31,6 +31,7 @@
         SENDER_ID,
         RECEIVER_ID,
         MEMBER_NICKNAME AS SENDER_NICKNAME,
+        MEMBER_EMAIL AS SENDER_EMAIL,
         MESSAGE_ALL_CONTENT AS CONTENT,
         RECEIVE_DATE,
         RECEIVE_MESSAGE_CHECK FROM (
@@ -39,6 +40,7 @@
         SENDER_ID,
         RECEIVER_ID,
         MEMBER_NICKNAME,
+        MEMBER_EMAIL,
         MESSAGE_ALL_CONTENT,
         RECEIVE_DATE,
         RECEIVE_MESSAGE_CHECK
@@ -46,9 +48,10 @@
         RM.SENDER_ID,
         RM.RECEIVER_ID,
         M.MEMBER_NICKNAME,
+        M.MEMBER_EMAIL,
         MSG.MESSAGE_ALL_CONTENT,
         TO_CHAR(MSG.MESSAGE_ALL_DATE, 'YYYY.MM.DD') AS RECEIVE_DATE,
-        RM.RECEIVE_MESSAGE_CHECK
+        RM.RECEIVE_MESSAGE_CHECK AS RECEIVE_MESSAGE_CHECK
         FROM TBL_RECEIVE_MESSAGE RM
         JOIN TBL_MESSAGE MSG ON RM.ID = MSG.ID
         JOIN TBL_MEMBER M ON RM.SENDER_ID = M.ID
@@ -72,6 +75,23 @@
     <select id="countByReceiverId" resultType="_int">
         SELECT COUNT(*) FROM TBL_RECEIVE_MESSAGE WHERE RECEIVER_ID = #{receiverId}
     </select>
+
+    <select id="selectMessageById" resultType="receiveMessageDTO">
+        SELECT * FROM TBL_RECEIVE_MESSAGE WHERE id = #{id}
+    </select>
+
+    <!-- 메시지 삭제 -->
+    <delete id="deleteMessageById">
+        DELETE FROM TBL_RECEIVE_MESSAGE WHERE id = #{id}
+    </delete>
+
+    <!--메세지 읽음 확인-->
+    <update id="updateToChecked">
+        UPDATE TBL_RECEIVE_MESSAGE
+        SET RECEIVE_MESSAGE_CHECK = 'READ'
+        WHERE ID = #{id}
+    </update>
+
 
 
 

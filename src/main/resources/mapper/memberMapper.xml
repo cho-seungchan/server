@@ -124,14 +124,15 @@
     </insert>
 
     <select id="selectById">
-        SELECT ID, MEMBER_EMAIL, MEMBER_PASSWORD, MEMBER_NICKNAME, MEMBER_TELL, MEMBER_BIRTH,
-               MEMBER_GENDER, CREATED_DATE, UPDATED_DATE
+        SELECT ID, MEMBER_EMAIL, MEMBER_PASSWORD, MEMBER_NICKNAME, MEMBER_TELL, TO_CHAR(MEMBER_BIRTH, 'YYYY.MM.DD') AS MEMBER_BIRTH,
+               MEMBER_GENDER, CREATED_DATE, UPDATED_DATE, MEMBER_FILE_PATH, MEMBER_FILE_NAME, MEMBER_FILE_SIZE
         FROM TBL_MEMBER
         WHERE ID = #{id}
     </select>
 
     <select id="selectByMemberEmail">
-        SELECT ID, MEMBER_EMAIL, MEMBER_NICKNAME, MEMBER_TELL, MEMBER_BIRTH, MEMBER_GENDER
+        SELECT ID, MEMBER_EMAIL, MEMBER_NICKNAME, MEMBER_TELL, TO_CHAR(MEMBER_BIRTH, 'YYYY.MM.DD') AS MEMBER_BIRTH, MEMBER_GENDER,
+               MEMBER_FILE_PATH, MEMBER_FILE_NAME, MEMBER_FILE_SIZE
         FROM TBL_MEMBER WHERE MEMBER_EMAIL = #{memberEmail}
     </select>
 
@@ -140,12 +141,15 @@
         WHERE MEMBER_EMAIL = #{memberEmail}
     </select>
 
-    <select id="selectByMemberEmailAndMemberPassword" resultType="memberVO">
-        SELECT ID, MEMBER_EMAIL, MEMBER_PASSWORD, MEMBER_NICKNAME, MEMBER_TELL, MEMBER_BIRTH, MEMBER_GENDER
+    <select id="selectByMemberEmailAndMemberPassword" resultType="memberDTO">
+        SELECT ID, MEMBER_EMAIL, MEMBER_PASSWORD, MEMBER_NICKNAME, MEMBER_TELL, TO_CHAR(MEMBER_BIRTH, 'YYYY.MM.DD') AS MEMBER_BIRTH, MEMBER_GENDER, MEMBER_POINT,
+               MEMBER_FILE_PATH, MEMBER_FILE_NAME, MEMBER_FILE_SIZE
         FROM TBL_MEMBER WHERE MEMBER_EMAIL = #{memberEmail} AND MEMBER_PASSWORD = #{memberPassword}
     </select>
 
-    <select id="findByEmailForKakao" resultType="MemberVO">
+
+
+    <select id="findByEmailForKakao" resultType="memberVO">
         SELECT * FROM TBL_MEMBER
         WHERE MEMBER_EMAIL = #{email}
         AND MEMBER_PASSWORD IS NULL
@@ -153,7 +157,19 @@
 
     <update id="update">
         UPDATE TBL_MEMBER
-        SET MEMBER_NICKNAME = #{memberNickname}, MEMBER_TELL = #{memberTell}, MEMBER_BIRTH = #{memberBirth}, MEMBER_GENDER = #{memberGender}, UPDATED_DATE = SYSDATE
+        SET MEMBER_NICKNAME = #{memberNickname},
+            MEMBER_BIRTH = #{memberBirth},
+            MEMBER_GENDER = #{memberGender},
+            UPDATED_DATE = SYSDATE
+        WHERE ID = #{id}
+    </update>
+
+    <update id="updateMemberFile">
+        UPDATE TBL_MEMBER
+        SET MEMBER_FILE_PATH = #{memberFilePath},
+            MEMBER_FILE_NAME = #{memberFileName},
+            MEMBER_FILE_SIZE = #{memberFileSize},
+            UPDATED_DATE = SYSDATE
         WHERE ID = #{id}
     </update>
 
@@ -166,14 +182,20 @@
         SELECT ID FROM TBL_MEMBER WHERE MEMBER_EMAIL = #{email}
     </select>
 
-    <select id="getMember" parameterType="String" resultType="MemberVO">
+    <select id="getMember" parameterType="String" resultType="memberVO">
         SELECT MEMBER_EMAIL, MEMBER_PASSWORD
         FROM TBL_MEMBER
         WHERE MEMBER_EMAIL = #{memberEmail}
     </select>
 
-    <select id="findByNickname" parameterType="string" resultType="com.app.pickcourse.domain.vo.MemberVO">
+    <select id="findByNickname" parameterType="String" resultType="memberVO">
         SELECT * FROM TBL_MEMBER WHERE MEMBER_NICKNAME = #{nickname}
+    </select>
+
+    <select id="checkCurrentPassword" resultType="String">
+        SELECT MEMBER_PASSWORD
+        FROM TBL_MEMBER
+        WHERE ID = #{id}
     </select>
 
     <update id="updatePassword">
@@ -182,4 +204,16 @@
         WHERE ID = #{id}
     </update>
 
+    <select id="countByNickname" resultType="_int">
+        SELECT COUNT(*) FROM TBL_MEMBER
+        WHERE MEMBER_NICKNAME = #{memberNickname}
+    </select>
+
+    <select id="findEmailByNickname" parameterType="String" resultType="memberDTO">
+        SELECT ID, MEMBER_EMAIL, MEMBER_PASSWORD, MEMBER_NICKNAME, MEMBER_TELL, MEMBER_BIRTH,
+               MEMBER_GENDER, MEMBER_POINT, MEMBER_IS_ACT, CREATED_DATE, UPDATED_DATE,
+               MEMBER_FILE_PATH, MEMBER_FILE_NAME, MEMBER_FILE_SIZE
+        FROM TBL_MEMBER
+        WHERE MEMBER_NICKNAME = #{memberNickname}
+    </select>
 </mapper>

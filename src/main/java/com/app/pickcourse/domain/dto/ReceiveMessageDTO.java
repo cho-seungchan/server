@@ -21,7 +21,7 @@ public class ReceiveMessageDTO {
     private String senderNickname;
     private String content;  // 메시지 내용
     private String receiveDate; // 받은 날짜
-    private boolean isChecked; // 읽음 여부
+    private String receiveMessageCheck; // 읽음 여부
     private List<FileVO> attachedFiles;
 
     public ReceiveMessageVO toVO() {

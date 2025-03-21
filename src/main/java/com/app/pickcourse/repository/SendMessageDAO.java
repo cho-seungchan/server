@@ -27,7 +27,7 @@ public class SendMessageDAO {
 
     // 보낸 메시지 삭제
     public void delete(Long id) {
-        sendMessageMapper.deleteSendMessageById(id);
+        sendMessageMapper.deleteSentMessageById(id);
     }
 
 
@@ -48,4 +48,15 @@ public class SendMessageDAO {
     public List<SendMessageDTO> findAllSendMessage(Long senderId, Pagination pagination) {
         return sendMessageMapper.selectAllSendMessage(senderId, pagination);
     }
+
+    public SendMessageDTO findMessageById(Long id) {
+        return sendMessageMapper.selectSentMessageById(id);
+    }
+
+    public int deleteSendMessage(Long id) {
+        return sendMessageMapper.deleteSentMessageById(id);
+    }
+
+
+
 }
