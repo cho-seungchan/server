@@ -15,8 +15,8 @@ import java.util.List;
 public class TogetherFeedDAO {
     private final TogetherFeedMapper togetherFeedMapper;
 
-    public void postFeedWrite(Long loginId, FeedVO feedVO) {
-        togetherFeedMapper.postFeedWrite(feedVO.getId(), loginId);
+    public void postFeedWrite(Long memberId, FeedVO feedVO) {
+        togetherFeedMapper.postFeedWrite(feedVO.getId(), memberId);
     }
 
     public FeedDTO getFeedModify(Long id) {
@@ -31,7 +31,7 @@ public class TogetherFeedDAO {
         return togetherFeedMapper.getFeedList();
     }
 
-    public List<FeedListDTO> getMyFeedList(Long loginId) {
-        return togetherFeedMapper.getMyFeedList(loginId);
+    public List<FeedListDTO> getMyFeedList(Long memberId) {
+        return togetherFeedMapper.getMyFeedList(memberId);
     }
 }

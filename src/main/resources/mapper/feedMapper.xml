@@ -85,7 +85,7 @@
                 LEFT JOIN
             TBL_MEMBER m ON gf.MEMBER_ID = m.ID OR tf.MEMBER_ID = m.ID OR rf.MEMBER_ID = m.ID
         WHERE
-            m.ID = #{loginId}
+            m.ID = #{memberId}
         ORDER BY ID DESC
     </select>
 

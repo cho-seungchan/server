@@ -46,7 +46,7 @@
             TBL_REAL_FEED rf ON f.ID = rf.ID
                 JOIN
             TBL_MEMBER m ON  rf.MEMBER_ID = m.ID
-        WHERE    m.ID = #{loginId}
+        WHERE    m.ID = #{memberId}
         ORDER BY ID DESC
     </select>
 

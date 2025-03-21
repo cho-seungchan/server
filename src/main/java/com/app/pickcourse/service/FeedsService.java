@@ -36,7 +36,7 @@ public class FeedsService {
     private final RealFileDAO realFileDAO;
     private final PlanDAO2 planDAO;
 
-    public List<ReplyListDTO> getReplyList(Long loginId, Long feedId, PaginationOnePage pagination) {
+    public List<ReplyListDTO> getReplyList(Long memberId, Long feedId, PaginationOnePage pagination) {
         pagination.create(replyDAO.getCountAll(feedId));
         log.info("replyDAO.getCountAll(feedId) "+replyDAO.getCountAll(feedId));
 
@@ -44,7 +44,7 @@ public class FeedsService {
 
         // 로그인 회원과 작성자가 같으면 '삭제' 다르면 '신고'
         list.forEach( reply -> {
-            if ( reply.getMemberId() == loginId){
+            if ( reply.getMemberId() == memberId){
                 reply.setReplyAction("삭제");
             } else {
                 reply.setReplyAction("신고");
@@ -71,14 +71,14 @@ public class FeedsService {
 
     }
 
-    public void postReportReplyList(ReportVO reportVO, Long loginId) {
+    public void postReportReplyList(ReportVO reportVO, Long memberId) {
         ReportIdVO reportId = new ReportIdVO();
         reportDAO.postReportReplyList(reportId); // 슈퍼키 가져오기
-        replyReportDAO.postReportReplyList(reportId.getId(), reportVO.getId(), reportVO.getReportedReason(), loginId);
+        replyReportDAO.postReportReplyList(reportId.getId(), reportVO.getId(), reportVO.getReportedReason(), memberId);
 
     }
 
-    public void postReplyList(ReplyVO replyVO, Long loginId) {
+    public void postReplyList(ReplyVO replyVO, Long memberId) {
         // 댓글 슈퍼키 입력
         replyDAO.postReplyList(replyVO);
 
@@ -86,7 +86,7 @@ public class FeedsService {
         String typeOfFeed = replyDAO.selectTypeOfFeed(replyVO.getFeedId());
 
         // 피드 종류별 댓글 입력
-        replyVO.setMemberId(loginId);
+        replyVO.setMemberId(memberId);
         if (typeOfFeed.equals("GENERAL FEED")) {
             generalReplyDAO.postReplyList(replyVO);
         } else if (typeOfFeed.equals("REAL FEED")) {
@@ -97,10 +97,10 @@ public class FeedsService {
 
     }
 
-    public List<ReplyListDTO> getMyReplyList(Long loginId, PaginationOnePage pagination) {
-        pagination.create(replyDAO.getMyCountAll(loginId));
+    public List<ReplyListDTO> getMyReplyList(Long memberId, PaginationOnePage pagination) {
+        pagination.create(replyDAO.getMyCountAll(memberId));
 
-        List<ReplyListDTO> list = replyDAO.getMyReplyList(loginId, pagination);
+        List<ReplyListDTO> list = replyDAO.getMyReplyList(memberId, pagination);
 
         // 삭제 버튼 생성
         list.forEach( reply -> {
@@ -110,14 +110,14 @@ public class FeedsService {
         return list;
     }
 
-    public void postFeedWrite(Long loginId, FeedDTO feedDTO) {
+    public void postFeedWrite(Long memberId, FeedDTO feedDTO) {
         // 피드 슈퍼키 입력
         feedDAO.postFeedWrite(feedDTO);
         // 피드 타입에 따라 제네럴, 투게더 피드 입력
         if (feedDTO.getFeedType().equals("GENERAL")) {
-            generalFeedDAO.postFeedWrite(loginId, feedDTO.toFeedVO());
+            generalFeedDAO.postFeedWrite(memberId, feedDTO.toFeedVO());
         } else if (feedDTO.getFeedType().equals("TOGETHER")) {
-            togetherFeedDAO.postFeedWrite(loginId, feedDTO.toFeedVO());
+            togetherFeedDAO.postFeedWrite(memberId, feedDTO.toFeedVO());
         }
 
         // 태그 입력
@@ -143,11 +143,11 @@ public class FeedsService {
         }
     }
 
-    public void postRealWrite(Long loginId, RealDTO realDTO) {
+    public void postRealWrite(Long memberId, RealDTO realDTO) {
         // 피드 슈퍼키 입력
         feedDAO.postRealWrite(realDTO);
         // 리얼 입력
-        realFeedDAO.postFeedWrite(realDTO.getId(), loginId, realDTO.getPlanId());
+        realFeedDAO.postFeedWrite(realDTO.getId(), memberId, realDTO.getPlanId());
 
         // 태그 입력
         if (realDTO.getTags() != null && realDTO.getTags().size() != 0) {
@@ -355,16 +355,16 @@ public class FeedsService {
         return list;
     }
 
-    public List<FeedListDTO> getMyFeedList(Long loginId, String listType) {
+    public List<FeedListDTO> getMyFeedList(Long memberId, String listType) {
         List<FeedListDTO> list = null;
 
         // 피드 가져오기
         if (listType.equals("ALL")) {
-            list = feedDAO.getMyFeedList(loginId);
+            list = feedDAO.getMyFeedList(memberId);
         } else if (listType.equals("TOGETHER")) {
-            list = togetherFeedDAO.getMyFeedList(loginId);
+            list = togetherFeedDAO.getMyFeedList(memberId);
         } else if (listType.equals("REAL")) {
-            list = realFeedDAO.getMyFeedList(loginId);
+            list = realFeedDAO.getMyFeedList(memberId);
         }
 
         // tag, 파일 가져오기
@@ -385,10 +385,10 @@ public class FeedsService {
         return list;
     }
 
-    public void postReportFeedList(ReportVO reportVO, Long loginId) {
+    public void postReportFeedList(ReportVO reportVO, Long memberId) {
         ReportIdVO reportId = new ReportIdVO();
         reportDAO.postReportReplyList(reportId); // 슈퍼키 가져오기
-        feedReportDAO.postReportFeedList(reportId.getId(), reportVO.getId(), reportVO.getReportedReason(), loginId);
+        feedReportDAO.postReportFeedList(reportId.getId(), reportVO.getId(), reportVO.getReportedReason(), memberId);
 
     }
 

@@ -15,8 +15,8 @@ import java.util.List;
 public class RealFeedDAO {
     private final RealFeedMapper realFeedMapper;
 
-    public void postFeedWrite(Long id, Long loginId, Long planId) {
-        realFeedMapper.postFeedWrite(id, loginId, planId);
+    public void postFeedWrite(Long id, Long memberId, Long planId) {
+        realFeedMapper.postFeedWrite(id, memberId, planId);
     }
 
     public RealDTO getRealModify(Long id) {
@@ -31,7 +31,7 @@ public class RealFeedDAO {
         return realFeedMapper.getFeedList();
     }
 
-    public List<FeedListDTO> getMyFeedList(Long loginId) {
-        return realFeedMapper.getMyFeedList(loginId);
+    public List<FeedListDTO> getMyFeedList(Long memberId) {
+        return realFeedMapper.getMyFeedList(memberId);
     }
 }

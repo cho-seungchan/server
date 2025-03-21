@@ -14,8 +14,8 @@ public class GeneralFeedDAO {
     private final GeneralFeedMapper generalFeedMapper;
 
 
-    public void postFeedWrite(Long loginId, FeedVO feedVO) {
-        generalFeedMapper.postFeedWrite(feedVO.getId(), loginId);
+    public void postFeedWrite(Long memberId, FeedVO feedVO) {
+        generalFeedMapper.postFeedWrite(feedVO.getId(), memberId);
     }
 
     public FeedDTO getFeedModify(Long id) {

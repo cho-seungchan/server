@@ -31,5 +31,5 @@ public interface FeedMapper {
 
     void postRealWrite(RealDTO realDTO);
 
-    List<FeedListDTO> getMyFeedList(Long loginId);
+    List<FeedListDTO> getMyFeedList(Long memberId);
 }

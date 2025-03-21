@@ -40,7 +40,7 @@ public class FeedDAO {
         return feedMapper.getFeedList();
     }
 
-    public List<FeedListDTO> getMyFeedList(long loginId) {
-        return feedMapper.getMyFeedList(loginId);
+    public List<FeedListDTO> getMyFeedList(long memberId) {
+        return feedMapper.getMyFeedList(memberId);
     }
 }

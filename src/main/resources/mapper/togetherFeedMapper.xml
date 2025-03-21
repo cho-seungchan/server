@@ -42,7 +42,7 @@
             TBL_TOGETHER_FEED tf ON f.ID = tf.ID
                 JOIN
             TBL_MEMBER m ON tf.MEMBER_ID = m.ID
-        WHERE    m.ID = #{loginId}
+        WHERE    m.ID = #{memberId}
         ORDER BY ID DESC
     </select>
 

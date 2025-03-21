@@ -21,5 +21,5 @@ public interface RealFeedMapper {
 
     List<FeedListDTO> getFeedList();
 
-    List<FeedListDTO> getMyFeedList(Long loginId);
+    List<FeedListDTO> getMyFeedList(Long memberId);
 }

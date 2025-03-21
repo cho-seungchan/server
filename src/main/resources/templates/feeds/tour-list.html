@@ -57,6 +57,7 @@
                                                                 <span class="planSchedule" th:text="'일정 :: ' + ${tour.planStartDate} + ' ~ ' + ${tour.planEndDate}"></span><br />
                                                                 <span class="planPrice" th:text="'비용 :: ' + ${tour.planPrice}"></span><br />
                                                                 <span class="planParticipants" th:text="'참여 :: ' + ${tour.participants} + '/' + ${tour.planMaxPersonnel}"></span><br />
+                                                                <span class="planId" th:text="${tour.id}" style="display: none; "></span><br /> <!-- 후기 작성에 전달할 planId -->
                                                             </div>
                                                             <div class="MagazineListPage__CatchPhrase-hh1ck3-5 dfnTnv memberNickname" th:text="'캡틴 :: ' + ${tour.memberNickname}"></div>
                                                         </div>
