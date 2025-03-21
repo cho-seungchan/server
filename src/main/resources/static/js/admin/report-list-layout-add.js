@@ -122,7 +122,7 @@ function reportModal(reply) {
                 <div class="reportModal-createdDiv">작성일 ::&nbsp;&nbsp;${reply.createdDate}</div>
                 <div class="reportModal-introduce">내    용 ::</div>
             </div>
-            <div class="reportModal-contentDiv">${reply.replyContent}</div>
+            <div class="reportModal-contentDiv">${reply.content}</div>
         </div>`;
     document.querySelector(".admin-modal-body").style.display = "flex";
 

@@ -23,11 +23,13 @@ public interface FeedMapper {
 
     List<FeedListDTO> getFeedModifyList(Long id);
 
-    void deleteFeedModifyList(Long id);
+    void deleteFeedModify(Long id);
 
     Optional<ReplyDetailDTO> getReportDetail(Long id);
 
     String selectTypeOfFeed(Long id);
 
     void postRealWrite(RealDTO realDTO);
+
+    List<FeedListDTO> getMyFeedList(Long memberId);
 }

@@ -12,7 +12,7 @@ import lombok.ToString;
 public class ReplyDetailDTO {
     private Long   id;
     private String source;
-    private String replyContent;
+    private String content;
     private String memberNickname;
     private Long   feedId;
     private Long   memberId;
