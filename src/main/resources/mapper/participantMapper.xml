@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.app.pickcourse.mapper.ParticipantMapper">
+    <insert id="insert">
+        INSERT INTO TBL_PARTICIPANT
+        (ID, MEMBER_ID, PLAN_ID)
+        VALUES
+            (SEQ_PARTICIPANT.NEXTVAL, #{memberId}, ${planId})
+    </insert>
 
     <select id="getNormalCourseParticipationCount" parameterType="java.lang.Long" resultType="_int">
         SELECT COUNT(*)
@@ -31,6 +37,10 @@
                 ORDER BY PL.PLAN_END_DATE DESC
              )
         WHERE ROWNUM = 1
+    </select>
+    <select id="selectByPlanId" resultType="participantDTO">
+        SELECT * FROM TBL_PARTICIPANT
+        WHERE PLAN_ID = #{planId}
     </select>
 
 </mapper>

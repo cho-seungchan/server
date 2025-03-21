@@ -1,5 +1,6 @@
 package com.app.pickcourse.mapper;
 
+import com.app.pickcourse.domain.dto.WriteExcludeDTO;
 import com.app.pickcourse.domain.vo.WriteExcludeVO;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -29,7 +30,7 @@ public class WriteExcludeMapperTests {
     public void testSelectAll() {
         WriteExcludeVO exclude = new WriteExcludeVO();
 
-        List<WriteExcludeVO> foundWriteExclude = writeExcludeMapper.selectByPlanId(2L);
+        List<WriteExcludeDTO> foundWriteExclude = writeExcludeMapper.selectByPlanId(2L);
         log.info(foundWriteExclude.toString());
     }
 
@@ -37,9 +38,9 @@ public class WriteExcludeMapperTests {
     public void testUpdate() {
         WriteExcludeVO exclude = new WriteExcludeVO();
 
-        exclude.setPlanId(1L);
+        exclude.setPlanId(113L);
         exclude.setExcludeContent("변경된내용1");
-        exclude.setId(2L);
+        exclude.setId(339L);
 
         writeExcludeMapper.update(exclude);
     }

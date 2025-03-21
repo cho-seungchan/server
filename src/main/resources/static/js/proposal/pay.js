@@ -123,17 +123,7 @@ priceInput.addEventListener("input", (event) => {
 });
 // 할인 금액 입력시 천단위마다 , 찍히게. 결제금액에서 차감해서 치커스금액 산출
 
-// 전액 버튼 누르면 반영되게
-document.querySelector(".cVMMHP").addEventListener("click", (e) => {
-    discountAmount = parseInt(document.querySelector(".discount").textContent.replace(/,/g, ""), 10);
-    paymentAmount = parseInt(document.querySelector(".dxsibZ").textContent.replace(/,/g, ""), 10);
 
-    document.querySelector(".Coupon_Input").value = NumberWithCommas(discountAmount);
-    document.querySelector(".peakcourseAmount").textContent = NumberWithCommas(paymentAmount - discountAmount);
-    document.querySelector(".pointspan").textContent = NumberWithCommas((paymentAmount - discountAmount) / 100);
-});
-
-// 전액 버튼 누르면 반영되게
 
 // PayMethod check 카드 클릭
 const fPagJs = document.createElement("ol");
@@ -384,7 +374,7 @@ const firstText = `<p class="SubTitle-eeu9i7-0 gVXCTF">개인정보 제 3자 제
 본 개인정보처리방침은 2022년 7월 1일부터 시행됩니다.`;
 
 const secondText = `<p class="SubTitle-eeu9i7-0 gVXCTF">결제 대행 서비스 이용약관</p>
-<div class="TermsPopup__TermsText-df6kh2-1 GrLfY">개인정보처리방침 
+<div class="TermsPopup__TermsText-df6kh2-1 GrLfY">개인정보처리방침
 
 개인정보 수집 및 이용 안내
 주식회사 프렌트립(이하 “회사”)는 회원님의 개인정보를 보호하기 위해 최선을 다하고 있습니다. 이를 위해서 회사는 개인정보의 보호와 관련하여 ‘정보통신망 이용촉진 및 정보보호 등에 관한 법률’, ‘개인정보 보호법’ 등 개인정보와 관련된 법령을 준수하고 있습니다.

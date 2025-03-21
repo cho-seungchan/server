@@ -1,5 +1,6 @@
 package com.app.pickcourse.DAO;
 
+import com.app.pickcourse.domain.dto.WritePrepareDTO;
 import com.app.pickcourse.domain.vo.WritePrepareVO;
 import com.app.pickcourse.repository.WriteIncludeDAO;
 import com.app.pickcourse.repository.WritePrepareDAO;
@@ -30,7 +31,7 @@ public class WrtiePrepareDAOTests {
 
     @Test
     public void testFindByPlanId() {
-        List<WritePrepareVO> target = writePrepareDAO.findByPlanId(2L);
+        List<WritePrepareDTO> target = writePrepareDAO.findByPlanId(2L);
         log.info(target.toString());
     }
 

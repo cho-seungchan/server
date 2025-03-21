@@ -60,6 +60,21 @@
         FROM     TBL_FEED f
                      JOIN     TBL_REAL_FEED r
                               ON       f.ID = r.ID
+
+        WHERE    r.PLAN_ID = ${planId}
+    </select>
+
+    <insert id="insertReview">
+        INSERT INTO TBL_REAL_FEED
+        (ID,
+         MEMBER_ID,
+         PLAN_ID)
+        VALUES(#{id},
+               #{memberId},
+               #{planId})
+    </insert>
+
+
         WHERE    f.ID = #{id}
     </select>
 
@@ -68,4 +83,5 @@
         FROM TBL_REAL_FEED
         WHERE ID = #{id}
     </delete>
+
 </mapper>

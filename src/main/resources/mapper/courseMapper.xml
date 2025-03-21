@@ -211,4 +211,10 @@
         FROM   TBL_COURSE
         WHERE  ID     =  #{id}
     </delete>
+
+    <select id="selectCourseViewById" resultType="courseSelectDTO">
+        SELECT *
+        FROM TBL_COURSE
+        WHERE ID = #{id}
+    </select>
 </mapper>

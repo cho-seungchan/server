@@ -1,5 +1,6 @@
 package com.app.pickcourse.mapper;
 
+import com.app.pickcourse.domain.dto.WritePrepareDTO;
 import com.app.pickcourse.domain.vo.WritePrepareVO;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -26,7 +27,7 @@ public class WritePrepareMapperTests {
 
     @Test
     public void testSelectAll() {
-        List<WritePrepareVO> foundWritePrepare = writePrepareMapper.selectByPlanId(1L);
+        List<WritePrepareDTO> foundWritePrepare = writePrepareMapper.selectByPlanId(1L);
         log.info(foundWritePrepare.toString());
     }
 
@@ -34,8 +35,8 @@ public class WritePrepareMapperTests {
     public void testUpdate() {
         WritePrepareVO writePrepareVO = new WritePrepareVO();
 
-        writePrepareVO.setId(4L);
-        writePrepareVO.setPlanId(1L);
+        writePrepareVO.setId(350L);
+        writePrepareVO.setPlanId(113L);
         writePrepareVO.setPrepareContent("변경된내용1");
 
         writePrepareMapper.update(writePrepareVO);

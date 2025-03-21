@@ -284,13 +284,13 @@ function collectTexts(tagClassName) {
 }
 // 태그의 text들을 서버로 보낼 배열에 담는 함수
 
-// textarea에 글자 입력시 입력된 글자 수 보여주기
-document.querySelector(".kmqQeB").addEventListener("input", (e) => {
-    e.target.closest(".iFxPyq").querySelector(".jvAusQ").textContent = `${
-        document.querySelector(".kmqQeB").value.length
-    } / 1200 (추천 글자수: 30자 이내)`;
-});
-// textarea에 글자 입력시 입력된 글자 수 보여주기
+// // textarea에 글자 입력시 입력된 글자 수 보여주기
+// document.querySelector(".kmqQeB").addEventListener("input", (e) => {
+//     e.target.closest(".iFxPyq").querySelector(".jvAusQ").textContent = `${
+//         document.querySelector(".kmqQeB").value.length
+//     } / 1200 (추천 글자수: 30자 이내)`;
+// });
+// // textarea에 글자 입력시 입력된 글자 수 보여주기
 
 // 서버에 올리지 않고 화면에 보이도록 처리
 const fileParentDiv = document.querySelector(".ImageList-sc-9v1mt2-0.hGJMVS");
@@ -348,10 +348,10 @@ document.querySelector(".gcqwwh.gather").addEventListener("keyup", (e) => {
                 // mapDiv.id = "map";
                 document.querySelector(".GatheringPlace").appendChild(mapDiv);
 
-                const mapInput = document.createElement("input");
-                mapInput.className = "SocialRecruiteTagsContainer__SocialRecruiteTagsInput-sc-2762su-1 gcqwwh gather1";
-                mapInput.placeholder = "참가자들이 이해하기 쉽게 설명해주세요";
-                document.querySelector(".GatheringPlace").appendChild(mapInput);
+                // const mapInput = document.createElement("input");
+                // mapInput.className = "SocialRecruiteTagsContainer__SocialRecruiteTagsInput-sc-2762su-1 gcqwwh gather1";
+                // mapInput.placeholder = "참가자들이 이해하기 쉽게 설명해주세요";
+                // document.querySelector(".GatheringPlace").appendChild(mapInput);
 
                 document.querySelector("#fullMap").addEventListener("click", (e) => {
                     if (mapContainer.style.position === "fixed") {
@@ -395,7 +395,7 @@ document.querySelector(".gcqwwh.gather").addEventListener("keyup", (e) => {
 });
 
 // 모이는 장소 :: 카카오맵 처리하기
-
+//
 // 등록 하기
 const button = document.querySelector(".saveButton");
 
@@ -451,7 +451,6 @@ button.addEventListener("click", () => {
         const index = textarea.getAttribute('data-index'); // data-index 값
         const value = textarea.value; // 입력된 텍스트
         schedules.push(value);
-        console.log(schedules);
     })
 
     schedules.forEach((schedule, i) => {

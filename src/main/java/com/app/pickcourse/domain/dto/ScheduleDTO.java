@@ -16,6 +16,7 @@ public class ScheduleDTO {
     private Long id;
     private String scheduleContent;
     private Long planId;
+    private String status;
 
     public ScheduleVO toVO (){
         ScheduleVO scheduleVO = new ScheduleVO();
@@ -23,6 +24,7 @@ public class ScheduleDTO {
         scheduleVO.setId(id);
         scheduleVO.setScheduleContent(scheduleContent);
         scheduleVO.setPlanId(planId);
+        scheduleVO.setStatus(status);
 
         return scheduleVO;
     }

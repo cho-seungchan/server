@@ -36,7 +36,12 @@ public class PlanDTO {
     private List<WriteIncludeDTO> includeContents;
     private List<WritePrepareDTO> prepareContents;
     private List<ScheduleDTO> scheduleContents;
-    private String memberName;
+    private List<ParticipantDTO> participants;
+    private List<Long> deleteIncludes;
+    private List<Long> deleteExcludes;
+    private List<Long> deletePrepares;
+    private List<Long> deleteSchedules;
+    private String memberNickname;
     private int memberAge;
 
     public PlanVO toVO() {

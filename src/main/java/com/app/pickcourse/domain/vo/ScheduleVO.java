@@ -12,4 +12,5 @@ public class ScheduleVO {
     private Long id;
     private String scheduleContent;
     private Long planId;
+    private String status;
 }

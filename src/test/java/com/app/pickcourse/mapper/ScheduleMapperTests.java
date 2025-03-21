@@ -1,5 +1,6 @@
 package com.app.pickcourse.mapper;
 
+import com.app.pickcourse.domain.dto.ScheduleDTO;
 import com.app.pickcourse.domain.vo.ScheduleVO;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -28,7 +29,7 @@ public class ScheduleMapperTests {
 
     @Test
     public void testSelectByPlanId() {
-        List<ScheduleVO> scheduleVOList = scheduleMapper.selectByPlanId(2L);
+        List<ScheduleDTO> scheduleVOList = scheduleMapper.selectByPlanId(122L);
         log.info(scheduleVOList.toString());
     }
 
@@ -36,8 +37,8 @@ public class ScheduleMapperTests {
     public void testUpdate() {
         ScheduleVO scheduleVO = new ScheduleVO();
 
-        scheduleVO.setId(18L);
-        scheduleVO.setPlanId(1L);
+        scheduleVO.setId(234L);
+        scheduleVO.setPlanId(113L);
         scheduleVO.setScheduleContent("변경된내용1");
 
         scheduleMapper.update(scheduleVO);

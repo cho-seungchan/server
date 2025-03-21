@@ -2,6 +2,7 @@ package com.app.pickcourse.mapper;
 
 import com.app.pickcourse.domain.dto.CourseDTO;
 import com.app.pickcourse.domain.dto.CourseListDTO;
+import com.app.pickcourse.domain.dto.CourseSelectDTO;
 import com.app.pickcourse.domain.vo.CourseVO;
 import com.app.pickcourse.util.Pagination;
 import com.app.pickcourse.util.Search;
@@ -19,6 +20,8 @@ public class CourseMapperTests {
 
     @Autowired
     private CourseMapper mapper;
+    @Autowired
+    private CourseMapper courseMapper;
 
     @Test
     public void postAddCourseTest() {
@@ -33,7 +36,7 @@ public class CourseMapperTests {
         course.setCourseFilePath("C:\\temp\\course.png");
         course.setCourseFileSize("2kb");
         course.setCourseFileName("represent");
-        course.setAdminId(2l);
+        course.setAdminId(1l);
 
         mapper.postAddCourse(course);
     }
@@ -75,5 +78,12 @@ public class CourseMapperTests {
         course.setCourseFileSize("1.5kb");
         course.setCourseFileName("hue");
         mapper.putCourseDetail(course);
+    }
+
+    @Test
+    public void testSelectCourseViewById() {
+        CourseSelectDTO courseSelectDTO = new CourseSelectDTO();
+        courseSelectDTO = courseMapper.selectCourseViewById(46L).orElse(null);
+        log.info(courseSelectDTO.toString());
     }
 }

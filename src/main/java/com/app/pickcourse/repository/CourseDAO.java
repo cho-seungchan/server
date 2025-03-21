@@ -2,6 +2,7 @@ package com.app.pickcourse.repository;
 
 import com.app.pickcourse.domain.dto.CourseDTO;
 import com.app.pickcourse.domain.dto.CourseListDTO;
+import com.app.pickcourse.domain.dto.CourseSelectDTO;
 import com.app.pickcourse.domain.vo.CourseVO;
 import com.app.pickcourse.mapper.CourseMapper;
 import com.app.pickcourse.util.Pagination;
@@ -11,6 +12,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
@@ -51,5 +53,9 @@ public class CourseDAO {
 
     public void deleteCourseDetail(Long id) {
         courseMapper.deleteCourseDetail(id);
+    }
+
+    public Optional<CourseSelectDTO> findCourseViewById(Long id) {
+        return courseMapper.selectCourseViewById(id);
     }
 }

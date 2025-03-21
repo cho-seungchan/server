@@ -1,5 +1,6 @@
 package com.app.pickcourse.repository;
 
+import com.app.pickcourse.domain.dto.ScheduleDTO;
 import com.app.pickcourse.domain.vo.ScheduleVO;
 import com.app.pickcourse.mapper.ScheduleMapper;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +18,7 @@ public class ScheduleDAO {
         scheduleMapper.insert(scheduleVO);
     }
 //    플랜아이디로 조회
-    public List<ScheduleVO> findByPlanId(Long planId) {
+    public List<ScheduleDTO> findByPlanId(Long planId) {
         return scheduleMapper.selectByPlanId(planId);
     }
 //    수정

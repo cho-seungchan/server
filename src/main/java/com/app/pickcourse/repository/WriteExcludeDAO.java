@@ -1,5 +1,6 @@
 package com.app.pickcourse.repository;
 
+import com.app.pickcourse.domain.dto.WriteExcludeDTO;
 import com.app.pickcourse.domain.vo.WriteExcludeVO;
 import com.app.pickcourse.mapper.WriteExcludeMapper;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +19,7 @@ public class WriteExcludeDAO {
         writeExcludeMapper.insert(writeExcludeVO);
     }
 //    플랜아이디로 조회
-    public List<WriteExcludeVO> findByPlanId(Long id) {
+    public List<WriteExcludeDTO> findByPlanId(Long id) {
         return writeExcludeMapper.selectByPlanId(id);
     }
 //    수정

@@ -1,5 +1,6 @@
 package com.app.pickcourse.DAO;
 
+import com.app.pickcourse.domain.dto.ScheduleDTO;
 import com.app.pickcourse.domain.vo.ScheduleVO;
 import com.app.pickcourse.repository.ScheduleDAO;
 import lombok.extern.slf4j.Slf4j;
@@ -27,7 +28,7 @@ public class ScheduleDAOTests {
 
     @Test
     public void testFindByPlanId() {
-        List<ScheduleVO> foundSchedule = scheduleDAO.findByPlanId(2L);
+        List<ScheduleDTO> foundSchedule = scheduleDAO.findByPlanId(2L);
         log.info(foundSchedule.toString());
     }
 

@@ -20,8 +20,33 @@
     </select>
 
     <select id="selectById" resultType="planDTO">
-        SELECT * FROM TBL_PLAN
-        WHERE ID = #{id}
+        SELECT
+            M.MEMBER_NICKNAME,
+            P.ID,
+            P.PLAN_NAME,
+            TO_CHAR(P.PLAN_START_DATE, 'YYYY-MM-DD') AS PLAN_START_DATE,
+            TO_CHAR(P.PLAN_END_DATE, 'YYYY-MM-DD') AS PLAN_END_DATE,
+            TO_CHAR(P.PLAN_DEADLINE, 'YYYY-MM-DD') AS PLAN_DEADLINE,
+            P.PLAN_MAX_PERSONNEL,
+            P.PLAN_MIN_PERSONNEL,
+            P.PLAN_PRICE,
+            P.PLAN_START_ADDRESS,
+            P.PLAN_CONTENT,
+            P.PLAN_FILE_PATH,
+            P.PLAN_FILE_SIZE,
+            P.PLAN_FILE_NAME,
+            P.MEMBER_ID,
+            P.COURSE_ID,
+            P.CREATED_DATE,
+            P.UPDATED_DATE
+        FROM
+            TBL_MEMBER M
+                JOIN
+            TBL_PLAN P
+            ON
+                M.ID = P.MEMBER_ID
+        WHERE
+            P.ID = #{id}
     </select>
 
     <update id="update">
@@ -36,10 +61,7 @@
             PLAN_PRICE = #{planPrice},
             PLAN_START_ADDRESS = #{planStartAddress},
             PLAN_CONTENT = #{planContent},
-            PLAN_FILE_PATH = #{planFilePath},
-            PLAN_FILE_SIZE = #{planFileSize},
-            PLAN_FILE_NAME = #{planFileName},
-            UPDATED_DATE = #{updatedDate}
+            UPDATED_DATE = SYSDATE
         WHERE ID = #{id}
     </update>
 
@@ -49,14 +71,34 @@
     </delete>
 
     <select id="selectByMemberId" resultType="planDTO">
-        SELECT M.MEMBER_NICKNAME, P.ID, P.PLAN_NAME, P.PLAN_START_DATE, P.PLAN_END_DATE, P.PLAN_DEADLINE,
-               P.PLAN_MAX_PERSONNEL, P.PLAN_MIN_PERSONNEL, P.PLAN_PRICE, P.MEMBER_ID, P.COURSE_ID
-        FROM TBL_MEMBER M JOIN TBL_PLAN P
-        ON M.ID = P.MEMBER_ID
-        WHERE P.MEMBER_ID = #{memberId}
+        SELECT ID, MEMBER_NICKNAME, PLAN_NAME, PLAN_START_DATE, 'MM/DD', PLAN_END_DATE, 'MM/DD', PLAN_DEADLINE, PLAN_MAX_PERSONNEL,
+        PLAN_MIN_PERSONNEL, PLAN_PRICE, MEMBER_ID, COURSE_ID
+        FROM
+        (
+            SELECT ROWNUM R , ID, MEMBER_NICKNAME, PLAN_NAME, PLAN_START_DATE, PLAN_END_DATE, PLAN_DEADLINE, PLAN_MAX_PERSONNEL,
+            PLAN_MIN_PERSONNEL, PLAN_PRICE, MEMBER_ID, COURSE_ID
+            FROM
+                (
+                    SELECT M.MEMBER_NICKNAME, P.ID, P.PLAN_NAME, P.PLAN_START_DATE, P.PLAN_END_DATE, P.PLAN_DEADLINE,
+                    P.PLAN_MAX_PERSONNEL, P.PLAN_MIN_PERSONNEL, P.PLAN_PRICE, P.MEMBER_ID, P.COURSE_ID
+                    FROM TBL_MEMBER M JOIN TBL_PLAN P
+                    ON M.ID = P.MEMBER_ID
+                    WHERE MEMBER_ID = #{memberId}
+                    ORDER BY P.ID DESC
+                )
+            <![CDATA[
+            WHERE ROWNUM <= ${pagination.endRow}
+            ]]>
+        )
+        WHERE R >= ${pagination.startRow}
     </select>
 
-    <select id="selectAllById" resultType="planVO">
+    <select id="selectCount" resultType="_int">
+        SELECT COUNT(*) FROM TBL_MEMBER M JOIN TBL_PLAN P
+        ON M.ID = P.MEMBER_ID AND P.MEMBER_ID = #{memberID}
+    </select>
+
+    <select id="selectAllById" resultType="planDTO">
         SELECT * FROM TBL_PLAN
         WHERE  MEMBER_ID = #{memberId}
     </select>
@@ -104,5 +146,18 @@
              )
         WHERE ROWNUM <= 4
         ]]>
+    </select>
+
+    <select id="selectByCourseId" resultType="planDTO">
+        SELECT ID, PLAN_NAME,
+               TO_CHAR(PLAN_START_DATE, 'MM"월 "DD"일"') AS PLAN_START_DATE ,
+               TO_CHAR(PLAN_END_DATE, 'MM"월 "DD"일"') AS PLAN_END_DATE,
+               PLAN_DEADLINE, PLAN_MAX_PERSONNEL,
+               PLAN_MIN_PERSONNEL,
+               PLAN_PRICE,
+               PLAN_START_ADDRESS, PLAN_CONTENT, PLAN_FILE_PATH,
+               PLAN_FILE_SIZE, PLAN_FILE_NAME, MEMBER_ID, COURSE_ID,
+               CREATED_DATE, UPDATED_DATE
+        FROM TBL_PLAN WHERE COURSE_ID = #{courseId}
     </select>
 </mapper>

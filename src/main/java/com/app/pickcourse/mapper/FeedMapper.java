@@ -2,6 +2,7 @@ package com.app.pickcourse.mapper;
 
 import com.app.pickcourse.domain.dto.FeedDTO;
 import com.app.pickcourse.domain.dto.FeedListDTO;
+import com.app.pickcourse.domain.dto.ReviewDTO;
 import com.app.pickcourse.domain.dto.RealDTO;
 import com.app.pickcourse.domain.dto.ReplyDetailDTO;
 import com.app.pickcourse.domain.vo.FeedVO;
@@ -13,6 +14,7 @@ import java.util.Optional;
 @Mapper
 public interface FeedMapper {
 
+    void postFeedWrite(FeedVO feedVO);
     void postFeedWrite(FeedDTO feedDTO);
 
     Optional<FeedDTO> getFeedModify(Long id);

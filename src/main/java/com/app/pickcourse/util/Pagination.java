@@ -25,7 +25,7 @@ public class Pagination {
     }
 
     public void create(int total) {
-        this.rowCount = 5;
+        this.rowCount = 4;
         this.pageCount = 2;
 
         this.endPage = (int)(Math.ceil(this.page / (double)pageCount)) * pageCount;

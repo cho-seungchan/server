@@ -1,5 +1,6 @@
 package com.app.pickcourse.mapper;
 
+import com.app.pickcourse.domain.dto.WriteIncludeDTO;
 import com.app.pickcourse.domain.vo.WriteExcludeVO;
 import com.app.pickcourse.domain.vo.WriteIncludeVO;
 import lombok.extern.slf4j.Slf4j;
@@ -27,7 +28,7 @@ public class WriteIncludeMapperTests {
 
     @Test
     public void testSelectAll() {
-        List<WriteIncludeVO> foundWriteInclude = writeIncludeMapper.selectByPlanId(2L);
+        List<WriteIncludeDTO> foundWriteInclude = writeIncludeMapper.selectByPlanId(2L);
         log.info(foundWriteInclude.toString());
     }
 
@@ -35,8 +36,8 @@ public class WriteIncludeMapperTests {
     public void testUpdate() {
         WriteIncludeVO writeIncludeVO = new WriteIncludeVO();
 
-        writeIncludeVO.setId(3L);
-        writeIncludeVO.setPlanId(1L);
+        writeIncludeVO.setId(343L);
+        writeIncludeVO.setPlanId(113L);
         writeIncludeVO.setIncludeContent("변경된내용1");
 
         writeIncludeMapper.update(writeIncludeVO);

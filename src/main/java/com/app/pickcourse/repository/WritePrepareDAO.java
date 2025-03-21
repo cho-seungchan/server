@@ -1,5 +1,6 @@
 package com.app.pickcourse.repository;
 
+import com.app.pickcourse.domain.dto.WritePrepareDTO;
 import com.app.pickcourse.domain.vo.WritePrepareVO;
 import com.app.pickcourse.mapper.WritePrepareMapper;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +18,7 @@ public class WritePrepareDAO {
         writePrepareMapper.insert(writePrepareVO);
     }
 //    플랜아이디로 조회
-    public List<WritePrepareVO> findByPlanId(Long planId) {
+    public List<WritePrepareDTO> findByPlanId(Long planId) {
         return writePrepareMapper.selectByPlanId(planId);
     }
 //    수정

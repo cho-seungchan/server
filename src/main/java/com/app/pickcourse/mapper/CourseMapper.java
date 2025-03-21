@@ -2,6 +2,7 @@ package com.app.pickcourse.mapper;
 
 import com.app.pickcourse.domain.dto.CourseDTO;
 import com.app.pickcourse.domain.dto.CourseListDTO;
+import com.app.pickcourse.domain.dto.CourseSelectDTO;
 import com.app.pickcourse.domain.vo.CourseVO;
 import com.app.pickcourse.util.Pagination;
 import com.app.pickcourse.util.Search;
@@ -39,4 +40,7 @@ public interface CourseMapper {
     void patchCourseListRegist(@Param("id") Long id, @Param("courseType") String courseType);
 
     void deleteCourseDetail(Long id);
+
+//    회원에게 보여질 코스조회
+    public Optional<CourseSelectDTO> selectCourseViewById(Long id);
 }

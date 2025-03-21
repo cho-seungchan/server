@@ -26,11 +26,8 @@ public class PathMapperTests {
 
     @Test
     public void getCourseDetail() {
-        List<PathVO> list = mapper.getCourseDetail(2l);
-        list.forEach(System.out::println);
-        CourseDTO courseDTO = new CourseDTO();
-        courseDTO.setPaths(list);
-        log.info(courseDTO.toString());
+        List<PathVO> list = mapper.getCourseDetail(44l);
+        log.info(list.toString());
     }
 
     @Test
