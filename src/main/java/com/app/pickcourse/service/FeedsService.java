@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.catalina.util.StandardSessionIdGenerator;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +18,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @Slf4j
+@Transactional(rollbackFor = Exception.class)
 public class FeedsService {
     private final ReplyDAO replyDAO;
     private final GeneralReplyDAO generalReplyDAO;
@@ -392,10 +394,12 @@ public class FeedsService {
 
     }
 
-    public List<TourListDTO> getTourList(Long memberId) {
-        List<TourListDTO> list = planDAO.getTourList(memberId);
+    public List<TourListDTO> getTourList(Long memberId, PaginationOnePage pagination) {
 
+        pagination.create(planDAO.getCountAllByMemberId(memberId));
+        List<TourListDTO> list = planDAO.getTourList(memberId,pagination);
 
         return list;
     }
 }
+

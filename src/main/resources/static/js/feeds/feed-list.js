@@ -516,19 +516,19 @@ class="WhatIsActionSheet__ImageBanner-sc-10e5q0f-4 kYigqi"></div>
                 return;
             }
             // 모집계획 id 가져오기
-            const planId = e.target.closest(".parent-for-id").querySelector(".server-using-planId").textContent.trim();
+            const id = e.target.closest(".parent-for-id").querySelector(".server-using-planId").textContent.trim();
 
             // 폼 요소를 동적으로 생성
             const form = document.createElement("form");
             form.setAttribute("method", "GET");
             form.setAttribute("action", "/proposal/read");  // 정근 모집계획 상세보기 완성 후 수정
 
-            // 파라미터 생성 :: 정근씨 모집계획 상세보기와 연결  수정
-            // let input = document.createElement("input");
-            // input.setAttribute("type", "hidden");
-            // input.setAttribute("name", "planId");
-            // input.setAttribute("value", planId);
-            // form.appendChild(input);
+            // 파라미터 생성
+            let input = document.createElement("input");
+            input.setAttribute("type", "hidden");
+            input.setAttribute("name", "id");
+            input.setAttribute("value", id);
+            form.appendChild(input);
 
             // 폼 제출
             document.body.appendChild(form); // 폼을 body에 추가
