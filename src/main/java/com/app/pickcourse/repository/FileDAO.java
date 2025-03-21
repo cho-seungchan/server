@@ -27,6 +27,7 @@ public class FileDAO {
 
     public void deleteFeedModifyByFeedId(Long feedId) {
         fileMapper.deleteModifyFeedByFeedId(feedId);
+
     }
 
     public FileVO findLastInsertedFile() {
