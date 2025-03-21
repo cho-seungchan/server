@@ -18,9 +18,9 @@ const messageLayout = (() => {
 
             let text = ``;
 
-            sendMessages.forEach(({receiverNickname, content, sendDate}) => {
+            sendMessages.forEach(({id , receiverEmail, receiverNickname, content, sendDate}) => {
                 text += `
-                    <div class="userListDiv">
+                    <div class="userListDiv" data-id="${id}" data-receiver-email="${receiverEmail}">
                         <div class="postList">
                             <a href="">
                               <span>${receiverNickname}</span>

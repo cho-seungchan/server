@@ -16,13 +16,13 @@ public interface SendMessageMapper {
     void insertSendMessage(SendMessageVO sendMessageVO);
 
     // 보낸 메시지 조회
-    SendMessageVO selectSendMessageById(Long messageId);
+//    SendMessageVO selectSendMessageById(Long messageId);
 
     // 보낸 메시지 목록 조회
     List<SendMessageDTO> selectSendMessagesBySenderId(Long senderId);
 
     // 보낸 메시지 삭제
-    void deleteSendMessageById(Long messageId);
+//    void deleteSendMessageById(Long messageId);
 
     // 보낸 메시지 조회 (페이징 적용)
     List<SendMessageDTO> findBySenderIdWithPagination(
@@ -39,5 +39,9 @@ public interface SendMessageMapper {
     public List<SendMessageDTO> selectAllSendMessage(
             @Param("senderId") Long senderId,
             @Param("pagination") Pagination pagination);
+
+    int deleteSentMessageById(@Param("id") Long id);
+
+    SendMessageDTO selectSentMessageById(@Param("id") Long id);
 
 }

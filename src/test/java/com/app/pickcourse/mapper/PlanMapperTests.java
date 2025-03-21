@@ -1,6 +1,7 @@
 package com.app.pickcourse.mapper;
 
 import com.app.pickcourse.domain.dto.CourseDTO;
+import com.app.pickcourse.domain.dto.MemberDTO;
 import com.app.pickcourse.domain.dto.PlanDTO;
 import com.app.pickcourse.domain.vo.MemberVO;
 import com.app.pickcourse.domain.vo.PlanVO;
@@ -27,13 +28,13 @@ public class PlanMapperTests {
 //    계획 추가
     @Test
     public void testInsert() {
-        MemberVO member = new MemberVO();
+        MemberDTO member = new MemberDTO();
 
         member.setMemberEmail("test1@test.com");
         member.setMemberPassword("1234");
 
-        Optional<MemberVO> loginMember = memberMapper.selectByMemberEmailAndMemberPassword(member);
-        member = loginMember.orElse(new MemberVO());
+        Optional<MemberDTO> loginMember = memberMapper.selectByMemberEmailAndMemberPassword(member);
+        member = loginMember.orElse(new MemberDTO());
 
         Optional<CourseDTO> readCourse = courseMapper.getCourseDetail(2L);
         CourseDTO course = readCourse.orElseThrow(() -> new RuntimeException("Course not found"));

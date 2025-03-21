@@ -39,7 +39,7 @@ public class MemberServiceTest {
     @Test
     public void getMemberTest(){
         memberDTO.setMemberEmail("newtest@test.new");
-        Optional<MemberVO> member = memberService.getMember(memberDTO.getMemberEmail());
+        Optional<MemberDTO> member = memberService.getMember(memberDTO.getMemberEmail());
         log.info(member.toString());
     }
 
@@ -58,7 +58,7 @@ public class MemberServiceTest {
     @Test
     public void deleteTest(){
         memberDTO.setId(4L);
-        memberService.delete(memberDTO);
+        memberService.delete(4L);
     }
 
 

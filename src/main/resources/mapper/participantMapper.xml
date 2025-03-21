@@ -8,8 +8,38 @@
             (SEQ_PARTICIPANT.NEXTVAL, #{memberId}, ${planId})
     </insert>
 
+    <select id="getNormalCourseParticipationCount" parameterType="java.lang.Long" resultType="_int">
+        SELECT COUNT(*)
+        FROM TBL_PARTICIPANT P
+                 JOIN TBL_PLAN PL ON P.PLAN_ID = PL.ID
+                 JOIN TBL_COURSE C ON PL.COURSE_ID = C.ID
+        WHERE P.MEMBER_ID = #{memberId}
+          AND C.COURSE_IS_VOLUNTEER = 'N'
+    </select>
+
+    <select id="getVolunteerCourseParticipationCount" parameterType="java.lang.Long" resultType="_int">
+        SELECT COUNT(*)
+        FROM TBL_PARTICIPANT P
+                 JOIN TBL_PLAN PL ON P.PLAN_ID = PL.ID
+                 JOIN TBL_COURSE C ON PL.COURSE_ID = C.ID
+        WHERE P.MEMBER_ID = #{memberId}
+          AND C.COURSE_IS_VOLUNTEER = 'Y'
+    </select>
+
+    <select id="getRecentCourse" parameterType="java.lang.Long" resultType="recentCourse">
+        SELECT COURSE_TYPE, COURSE_NAME, COURSE_FILE_PATH
+        FROM (
+                SELECT C.COURSE_TYPE, C.COURSE_NAME, C.COURSE_FILE_PATH
+                FROM TBL_PARTICIPANT P
+                JOIN TBL_PLAN PL ON P.PLAN_ID = PL.ID
+                JOIN TBL_COURSE C ON PL.COURSE_ID = C.ID
+                WHERE P.MEMBER_ID = #{memberId}
+                ORDER BY PL.PLAN_END_DATE DESC
+             )
+        WHERE ROWNUM = 1
     <select id="selectByPlanId" resultType="participantDTO">
         SELECT * FROM TBL_PARTICIPANT
         WHERE PLAN_ID = #{planId}
     </select>
+
 </mapper>

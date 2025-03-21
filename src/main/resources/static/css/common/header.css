@@ -93,6 +93,7 @@ summary {
     font-weight: 800;
     margin-right: -5px;
     margin-left: 5px;
+    cursor: pointer;
 }
 .fWxgMt {
     display: flex;

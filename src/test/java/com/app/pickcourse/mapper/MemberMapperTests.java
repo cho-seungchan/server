@@ -1,6 +1,7 @@
 package com.app.pickcourse.mapper;
 
 
+import com.app.pickcourse.domain.dto.MemberDTO;
 import com.app.pickcourse.domain.vo.MemberVO;
 import com.app.pickcourse.util.Pagination;
 import com.app.pickcourse.util.Search;
@@ -65,10 +66,10 @@ public class MemberMapperTests {
 
     @Test
     public void testSelectByMemberEmailAndMemberPassword(){
-        MemberVO memberVO = new MemberVO();
-        memberVO.setMemberEmail("qwe@123.com");
-        memberVO.setMemberPassword("qwe12341234");
-        MemberVO foundMember = mapper.selectByMemberEmailAndMemberPassword(memberVO).orElse(null);
+        MemberDTO memberDTO = new MemberDTO();
+        memberDTO.setMemberEmail("qwe@123.com");
+        memberDTO.setMemberPassword("qwe12341234");
+        MemberDTO foundMember = mapper.selectByMemberEmailAndMemberPassword(memberDTO).orElse(null);
         log.info(foundMember.toString());
     }
 

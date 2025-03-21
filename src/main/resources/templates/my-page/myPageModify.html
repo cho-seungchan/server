@@ -54,9 +54,12 @@
             <header th:replace="/all/header.html :: #main-header"></header>
                 <div id="app">
                     <div class="App__AppWrapper-nc5ti6-0 idXWQn">
+                        <form
+                                action="/my-page/myPageModify" method="post" th:object="${memberDTO}">
                         <header
                             class="MyProfilePage__HeaderContainer-sc-162q6w5-0 cLqaPy"
                         >
+
                             <section class="PageWrapper-sc-1w87j10-0 bScXKt">
                                 <article
                                     class="PageBetweenTitle__PageBetweenTitleContainer-vzvjj2-0 fFriVo"
@@ -81,10 +84,10 @@
                                 <article
                                     class="MyProfilePage__ImageContainer-sc-162q6w5-3 iOgbWN"
                                 >
-                                    <img
-                                        src="https://res.cloudinary.com/frientrip/image/fetch/c_fill,dpr_2,f_auto,h_64,q_auto,w_64/https://k.kakaocdn.net/dn/bXaPH0/btsK2yqBvZ8/GszNkcMupnQJ2FhKuMeRQK/img_110x110.jpg"
-                                        class="MyProfilePage__ThumbnailImage-sc-162q6w5-4 gFQPgt uploadImage mainProfile"
-                                    />
+                                    <img th:src="${memberDTO.memberFileName != null} ?
+             '/files/display?path=' + ${memberDTO.memberFilePath} + '/' + ${memberDTO.memberFileName} :
+             '/images/default_profile.jpg'"
+                                         class="MyProfilePage__ThumbnailImage-sc-162q6w5-4 gFQPgt uploadImage mainProfile"/>
                                     <div
                                         class="MyProfilePage__ImageCameraContainer-sc-162q6w5-5 elHCaO"
                                     >
@@ -100,12 +103,13 @@
                                         id="fileInput"
                                     />
                                 </article>
-                                <form
-                                        action="/my-page/myPageModify" method="post" th:object="${memberDTO}">
+
                                 <article
                                     class="MyProfilePage__InputContainer-sc-162q6w5-7 dVaxhg"
                                 >
+                                    <p th:if="${successMessage}" th:text="${successMessage}" class="successMessage"></p>
                                     <div>
+                                        <input type="hidden" th:field="*{id}" />
                                         <label
 
                                             class="TextField__Label-sc-1l9o56e-0 fPrGda"
@@ -115,10 +119,11 @@
                                             class="TextField__InputWrapper-sc-1l9o56e-1 gldLBs"
                                         >
                                             <input
-                                                    th:value="*{memberNickname}"
+                                                    th:field="*{memberNickname}"
                                                 class="TextField__Input-sc-1l9o56e-2 gGztpV checkName"
                                             />
                                         </div>
+                                        <p class="bViOzS" th:if="${nicknameError}" th:text="${nicknameError}"></p>
                                     </div>
                                     <div>
                                         <label
@@ -129,7 +134,7 @@
                                             class="TextField__InputWrapper-sc-1l9o56e-1 gldLBs"
                                         >
                                             <input
-                                                    th:value="*{memberTell}"
+                                                    th:field="*{memberTell}"
                                                 disabled=""
                                                 class="TextField__Input-sc-1l9o56e-2 gGztpV"
                                             />
@@ -144,7 +149,7 @@
                                             class="TextField__InputWrapper-sc-1l9o56e-1 gldLBs"
                                         >
                                             <input
-                                                    th:value="*{memberEmail}"
+                                                    th:field="*{memberEmail}"
                                                 disabled=""
                                                 class="TextField__Input-sc-1l9o56e-2 gGztpV"
 
@@ -192,12 +197,13 @@
                                             class="TextField__InputWrapper-sc-1l9o56e-1 gldLBs"
                                         >
                                             <input
-                                                    th:value="*{memberBirth}"
-                                                disabled=""
+                                                    th:field="*{memberBirth}"
+
                                                 class="TextField__Input-sc-1l9o56e-2 gGztpV"
 
                                             />
                                         </div>
+                                        <p th:if="${birthError}" th:text="${birthError}" class="bViOzS"></p>
                                     </div>
                                     <div>
                                         <label
@@ -208,17 +214,18 @@
                                             class="TextField__InputWrapper-sc-1l9o56e-1 gldLBs"
                                         >
                                             <input
-                                                th:value="*{memberGender}"
-                                                disabled=""
+                                                th:field="*{memberGender}"
+
                                                 class="TextField__Input-sc-1l9o56e-2 gGztpV"
 
                                             />
                                         </div>
                                     </div>
                                 </article>
-                                </form>
+
                             </section>
                         </section>
+                        </form>
                     </div>
                 </div>
                 <div id="modal-root"></div>
@@ -226,6 +233,8 @@
                 <footer th:replace="/all/footer.html :: #main-footer"></footer>
             </body>
             <script src="/js/myPage/myPageModify.js"></script>
+            <script src="/js/myPage/myPageModifyEvent.js"></script>
+            <script src="/js/myPage/myPageModifyService.js"></script>
         </html>
     </head>
 </html>
