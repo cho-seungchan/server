@@ -363,5 +363,31 @@ public class MyPageController {
         return ResponseEntity.ok(recentCourse);
     }
 
+    @PostMapping("upload")
+    @ResponseBody
+    public ResponseEntity<Map<String, String>> upload(@RequestParam("file") MultipartFile file, @SessionAttribute(name = "member", required = false) MemberDTO member) {
+        Long memberId = member.getId();
+
+        if(memberId == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        MemberDTO updatedMember = memberService.uploadProfile(memberId, file);
+
+        if(updatedMember == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+
+        session.setAttribute("member", updatedMember);
+
+        Map<String, String> result = new HashMap<>();
+        result.put("filePath", updatedMember.getMemberFilePath());
+        result.put("fileName", updatedMember.getMemberFileName());
+
+        return ResponseEntity.ok(result);
+    }
+
+
+
 
 }

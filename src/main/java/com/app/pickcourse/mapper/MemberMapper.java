@@ -74,4 +74,7 @@ public interface MemberMapper {
 
     Optional<MemberDTO> findEmailByNickname(String memberNickname);
 
+//    회원 프로필사진 업데이트
+    void updateMemberFile(MemberDTO memberDTO);
+
 }

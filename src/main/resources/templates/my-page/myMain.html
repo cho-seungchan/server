@@ -85,10 +85,10 @@
                                         <a
                                             class="UserInfo__Wrapper-bt0psx-0 jgHvjG"
                                             href="/my-page/myPageModify"
-                                            ><img
-                                                src="https://res.cloudinary.com/frientrip/image/fetch/c_fill,f_auto,g_center,q_auto/https://k.kakaocdn.net/dn/bXaPH0/btsK2yqBvZ8/GszNkcMupnQJ2FhKuMeRQK/img_110x110.jpg"
-                                                class="UserInfo__Image-bt0psx-1 ijgGxL"
-                                            />
+                                            ><img th:src="${memberDTO.memberFileName != null} ?
+             '/files/display?path=' + ${memberDTO.memberFilePath} + '/' + ${memberDTO.memberFileName} :
+             '/images/default_profile.jpg'"
+                                                  class="mainProfile"/>
                                             <div
                                                 class="UserInfo__TextWrapper-bt0psx-2 dPypOl"
                                             >

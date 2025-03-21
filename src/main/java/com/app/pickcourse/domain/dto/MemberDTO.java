@@ -21,6 +21,9 @@ public class MemberDTO {
     private String memberGender;
     private int    memberPoint;
     private char   memberIsAct;
+    private String memberFilePath;
+    private String memberFileName;
+    private String memberFileSize;
     private String createdDate;
     private String updatedDate;
 
@@ -35,6 +38,9 @@ public class MemberDTO {
         memberVO.setMemberGender(memberGender);
         memberVO.setMemberPoint(memberPoint);
         memberVO.setMemberIsAct(memberIsAct);
+        memberVO.setMemberFilePath(memberFilePath);
+        memberVO.setMemberFileName(memberFileName);
+        memberVO.setMemberFileSize(memberFileSize);
         memberVO.setCreatedDate(createdDate);
         memberVO.setUpdatedDate(updatedDate);
 

@@ -2,18 +2,19 @@ CREATE SEQUENCE SEQ_MEMBER;
 CREATE TABLE TBL_MEMBER(
                            ID NUMBER CONSTRAINT PK_USER PRIMARY KEY,
                            MEMBER_EMAIL VARCHAR2(1000) UNIQUE NOT NULL,
-                           MEMBER_PASSWORD VARCHAR2(1000) NOT NULL,
-                           MEMBER_NICKNAME VARCHAR2(1000) UNIQUE NOT NULL,
-                           MEMBER_TELL VARCHAR2(1000) NOT NULL,
+                           MEMBER_PASSWORD VARCHAR2(1000),
+                           MEMBER_NICKNAME VARCHAR2(1000) UNIQUE,
+                           MEMBER_TELL VARCHAR2(1000),
                            MEMBER_BIRTH DATE DEFAULT SYSDATE,
                            MEMBER_GENDER VARCHAR2(1000) DEFAULT '선택안함',
                            MEMBER_POINT NUMBER DEFAULT 0,
                            MEMBER_IS_ACT CHAR(1) DEFAULT 'Y' NOT NULL,
+                           MEMBER_FILE_PATH VARCHAR2(1000),
+                           MEMBER_FILE_NAME VARCHAR2(1000),
+                           MEMBER_FILE_SIZE VARCHAR2(1000) DEFAULT '',
                            CREATED_DATE DATE DEFAULT SYSDATE,
                            UPDATED_DATE DATE DEFAULT SYSDATE
 );
-
-ALTER TABLE TBL_MEMBER MODIFY MEMBER_NICKNAME VARCHAR2(1000) NULL;
 
 COMMENT ON TABLE  TBL_MEMBER IS '회원 테이블';
 COMMENT ON COLUMN TBL_MEMBER.ID IS '고유 식별자';
