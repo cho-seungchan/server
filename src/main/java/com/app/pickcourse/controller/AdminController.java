@@ -46,6 +46,7 @@ public class AdminController {
 
     // 회원 관리 목록 조회 25.03.03 조승찬
     @GetMapping("/member-list")
+    public String getMemberList(@RequestParam(value = "isAct", required = false) Character isAct,
     public String getMemberList(@SessionAttribute(name = "admin", required = false) AdminVO admin,
                                 @RequestParam(value = "isAct", required = false) Character isAct,
                                 Pagination pagination, Search search, Model model) {
@@ -330,6 +331,13 @@ public class AdminController {
         }
 
         session.setAttribute("admin", admin);
+
+        String redirectUrl = (String) session.getAttribute("redirectAfterLogin");
+        if (redirectUrl != null) {
+            session.removeAttribute("redirectAfterLogin");
+            return "redirect:" + redirectUrl;
+        }
+        
         return "redirect:/admin/admin";
     }
 
