@@ -1,10 +1,12 @@
 package com.app.pickcourse.mapper;
 
+import com.app.pickcourse.domain.dto.FeedDTO;
 import com.app.pickcourse.domain.dto.FeedListDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 @Mapper
 public interface TogetherFeedMapper {
@@ -13,5 +15,9 @@ public interface TogetherFeedMapper {
 
     List<FeedListDTO> getFeedList();
 
-    List<FeedListDTO> getFeedModifyList(Long id);
+    Optional<FeedDTO> getFeedModify(Long id);
+
+    void deleteFeedModify(Long id);
+
+    List<FeedListDTO> getMyFeedList(Long memberId);
 }

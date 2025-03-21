@@ -50,7 +50,6 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
 
-
         // 더보기 버튼 클릭시 json 형태로 처리 25.03.16 조승찬 추가 시작
         if (e.target.className == "moreReplyList") {
             const feedId = document.querySelector(".replyFeedId").value;

@@ -1,6 +1,7 @@
 package com.app.pickcourse.repository;
 
 import com.app.pickcourse.domain.dto.PlanDTO;
+import com.app.pickcourse.domain.dto.TourListDTO;
 import com.app.pickcourse.domain.vo.PlanVO;
 import com.app.pickcourse.mapper.PlanMapper;
 import com.app.pickcourse.mapper.ScheduleMapper;
@@ -37,6 +38,7 @@ public class PlanDAO {
         planMapper.deleteById(id);
     }
 
+
 //   MEMBER ID로 목록 조회
     public List<PlanDTO> findMyPlan(
             @Param("pagination") Pagination pagination,
@@ -58,5 +60,6 @@ public class PlanDAO {
     public List<PlanDTO> findByMemberId(Long memberId) {
         return planMapper.selectAllById(memberId);
     }
+
 
 }

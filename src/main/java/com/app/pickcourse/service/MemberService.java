@@ -136,12 +136,16 @@ public class MemberService {
             return null;
         }
 
-
-
-
-
     private String getPath(){
         return LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
     }
+
+    public MemberDTO getMemberById(Long id){
+        return memberDAO.findById(id).orElseThrow(
+                () -> new RuntimeException("해당 ID의 회원 정보를 찾을 수 없습니다: " + id)
+        );
+    }
+
+
 }
 

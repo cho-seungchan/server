@@ -40,6 +40,13 @@ public class KakaoController {
 
         session.setAttribute("memberStatus", "kakao");
         session.setAttribute("member", memberDTO);
+
+        String redirectUrl = (String) session.getAttribute("redirectAfterLogin");
+        if (redirectUrl != null) {
+            session.removeAttribute("redirectAfterLogin");
+            return new RedirectView(redirectUrl);
+        }
+
         return new RedirectView("/");
     }
 }

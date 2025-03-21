@@ -19,7 +19,18 @@ public class FileDAO {
         fileMapper.postFeedWrite(file);
     }
 
+
+    // general, together, real 모두 사용
+    public void deleteFeedModify(Long id) {
+        fileMapper.deleteFeedModify(id);
+    }
+
+    public void deleteFeedModifyByFeedId(Long feedId) {
+        fileMapper.deleteModifyFeedByFeedId(feedId);
+    }
+
     public FileVO findLastInsertedFile() {
         return fileMapper.selectLastInsertedFile();
+
     }
 }

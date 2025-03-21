@@ -42,11 +42,11 @@ public class ReplyDAO {
         return feedMapper.selectTypeOfFeed(feedId);
     }
 
-    public int getMyCountAll(long loginId) {
-        return replyMapper.getMyCountAll(loginId);
+    public int getMyCountAll(long memberId) {
+        return replyMapper.getMyCountAll(memberId);
     }
 
-    public List<ReplyListDTO> getMyReplyList(long loginId, PaginationOnePage pagination) {
-        return replyMapper.getMyReplyList(loginId, pagination);
+    public List<ReplyListDTO> getMyReplyList(long memberId, PaginationOnePage pagination) {
+        return replyMapper.getMyReplyList(memberId, pagination);
     }
 }

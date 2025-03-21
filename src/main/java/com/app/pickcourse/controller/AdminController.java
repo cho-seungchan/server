@@ -35,7 +35,12 @@ public class AdminController {
 
     // 관리자 메인 페이지
     @GetMapping("/admin")
-    public String getAdmin(Model model) {
+    public String getAdmin(@SessionAttribute(name = "admin", required = false) AdminVO admin, Model model) {
+
+        if (admin == null) {
+            return "redirect:adminLogin";
+        }
+
         return "/admin/admin";
     }
 
@@ -138,8 +143,13 @@ public class AdminController {
     // 추천 코스 목록 (api) 25.03.08 조승찬
     @GetMapping("/course-list")
     @ResponseBody
-    public ResponseEntity<Map<String, Object>> getCourseList(Pagination pagination, Search search) {
-        log.info("course list  "+pagination.toString()+" "+search.toString());
+    public ResponseEntity<Map<String, Object>> getCourseList(@SessionAttribute(name = "admin", required = false) AdminVO admin,
+                                                             Pagination pagination, Search search) {
+
+        if (admin == null) {
+            return ResponseEntity.badRequest().build();
+        }
+
         List<CourseListDTO> list = adminService.getCourseList(pagination,search);
         list.forEach(System.out::println);
 
@@ -316,6 +326,13 @@ public class AdminController {
         }
 
         session.setAttribute("admin", admin);
+
+        String redirectUrl = (String) session.getAttribute("redirectAfterLogin");
+        if (redirectUrl != null) {
+            session.removeAttribute("redirectAfterLogin");
+            return "redirect:" + redirectUrl;
+        }
+        
         return "redirect:/admin/admin";
     }
 

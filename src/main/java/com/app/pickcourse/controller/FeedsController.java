@@ -1,14 +1,12 @@
 // 2025.02.24 조승찬
 package com.app.pickcourse.controller;
 
-import com.app.pickcourse.domain.dto.FeedDTO;
-import com.app.pickcourse.domain.dto.RealDTO;
-import com.app.pickcourse.domain.dto.ReplyActionDTO;
-import com.app.pickcourse.domain.dto.ReplyListDTO;
+import com.app.pickcourse.domain.dto.*;
 import com.app.pickcourse.domain.vo.ReplyVO;
 import com.app.pickcourse.domain.vo.ReportVO;
 import com.app.pickcourse.service.FeedsService;
 import com.app.pickcourse.util.PaginationOnePage;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,9 +28,18 @@ public class FeedsController {
 
     // 댓글 목록 조회 :: 25.03.16 조승찬
     @GetMapping("/reply-list/{feedId}")
-    public String getReplyList(@PathVariable Long feedId, PaginationOnePage pagination, Model model) {
+    public String getReplyList(@SessionAttribute(name = "member", required = false) MemberDTO member,
+                               @PathVariable Long feedId, PaginationOnePage pagination, Model model) {
 
-        List<ReplyListDTO> replys = feedsService.getReplyList(1l, feedId, pagination);  // 로그인수정
+        if (member == null) {
+            return "redirect:/login/login";
+        }
+
+        Long memberId = member.getId();
+
+
+
+        List<ReplyListDTO> replys = feedsService.getReplyList(memberId, feedId, pagination);
         log.info("pagination  "+pagination.toString());
         model.addAttribute("replys", replys);  // 댓글 목록
         model.addAttribute("replyAction", new ReplyActionDTO()); // 입력될 댓글을 받아올 객체
@@ -42,9 +50,13 @@ public class FeedsController {
     // 댓글 목록 추가 조회 레스트컨트롤러 방식:: 25.03.16 조승찬
     @GetMapping("/reply-list/api/{feedId}")
     @ResponseBody
-    public ResponseEntity<Map<String, Object>> getReplyListApi(@PathVariable Long feedId, PaginationOnePage pagination) {
+    public ResponseEntity<Map<String, Object>> getReplyListApi(@SessionAttribute(name = "member", required = false) MemberDTO member,
+                                                               @PathVariable Long feedId, PaginationOnePage pagination) {
+        if (member == null) {
+            return ResponseEntity.badRequest().build();
+        }
 
-        List<ReplyListDTO> replys = feedsService.getReplyList(1l, feedId, pagination);  //로그인수정
+        List<ReplyListDTO> replys = feedsService.getReplyList(member.getId(), feedId, pagination);
         Map<String, Object> response = new HashMap<>();
         response.put("replys", replys);
         response.put("pagination", pagination);
@@ -68,7 +80,6 @@ public class FeedsController {
     @PostMapping("/reply-list/report")
     @ResponseBody
     public void postReportReplyList(@RequestBody ReportVO reportVO) {
-        log.info("postReportReplyList  들어옴");
 
         feedsService.postReportReplyList(reportVO, 1l);  // 로그인수정
     }
@@ -123,7 +134,7 @@ public class FeedsController {
         return response;
     }
 
-    // 피드 작성 25.03.18 조승찬
+    // 피드 작성용 화면 랜딩 25.03.18 조승찬
     @GetMapping("/feed-write")
     public String getFeedWrite(Model model) {
         FeedDTO feedDTO = new FeedDTO();
@@ -134,11 +145,47 @@ public class FeedsController {
     // 피드 작성 25.03.18 조승찬
     @PostMapping("/feed-write")
     public String postFeedWrite(FeedDTO feedDTO) {
-        log.info(feedDTO.toString());
 
         feedsService.postFeedWrite(1l, feedDTO); //로그인수정
 
-        return "redirect:/feeds/list";
+        // 조회 타입 정하기
+        String listType = feedDTO.getFeedType().equals("TOGETHER") ? "TOGETHER" : "ALL";
+
+        return "redirect:/feeds/feed-list?listType=" + listType;
+    }
+
+    // 피드 수정용 조회 25.03.19 조승찬
+    @GetMapping("/feed-modify")
+    public String getFeedModify(@RequestParam("id") Long id, @RequestParam("feedType") String feedType, Model model) {
+
+        FeedDTO feedDTO = feedsService.getFeedModify(id, feedType);
+        feedDTO.setId(id);
+        feedDTO.setFeedType(feedType);
+        model.addAttribute("feedDTO", feedDTO);
+
+        return "/feeds/feed-modify";
+    }
+
+    // 피드 수정 25.03.19 조승찬
+    @PostMapping("/feed-modify")
+    public String postFeedModify(FeedDTO feedDTO) {
+
+        feedsService.postFeedModify(feedDTO); //로그인수정
+
+        String listType = feedDTO.getFeedType().equals("TOGETHER") ? "TOGETHER" : "ALL";
+        return "redirect:/feeds/my/feed-list?listType=" + listType;
+    }
+
+    // 피드 삭제 25.03.19 조승찬
+    @PostMapping("/feed-delete")
+    public String deleteFeedModify(@RequestParam("id") Long id, @RequestParam("feedType") String feedType) {
+
+        log.info("deleteFeedModify 들어옴 ::  "+id+" "+feedType);
+
+        feedsService.deleteFeedModify(id, feedType);
+
+        String listType = feedType.equals("TOGETHER") ? "TOGETHER" : "ALL";
+        return "redirect:/feeds/my/feed-list?listType=" + listType;
     }
 
     // 리얼 후기 작성 25.03.18 조승찬
@@ -157,27 +204,95 @@ public class FeedsController {
 
         feedsService.postRealWrite(1l, realDTO); //로그인수정
 
-        return "redirect:/feeds/list";
+        return "redirect:/feeds/feed-list?listType=REAL";
     }
 
-    @GetMapping("/list")
-    public String getFeedList(Model model) {
-        return "/feeds/list";
+    // 리얼 후기 수정용 조회 25.03.19 조승찬
+    @GetMapping("/real-modify")
+    public String getRealModify(@RequestParam("id") Long id, Model model) {
+
+        RealDTO realDTO = feedsService.getRealModify(id);
+        realDTO.setId(id);
+        model.addAttribute("realDTO", realDTO);
+
+        return "/feeds/real-modify";
     }
 
-    @GetMapping("/modify")
-    public String getFeedModify(Model model) {
-        return "/feeds/modify";
+    // 리얼 후기 수정 25.03.19 조승찬
+    @PostMapping("/real-modify")
+    public String postRealModify(RealDTO realDTO) {
+
+        feedsService.postRealModify(realDTO);
+
+        return "redirect:/feeds/my/feed-list?listType=REAL";
     }
 
-    @PostMapping("/modify")
-    public String postFeedModify(Model model) {
-        return "/feeds/modify";
+    // 리얼 후기 삭제 25.03.19 조승찬
+    @PostMapping("/real-delete")
+    public String deleteFeedModify(@RequestParam("id") Long id) {
+
+        feedsService.deleteRealModify(id);
+
+        return "redirect:/feeds/my/feed-list?listType=REAL";
     }
 
-    @GetMapping("/modify-list")
-    public String getFeedModifyList(Model model) {
-        return "/feeds/modifylist";
+    // 피드 신고 25.03.20 조승찬
+    @PostMapping("/feed-list/report")
+    @ResponseBody
+    public void postReportFeedList(@RequestBody ReportVO reportVO) {
+
+        feedsService.postReportFeedList(reportVO, 1l);  // 로그인수정
+    }
+
+
+    // 피드 리스트  25.03.20 조승찬
+    @GetMapping("/feed-list")
+    public String getFeedList(@RequestParam("listType") String listType, Model model) {
+
+        List<FeedListDTO> feedListDTO = feedsService.getFeedList(listType);
+        model.addAttribute("feedListDTO", feedListDTO);
+        model.addAttribute("listType", listType);
+        return "/feeds/feed-list";
+    }
+
+    // 나의 피드 리스트 25.03.20 조승찬
+    @GetMapping("/my/feed-list")
+    public String getFeedModifyList(@RequestParam("listType") String listType, Model model) {
+        List<FeedListDTO> feedListDTO = feedsService.getMyFeedList(1l, listType); //  로그인수정
+        model.addAttribute("feedListDTO", feedListDTO);
+        model.addAttribute("listType", listType);
+        return "/feeds/my-feed-list";
+    }
+
+    // 나의 여행 목록 25.03.21 조승찬
+    @GetMapping("/tour-list")
+    public String getTourList(PaginationOnePage pagination, Model model) {
+
+        List<TourListDTO> tourListDTO = feedsService.getTourList(1l, pagination); // 로그인 수정
+        model.addAttribute("tourListDTO", tourListDTO);
+        model.addAttribute("pagination", pagination);
+
+        log.info("컨트롤 "+pagination.toString());
+        tourListDTO.forEach(System.out::println);
+
+        return "/feeds/tour-list";
+    }
+
+
+    // 나의 여행 목록 추가 조회 레스트컨트롤러 방식:: 25.03.21 조승찬
+    @GetMapping("/tour-list/api")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> getTourListApi(PaginationOnePage pagination) {
+
+        List<TourListDTO> tours = feedsService.getTourList(1l, pagination);  //로그인수정
+        log.info("레스트 "+pagination.toString());
+        tours.forEach(System.out::println);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("tours", tours);
+        response.put("pagination", pagination);
+        return ResponseEntity.ok(response);
+
     }
 
     @GetMapping("/review-list")
@@ -185,18 +300,4 @@ public class FeedsController {
         return "/feeds/reviewlist";
     }
 
-    @GetMapping("/review-modify")
-    public String getReviewModify(Model model) {
-        return "/feeds/reviewmodify";
-    }
-
-    @PostMapping("/review-modify")
-    public String postReviewModify(Model model) {
-        return "/feeds/reviewmodify";
-    }
-
-    @GetMapping("/tour-list")
-    public String getTourList(Model model) {
-        return "/feeds/tourlist";
-    }
 }

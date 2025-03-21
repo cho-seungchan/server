@@ -11,6 +11,9 @@ public interface RealFileMapper {
 
     void postFeedWrite(@Param("id") Long fileId, @Param("feedId") Long feedId);
 
-    List<FileVO> getFileList(Long feedId);
+    List<FileVO> getRealModify(Long feedId);
 
+    void deleteRealModify(Long id);
+
+    void deleteRealModifyByFeedId(Long feedId);
 }

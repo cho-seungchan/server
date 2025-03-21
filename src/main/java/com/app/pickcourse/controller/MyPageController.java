@@ -6,6 +6,7 @@ import com.app.pickcourse.domain.vo.MemberVO;
 import com.app.pickcourse.repository.*;
 import com.app.pickcourse.service.*;
 import com.app.pickcourse.util.Pagination;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -38,6 +39,7 @@ public class MyPageController {
     private final ParticipantService participantService;
     private final HttpServletResponse response;
     private final FileService fileService;
+    private final HttpServletRequest request;
 
     @GetMapping("changePassword")
     public String getChangePassword(){
@@ -227,12 +229,15 @@ public class MyPageController {
     public void getMyCourse(){}
 
     @GetMapping("myMain")
-    public String getMyMain() {
+    public String getMyMain(Model model) {
         MemberDTO member = (MemberDTO) session.getAttribute("member");
 
         if (member == null) {
             return "redirect:/login/login";
         }
+
+        MemberDTO memberDTO = memberService.getMemberById(member.getId());
+        model.addAttribute("memberDTO", memberDTO);
 
         return "my-page/myMain";
     }
@@ -242,6 +247,7 @@ public class MyPageController {
         MemberDTO memberDTO = (MemberDTO) session.getAttribute("member");
 
         if (memberDTO == null) {
+            session.setAttribute("redirectAfterLogin", request.getRequestURI());
             return "redirect:/login/login";
         }
 

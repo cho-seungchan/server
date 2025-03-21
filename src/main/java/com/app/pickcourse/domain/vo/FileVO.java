@@ -13,6 +13,7 @@ public class FileVO {
     private String filePath;
     private String fileName;
     private String fileSize;
+    private Long   feedId;
     private String createDate;
     private String updateDate;
 }
