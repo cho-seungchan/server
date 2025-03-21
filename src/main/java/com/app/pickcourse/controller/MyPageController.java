@@ -227,12 +227,15 @@ public class MyPageController {
     public void getMyCourse(){}
 
     @GetMapping("myMain")
-    public String getMyMain() {
+    public String getMyMain(Model model) {
         MemberDTO member = (MemberDTO) session.getAttribute("member");
 
         if (member == null) {
             return "redirect:/login/login";
         }
+
+        MemberDTO memberDTO = memberService.getMemberById(member.getId());
+        model.addAttribute("memberDTO", memberDTO);
 
         return "my-page/myMain";
     }
