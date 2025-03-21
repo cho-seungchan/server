@@ -14,6 +14,11 @@ public interface FileMapper {
     void postFeedWrite(FileVO fileVO);
 
     // 슈퍼키만 삭제하면 자식들도 삭제
+
+    void deleteFeedModify(Long id);
+
+    void deleteModifyFeedByFeedId(Long feedId);
+
     void deleteModifyFeed(Long feedId);
 
 //    메세지 파일
@@ -23,4 +28,5 @@ public interface FileMapper {
 
     // 최근 추가된 파일 조회
     FileVO selectLastInsertedFile();
+
 }

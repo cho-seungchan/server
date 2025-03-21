@@ -1,6 +1,7 @@
 package com.app.pickcourse.repository;
 
 import com.app.pickcourse.domain.dto.PlanDTO;
+import com.app.pickcourse.domain.dto.TourListDTO;
 import com.app.pickcourse.domain.vo.PlanVO;
 import com.app.pickcourse.mapper.PlanMapper;
 import com.app.pickcourse.mapper.ScheduleMapper;
@@ -35,5 +36,4 @@ public class PlanDAO {
     public void delete(Long id) {
         planMapper.deleteById(id);
     }
-
 }

@@ -24,7 +24,7 @@ public interface ReplyMapper {
 
     void deleteReplyList(Long id);
 
-    int getMyCountAll(long loginId);
+    int getMyCountAll(long memberId);
 
-    List<ReplyListDTO> getMyReplyList(@Param("loginId") long loginId, @Param("pagination") PaginationOnePage pagination);
+    List<ReplyListDTO> getMyReplyList(@Param("memberId") long memberId, @Param("pagination") PaginationOnePage pagination);
 }

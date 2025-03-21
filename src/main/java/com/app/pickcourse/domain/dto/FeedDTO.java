@@ -18,6 +18,7 @@ public class FeedDTO {
     private String feedContent;
     private List<String> tags;
     private List<FileVO> files;
+    private List<Long> deleteFileId;
     private String createDate;
     private String updateDate;
 

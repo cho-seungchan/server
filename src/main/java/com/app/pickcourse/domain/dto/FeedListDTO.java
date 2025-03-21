@@ -16,13 +16,15 @@ import java.util.List;
 @ToString
 public class FeedListDTO {
     private Long id;
+    private String feedType;      // 일반피드, 같이해요, 리얼후기
     private String feedContent;
-    private String createDate;
-    private String updateDate;
+    private String createdDate;
+    private String updatedDate;
     private Long   memberId;
+    private String memberNickname;
     private Long   planId;
     private List<FileVO> files;
-    private List<TagVO> feedTags;
+    private List<String> tags;
 
     public FeedVO toFeedVO() {
         FeedVO feedVO = new FeedVO();

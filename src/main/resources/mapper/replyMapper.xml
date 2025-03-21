@@ -17,7 +17,7 @@
                      LEFT JOIN TBL_GENERAL_REPLY GR ON R.ID = GR.ID
                      LEFT JOIN TBL_REAL_REPLY RR ON R.ID = RR.ID
                      LEFT JOIN TBL_TOGETHER_REPLY TR ON R.ID = TR.ID
-        WHERE    COALESCE(GR.MEMBER_ID, RR.MEMBER_ID, TR.MEMBER_ID) = #{loginId}
+        WHERE    COALESCE(GR.MEMBER_ID, RR.MEMBER_ID, TR.MEMBER_ID) = #{memberId}
     </select>
 
     <insert id="postReplyList">
@@ -40,7 +40,7 @@
                 WHEN TR.FEED_ID IS NOT NULL THEN 'TOGETHER_REPLY'
             ELSE 'UNKNOWN'
             END AS source,
-            R.REPLY_CONTENT,
+            R.REPLY_CONTENT AS content,
             R.ID AS id,
             M.MEMBER_NICKNAME AS memberNickname,
             M.ID AS memberId,
@@ -105,7 +105,7 @@
                                 LEFT JOIN TBL_REAL_REPLY RR ON R.ID = RR.ID
                                 LEFT JOIN TBL_TOGETHER_REPLY TR ON R.ID = TR.ID
                                 LEFT JOIN TBL_MEMBER M ON M.ID = COALESCE(GR.MEMBER_ID, RR.MEMBER_ID, TR.MEMBER_ID)
-                        WHERE   COALESCE(GR.MEMBER_ID, RR.MEMBER_ID, TR.MEMBER_ID) = #{loginId}
+                        WHERE   COALESCE(GR.MEMBER_ID, RR.MEMBER_ID, TR.MEMBER_ID) = #{memberId}
                         ORDER BY R.ID DESC
                     ) B
                 WHERE  ROWNUM <= #{pagination.endRow}

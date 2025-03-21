@@ -19,6 +19,7 @@ public class RealDTO {
     private Long planId;
     private List<String> tags;
     private List<FileVO> files;
+    private List<Long> deleteFileId;
     private String createDate;
     private String updateDate;
 

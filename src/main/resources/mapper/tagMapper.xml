@@ -19,9 +19,17 @@
         WHERE FEED_ID = #{feedId}
     </select>
 
-    <delete id="postModifyFeed">
+    <delete id="deleteFeedModify">
         DELETE
         FROM TBL_TAG
-        WHERE ID  =  #{id}
+        WHERE FEED_ID  =  #{feedId}
     </delete>
+
+    <select id="getFeedModify" resultType="string">
+        SELECT
+            TAG_CONTENT
+        FROM TBL_TAG
+        WHERE FEED_ID = #{feedId}
+    </select>
+
 </mapper>

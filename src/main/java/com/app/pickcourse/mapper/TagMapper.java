@@ -14,5 +14,8 @@ public interface TagMapper {
     List<TagVO> getFeedList(Long feedId);
 
     // 태그 전체 삭제 :: 후 전체 삽입 => void postFeedWrite(TagVO tagVO)
-    void postModifyFeed(Long feedId);
+    void deleteFeedModify(Long feedId);
+
+    List<String> getFeedModify(Long feedId);
+
 }
