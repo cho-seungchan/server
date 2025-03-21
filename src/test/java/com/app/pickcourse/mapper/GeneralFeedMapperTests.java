@@ -37,10 +37,4 @@ public class GeneralFeedMapperTests {
     }
 
 
-    @Test
-    public void getFeedModifyList(){
-        List<FeedListDTO> list = mapper.getFeedModifyList(51l);
-        list.forEach(System.out::println);
-    }
-
 }

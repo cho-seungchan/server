@@ -74,10 +74,6 @@
                #{planId})
     </insert>
 
-
-        WHERE    f.ID = #{id}
-    </select>
-
     <delete id="deleteRealModify">
         DELETE
         FROM TBL_REAL_FEED

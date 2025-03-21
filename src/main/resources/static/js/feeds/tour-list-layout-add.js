@@ -10,15 +10,15 @@ function addTourListAndPage(tours, pagination) {
                     <a class="MagazineListPage__Magazine-hh1ck3-3 hHOLgL" >
                         <div class="Image__Wrapper-v97gyx-0 gDuKGF">
 <!--                            <img class="dynamic-img">-->
-                            <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block" >
-                                <div class="Ratio" style="display: block">
-                                    <div class="Ratio-ratio" style=" height: 0px; position: relative; width: 100%; padding-top: 120%; " >
-                                        <div class="Ratio-content" style=" height: 100%; left: 0px; position: absolute; top: 0px; width: 100%; " >
-<!--                                            <img class="dynamic-img">-->
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+<!--                            <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block" >-->
+<!--                                <div class="Ratio" style="display: block">-->
+<!--                                    <div class="Ratio-ratio" style=" height: 0px; position: relative; width: 100%; padding-top: 120%; " >-->
+<!--                                        <div class="Ratio-content" style=" height: 100%; left: 0px; position: absolute; top: 0px; width: 100%; " >-->
+<!--&lt;!&ndash;                                            <img class="dynamic-img">&ndash;&gt;-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
                         </div>
                         <div>
                             <div class="MagazineListPage__Title-hh1ck3-4 kBOcSr">

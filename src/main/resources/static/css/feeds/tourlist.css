@@ -696,7 +696,7 @@ a {
 .jZtIEr > * > div:first-child {
     -webkit-box-flex: 0;
     flex: 0 0 auto;
-    margin-right: 30px;
+    margin-right: 10px;
     width: 160px;
     margin-bottom: -20px;
 }
@@ -1734,5 +1734,9 @@ var {
 }
 .MagazineListPage__Magazine-hh1ck3-3.hHOLgL {
     cursor: pointer;
+}
+.Image__Wrapper-v97gyx-0.gDuKGF img{
+    height: 160px;
+    width: 140px;
 }
 /* 더보기 스타일 추가 25.03.21 조승찬 */
