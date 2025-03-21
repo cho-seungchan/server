@@ -112,5 +112,9 @@ public class MemberDAO {
 
     public Optional<MemberDTO> findEmailByNickname(String memberNickname) {return memberMapper.findEmailByNickname(memberNickname);}
 
+//    프로필사진
+    public void updateMemberFile(MemberDTO memberDTO) {
+        memberMapper.updateMemberFile(memberDTO);
+    }
 
 }

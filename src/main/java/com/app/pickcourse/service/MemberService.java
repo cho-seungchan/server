@@ -1,14 +1,22 @@
 package com.app.pickcourse.service;
 
 import com.app.pickcourse.domain.dto.MemberDTO;
-import com.app.pickcourse.domain.vo.MemberVO;
+import com.app.pickcourse.domain.vo.*;
 import com.app.pickcourse.mapper.MemberMapper;
 import com.app.pickcourse.repository.MemberDAO;
 import lombok.RequiredArgsConstructor;
+import net.coobird.thumbnailator.Thumbnailator;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -78,4 +86,62 @@ public class MemberService {
     public Optional<MemberDTO> findEmailByNickname(String memberNickname) {
         return memberDAO.findEmailByNickname(memberNickname);
     }
+
+//    프로필사진
+    public void updateMemberFile(MemberDTO memberDTO) {
+        memberDAO.updateMemberFile(memberDTO);
+    }
+//  프사
+    public MemberDTO uploadProfile(Long id, MultipartFile file){
+//            파일 업로드
+            if(file.getOriginalFilename().equals("")){
+                return null;
+            }
+            String todayPath = getPath();
+            String rootPath = "C:/upload/" + todayPath;
+            String fileName = null;
+            UUID uuid = UUID.randomUUID();
+
+            try {
+                File directory = new File(rootPath);
+                if(!directory.exists()){
+                    directory.mkdirs();
+                }
+
+                file.transferTo(new File(rootPath, uuid.toString() + "_" + file.getOriginalFilename()));
+
+//            썸네일 가공
+                if(file.getContentType().startsWith("image")){
+                    fileName = "t_" + uuid.toString() + "_" + file.getOriginalFilename();
+                    FileOutputStream out = new FileOutputStream(new File(rootPath, fileName));
+                    Thumbnailator.createThumbnail(file.getInputStream(), out, 100, 100);
+                    out.close();
+
+                    MemberDTO member = memberDAO.findById(id).orElseThrow(
+                            () -> new RuntimeException("회원 정보 없음")
+                    );
+                    member.setId(id);
+                    member.setMemberFilePath(todayPath);
+                    member.setMemberFileName(fileName);
+                    member.setMemberFileSize(String.valueOf(file.getSize()));
+
+                    memberDAO.updateMemberFile(member);
+
+                    return member;
+                }
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+            return null;
+        }
+
+
+
+
+
+    private String getPath(){
+        return LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
+    }
 }
+

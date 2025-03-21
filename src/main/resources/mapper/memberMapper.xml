@@ -125,13 +125,14 @@
 
     <select id="selectById">
         SELECT ID, MEMBER_EMAIL, MEMBER_PASSWORD, MEMBER_NICKNAME, MEMBER_TELL, TO_CHAR(MEMBER_BIRTH, 'YYYY.MM.DD') AS MEMBER_BIRTH,
-               MEMBER_GENDER, CREATED_DATE, UPDATED_DATE
+               MEMBER_GENDER, CREATED_DATE, UPDATED_DATE, MEMBER_FILE_PATH, MEMBER_FILE_NAME, MEMBER_FILE_SIZE
         FROM TBL_MEMBER
         WHERE ID = #{id}
     </select>
 
     <select id="selectByMemberEmail">
-        SELECT ID, MEMBER_EMAIL, MEMBER_NICKNAME, MEMBER_TELL, TO_CHAR(MEMBER_BIRTH, 'YYYY.MM.DD') AS MEMBER_BIRTH, MEMBER_GENDER
+        SELECT ID, MEMBER_EMAIL, MEMBER_NICKNAME, MEMBER_TELL, TO_CHAR(MEMBER_BIRTH, 'YYYY.MM.DD') AS MEMBER_BIRTH, MEMBER_GENDER,
+               MEMBER_FILE_PATH, MEMBER_FILE_NAME, MEMBER_FILE_SIZE
         FROM TBL_MEMBER WHERE MEMBER_EMAIL = #{memberEmail}
     </select>
 
@@ -141,7 +142,8 @@
     </select>
 
     <select id="selectByMemberEmailAndMemberPassword" resultType="memberDTO">
-        SELECT ID, MEMBER_EMAIL, MEMBER_PASSWORD, MEMBER_NICKNAME, MEMBER_TELL, TO_CHAR(MEMBER_BIRTH, 'YYYY.MM.DD') AS MEMBER_BIRTH, MEMBER_GENDER
+        SELECT ID, MEMBER_EMAIL, MEMBER_PASSWORD, MEMBER_NICKNAME, MEMBER_TELL, TO_CHAR(MEMBER_BIRTH, 'YYYY.MM.DD') AS MEMBER_BIRTH, MEMBER_GENDER, MEMBER_POINT,
+               MEMBER_FILE_PATH, MEMBER_FILE_NAME, MEMBER_FILE_SIZE
         FROM TBL_MEMBER WHERE MEMBER_EMAIL = #{memberEmail} AND MEMBER_PASSWORD = #{memberPassword}
     </select>
 
@@ -155,7 +157,19 @@
 
     <update id="update">
         UPDATE TBL_MEMBER
-        SET MEMBER_NICKNAME = #{memberNickname}, MEMBER_BIRTH = #{memberBirth}, MEMBER_GENDER = #{memberGender}, UPDATED_DATE = SYSDATE
+        SET MEMBER_NICKNAME = #{memberNickname},
+            MEMBER_BIRTH = #{memberBirth},
+            MEMBER_GENDER = #{memberGender},
+            UPDATED_DATE = SYSDATE
+        WHERE ID = #{id}
+    </update>
+
+    <update id="updateMemberFile">
+        UPDATE TBL_MEMBER
+        SET MEMBER_FILE_PATH = #{memberFilePath},
+            MEMBER_FILE_NAME = #{memberFileName},
+            MEMBER_FILE_SIZE = #{memberFileSize},
+            UPDATED_DATE = SYSDATE
         WHERE ID = #{id}
     </update>
 
@@ -197,7 +211,8 @@
 
     <select id="findEmailByNickname" parameterType="String" resultType="memberDTO">
         SELECT ID, MEMBER_EMAIL, MEMBER_PASSWORD, MEMBER_NICKNAME, MEMBER_TELL, MEMBER_BIRTH,
-               MEMBER_GENDER, MEMBER_POINT, MEMBER_IS_ACT, CREATED_DATE, UPDATED_DATE
+               MEMBER_GENDER, MEMBER_POINT, MEMBER_IS_ACT, CREATED_DATE, UPDATED_DATE,
+               MEMBER_FILE_PATH, MEMBER_FILE_NAME, MEMBER_FILE_SIZE
         FROM TBL_MEMBER
         WHERE MEMBER_NICKNAME = #{memberNickname}
     </select>

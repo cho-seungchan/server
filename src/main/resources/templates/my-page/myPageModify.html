@@ -84,10 +84,10 @@
                                 <article
                                     class="MyProfilePage__ImageContainer-sc-162q6w5-3 iOgbWN"
                                 >
-                                    <img
-                                        src="/images/default_profile.jpg"
-                                        class="MyProfilePage__ThumbnailImage-sc-162q6w5-4 gFQPgt uploadImage mainProfile"
-                                    />
+                                    <img th:src="${memberDTO.memberFileName != null} ?
+             '/files/display?path=' + ${memberDTO.memberFilePath} + '/' + ${memberDTO.memberFileName} :
+             '/images/default_profile.jpg'"
+                                         class="MyProfilePage__ThumbnailImage-sc-162q6w5-4 gFQPgt uploadImage mainProfile"/>
                                     <div
                                         class="MyProfilePage__ImageCameraContainer-sc-162q6w5-5 elHCaO"
                                     >
@@ -233,6 +233,8 @@
                 <footer th:replace="/all/footer.html :: #main-footer"></footer>
             </body>
             <script src="/js/myPage/myPageModify.js"></script>
+            <script src="/js/myPage/myPageModifyEvent.js"></script>
+            <script src="/js/myPage/myPageModifyService.js"></script>
         </html>
     </head>
 </html>
