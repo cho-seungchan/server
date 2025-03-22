@@ -4,7 +4,7 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" href="/css/common/header.css" />
-        <link rel="stylesheet" href="/css/feeds/reply.css" />
+        <link rel="stylesheet" href="/css/feeds/my-reply.css" />
         <link rel="stylesheet" href="/css/common/footer.css" />
         <link
             href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:300,400,500,700"
@@ -84,6 +84,7 @@
                                         </div>
                                         <div class="CurrentIndex__Container-lgen36-2 lcexfU">
                                             <div class="replyIdDiv" style="display: none;" th:text="${reply.id}"></div>
+                                            <div class="feedIdDiv" style="display: none;" th:text="${reply.feedId}"></div>  // 댓글 작성한 피드를 보기 위한 아이디
                                             <div class="CurrentIndex__Name-lgen36-3 bRPQMl" th:text="${reply.memberNickname}" ></div>
                                             <p class="CurrentIndex__Contents-lgen36-4 cDlmAG" th:text="${reply.replyContent}"></p>
                                             <section class="ActionMenu__Section-s8lvsh-0 gzpaSl">
@@ -179,13 +180,13 @@
         </div>
         <div id="modal-root"></div>
         <div id="dnd-root"></div>
-        <div class="reply-report-modal-body"></div>
+        <div class="admin-modal-body"></div>
     </body>
 
 <!--    <script src="/js/feeds/reply.js"></script>-->
 <!-- 레스트컨트롤러 방식으로 댓글 더보기 조회 25.03.17-->
 <!--    나의 목록 조회 url이 달라서 별도로 사용-->
-    <script src="/js/feeds/reply-event.js"></script>
+    <script src="/js/feeds/my-reply-event.js"></script>
     <script src="/js/feeds/my-reply-service.js"></script>
-    <script src="/js/feeds/reply-layout-add.js"></script>
+    <script src="/js/feeds/my-reply-layout-add.js"></script>
 </html>
