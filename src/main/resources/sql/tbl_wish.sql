@@ -5,9 +5,9 @@ CREATE TABLE TBL_WISH (
                           CREATED_DATE DATE DEFAULT SYSDATE,
                           UPDATED_DATE DATE DEFAULT SYSDATE,
                           MEMBER_ID NUMBER NOT NULL,
-                          COURSE_ID NUMBER NOT NULL,
+                          PLAN_ID NUMBER NOT NULL,
                           CONSTRAINT FK_WISH_MEMBER FOREIGN KEY(MEMBER_ID)
                           REFERENCES TBL_MEMBER(ID),
-                          CONSTRAINT FK_WISH_COURSE FOREIGN KEY(COURSE_ID)
-                          REFERENCES TBL_COURSE(ID)
+                          CONSTRAINT FK_WISH_PLAN FOREIGN KEY(PLAN_ID)
+                          REFERENCES TBL_PLAN(ID)
 );
