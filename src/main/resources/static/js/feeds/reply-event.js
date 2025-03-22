@@ -1,7 +1,6 @@
 
 
-
-// 동적 생성때문에 최상위 요소로 위임하도록 모든 이벤트들 수정  25.03.16 조승찬 추가
+// 동적 생성때문에 최상위 요소로 위임하도록 모든 이벤트들 수정   25.03.16 조승찬
 document.addEventListener("DOMContentLoaded", function () {
 
     // input 창에 글자를 넣으면 등록 버튼 활성화
