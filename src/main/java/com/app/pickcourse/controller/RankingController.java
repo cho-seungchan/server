@@ -5,23 +5,22 @@ import com.app.pickcourse.domain.dto.MemberDTO;
 import com.app.pickcourse.domain.dto.RankingContainerDTO;
 import com.app.pickcourse.service.RankingService;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.ui.Model;
 
-import java.util.HashMap;
-import java.util.Map;
 
 @Controller
 @RequestMapping("/ranking")
 @RequiredArgsConstructor
 @Slf4j
 public class RankingController {
+    private final HttpSession session;
+    private final HttpServletRequest request;
     private final RankingService rankingService;
 
     // 주간, 월간, 년간 랭킹  25.03.22  조승찬
@@ -47,7 +46,10 @@ public class RankingController {
     public void postWish(@SessionAttribute(name = "member", required = false) MemberDTO member,
                                    @RequestParam Long planId){
 
-
+//        if (member == null) {
+//            session.setAttribute("redirectAfterLogin", request.getRequestURI());
+//            return "redirect:/login/login";
+//        }
         Long memberId = member.getId();
         rankingService.postWish(planId, memberId);
     };
