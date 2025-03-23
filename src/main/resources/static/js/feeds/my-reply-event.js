@@ -1,4 +1,4 @@
-
+// 25.02 조승찬
 
 // 동적 생성때문에 최상위 요소로 위임하도록 모든 이벤트들 수정  25.03.16 조승찬
 document.addEventListener("DOMContentLoaded", function () {
@@ -99,7 +99,6 @@ document.addEventListener("DOMContentLoaded", function () {
             e.preventDefault(); // 기본 이벤트 막기
 
             const feedId = e.target.closest(".lcexfU").querySelector(".feedIdDiv").textContent.trim();
-            console.log(" 피드 내용 보기 클릭 " + feedId);
             fetchFeedDetail(feedId);
         }
 

@@ -9,6 +9,13 @@ document.querySelectorAll(".dXNbSn").forEach((button) => {
         const img = this.querySelector("img");
         console.log(img);
         if (img) {
+            if(!document.querySelector("#header-placeholder .jfHerU")){
+                const result = confirm("로그인 하시겠습니까 ?");
+                if (result){
+                    window.location.href="/login/login";
+                }
+                return;
+            }
             // 찜 설정에 필요한 여행 계획(모집) 아이디 가져오기
             const planId = parseInt(this.closest(".lQqkn").querySelector(".planId-container").textContent.trim(), 10);
 

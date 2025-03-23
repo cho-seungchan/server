@@ -28,6 +28,20 @@
         <title>Pick+Course BEST🔥-주간, 월간, 연간, 베스트 추천 코스!</title>
     </head>
     <body class="fontLoaded">
+
+        <!-- Header will be dynamically inserted here -->
+        <div id="header-placeholder"></div>
+        <script>
+            // Load header.html and insert it in#header-placeholder
+            fetch("/all/header.html")
+                .then((response) => response.text())
+                .then((data) => {
+                    document.getElementById("header-placeholder").innerHTML = data;
+                })
+                .catch((error) => console.error("Error loading header:", error));
+        </script>
+
+
         <div id="app">
             <div class="App__AppWrapper-nc5ti6-0 idXWQn">
 
