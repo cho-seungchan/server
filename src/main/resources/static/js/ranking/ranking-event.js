@@ -8,7 +8,7 @@ document.querySelectorAll(".dXNbSn").forEach((button) => {
 
         const img = this.querySelector("img");
         if (img) {
-            if(!document.querySelector("#header-placeholder").querySelector(".jfHerU")) {
+            if(!document.querySelector("#main-header").querySelector(".jfHerU")) {
                 const result = confirm("로그인 하시겠습니까 ?");
                 if (result){
                     window.location.href="/login/login";

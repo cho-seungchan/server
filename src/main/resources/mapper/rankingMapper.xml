@@ -25,12 +25,8 @@
             m.MEMBER_NICKNAME AS memberNickname,
             m.MEMBER_FILE_PATH AS memberFilePath,
             m.MEMBER_FILE_NAME AS memberFileName,
-            COUNT(DISTINCT pa.ID) AS participants,
+            COUNT(DISTINCT pa.ID) AS increaseParticipants,
             COUNT(DISTINCT rf.ID) AS realFeeds,
-            CASE
-                WHEN p.PLAN_MAX_PERSONNEL = 0 THEN NULL
-                ELSE COUNT(DISTINCT pa.ID) / p.PLAN_MAX_PERSONNEL
-            END AS participationRate,
             TO_CHAR(p.CREATED_DATE, 'YYYY-MM-DD') AS createdDate,
             TO_CHAR(p.UPDATED_DATE, 'YYYY-MM-DD') AS updatedDate
             FROM
@@ -38,7 +34,7 @@
             LEFT JOIN TBL_MEMBER m ON p.MEMBER_ID = m.ID
             LEFT JOIN TBL_PARTICIPANT pa ON pa.PLAN_ID = p.ID
             LEFT JOIN TBL_REAL_FEED rf ON rf.PLAN_ID = p.ID
-            WHERE p.PLAN_START_DATE BETWEEN ADD_MONTHS(SYSDATE, -12) AND SYSDATE
+            WHERE pa.CREATED_DATE BETWEEN ADD_MONTHS(SYSDATE, -12) AND SYSDATE
             GROUP BY
             p.ID, p.PLAN_NAME, p.PLAN_START_DATE, p.PLAN_END_DATE, p.PLAN_DEADLINE,
             p.PLAN_MAX_PERSONNEL, p.PLAN_MIN_PERSONNEL, p.PLAN_PRICE,
@@ -46,8 +42,7 @@
             p.PLAN_FILE_SIZE, p.PLAN_FILE_NAME, p.COURSE_ID, p.MEMBER_ID,
             m.MEMBER_NICKNAME, m.MEMBER_FILE_PATH, m.MEMBER_FILE_NAME,
             p.CREATED_DATE, p.UPDATED_DATE
-            ORDER BY
-            COUNT(DISTINCT pa.ID) / p.PLAN_MAX_PERSONNEL DESC
+            ORDER BY increaseParticipants DESC
             )
         WHERE ROWNUM <= 4
         ]]>
@@ -76,12 +71,8 @@
                      m.MEMBER_NICKNAME AS memberNickname,
                      m.MEMBER_FILE_PATH AS memberFilePath,
                      m.MEMBER_FILE_NAME AS memberFileName,
-                     COUNT(DISTINCT pa.ID) AS participants,
+                     COUNT(DISTINCT pa.ID) AS increaseParticipants,
                      COUNT(DISTINCT rf.ID) AS realFeeds,
-                     CASE
-                        WHEN p.PLAN_MAX_PERSONNEL = 0 THEN NULL
-                        ELSE COUNT(DISTINCT pa.ID) / p.PLAN_MAX_PERSONNEL
-                     END AS participationRate,
                      TO_CHAR(p.CREATED_DATE, 'YYYY-MM-DD') AS createdDate,
                      TO_CHAR(p.UPDATED_DATE, 'YYYY-MM-DD') AS updatedDate
                  FROM
@@ -89,7 +80,7 @@
                          LEFT JOIN TBL_MEMBER m ON p.MEMBER_ID = m.ID
                          LEFT JOIN TBL_PARTICIPANT pa ON pa.PLAN_ID = p.ID
                          LEFT JOIN TBL_REAL_FEED rf ON rf.PLAN_ID = p.ID
-                 WHERE p.PLAN_START_DATE BETWEEN ADD_MONTHS(SYSDATE, -1) AND SYSDATE
+                 WHERE pa.CREATED_DATE BETWEEN ADD_MONTHS(SYSDATE, -1) AND SYSDATE
                  GROUP BY
                      p.ID, p.PLAN_NAME, p.PLAN_START_DATE, p.PLAN_END_DATE, p.PLAN_DEADLINE,
                      p.PLAN_MAX_PERSONNEL, p.PLAN_MIN_PERSONNEL, p.PLAN_PRICE,
@@ -97,8 +88,7 @@
                      p.PLAN_FILE_SIZE, p.PLAN_FILE_NAME, p.COURSE_ID, p.MEMBER_ID,
                      m.MEMBER_NICKNAME, m.MEMBER_FILE_PATH, m.MEMBER_FILE_NAME,
                      p.CREATED_DATE, p.UPDATED_DATE
-                 ORDER BY
-                     COUNT(DISTINCT pa.ID) / p.PLAN_MAX_PERSONNEL DESC
+                 ORDER BY increaseParticipants DESC
              )
         WHERE ROWNUM <= 4
         ]]>
@@ -127,12 +117,8 @@
                      m.MEMBER_NICKNAME AS memberNickname,
                      m.MEMBER_FILE_PATH AS memberFilePath,
                      m.MEMBER_FILE_NAME AS memberFileName,
-                     COUNT(DISTINCT pa.ID) AS participants,
+                     COUNT(DISTINCT pa.ID) AS increaseParticipants,
                      COUNT(DISTINCT rf.ID) AS realFeeds,
-                     CASE
-                        WHEN p.PLAN_MAX_PERSONNEL = 0 THEN NULL
-                        ELSE COUNT(DISTINCT pa.ID) / p.PLAN_MAX_PERSONNEL
-                     END AS participationRate,
                      TO_CHAR(p.CREATED_DATE, 'YYYY-MM-DD') AS createdDate,
                      TO_CHAR(p.UPDATED_DATE, 'YYYY-MM-DD') AS updatedDate
                  FROM
@@ -140,7 +126,7 @@
                          LEFT JOIN TBL_MEMBER m ON p.MEMBER_ID = m.ID
                          LEFT JOIN TBL_PARTICIPANT pa ON pa.PLAN_ID = p.ID
                          LEFT JOIN TBL_REAL_FEED rf ON rf.PLAN_ID = p.ID
-                 WHERE p.PLAN_START_DATE BETWEEN SYSDATE - 7 AND SYSDATE
+                 WHERE pa.CREATED_DATE BETWEEN SYSDATE - 7 AND SYSDATE
                  GROUP BY
                      p.ID, p.PLAN_NAME, p.PLAN_START_DATE, p.PLAN_END_DATE, p.PLAN_DEADLINE,
                      p.PLAN_MAX_PERSONNEL, p.PLAN_MIN_PERSONNEL, p.PLAN_PRICE,
@@ -149,7 +135,7 @@
                      m.MEMBER_NICKNAME, m.MEMBER_FILE_PATH, m.MEMBER_FILE_NAME,
                      p.CREATED_DATE, p.UPDATED_DATE
                  ORDER BY
-                     COUNT(DISTINCT pa.ID) / p.PLAN_MAX_PERSONNEL DESC
+                     increaseParticipants DESC
              )
         WHERE ROWNUM <= 4
         ]]>
@@ -161,15 +147,21 @@
                     CASE
                         WHEN EXISTS (
                             SELECT 1
-                            FROM HR.TBL_WISH
-                            WHERE PLAN_ID = #{planId}
-                              AND   MEMBER_ID = #{memberId}
+                            FROM   TBL_WISH
+                            WHERE  PLAN_ID = #{planId}
+                              AND  MEMBER_ID = #{memberId}
                         ) THEN 'Y'
                         ELSE 'N'
                     END
             )
             AS isWish
         FROM DUAL
+    </select>
+
+    <select id="getTotalParticipants" resultType="_int">
+        SELECT COUNT(*)
+        FROM   TBL_PARTICIPANT
+        WHERE  PLAN_ID = #{planId}
     </select>
 
     <insert id="postWish">

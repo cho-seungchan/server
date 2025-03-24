@@ -30,6 +30,22 @@ public class RankingService {
         rankings.setMonthRanking(rankingDAO.getRankingMonth());
         rankings.setYearRanking(rankingDAO.getRankingYear());
 
+        if (rankings.getWeekRanking() != null && !rankings.getWeekRanking().isEmpty()) { // 총 참여자 수 가져오기
+            rankings.getWeekRanking().forEach( rankingDTO -> {
+                rankingDTO.setParticipants(rankingDAO.getTotalParticipants(rankingDTO.getId()));
+            });
+        }
+        if (rankings.getMonthRanking() != null && !rankings.getMonthRanking().isEmpty()) { // 총 참여자 수 가져오기
+            rankings.getMonthRanking().forEach( rankingDTO -> {
+                rankingDTO.setParticipants(rankingDAO.getTotalParticipants(rankingDTO.getId()));
+            });
+        }
+        if (rankings.getYearRanking() != null && !rankings.getYearRanking().isEmpty()) { // 총 참여자 수 가져오기
+            rankings.getYearRanking().forEach( rankingDTO -> {
+                rankingDTO.setParticipants(rankingDAO.getTotalParticipants(rankingDTO.getId()));
+            });
+        }
+
         if (memberId != null) { // 로그인 했을 경우 찜 여부 가져오기
             rankings.getWeekRanking().forEach(rw -> {
                rw.setIsWish(rankingDAO.getIsWish(rw.getId(), memberId));

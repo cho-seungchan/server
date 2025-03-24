@@ -36,4 +36,7 @@ public class RankingDAO {
         rankingMapper.deleteWish(planId, memberId);
     }
 
+    public int getTotalParticipants(Long planId) {
+        return rankingMapper.getTotalParticipants(planId);
+    };
 }

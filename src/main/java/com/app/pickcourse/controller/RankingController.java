@@ -46,10 +46,6 @@ public class RankingController {
     public void postWish(@SessionAttribute(name = "member", required = false) MemberDTO member,
                                    @RequestParam Long planId){
 
-//        if (member == null) {
-//            session.setAttribute("redirectAfterLogin", request.getRequestURI());
-//            return "redirect:/login/login";
-//        }
         Long memberId = member.getId();
         rankingService.postWish(planId, memberId);
     };

@@ -23,4 +23,6 @@ public interface RankingMapper {
     // 찜 해제
     void deleteWish(@Param("planId") Long planId, @Param("memberId") Long memberId);
 
+    // 전체 참여자 수 가져오기
+    int getTotalParticipants(Long planId);
 }
