@@ -40,6 +40,8 @@ public class MyPageController {
     private final HttpServletResponse response;
     private final FileService fileService;
     private final HttpServletRequest request;
+    private final MyFeedService myFeedService;
+    private final MyReplyService myReplyService;
 
     @GetMapping("changePassword")
     public String getChangePassword(){
@@ -353,11 +355,69 @@ public class MyPageController {
         return file;
     }
 
+    @GetMapping("/normalCourseParticipationCount")
+    public ResponseEntity<Integer> getNormalCourseParticipationCount(@SessionAttribute(name = "member") MemberDTO member) {
+        Long memberId = member.getId();
+        int count = participantService.getNormalCourseParticipationCount(memberId);
+        return ResponseEntity.ok(count);
+    }
 
     @GetMapping("/volunteerCourseParticipationCount")
-    public ResponseEntity<Integer> getVolunteerCourseParticipationCount(@RequestParam Long memberId) {
+    public ResponseEntity<Integer> getVolunteerCourseParticipationCount(@SessionAttribute(name = "member") MemberDTO member) {
+        Long memberId = member.getId();
         int count = participantService.getVolunteerCourseParticipationCount(memberId);
         return ResponseEntity.ok(count);
+    }
+
+    @GetMapping("/myFeedCount")
+    public ResponseEntity<Integer> getMyFeedCount(@SessionAttribute(name = "member") MemberDTO member) {
+        Long memberId = member.getId();
+        int count = myFeedService.getMyFeedCount(memberId);
+        return ResponseEntity.ok(count);
+    }
+
+    @GetMapping("/myReplyCount")
+    public ResponseEntity<Integer> getMyReplyCount(@SessionAttribute(name = "member") MemberDTO member) {
+        Long memberId = member.getId();
+        int count = myReplyService.getMyReplyCount(memberId);
+        return ResponseEntity.ok(count);
+    }
+
+    @GetMapping("/myReviewCount")
+    public ResponseEntity<Integer> getMyReviewCount(@SessionAttribute(name = "member") MemberDTO member) {
+        Long memberId = member.getId();
+        int count = myFeedService.getMyReviewCount(memberId);
+        return ResponseEntity.ok(count);
+    }
+
+
+    @GetMapping("/recentCourse")
+    public ResponseEntity<RecentCourseDTO> getRecentCourse(@SessionAttribute(name = "member", required = false) MemberDTO member) {
+        if (member == null || member.getId() == null) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        RecentCourseDTO recentCourse = participantService.getRecentCourse(member.getId());
+        return ResponseEntity.ok(recentCourse);
+    }
+
+    @GetMapping("/my-courses")
+    @ResponseBody
+    public ResponseEntity<List<RecentCourseDTO>> getMyCourses(@SessionAttribute(name = "member", required = false) MemberDTO member) {
+        if (member == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build(); // 또는 .badRequest().build();
+        }
+
+        List<RecentCourseDTO> myCourses = participantService.getMyCourses(member.getId());
+        return ResponseEntity.ok(myCourses);
+    }
+
+
+    @GetMapping("/recentFeeds")
+    @ResponseBody
+    public ResponseEntity<List<Map<String, Object>>> getRecentFeeds(@RequestParam Long memberId) {
+        List<Map<String, Object>> recentFeeds = myFeedService.getRecentFeeds(memberId);
+        return ResponseEntity.ok(recentFeeds);
     }
 
 

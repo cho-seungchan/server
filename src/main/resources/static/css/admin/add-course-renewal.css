@@ -1370,7 +1370,45 @@ h2 {
     left: 5%;
 }
 
+/*25.03.21 조승찬 추가 시작*/
+/* 파일 업로드 아이템 스타일 */
 
+.uploadFile {
+    position: relative;
+    display: inline-block;
+    width: 1300px; /* 박스 너비 */
+    height: 350px; /* 박스 높이 */
+    margin: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.uploadFile .image-files {
+    width: 100%; /* 이미지 박스에 맞추기 */
+    height: 100%;
+    object-fit: cover; /* 이미지 비율 유지 */
+    vertical-align: middle;
+}
+
+.file-cancel {
+    position: absolute;
+    top: 5px; /* 박스의 위쪽에서 5px */
+    right: 5px; /* 박스의 오른쪽에서 5px */
+    width: 20px; /* 버튼 크기를 작게 설정 */
+    height: 20px;
+    cursor: pointer;
+    z-index: 10;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 50%; /* 둥근 버튼 */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    display: flex; /* 버튼 안의 콘텐츠를 정렬하기 위함 */
+    justify-content: center;
+    align-items: center;
+}
+/*25.03.21 조승찬 추가 끝*/
 
 
 

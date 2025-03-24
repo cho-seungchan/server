@@ -46,6 +46,8 @@
             TO_CHAR(f.UPDATED_DATE, 'YYYY-MM-DD') AS updatedDate,
             m.ID AS memberId,
             m.MEMBER_NICKNAME AS memberNickname,
+            m.MEMBER_FILE_PATH,
+            m.MEMBER_FILE_NAME,
             rf.PLAN_ID AS planId
         FROM
             TBL_FEED f
@@ -73,6 +75,8 @@
             TO_CHAR(f.UPDATED_DATE, 'YYYY-MM-DD') AS updatedDate,
             m.ID AS memberId,
             m.MEMBER_NICKNAME AS memberNickname,
+            m.MEMBER_FILE_PATH,
+            m.MEMBER_FILE_NAME,
             rf.PLAN_ID AS planId
         FROM
             TBL_FEED f

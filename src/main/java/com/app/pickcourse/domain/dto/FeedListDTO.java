@@ -22,6 +22,8 @@ public class FeedListDTO {
     private String updatedDate;
     private Long   memberId;
     private String memberNickname;
+    private String memberFilePath;
+    private String memberFileName;
     private Long   planId;
     private List<FileVO> files;
     private List<String> tags;

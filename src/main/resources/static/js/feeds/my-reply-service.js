@@ -32,6 +32,22 @@ function deleteReplyList(id, feedId) {
         });
 }
 
+// 25.03.22 조승찬 시작
+// 댓글 달린 피드 내용 불러오기
+function fetchFeedDetail(id){
+    return fetch(`/admin/report-detail/${id}?source=FEED`)
+        .then(response => response.json())
+        .then(data => {
+            feedModel(data.reply)
+        })
+        .catch(error => {
+            console.error("feed 상세 데이타를 가져오는 중 오류", error);
+            throw error;
+        });
+};
+// 25.03.22 조승찬 끝
+
+
 // 댓글 신고 ==> 사용 안함
 function reportReplyList(sendData) {
     return fetch(`/feeds/reply-list/report`, {

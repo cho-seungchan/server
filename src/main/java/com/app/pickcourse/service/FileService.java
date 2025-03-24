@@ -40,7 +40,7 @@ public class FileService {
             if(file.getContentType().startsWith("image")){
                 fileName = "t_" + uuid.toString() + "_" + file.getOriginalFilename();
                 FileOutputStream out = new FileOutputStream(new File(rootPath, fileName));
-                Thumbnailator.createThumbnail(file.getInputStream(), out, 100, 100);
+                Thumbnailator.createThumbnail(file.getInputStream(), out, 1300,350);
                 out.close();
 
                 FileVO fileVO = new FileVO();  // 객체 생성

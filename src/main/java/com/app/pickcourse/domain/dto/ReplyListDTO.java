@@ -16,5 +16,7 @@ public class ReplyListDTO {
     private Long   feedId;
     private Long   memberId;
     private String memberNickname;
+    private String memberFilePath;
+    private String memberFileName;
     private String replyAction;  //  신고, 삭제, 등록
 }

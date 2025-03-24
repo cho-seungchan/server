@@ -64,7 +64,7 @@ thirdDate.addEventListener("change", () => {
 });
 
 // 케밥버튼을 눌러서 시작일 부터 종료일까지 상세 일정 입력
-const kebabmenu = document.querySelector(".FvtMb");
+const kebabmenu = document.querySelector(".FvtMb.add-course");
 const numberOfPerson = document.querySelector(".NumberOfPerson");
 const detailOfDateContainer = document.createElement("div");
 detailOfDateContainer.className = "DetailOfDateContainer";
