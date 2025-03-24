@@ -54,12 +54,12 @@
                                     </button>
                                 </div>
                                 <div class="NumberOfPerson">
-                                    <input placeholder="모집 인원" th:field="*{planMaxPersonnel}"
-                                    class="SocialRecruiteTagsContainer__SocialRecruiteTagsInput-sc-2762su-1 gcqwwh max"
-                                    value=> <input placeholder="최소 출발 인원" th:field="*{planMinPersonnel}"
-                                    class="SocialRecruiteTagsContainer__SocialRecruiteTagsInput-sc-2762su-1 gcqwwh min"
+                                    <input placeholder="모집 인원" th:field="*{planMaxPersonnel}" th:value="${planMaxPersonnel == 0 ? '' : planMaxPersonnel}"
+                                           class="SocialRecruiteTagsContainer__SocialRecruiteTagsInput-sc-2762su-1 gcqwwh max"
+                                    value=> <input placeholder="최소 출발 인원" th:field="*{planMinPersonnel}" th:value="${planMinPersonnel == 0 ? '' : planMinPersonnel}"
+                                                   class="SocialRecruiteTagsContainer__SocialRecruiteTagsInput-sc-2762su-1 gcqwwh min"
                                     value=><input
-                                        placeholder="비용" th:field="*{planPrice}"
+                                        placeholder="비용" th:field="*{planPrice}" th:value="${planPrice == 0 ? '' : planPrice}"
                                         class="SocialRecruiteTagsContainer__SocialRecruiteTagsInput-sc-2762su-1 gcqwwh cost"
                                         value=
                                     />

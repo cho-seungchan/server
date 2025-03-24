@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -216,6 +217,13 @@ public class FeedsController {
 
         feedsService.postFeedModify(feedDTO);
 
+        // feed-list, my/feed-list 두 군데로 호출되므로 호출된 곳으로 다시 돌아가기 위해서 받아온 url로 분기
+        String redirectUrl = (String) session.getAttribute("redirectAfterLogin");
+        if (redirectUrl != null) {
+            session.removeAttribute("redirectAfterLogin");
+            return "redirect:" + redirectUrl;
+        }
+
         String listType = feedDTO.getFeedType().equals("TOGETHER") ? "TOGETHER" : "ALL";
         return "redirect:/feeds/my/feed-list?listType=" + listType;
     }
@@ -230,6 +238,13 @@ public class FeedsController {
         }
 
         feedsService.deleteFeedModify(id, feedType);
+
+        // feed-list, my/feed-list 두 군데로 호출되므로 호출된 곳으로 다시 돌아가기 위해서 받아온 url로 분기
+        String redirectUrl = (String) session.getAttribute("redirectAfterLogin");
+        if (redirectUrl != null) {
+            session.removeAttribute("redirectAfterLogin");
+            return "redirect:" + redirectUrl;
+        }
 
         String listType = feedType.equals("TOGETHER") ? "TOGETHER" : "ALL";
         return "redirect:/feeds/my/feed-list?listType=" + listType;
@@ -292,6 +307,13 @@ public class FeedsController {
 
         feedsService.postRealModify(realDTO);
 
+        // feed-list, my/feed-list 두 군데로 호출되므로 호출된 곳으로 다시 돌아가기 위해서 받아온 url로 분기
+        String redirectUrl = (String) session.getAttribute("redirectAfterLogin");
+        if (redirectUrl != null) {
+            session.removeAttribute("redirectAfterLogin");
+            return "redirect:" + redirectUrl;
+        }
+
         return "redirect:/feeds/my/feed-list?listType=REAL";
     }
 
@@ -305,6 +327,13 @@ public class FeedsController {
         }
 
         feedsService.deleteRealModify(id);
+
+        // feed-list, my/feed-list 두 군데로 호출되므로 호출된 곳으로 다시 돌아가기 위해서 받아온 url로 분기
+        String redirectUrl = (String) session.getAttribute("redirectAfterLogin");
+        if (redirectUrl != null) {
+            session.removeAttribute("redirectAfterLogin");
+            return "redirect:" + redirectUrl;
+        }
 
         return "redirect:/feeds/my/feed-list?listType=REAL";
     }
@@ -321,11 +350,23 @@ public class FeedsController {
 
     // 피드 리스트  25.03.20 조승찬
     @GetMapping("/feed-list")
-    public String getFeedList(@RequestParam("listType") String listType, Model model) {
+    public String getFeedList(@SessionAttribute(name = "member", required = false) MemberDTO member,
+                              @RequestParam("listType") String listType, Model model) {
+
+        Long memberId = null;
+        if (member != null) {
+            memberId = member.getId();
+        }
+
+        // 로그인 안하고 케밥버튼 눌렀을 때 로그인하고 돌아올, 수정/삭제 후 my/feed-list로 가지않고 돌아올, 현재 url path 보관.
+        String redirectURI = request.getRequestURI() + "?listType=" + listType;
+        session.setAttribute("redirectAfterLogin", redirectURI);
 
         List<FeedListDTO> feedListDTO = feedsService.getFeedList(listType);
+        feedListDTO.forEach(System.out::println);
         model.addAttribute("feedListDTO", feedListDTO);
         model.addAttribute("listType", listType);
+        model.addAttribute("loginId", memberId);  // 케밥버튼 클릭시 로그인회원과 작성자가 같은지 확인해서 모달창을 띄움
         return "/feeds/feed-list";
     }
 
@@ -333,8 +374,12 @@ public class FeedsController {
     @GetMapping("/my/feed-list")
     public String getFeedModifyList(@SessionAttribute(name = "member", required = false) MemberDTO member,
                                     @RequestParam("listType") String listType, Model model) {
+
+        // 로그인 후, 수정/삭제 후 feed-list로 가지않고 돌아올, 현재 url path 보관.
+        String redirectURI = request.getRequestURI() + "?listType=" + listType;
+        session.setAttribute("redirectAfterLogin", redirectURI);
+
         if (member == null) {
-            session.setAttribute("redirectAfterLogin", request.getRequestURI());
             return "redirect:/login/login";
         }
 
