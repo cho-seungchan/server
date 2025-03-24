@@ -179,9 +179,16 @@ public class AdminController {
 
     // 신규 코스 작성  25.03.07 조승찬
     @PostMapping("/add-course")
-    public String postAddCourse(CourseDTO courseDTO, Model model) {
-        log.info(courseDTO.toString());
+    public String postAddCourse(@SessionAttribute(name = "admin", required = false) AdminVO admin,
+                                CourseDTO courseDTO, Model model) {
+
+        if (admin == null) {
+            return "redirect:adminLogin";
+        }
+
+        courseDTO.setAdminId(admin.getId());
         adminService.postAddCourse(courseDTO);
+
         return "redirect:/admin/add-course";
     }
 
@@ -190,10 +197,6 @@ public class AdminController {
     @ResponseBody
     public ResponseEntity<Map<String, Object>> getCourseList(@SessionAttribute(name = "admin", required = false) AdminVO admin,
                                                              Pagination pagination, Search search) {
-
-        if (admin == null) {
-            return ResponseEntity.badRequest().build();
-        }
 
         List<CourseListDTO> list = adminService.getCourseList(pagination,search);
         list.forEach(System.out::println);
@@ -208,7 +211,9 @@ public class AdminController {
     // 추천코스 목록에서 A ~ D 코스 혹은 봉사 코스로 등록 25.03.09 조승찬
     @PutMapping("/course-list")
     @ResponseBody
-    public ResponseEntity<String> patchCourseList(@RequestBody Map<String, String> reqData) {
+    public ResponseEntity<String> patchCourseList(@SessionAttribute(name = "admin", required = false) AdminVO admin,
+                                                  @RequestBody Map<String, String> reqData) {
+
         // 받은 데이터 확인 (디버깅용)
         System.out.println("Course Request: " + reqData.get("courseId")+" "+reqData.get("courseType"));
 
@@ -220,7 +225,9 @@ public class AdminController {
     // 추천 코스 조회   25.03.10 조승찬
     @GetMapping("/course-detail/{id}")
     @ResponseBody
-    public ResponseEntity<Map<String, Object>> getCourseDetail(@PathVariable("id") Long id) {
+    public ResponseEntity<Map<String, Object>> getCourseDetail(@SessionAttribute(name = "admin", required = false) AdminVO admin,
+                                                               @PathVariable("id") Long id) {
+
         CourseDTO courseDTO = adminService.getCourseDetail(id);
         System.out.println(courseDTO.toString());
         Map<String,Object> response = new HashMap<String, Object>();
@@ -231,7 +238,8 @@ public class AdminController {
     // 타입별 추천 코스 조회  25.03.12 조승찬
     @GetMapping("/course-type-detail/{courseType}")
     @ResponseBody
-    public ResponseEntity<Map<String, Object>> getCourseTypeDetail(@PathVariable("courseType") String courseType) {
+    public ResponseEntity<Map<String, Object>> getCourseTypeDetail(@SessionAttribute(name = "admin", required = false) AdminVO admin,
+                                                                   @PathVariable("courseType") String courseType) {
         CourseDTO courseDTO = adminService.getCourseTypeDetail(courseType);
         System.out.println(courseDTO.toString());
         Map<String,Object> response = new HashMap<String, Object>();
@@ -242,7 +250,8 @@ public class AdminController {
     // 추천 코스 수정  25.03.13 조승찬
     @PutMapping("/course-detail")
     @ResponseBody
-    public void putCourseDetail(@RequestBody CourseDTO courseDTO) {
+    public void putCourseDetail(@SessionAttribute(name = "admin", required = false) AdminVO admin,
+                                @RequestBody CourseDTO courseDTO) {
 //        log.info("putCourseDetail"+courseDTO.toString());
         adminService.putCourseDetail(courseDTO);
     }
@@ -250,7 +259,8 @@ public class AdminController {
     // 추천 코스 삭제  25.03.13 조승찬
     @DeleteMapping("/course-detail/{id}")
     @ResponseBody
-    public void deleteCourseDetail(@PathVariable Long id){
+    public void deleteCourseDetail(@SessionAttribute(name = "admin", required = false) AdminVO admin,
+                                   @PathVariable Long id){
         log.info("deleteCourseDetail  "+id);
         adminService.deleteCourseDetail(id);
     }
@@ -258,7 +268,8 @@ public class AdminController {
     // 신고 관리 :: 피드 신고, 댓글 신고 25.03.14 조승찬
     @GetMapping("/report-list")
     @ResponseBody
-    public ResponseEntity<Map<String, Object>> getReportList(Pagination pagination, Search search) {
+    public ResponseEntity<Map<String, Object>> getReportList(@SessionAttribute(name = "admin", required = false) AdminVO admin,
+                                                             Pagination pagination, Search search) {
         List<ReportListDTO> list = adminService.getReportList(pagination, search);
 
         Map<String, Object> response = new HashMap<>();
@@ -275,7 +286,8 @@ public class AdminController {
     // 신고된 대상 상세 조회 25.03.14 조승찬
     @GetMapping("/report-detail/{id}")
     @ResponseBody
-    public ResponseEntity<Map<String, Object>> getReportDetail(@PathVariable Long id,
+    public ResponseEntity<Map<String, Object>> getReportDetail(@SessionAttribute(name = "admin", required = false) AdminVO admin,
+                                                               @PathVariable Long id,
                                                                @RequestParam String source) {
         ReplyDetailDTO reply = adminService.getReportDetail(id, source);
 
@@ -290,7 +302,8 @@ public class AdminController {
     // 공지 사항 목록  2025.03.15 조승찬
     @GetMapping("/notice-list")
     @ResponseBody
-    public ResponseEntity<Map<String, Object>> getNoticeList(Pagination pagination, Search search) {
+    public ResponseEntity<Map<String, Object>> getNoticeList(@SessionAttribute(name = "admin", required = false) AdminVO admin,
+                                                             Pagination pagination, Search search) {
 
         log.info(" getNoticeList 들어옴 ");
 
@@ -309,7 +322,8 @@ public class AdminController {
     // 공지사항 상세 조회  25.03.15 조승찬
     @GetMapping("/notice-detail/{id}")
     @ResponseBody
-    public ResponseEntity<Map<String, Object>> getNoticeDetail(@PathVariable Long id) {
+    public ResponseEntity<Map<String, Object>> getNoticeDetail(@SessionAttribute(name = "admin", required = false) AdminVO admin,
+                                                               @PathVariable Long id) {
 
         NoticeVO notice = adminService.getNoticeDetail(id);
 
@@ -321,9 +335,10 @@ public class AdminController {
     // 공지사항 등록  25.03.15 조승찬
     @PostMapping("/notice-detail")
     @ResponseBody
-    public void postNoticeDetail(@RequestBody NoticeVO notice) {
-        log.info("postNoticeDetail  "+notice.toString());
+    public void postNoticeDetail(@SessionAttribute(name = "admin", required = false) AdminVO admin,
+                                 @RequestBody NoticeVO notice) {
 
+        notice.setAdminId(admin.getId());
         adminService.postNoticeDetail(notice);
     }
 

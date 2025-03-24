@@ -9,14 +9,8 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class ReplyListDTO {
+public class MemberFileDTO {
     private Long id;
-    private String replyContent;
-    private String createdDate;
-    private Long   feedId;
-    private Long   memberId;
-    private String memberNickname;
     private String memberFilePath;
     private String memberFileName;
-    private String replyAction;  //  신고, 삭제, 등록
 }

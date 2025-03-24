@@ -1,6 +1,6 @@
+// 25.02 조승찬
 
-
-// 동적 생성때문에 최상위 요소로 위임하도록 모든 이벤트들 수정   25.03.16 조승찬
+// 동적 생성때문에 최상위 요소로 위임하도록 모든 이벤트들 수정  25.03.16 조승찬
 document.addEventListener("DOMContentLoaded", function () {
 
     // input 창에 글자를 넣으면 등록 버튼 활성화
@@ -90,8 +90,25 @@ document.addEventListener("DOMContentLoaded", function () {
             }
             replyReplyList(sendData);   // 댓글 등록하고 처음부터 조회해서 등록 확인
         }
-
         // 25.03.17 조승찬 끝.
+
+        // 25.03.22 조승찬 시작
+        // 댓글 내용 클릭시, 어떤 피드에 달린 댓글인지 보여주기
+        if (e.target.classList.contains("cDlmAG")){
+
+            e.preventDefault(); // 기본 이벤트 막기
+
+            const feedId = e.target.closest(".lcexfU").querySelector(".feedIdDiv").textContent.trim();
+            fetchFeedDetail(feedId);
+        }
+
+        // 모달창 x 버튼 클릭시 모달 삭제
+        if (e.target.className == "closeReportModal") {
+            // e.target.classList.remove("clicked");
+            document.querySelector(".admin-modal-body").innerHTML = ``;
+            document.querySelector(".admin-modal-body").style.display = "none";
+        }
+        // 25.03.22 조승찬 끝
     })
 
 });

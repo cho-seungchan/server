@@ -23,6 +23,7 @@ function addReplyListAndPage(replys, pagination) {
             </div>
             <div class="CurrentIndex__Container-lgen36-2 lcexfU">
                 <div class="replyIdDiv" style="display: none;" >${reply.id}</div>
+                <div class="feedIdDiv" style="display: none;" >${reply.feedId}</div>  // 댓글 작성한 피드를 보기 위한 아이디
                 <div class="CurrentIndex__Name-lgen36-3 bRPQMl" >${reply.memberNickname}</div>
                 <p class="CurrentIndex__Contents-lgen36-4 cDlmAG" >${reply.replyContent}</p>
                 <section class="ActionMenu__Section-s8lvsh-0 gzpaSl">
@@ -74,8 +75,31 @@ function addReplyListAndPage(replys, pagination) {
     }
 }
 
+// 25.03.22 조승찬 추가
+// 피드 상세 내용을 모달창에 조회
+function feedModel(feed) {
 
-// 신고 클릭시 모달창에서 신고 내용 입력
+    document.querySelector(".admin-modal-body").innerHTML = `
+        <div class="report-modal">
+            <div class="modal-header">
+                <span> 댓글을 단 피드 </span>
+                <span class="closeReportModal">&times;</span>
+            </div>
+            <div class="title">
+                <div class="reportModal-sourceDiv">구    분 ::&nbsp;&nbsp;${feed.source}</div>
+                <div class="reportModal-memberNicknameDiv">작성자 ::&nbsp;&nbsp;${feed.memberNickname}</div>
+                <div class="reportModal-createdDiv">작성일 ::&nbsp;&nbsp;${feed.createdDate}</div>
+                <div class="reportModal-introduce">내    용 ::</div>
+            </div>
+            <div class="reportModal-contentDiv">${feed.content}</div>
+        </div>`;
+    document.querySelector(".admin-modal-body").style.display = "flex";
+
+}
+
+// 25.03.22 조승찬 끝.
+
+// 신고 클릭시 모달창에서 신고 내용 입력 => 사용 안함
 function reportModalCreate(id) {
 
     document.querySelector(".reply-report-modal-body").innerHTML = `
