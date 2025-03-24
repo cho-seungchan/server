@@ -1,25 +1,17 @@
 package com.app.pickcourse.controller;
 
 import com.app.pickcourse.domain.dto.*;
-import com.app.pickcourse.domain.vo.AnswerVO;
-import com.app.pickcourse.domain.vo.MemberVO;
 import com.app.pickcourse.repository.QuestionDAO;
 import com.app.pickcourse.service.*;
 import com.app.pickcourse.util.Pagination;
-import com.app.pickcourse.util.QuestionPagination;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.velocity.runtime.Runtime;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
-
-import java.lang.reflect.Member;
-import java.util.List;
 
 @Controller
 @RequestMapping("/proposal")
