@@ -15,7 +15,6 @@ import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
-@Repository
 public class RealFeedDAO {
     private final RealFeedMapper realFeedMapper;
 
@@ -23,9 +22,6 @@ public class RealFeedDAO {
     public void saveReview(FeedVO feedVO, RealFeedDTO realFeedDTO) {
         realFeedMapper.insertReview(feedVO, realFeedDTO);
         }
-
-    public void postFeedWrite(Long id, Long loginId, Long planId) {
-        realFeedMapper.postFeedWrite(id, loginId, planId);
 
     public void postFeedWrite(Long id, Long memberId, Long planId) {
         realFeedMapper.postFeedWrite(id, memberId, planId);

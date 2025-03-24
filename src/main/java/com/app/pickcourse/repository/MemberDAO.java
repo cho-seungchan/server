@@ -116,4 +116,9 @@ public class MemberDAO {
         memberMapper.updateMemberFile(memberDTO);
     }
 
+//    포인트 변경
+    public void updatePoint (MemberVO memberVO) {
+        memberMapper.updatePoint(memberVO);
+    }
+
 }

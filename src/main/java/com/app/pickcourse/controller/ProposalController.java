@@ -4,9 +4,7 @@ import com.app.pickcourse.domain.dto.*;
 import com.app.pickcourse.domain.vo.AnswerVO;
 import com.app.pickcourse.domain.vo.MemberVO;
 import com.app.pickcourse.repository.QuestionDAO;
-import com.app.pickcourse.service.AnswerService;
-import com.app.pickcourse.service.CourseService;
-import com.app.pickcourse.service.PlanService;
+import com.app.pickcourse.service.*;
 import com.app.pickcourse.util.Pagination;
 import com.app.pickcourse.util.QuestionPagination;
 import jakarta.servlet.http.HttpServletRequest;
@@ -33,6 +31,9 @@ public class ProposalController {
     private final QuestionDAO questionDAO;
     private final AnswerService answerService;
     private final CourseService courseService;
+    private final ParticipantService participantService;
+    private final PayService payService;
+    private final MemberService memberService;
 
     @GetMapping("/eco")
     public String getEco(Model model) {
@@ -90,8 +91,27 @@ public class ProposalController {
         return "/proposal/pay";
     }
 
+    @PostMapping("/addKakaoPay")
+    public void addKakaoPay(@RequestBody PayDTO payDTO) {
+        log.info(payDTO.toString());
+        payService.addPay(payDTO);
+    }
+
+    @PutMapping("/updatePoint")
+    public void update(@RequestBody MemberDTO memberDTO) {
+        log.info(memberDTO.toString());
+        memberService.updatePoint(memberDTO); }
+
+    @PostMapping("/insertParticipant")
+    public void insertParticipant(@RequestBody ParticipantDTO participantDTO) {
+        log.info("memberId = {}", participantDTO.getMemberId());
+        log.info("planId = {}", participantDTO.getPlanId());
+
+        participantService.insertParticipant(participantDTO);
+    }
+
     @GetMapping("/read")
-    public String getRead(Model model, Long id) {
+    public String getRead(Model model, @RequestParam Long id) {
         MemberDTO loginUser = (MemberDTO) session.getAttribute("member");
 
         PlanDetailDTO planDetailDTO = planService.getPlanDetailById(id);
@@ -117,7 +137,6 @@ public class ProposalController {
         MemberDTO loginUser = (MemberDTO) session.getAttribute("member");
 
         CourseSelectDTO course = courseService.findCourseById(51L);
-        log.info(course.toString());
         model.addAttribute("course", course);
         model.addAttribute("loginMember", loginUser);
 
@@ -153,7 +172,6 @@ public class ProposalController {
 
         planDTO.setMemberId(loginMember.getId());
         planService.writePlan(planDTO);
-        log.info("planDTO: {}", planDTO);
 
         return new RedirectView("/proposal/modifylist");
     }
@@ -196,7 +214,6 @@ public class ProposalController {
         planDTO.setMemberId(loginMember.getId());
         redirectAttributes.addFlashAttribute("planId", planDTO.getId());
 
-        log.info("planDTO: {}", planDTO);
 
         planService.updatePlan(planDTO);
 

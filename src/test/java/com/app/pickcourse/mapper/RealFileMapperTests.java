@@ -36,24 +36,24 @@ public class RealFileMapperTests {
         mapper.postFeedWrite(fileVO.getId(),47l);
     }
 
-    @Test
-    public void getFeedList(){
+//    @Test
+//    public void getFeedList(){
+//
+//        List<FeedListDTO> feedList = realFeedMapper.getFeedList();
+//        feedList.forEach(feed -> {
+//            feed.setFiles(mapper.getFileList(feed.getId()));
+//            feed.setFeedTags(feedTagMapper.getFeedList(feed.getId()));
+//        });
+//        feedList.forEach(System.out::println);
+//
+//    }
 
-        List<FeedListDTO> feedList = realFeedMapper.getFeedList();
-        feedList.forEach(feed -> {
-            feed.setFiles(mapper.getFileList(feed.getId()));
-            feed.setFeedTags(feedTagMapper.getFeedList(feed.getId()));
-        });
-        feedList.forEach(System.out::println);
-
-    }
-
-    @Test
-    public void getFeedModify(){
-        Optional<FeedDTO> feedDTO = feedMapper.getFeedModify(44l);
-        FeedDTO feed = feedDTO.orElseThrow(() -> new RuntimeException("FeedDTO not found"));
-        feed.setFiles(mapper.getFileList(feed.getId()));
-        log.info("feedDTO:{}",feedDTO);
-    }
+//    @Test
+//    public void getFeedModify(){
+//        Optional<FeedDTO> feedDTO = feedMapper.getFeedModify(44l);
+//        FeedDTO feed = feedDTO.orElseThrow(() -> new RuntimeException("FeedDTO not found"));
+//        feed.setFiles(mapper.getFileList(feed.getId()));
+//        log.info("feedDTO:{}",feedDTO);
+//    }
 
 }

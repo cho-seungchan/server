@@ -91,7 +91,15 @@ public class MemberMapperTests {
         mapper.delete(23L);
     }
 
+    @Test
+    public void testUpdatePoint() {
+        MemberVO memberVO = new MemberVO();
 
+        memberVO.setId(1L);
+        memberVO.setMemberPoint(20000);
+
+        mapper.updatePoint(memberVO);
+    }
 
 
 }

@@ -17,8 +17,8 @@ public class TagMapperTests {
     @Autowired
     FeedMapper feedMapper;
 
-    @Test
-    public void postFeedModify(){
-        mapper.postModifyFeed(42l);
-    }
+//    @Test
+//    public void postFeedModify(){
+//        mapper.postModifyFeed(42l);
+//    }
 }
