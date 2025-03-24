@@ -1,9 +1,4 @@
 const payButton = document.querySelector(".pay-button");
-
-payButton.addEventListener("click", (e) => {
-    payService.kakaoPay();
-})
-
 // 전액 버튼 누르면 반영되게
 discountWrapper.addEventListener("click", (e)=> {
     if(e.target.classList.contains("cVMMHP")){
@@ -16,3 +11,29 @@ discountWrapper.addEventListener("click", (e)=> {
     }
 })
 // 전액 버튼 누르면 반영되게
+
+payButton.addEventListener("click", async (e) => {
+    let method = "카카오페이";
+    let resultPoint = loginMember.memberPoint - discountAmount;
+    console.log(resultPoint)
+
+    await payService.kakaoPay();
+
+    await payService.addKakaoPay({
+        payPrice: resultPrice.textContent.replace(",", ""),
+        payMethod: method,
+        memberId: loginMember.id,
+        planId: plan.id
+    })
+
+    await payService.updatePoint({
+        memberPoint: resultPoint,
+        id: loginMember.id
+    })
+
+    await payService.insertParticipant({
+        memberId: loginMember.id,
+        planId: plan.id
+    })
+})
+

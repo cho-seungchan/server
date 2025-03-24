@@ -10,15 +10,15 @@ function addTourListAndPage(tours, pagination) {
                     <a class="MagazineListPage__Magazine-hh1ck3-3 hHOLgL" >
                         <div class="Image__Wrapper-v97gyx-0 gDuKGF">
 <!--                            <img class="dynamic-img">-->
-                            <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block" >
-                                <div class="Ratio" style="display: block">
-                                    <div class="Ratio-ratio" style=" height: 0px; position: relative; width: 100%; padding-top: 120%; " >
-                                        <div class="Ratio-content" style=" height: 100%; left: 0px; position: absolute; top: 0px; width: 100%; " >
-<!--                                            <img class="dynamic-img">-->
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+<!--                            <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block" >-->
+<!--                                <div class="Ratio" style="display: block">-->
+<!--                                    <div class="Ratio-ratio" style=" height: 0px; position: relative; width: 100%; padding-top: 120%; " >-->
+<!--                                        <div class="Ratio-content" style=" height: 100%; left: 0px; position: absolute; top: 0px; width: 100%; " >-->
+<!--&lt;!&ndash;                                            <img class="dynamic-img">&ndash;&gt;-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
                         </div>
                         <div>
                             <div class="MagazineListPage__Title-hh1ck3-4 kBOcSr">
@@ -64,7 +64,7 @@ function addTourListAndPage(tours, pagination) {
 
 
         document.querySelector(".tourList-container").appendChild(tourAddLine); // 새로 생성된 리스트 추가
-        tourAddLine.scrollIntoView({ behavior: "smooth", block: "start" });
+        tourAddLine.scrollIntoView({ behavior: "smooth", block: "start" });   // 추가된 행들이 처지지 않게 위치 잡아주기
     })
 
     document.querySelector("footer").innerHTML = ``; // 기존의 더보기 삭제

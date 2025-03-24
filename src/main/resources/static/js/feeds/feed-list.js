@@ -516,7 +516,7 @@ class="WhatIsActionSheet__ImageBanner-sc-10e5q0f-4 kYigqi"></div>
                 return;
             }
             // 모집계획 id 가져오기
-            const id = e.target.closest(".parent-for-id").querySelector(".server-using-planId").textContent.trim();
+            const id = parseInt(e.target.closest(".parent-for-id").querySelector(".server-using-planId").textContent.trim(),10);
 
             // 폼 요소를 동적으로 생성
             const form = document.createElement("form");

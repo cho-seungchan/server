@@ -113,7 +113,7 @@ a {
     margin: 0px 0px 8px;
 }
 .kxyGXE {
-    height: auto;
+    height: 150px;
     margin: 0px 0px 9px;
     font-weight: 400;
     word-break: keep-all;
@@ -141,9 +141,9 @@ a {
 }
 .gsopHh {
     display: block;
-    margin: 0px 0px 0px 4px;
+    margin: 0px 0px 0px 12px;
     color: rgb(51, 51, 51);
-    font-size: 10px;
+    font-size: 12px;
     font-weight: 400;
     line-height: 14px;
     letter-spacing: -0.03em;
@@ -193,14 +193,18 @@ a {
     margin: 0px 4px 4px 0px;
 }
 .bOKtsG {
-    padding: 4px 6px;
-    font-size: 10px;
-    font-weight: 500;
-    line-height: 14px;
-    border-radius: 5px;
-    color: rgb(255, 255, 255);
-    background-color: rgb(244, 55, 61);
-}
+     width: 110px;
+     padding: 4px 6px;
+     font-size: 10px;
+     font-weight: 500;
+     line-height: 14px;
+     border-radius: 5px;
+     color: rgb(100, 100, 100); /* 진한 회색 */
+     white-space: nowrap; /* 텍스트 줄바꿈 방지 */
+     overflow-wrap: break-word;
+     overflow: hidden; /* 넘친 텍스트 숨김 */
+     text-overflow: ellipsis; /* "..." 표시 */
+ }
 .ijdqTp {
     display: flex;
     flex-flow: column;
@@ -293,4 +297,8 @@ button:disabled {
 img {
     border-style: none;
     vertical-align: middle;
+}
+
+.VUNpu:hover {
+    cursor: pointer;
 }

@@ -120,9 +120,7 @@ public class AdminService {
     public void postAddCourse(CourseDTO courseDTO) {
 
         // 코스정보 입력
-        courseDTO.setAdminId(1l);  // 로그인수정
         courseDAO.postAddCourse(courseDTO);
-        log.info("postAddCourse service : {}",courseDTO.toString());
 
         if (courseDTO.getCourseIsVolunteer().equals('Y')){
 
@@ -302,7 +300,6 @@ public class AdminService {
 
     public void postNoticeDetail(NoticeVO notice) {
 
-        notice.setAdminId(4l);  // 로그인수정
         noticeDAO.postNoticeDetail(notice);
     }
 

@@ -13,5 +13,6 @@ function createThumbnail(thumbnails) {
         text += `<img src="/files/display?path=${encodedFilePath}" class="image-files" alt="thumbnail">&nbsp;&nbsp;`;                             // 이미지 파일 여부 확인 할 별도 필드도 마련되어야 함
         text += `</li>`;
     })
+
     document.querySelector(".ImageList-sc-9v1mt2-0.hGJMVS").innerHTML = text;
 }

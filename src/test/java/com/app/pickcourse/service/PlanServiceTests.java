@@ -32,6 +32,8 @@ public class PlanServiceTests {
     private ScheduleDAO scheduleDAO;
     @Autowired
     private QuestionDAO questionDAO;
+    @Autowired
+    private MemberService memberService;
 
 
     @Test
@@ -153,6 +155,14 @@ public class PlanServiceTests {
 
         log.info(questionListDTO.toString());
 
+    }
+
+    @Test
+    public void testUpdatePoint(){
+        MemberDTO memberDTO = new MemberDTO();
+        memberDTO.setId(1L);
+        memberDTO.setMemberPoint(15000);
+        memberService.updatePoint(memberDTO);
     }
 
 }

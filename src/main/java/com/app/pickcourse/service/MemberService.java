@@ -146,6 +146,12 @@ public class MemberService {
         );
     }
 
+//    포인트 변경
+    public void updatePoint(MemberDTO memberDTO) {
+        MemberVO memberVO = memberDTO.toVO();
+        memberDAO.updatePoint(memberVO);
+    }
+
 
 }
 

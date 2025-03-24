@@ -1,18 +1,18 @@
-// let menuBtn = document.querySelector(".AppLayout_expandNavButton__NTEwM");
-// let nav = document.querySelector(".AppNavbarLayout_container__NmY5O");
-//
-// menuBtn.addEventListener("click", function () {
-//     nav.classList.toggle("active");
-// });
-//
-// let div = document.querySelector(".AppLayout_contents__Nzg1Z");
-// menuBtn.addEventListener("click", function () {
-//     div.classList.toggle("active");
-// });
-//
-// menuBtn.addEventListener("click", function () {
-//     menuBtn.classList.toggle("active");
-// });
+let menuBtn = document.querySelector(".AppLayout_expandNavButton__NTEwM");
+let nav = document.querySelector(".AppNavbarLayout_container__NmY5O");
+
+menuBtn.addEventListener("click", function () {
+    nav.classList.toggle("active");
+});
+
+let div = document.querySelector(".AppLayout_contents__Nzg1Z");
+menuBtn.addEventListener("click", function () {
+    div.classList.toggle("active");
+});
+
+menuBtn.addEventListener("click", function () {
+    menuBtn.classList.toggle("active");
+});
 
 // 시작일자가 오늘 날짜보다 작은지 확인. 종료일자가 시작일자보다 적은지 확인. 모집 마감일자가 종료일자보다 적은지 확인
 const firstDate = document.querySelector(".gcqwwh.startdate");
@@ -283,42 +283,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
-
-// 서버에 올리지 않고 화면에 보이도록 처리
-const fileParentDiv = document.querySelector(".ImageList-sc-9v1mt2-0.hGJMVS");
-const fileInput = document.querySelector(
-    ".InputImageReview__Wrapper-sc-1oapt4s-0.ipbuZD input"
-);
-
-fileInput.addEventListener("change", (e) => {
-    const files = e.target.files;
-
-    Array.from(files).forEach((file) => {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            const fileDiv = document.createElement("div");
-            fileDiv.className = "ImageList__ImageWrapper-sc-9v1mt2-1 kZTsQf";
-            fileDiv.innerHTML = `<div class="Image__Wrapper-v97gyx-0 gDuKGF"><div class="Ratio " style="display: block;">
-                    <div class="Ratio-ratio " style="height: 0px; position: relative; width: 100%; padding-top: 100%;">
-                    <div class="Ratio-content " style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">
-                    <img src="${e.target.result}" alt="후기 이미지" class="Image__DefaultImage-v97gyx-3 hVNKgp"></div></div></div></div>
-                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'%3E %3Cg fill='none' fill-rule='nonzero'%3E %3Cpath fill='%23FFF' fill-opacity='0' d='M0 0h18v18H0z'/%3E %3Cg stroke='%23FFF' stroke-linecap='square'%3E %3Cpath d='M11.828 6.172l-5.656 5.656M11.828 11.828L6.172 6.172'/%3E %3C/g%3E %3C/g%3E %3C/svg%3E" class="ImageList__IconDelete-sc-9v1mt2-2 benIbu">`;
-
-            fileParentDiv.appendChild(fileDiv);
-        };
-        // 파일 읽기 시작 (중요)
-        reader.readAsDataURL(file);
-    });
-});
-// 서버에 올리지 않고 화면에 보이도록 처리
-
-// 선택파일의 이미지(x)를 눌렀을 때 전체 dev 삭제 :: 동적으로 생성된 요소일 때는 부모 요소에 위임
-fileParentDiv.addEventListener("click", (e) => {
-    if (e.target.classList.contains("ImageList__IconDelete-sc-9v1mt2-2")) {
-        e.target.closest(".ImageList__ImageWrapper-sc-9v1mt2-1").remove();
-    }
-});
-// 선택파일의 이미지(x)를 눌렀을 때 전체 dev 삭제 :: 동적으로 생성된 요소일 때는 부모 요소에 위임
 
 // ✅ 1. 카카오 지도 설정
 let mapContainer = document.getElementById("map"),
@@ -900,8 +864,51 @@ document.addEventListener("DOMContentLoaded", function () { // HTML이 로드된
             document['addCourse-form'].appendChild(inputAddress);
         })
 
+        // 파일 정보 생성  25.03.21 조승찬 시작
+        const inputFileName = document.createElement("input");
+        inputFileName.type = "hidden";
+        inputFileName.name = `courseFileName`;
+        inputFileName.value = document.querySelector(".ImageList-sc-9v1mt2-0.hGJMVS").querySelector(".uploadFile").dataset.fileName;
+        document['addCourse-form'].appendChild(inputFileName);
+
+        const inputFilePath = document.createElement("input");
+        inputFilePath.type = "hidden";
+        inputFilePath.name = `courseFilePath`;
+        inputFilePath.value = document.querySelector(".ImageList-sc-9v1mt2-0.hGJMVS").querySelector(".uploadFile").dataset.filePath;
+        document['addCourse-form'].appendChild(inputFilePath);
+
+        const inputFileSize = document.createElement("input");
+        inputFileSize.type = "hidden";
+        inputFileSize.name = `courseFileSize`;
+        inputFileSize.value = document.querySelector(".ImageList-sc-9v1mt2-0.hGJMVS").querySelector(".uploadFile").dataset.fileSize;
+        document['addCourse-form'].appendChild(inputFileSize);
+        // 파일 정보 생성  25.03.21 조승찬 끝
+
         document['addCourse-form'].submit();
     })
 
-});
 
+    // 25.03.21 조승찬 추가 시작
+    // 파일  입력시 컨트롤러로 전송해서 썸네일 정보를 받아서 보여준다
+    const fileParentDiv = document.querySelector(".ImageList-sc-9v1mt2-0.hGJMVS");
+    const fileInput = document.querySelector(".InputImageReview__Wrapper-sc-1oapt4s-0.ipbuZD input");
+    fileInput.addEventListener("change", (e) => {
+        const file = e.target.files[0];
+
+        // multipart/form-data 형식으로 데이터를 자동 처리
+        const formData = new FormData();
+        formData.append("file", file);
+        // 서버로 전송하여 path와 썸네일 생성
+        inputFileUpload(formData);
+    });
+
+    // 선택파일의 이미지(x)를 눌렀을 때 전체 dev 삭제 :: 동적으로 생성된 요소일 때는 부모 요소에 위임
+    document.querySelector(".ImageList-sc-9v1mt2-0.hGJMVS").addEventListener("click", e => {
+        if (e.target.className == "file-cancel") {
+            e.target.closest(".uploadFile").remove()
+        }
+    });
+    // 선택파일의 이미지(x)를 눌렀을 때 전체 dev 삭제 :: 동적으로 생성된 요소일 때는 부모 요소에 위임
+    // 25.03.21 조승찬 추가 끝
+
+});

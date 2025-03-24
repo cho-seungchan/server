@@ -216,4 +216,10 @@
         FROM TBL_MEMBER
         WHERE MEMBER_NICKNAME = #{memberNickname}
     </select>
+
+    <update id="updatePoint">
+        UPDATE TBL_MEMBER
+        SET MEMBER_POINT = #{memberPoint}
+        WHERE ID = #{id}
+    </update>
 </mapper>
