@@ -12,7 +12,6 @@ const formatStartDate = `${startDate.getMonth()+1}월 ${startDate.getDate()}일`
 const formatPrice = price.toLocaleString();
 const formatPoint = point.toLocaleString();
 const insertPoint = price / 100;
-console.log(insertPoint);
 
 titleWrap.innerHTML = `
 <div class="ProductInfo__Title-sc-1af61ub-3 htnJlC">
@@ -59,6 +58,3 @@ discountWrap.innerHTML = `
 </div>
 `;
 const resultPrice = document.querySelector(".result-price");
-
-console.log(resultPrice.textContent);
-console.log(resultPrice);

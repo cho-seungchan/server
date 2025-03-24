@@ -17,8 +17,8 @@ public class ParticipantTests {
     public void testInsertParticipant() {
         ParticipantVO participantVO = new ParticipantVO();
 
-        participantVO.setPlanId(126L);
-        participantVO.setMemberId(7L);
+        participantVO.setPlanId(128L);
+        participantVO.setMemberId(1L);
 
         participantMapper.insert(participantVO);
     }

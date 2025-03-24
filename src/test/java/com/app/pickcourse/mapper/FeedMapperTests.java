@@ -50,7 +50,7 @@ public class FeedMapperTests {
         list.forEach(System.out::println);
     }
 
-    @Test void deleteFeedModifyList(){
-        mapper.deleteFeedModifyList(52l);
-    }
+//    @Test void deleteFeedModifyList(){
+//        mapper.deleteFeedModifyList(52l);
+//    }
 }

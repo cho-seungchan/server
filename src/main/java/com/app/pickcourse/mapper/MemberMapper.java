@@ -77,4 +77,7 @@ public interface MemberMapper {
 //    회원 프로필사진 업데이트
     void updateMemberFile(MemberDTO memberDTO);
 
+//    포인트수정
+    public void updatePoint(MemberVO memberVO);
+
 }
