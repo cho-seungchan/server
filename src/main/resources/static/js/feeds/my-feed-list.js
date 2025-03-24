@@ -65,7 +65,6 @@ class="WhatIsActionSheet__ImageBanner-sc-10e5q0f-4 kYigqi"></div>
 // 이미지가 여러개 일 때 좌우 클릭
     const leftButton1 = document.querySelectorAll(".slick-arrow.slick-prev");
     const rightButton1 = document.querySelectorAll(".slick-arrow.slick-next");
-    let numberOfImages = 6; // 서버에서 받아와야 할 값
 
     leftButton1.forEach((button) => {
         button.addEventListener("click", (e) => {
@@ -101,6 +100,8 @@ class="WhatIsActionSheet__ImageBanner-sc-10e5q0f-4 kYigqi"></div>
 
     rightButton1.forEach((button) => {
         button.addEventListener("click", (e) => {
+            // 현재 피드의 총 파일 수
+            const numberOfImages = parseInt(e.target.closest(".cyQYNE").querySelector(".numberOfImages").textContent.trim(),10);
             // 부모 찾기
             const group = e.target.closest(".cyQYNE");
             // 움직일 판 찾기

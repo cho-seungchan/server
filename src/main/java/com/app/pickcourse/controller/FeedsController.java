@@ -46,7 +46,6 @@ public class FeedsController {
 
         // memberId는 댓글 "삭제", "신고" 를 구분하기 위해서 사용
         List<ReplyListDTO> replys = feedsService.getReplyList(memberId, feedId, pagination);
-        log.info("pagination  "+pagination.toString());
         model.addAttribute("replys", replys);  // 댓글 목록
         model.addAttribute("replyAction", new ReplyActionDTO()); // 입력될 댓글을 받아올 객체
         model.addAttribute("memberFile", memberFileDTO);
@@ -263,6 +262,7 @@ public class FeedsController {
         RealDTO realDTO = new RealDTO();
         realDTO.setPlanId(planId);
         model.addAttribute("realDTO", realDTO);
+
         return "/feeds/real-write";
     }
 
@@ -363,7 +363,6 @@ public class FeedsController {
         session.setAttribute("redirectAfterLogin", redirectURI);
 
         List<FeedListDTO> feedListDTO = feedsService.getFeedList(listType);
-        feedListDTO.forEach(System.out::println);
         model.addAttribute("feedListDTO", feedListDTO);
         model.addAttribute("listType", listType);
         model.addAttribute("loginId", memberId);  // 케밥버튼 클릭시 로그인회원과 작성자가 같은지 확인해서 모달창을 띄움
@@ -402,9 +401,6 @@ public class FeedsController {
         model.addAttribute("tourListDTO", tourListDTO);
         model.addAttribute("pagination", pagination);
 
-        log.info("컨트롤 "+pagination.toString());
-        tourListDTO.forEach(System.out::println);
-
         return "/feeds/tour-list";
     }
 
@@ -416,8 +412,6 @@ public class FeedsController {
                                                               PaginationOnePage pagination) {
 
         List<TourListDTO> tours = feedsService.getTourList(member.getId(), pagination);
-        log.info("레스트 "+pagination.toString());
-        tours.forEach(System.out::println);
 
         Map<String, Object> response = new HashMap<>();
         response.put("tours", tours);

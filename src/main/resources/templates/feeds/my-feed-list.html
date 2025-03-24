@@ -19,6 +19,7 @@
 
             <!-- Header will be dynamically inserted here -->
             <div id="header-placeholder"></div>
+            <header th:replace="/all/header.html :: #main-header"></header>
 
             <div class="CurrentIndex__Wrapper-sc-1w06nn3-0 iaElYN">
 
@@ -84,8 +85,10 @@
                                                         <div class="slick-track" style="width: 2064px; opacity: 1; transform: translate3d(0px, 0px, 0px);">
 
 <!--                                                            피드의 사진 목록 제공  25.03.20 조승찬 추가 시작-->
+
+                                                            <div class="numberOfImages" style="display: none;"  th:text="${feed.getFiles().size() == null ? 0 : feed.getFiles().size()}"></div>
                                                             <th:block th:each="file, iterStat : ${feed.getFiles()}">
-                                                                <div th:data-index="${iterStat.index}"  class="slick-slide slick-active slick-current" tabindex="-1" aria-hidden="false" style="outline: none; width: 344px;">
+                                                                <div th:data-index="${iterStat.index}"  class="slick-slide" th:classappend="${iterStat.index == 0 ? 'slick-active slick-current' : ''}"  tabindex="-1" aria-hidden="false" style="outline: none; width: 344px;">
                                                                     <div>
                                                                         <div class="CurrentFeedImage__Wrapper-tbfz6p-0 lhuZQo">
                                                                             <div class="CurrentFeedImage__ImageLoaderWrapper-tbfz6p-1 csdcTT">
@@ -322,6 +325,7 @@
     </div>
     <div id="dnd-root"></div>
 
+    <footer th:replace="/all/footer.html :: #main-footer"></footer>
 </body>    
 <script src="/js/feeds/my-feed-list.js"></script>
 </html>

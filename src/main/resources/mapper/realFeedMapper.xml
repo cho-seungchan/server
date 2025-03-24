@@ -63,7 +63,7 @@
                      JOIN     TBL_REAL_FEED r
                               ON       f.ID = r.ID
 
-        WHERE    r.PLAN_ID = ${planId}
+        WHERE    r.ID = ${id}
     </select>
 
     <insert id="insertReview">
