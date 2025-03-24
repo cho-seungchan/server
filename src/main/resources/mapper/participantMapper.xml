@@ -26,21 +26,43 @@
           AND C.COURSE_IS_VOLUNTEER = 'Y'
     </select>
 
-    <select id="getRecentCourse" parameterType="java.lang.Long" resultType="recentCourse">
-        SELECT COURSE_TYPE, COURSE_NAME, COURSE_FILE_PATH
+    <select id="getRecentCourse" parameterType="java.lang.Long" resultType="recentCourseDTO">
+        SELECT ID AS courseId,
+               COURSE_TYPE,
+               COURSE_NAME,
+               COURSE_FILE_PATH,
+               COURSE_FILE_NAME
         FROM (
-                SELECT C.COURSE_TYPE, C.COURSE_NAME, C.COURSE_FILE_PATH
-                FROM TBL_PARTICIPANT P
-                JOIN TBL_PLAN PL ON P.PLAN_ID = PL.ID
-                JOIN TBL_COURSE C ON PL.COURSE_ID = C.ID
-                WHERE P.MEMBER_ID = #{memberId}
-                ORDER BY PL.PLAN_END_DATE DESC
-             )
+                 SELECT PL.COURSE_ID
+                 FROM TBL_PARTICIPANT P
+                          JOIN TBL_PLAN PL ON P.PLAN_ID = PL.ID
+                 WHERE P.MEMBER_ID = #{memberId}
+                 ORDER BY PL.PLAN_END_DATE DESC
+             ) SUB
+                 JOIN TBL_COURSE C ON C.ID = SUB.COURSE_ID
         WHERE ROWNUM = 1
     </select>
+
+
     <select id="selectByPlanId" resultType="participantDTO">
         SELECT * FROM TBL_PARTICIPANT
         WHERE PLAN_ID = #{planId}
     </select>
+
+
+    <select id="getMyCourses" parameterType="java.lang.Long" resultType="com.app.pickcourse.domain.dto.RecentCourseDTO">
+        SELECT C.ID AS COURSE_ID,
+               C.COURSE_TYPE AS COURSE_TYPE,
+               C.COURSE_NAME AS COURSE_NAME,
+               C.COURSE_FILE_PATH AS COURSE_FILE_PATH,
+               C.COURSE_FILE_NAME AS COURSE_FILE_NAME
+        FROM TBL_PARTICIPANT P
+                 JOIN TBL_PLAN PL ON P.PLAN_ID = PL.ID
+                 JOIN TBL_COURSE C ON PL.COURSE_ID = C.ID
+        WHERE P.MEMBER_ID = #{memberId}
+        ORDER BY PL.PLAN_END_DATE DESC
+    </select>
+
+
 
 </mapper>

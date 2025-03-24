@@ -6,41 +6,28 @@ import com.app.pickcourse.domain.dto.RealDTO;
 import com.app.pickcourse.domain.dto.ReplyDetailDTO;
 import com.app.pickcourse.domain.vo.FeedVO;
 import com.app.pickcourse.mapper.FeedMapper;
+import com.app.pickcourse.mapper.MyFeedMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 @RequiredArgsConstructor
 public class MyFeedDAO {
-    private final FeedMapper feedMapper;
+    private final MyFeedMapper myFeedMapper;
 
-    public ReplyDetailDTO getReportDetail(Long id) {
-        return feedMapper.getReportDetail(id).orElseThrow(() -> new RuntimeException("Report detail with ID " + id + " not found"));
+    public int getMyFeedCount(Long memberId){
+        return myFeedMapper.getMyFeedCount(memberId);
     }
 
-    public void postFeedWrite(FeedDTO feedDTO) {
-        feedMapper.postFeedWrite(feedDTO);
+    public int getMyReviewCount(Long memberId){
+        return myFeedMapper.getMyReviewCount(memberId);
     }
 
-    public void postRealWrite(RealDTO realDTO) {
-        feedMapper.postRealWrite(realDTO);
+    public List<Map<String, Object>> getRecentFeeds(Long memberId) {
+        return myFeedMapper.getRecentFeeds(memberId);
     }
 
-    public void postFeedModify(FeedVO feedVO) {
-        feedMapper.PostFeedModify(feedVO);
-    }
-
-    public void deleteFeedModify(Long id) {
-        feedMapper.deleteFeedModify(id);
-    }
-
-    public List<FeedListDTO> getFeedList() {
-        return feedMapper.getFeedList();
-    }
-
-    public List<FeedListDTO> getMyFeedList(long memberId) {
-        return feedMapper.getMyFeedList(memberId);
-    }
 }
