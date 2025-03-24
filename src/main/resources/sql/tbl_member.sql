@@ -9,6 +9,9 @@ CREATE TABLE TBL_MEMBER(
                            MEMBER_GENDER VARCHAR2(1000) DEFAULT '선택안함',
                            MEMBER_POINT NUMBER DEFAULT 0,
                            MEMBER_IS_ACT CHAR(1) DEFAULT 'Y' NOT NULL,
+                           MEMBER_FILE_PATH VARCHAR2(1000),
+                           MEMBER_FILE_NAME VARCHAR2(1000),
+                           MEMBER_FILE_SIZE VARCHAR2(1000) DEFAULT '',
                            CREATED_DATE DATE DEFAULT SYSDATE,
                            UPDATED_DATE DATE DEFAULT SYSDATE
 );

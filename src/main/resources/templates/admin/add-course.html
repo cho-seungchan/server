@@ -200,6 +200,7 @@
                                             >회원 목록</a
                                             ><a
                                                 class="MenuItems_submenu__YTg3N reportList"
+                                                href="/admin/admin"
                                         >신고 목록</a
                                         >
                                         </div>
@@ -232,6 +233,7 @@
                                         >
                                             <a
                                                     class="MenuItems_submenu__YTg3N noticeList"
+                                                    href="/admin/admin"
                                             >공지 목록</a
                                             >
                                         </div>
@@ -265,6 +267,7 @@
                                             <!--                            25.03.08 조승찬  json(restController) 방식으로 처리하기 위해 분기를 스크립트에서 작성-->
                                             <a
                                                     class="MenuItems_submenu__YTg3N adminCourseList"
+                                                    href="/admin/admin"
                                             >코스 목록</a
                                             >
                                             <a
@@ -411,7 +414,7 @@
                                                                     <input type="date" name="volunteerEndDate" placeholder="종료일" class="SocialRecruiteTagsContainer__SocialRecruiteTagsInput-sc-2762su-1 gcqwwh enddate" value=""/>
                                                                     <span>마감일</span>
                                                                     <input type="date" name="volunteerDeadline" placeholder="모집 마감일" class="SocialRecruiteTagsContainer__SocialRecruiteTagsInput-sc-2762su-1 gcqwwh deadline" />
-                                                                    <button type="button" class="CurrentProfile__MoreButton-sc-1u92qay-6 FvtMb" >
+                                                                    <button type="button" class="CurrentProfile__MoreButton-sc-1u92qay-6 FvtMb add-course" >
                                                                         <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='17' viewBox='0 0 4 17'%3E %3Cpath fill='%23999' fill-rule='evenodd' d='M1.57 14a1.5 1.5 0 110 3 1.5 1.5 0 010-3zm0-7a1.5 1.5 0 110 3 1.5 1.5 0 010-3zm0-7a1.5 1.5 0 110 3 1.5 1.5 0 010-3z'/%3E %3C/svg%3E" alt="더보기" />
                                                                     </button>
                                                                     <div id="scheduleContents-wrap"></div>
@@ -518,13 +521,11 @@
                                                         <div class="ImageUploadSection__Wrapper-sc-12o1z5n-0 kutLeL" >
                                                             <div>
                                                                 <label class="InputImageReview__Wrapper-sc-1oapt4s-0 ipbuZD" >
-                                                                    <input type="file" name="courseFileName" accept=".jpg, .jpeg, .png" />
+                                                                    <input type="file" name="courseFileName-input" accept=".jpg, .jpeg, .png" />
                                                                     <span> 사진 첨부하기</span >
                                                                     <div id="courseFile-wrap"></div>
                                                                 </label>
-                                                                <div
-                                                                        class="ImageList-sc-9v1mt2-0 hGJMVS"
-                                                                ></div>
+                                                                <div class="ImageList-sc-9v1mt2-0 hGJMVS" ></div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -588,28 +589,8 @@
         <div class="admin-modal-body"></div>
     </body>
     <script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=dca5cc5ce3946cf9a7295748f1aa7d12&libraries=services"></script>
-    <script src="/js/admin/add-course-renewal.js"></script>
+    <script src="/js/admin/add-course-event.js"></script>
+    <script src="/js/admin/add-course-layout-add.js"></script>
+    <script src="/js/admin/add-course-service.js"></script>
 
-    <!--컨트롤러와 레스트콘트롤러로 작성된 메뉴 통합을 위한 작업 (코스상세는 스크립트 충돌로 제외) 25.03.15 조승찬-->
-
-    <!-- jQuery 라이브러리 포함 -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="/js/admin/admin.js"></script>
-    <!-- 코스 목록 js 03.09 조승찬-->
-    <script src="/js/admin/course-list-layout-base.js"></script>
-    <script src="/js/admin/course-list-layout-add.js"></script>
-    <script src="/js/admin/course-list-service.js"></script>
-    <script src="/js/admin/course-list-event.js"></script>
-    <!-- 리포트 목록 js 25.03.14 조승찬 -->
-    <script src="/js/admin/report-list-layout-base.js"></script>
-    <script src="/js/admin/report-list-layout-add.js"></script>
-    <script src="/js/admin/report-list-service.js"></script>
-    <script src="/js/admin/report-list-event.js"></script>
-    <!-- 공지 목록 js 25.03,15-->
-    <script src="/js/admin/notice-list-layout-base.js"></script>
-    <script src="/js/admin/notice-list-layout-add.js"></script>
-    <script src="/js/admin/notice-list-service.js"></script>
-    <script src="/js/admin/notice-list-event.js"></script>
-
-    <!--    컨트롤러와 레스트콘트롤러로 작성된 메뉴 통합을 위한 작업 25.03.15 조승찬-->
 </html>
