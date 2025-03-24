@@ -27,4 +27,6 @@ public interface ReplyMapper {
     int getMyCountAll(long memberId);
 
     List<ReplyListDTO> getMyReplyList(@Param("memberId") long memberId, @Param("pagination") PaginationOnePage pagination);
+
+
 }

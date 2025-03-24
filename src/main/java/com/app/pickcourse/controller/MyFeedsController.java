@@ -5,6 +5,7 @@ import com.app.pickcourse.domain.dto.*;
 import com.app.pickcourse.domain.vo.ReplyVO;
 import com.app.pickcourse.domain.vo.ReportVO;
 import com.app.pickcourse.service.FeedsService;
+import com.app.pickcourse.service.MyFeedService;
 import com.app.pickcourse.util.PaginationOnePage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +23,8 @@ import java.util.Map;
 @RequiredArgsConstructor
 @Slf4j
 public class MyFeedsController {
-    private final FeedsService feedsService;
+    private final MyFeedService myFeedService;
+
 
 
 }

@@ -1,6 +1,7 @@
 package com.app.pickcourse.repository;
 
 import com.app.pickcourse.domain.dto.ParticipantDTO;
+import com.app.pickcourse.domain.dto.RecentCourseDTO;
 import com.app.pickcourse.domain.vo.ParticipantVO;
 import com.app.pickcourse.mapper.ParticipantMapper;
 import lombok.RequiredArgsConstructor;
@@ -23,8 +24,21 @@ public class ParticipantDAO {
     public List<ParticipantDTO> findByPlanId(Long planId) {
         return participantMapper.selectByPlanId(planId);
     }
+
+    public int getNormalCourseParticipationCount(Long memberId){
+        return participantMapper.getNormalCourseParticipationCount(memberId);
+    }
+
     public int getVolunteerCourseParticipationCount(Long memberId) {
         return participantMapper.getVolunteerCourseParticipationCount(memberId);
+    }
+
+    public RecentCourseDTO getRecentCourse(Long memberId) {
+        return participantMapper.getRecentCourse(memberId);
+    }
+
+    public List<RecentCourseDTO> getMyCourses(Long memberId) {
+        return participantMapper.getMyCourses(memberId);
     }
 
 }
