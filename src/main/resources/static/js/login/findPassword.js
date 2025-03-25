@@ -1,14 +1,14 @@
 const inputChange = document.querySelectorAll("div input");
 
-// inputChange.forEach((input) => {
-//     input.addEventListener("focus", (e) => {
-//         e.target.style.border = "1px solid blue";
-//     });
-//
-//     input.addEventListener("blur", (e) => {
-//         e.target.style.border = "1px solid rgb(238, 238, 238)";
-//     });
-// });
+inputChange.forEach((input) => {
+    input.addEventListener("focus", (e) => {
+        e.target.style.border = "1px solid blue";
+    });
+
+    input.addEventListener("blur", (e) => {
+        e.target.style.border = "1px solid rgb(238, 238, 238)";
+    });
+});
 
 // 이메일 발송버튼 기본으로 못 쓰게 막아놓기(유효성 검사 통과 후에만 submit 가능)
 const form = document.querySelector("form"); // 폼 선택
@@ -38,8 +38,8 @@ function updateStyles(inputElement, descriptionElement, buttonElement, inputClas
     buttonElement.classList.add(buttonClass);
 }
 
-// input에서 커서가 나갔을 때 형식 검사
-emailInput.addEventListener("blur", (e) => {
+// input에서 이메일을 입력할 때 형식 검사
+emailInput.addEventListener("keyup", (e) => {
     const emailValue = e.target.value.trim();
 
     if (emailValue && !pattern.test(emailValue)) {

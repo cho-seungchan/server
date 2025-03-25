@@ -110,33 +110,43 @@ public class LoginController {
             // 가져온 이메일로 회원 전체 정보 조회 후 저장
             Optional<MemberDTO> foundMember = memberService.getMember(memberEmail);
 
-            // 이메일로 조회되는 회원이 없을 경우
-            if (foundMember.isEmpty()) {
-                log.info("조회된 회원 없음.");
-                redirectAttributes.addFlashAttribute("message", "조회된 회원이 없습니다. 다시 시도해주세요");
-                return "redirect:/login/find-password";
-                // 회원이 조회되는 경우 세션에서 이메일은 지우고 전체 회원 정보 저장
-            } else {
+            // 회원이 조회되는 경우 세션에서 이메일은 지우고 전체 회원 정보 저장
+            if (foundMember.isPresent()) {
                 MemberDTO member = foundMember.get();
                 session.removeAttribute("email");
                 session.setAttribute("member", member);
-                log.info("세션에 저장된 멤버정보: {}", session.getAttribute("member"));
-                session.setAttribute("message", "토큰 일치. 재설정할 비밀번호를 입력해주세요.");
-                log.info("세션에 저장된 메시지: {}", session.getAttribute("message"));
+                redirectAttributes.addFlashAttribute("message", "정보 일치. 재설정할 비밀번호를 입력해주세요.");
                 return "redirect:/login/change-password";
+
+                // 이메일로 조회되는 회원이 없을 경우
+            } else {
+                log.info("조회된 회원 없음.");
+                redirectAttributes.addFlashAttribute("message", "조회된 회원이 없습니다. 다시 시도해주세요");
+                return "redirect:/login/find-password";
             }
         }
-        return "redirect:/login/change-password";
+        log.info("정보 불일치. 비밀번호 찾기 페이지로 이동합니다.");
+        redirectAttributes.addFlashAttribute("message", "초대 링크가 유효하지 않습니다.");
+        return "redirect:/login/find-password";
     }
 
+    // 비밀번호 변경 페이지
     @GetMapping("change-password")
-    public String changePassword(Model model, HttpSession session) {
-        String message = (String) session.getAttribute("message");
-        log.info("받은 메시지: " + message);
-        if (message != null) {
-            model.addAttribute("message", message);
-            session.removeAttribute("message");  // 메시지 삭제
-        }
-        return "login/changeLostPassword";
+    public String changePassword() {
+        return "login/change-lost-password";
+    }
+
+    // 변경할 비번을 입력하고 버튼을 누르면 비번 update
+    @PostMapping("update-password")
+    public String updatePassword(@RequestParam("newPassword")String newPassword) {
+        
+        // 아까 조회할 때 세션에 저장했던 회원 정보를 가져옴
+        MemberDTO member = (MemberDTO) session.getAttribute("member");
+
+        // 세션에서 조회한 memberId랑 입력받은 비번을 사용해서 db에서 update
+        memberService.updatePassword(member.getId(), newPassword);
+        
+        // 문구가 추가된 로그인 페이지로 이동
+        return "redirect:/login/updatePasswordLogin";
     }
 }

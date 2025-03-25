@@ -1,28 +1,21 @@
-const newPassword = document.querySelector(".newPassword");
-const checkPassword = document.querySelector(".checkPassword");
+const newPassword = document.querySelector(".newPassword"); // 새 비밀번호 input
+const checkPassword = document.querySelector(".checkPassword"); // 비밀번호 재확인 input
 const passwordText = document.querySelector(".Form__Description-sc-1quypp7-2");
-const button = document.querySelector("form>button");
-let errorMsg = document.createElement("p");
+const button = document.querySelector("form>button");   // form 제출버튼
+let errorMsg = document.createElement("p"); // 오류문구
 errorMsg.classList.add("changeComment");
 
-const passwordRegex = /^(?=.*[A-Za-z])(?=.*[\d\W_])[A-Za-z\d\W_]{10,}$/;
+// 조건: 10자 이상, 영문 / 숫자 / 특수문자 중 2가지 이상 조합해야함
+const passwordRegex = /^(?=(.*[a-zA-Z].*[0-9])|([a-zA-Z].*[\W_])|([0-9].*[\W_]))[A-Za-z\d\W_]{10,}$/;
 
+// 비밀번호를 입력할 때
 newPassword.addEventListener("keyup", () => {
     console.log("새 비밀번호 입력됨:", newPassword.value);
 
     const passwordText = document.querySelector(".Form__Description-sc-1quypp7-2");
 
-
-
-    if (newPassword.value === oldPassword.value && newPassword.value !== "") {
-        newPassword.classList.add("errorInput");
-        newPassword.classList.remove("iRBMai");
-        passwordText.innerText = "기존 비밀번호와 동일한 비밀번호는 사용할 수 없습니다.";
-        passwordText.classList.add("bViOzS");
-        passwordText.classList.remove("cIOZzg");
-        return;
-    }
-
+    
+    // 입력한 비밀번호가 비밀번호의 조건에 맞지 않을 시
     if (!passwordRegex.test(newPassword.value) && newPassword.value !== "") {
         newPassword.classList.add("errorInput");
         newPassword.classList.remove("iRBMai");
