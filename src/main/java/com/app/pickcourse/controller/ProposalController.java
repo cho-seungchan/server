@@ -1,24 +1,18 @@
 package com.app.pickcourse.controller;
 
 import com.app.pickcourse.domain.dto.*;
-import com.app.pickcourse.domain.vo.AnswerVO;
-import com.app.pickcourse.domain.vo.MemberVO;
 import com.app.pickcourse.repository.QuestionDAO;
 import com.app.pickcourse.service.*;
 import com.app.pickcourse.util.Pagination;
-import com.app.pickcourse.util.QuestionPagination;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.velocity.runtime.Runtime;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
-import java.lang.reflect.Member;
 import java.util.List;
 
 @Controller
@@ -34,6 +28,7 @@ public class ProposalController {
     private final ParticipantService participantService;
     private final PayService payService;
     private final MemberService memberService;
+    private final RealFeedService realFeedService;
 
     @GetMapping("/eco")
     public String getEco(Model model) {
@@ -114,8 +109,13 @@ public class ProposalController {
     public String getRead(Model model, @RequestParam Long id) {
         MemberDTO loginUser = (MemberDTO) session.getAttribute("member");
 
+        if(loginUser == null) {
+            return "redirect:/login/login";
+        }
+
         PlanDetailDTO planDetailDTO = planService.getPlanDetailById(id);
         planDetailDTO.setMember(loginUser.toVO());
+        planDetailDTO.setFeedList(realFeedService.getRealFeedList(id));
 
         model.addAttribute("planDetailDTO", planDetailDTO);
 
@@ -123,8 +123,20 @@ public class ProposalController {
     }
 
     @GetMapping("/reviewlist")
-    public String getReviewList(Model model) {
+    public String getReviewList(Model model, Long planId) {
+        FeedListByPlanIdDTO feedListByPlanIdDTO = new FeedListByPlanIdDTO();
+
+        feedListByPlanIdDTO.setPlanId(planId);
+        feedListByPlanIdDTO.setFeedLists(realFeedService.getRealFeedList(planId));
+        model.addAttribute("lists", feedListByPlanIdDTO);
+
         return "/proposal/reviewlist";
+    }
+
+    @GetMapping("/reviewlist/{planId}")
+    @ResponseBody
+    public PlanByFeedListDTO getReviewList(Pagination pagination, @PathVariable Long planId) {
+        return realFeedService.getFeedPagination(pagination, planId);
     }
 
     @GetMapping("/reviewread")

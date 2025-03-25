@@ -4,19 +4,125 @@ const includeWrap = document.querySelector(".include-wrap");
 const excludeWrap = document.querySelector(".exclude-wrap");
 const prepareWrap = document.querySelector(".prepare-wrap");
 const startAddress = document.querySelector(".start-address");
+const slickTrack = document.querySelector(".slick-track");
+const moreFeeds = document.querySelector(".more-feeds");
 
 
 const startDate = new Date(planDetail.plan.planStartDate);
 const endDate = new Date(planDetail.plan.planEndDate);
 const deadline = new Date(planDetail.plan.planDeadline);
 
-const formatStartDate = `${startDate.getMonth()+1}월 ${startDate.getDate()}일`;
+const formatStartDate = `${startDate.getMonth() + 1}월 ${startDate.getDate()}일`;
 const formatEndDate = `${endDate.getMonth() + 1}월 ${endDate.getDate()}일`;
 const formatDeadLine = `${deadline.getMonth() + 1}월 ${deadline.getDate()}일`;
 
 const formatPrice = planDetail.plan.planPrice.toLocaleString();
 
 let text = ``;
+const arFilePaths = new Array();
+const arMemberPath = new Array();
+
+planDetail.feedList.slice(0, 6).forEach((feed, i) => {
+    console.log(feed);
+    const encodedFilePath = feed.files[0]?.filePath && feed.files[0]?.fileName
+        ? encodeURIComponent(`${feed.files[0].filePath}/${feed.files[0].fileName}`)
+        : null;
+    const encodedMemberPath = feed.memberFilePath && feed.memberFileName
+        ? encodeURIComponent(`${feed.memberFilePath}/${feed.memberFileName}`)
+        : null;
+
+    const defaultImage = "/images/proposal/noImage.png";
+    const defaultProfileImage = "/images/proposal/noImage.png"
+    text += `
+<div data-index="${i}" class="slick-slide" tabIndex="-1" aria-hidden="true" style="outline: none; width: 244px">
+    <div>
+        <div class="CoverReviewCard__Wrapper-sc-1kgiguh-0 ihDCaS">
+            <div class="CoverReviewCard__ImageSection-sc-1kgiguh-1 eSCFvY">
+                <a href="/products/174811/reviews">
+                    <div class="Image__Wrapper-v97gyx-0 gDuKGF">
+                        <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="
+                                                                                        opacity: 1;
+                                                                                        display: block;
+                                                                                    ">
+                            <div class="Ratio" style="display: block">
+                                <div class="Ratio-ratio" style="
+                                                                                                height: 0px;
+                                                                                                position: relative;
+                                                                                                width: 100%;
+                                                                                                padding-top: 100%;
+                                                                                            ">
+                                    <div class="Ratio-content thumnail-wrap" style="
+                                                                                                    height: 100%;
+                                                                                                    left: 0px;
+                                                                                                    position: absolute;
+                                                                                                    top: 0px;
+                                                                                                    width: 100%;
+                                                                                                ">
+                                        <img alt="review-thumbnail" class="Image__StyledImage-v97gyx-1 VUNpA"
+                                             width="220"
+                                             height="220"
+                                             src="${encodedFilePath ? `/files/display?path=${encodedFilePath}` : defaultImage}"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="CoverReviewCard__InfoSection-sc-1kgiguh-2 ggRfTm">
+                <div class="CoverReviewCard__UserProfileSection-sc-1kgiguh-3 gvMYvX">
+                    <div class="CoverReviewCard__ProfileImage-sc-1kgiguh-4 hbfRVr">
+                        <div class="Image__Wrapper-v97gyx-0 img-wrap">
+                             <img class="Image__StyledImageLoader-v97gyx-2 bUFcfh" width="40" height="40"
+                                  src=""/>
+                            <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="
+                                                                                            opacity: 1;
+                                                                                            display: block;
+                                                                                        ">
+                                <div class="Ratio" style="display: block">
+                                    <div class="Ratio-ratio" style="
+                                                                                                    height: 0px;
+                                                                                                    position: relative;
+                                                                                                    width: 100%;
+                                                                                                    padding-top: 100%;
+                                                                                                ">
+                                        <div class="Ratio-content profile-wrap" style="
+                                            height: 100%;
+                                            left: 0px;
+                                            position: absolute;
+                                            top: 0px;
+                                            width: 100%;
+                                        ">
+                                             <img alt="user-1225608-profile"
+                                                  class="Image__StyledImage-v97gyx-1 hPRDSh" width="40" height="40"
+                                                 src="${encodedMemberPath ? `/files/display?path=${encodedMemberPath}` : defaultProfileImage}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="CoverReviewCard__UserInfo-sc-1kgiguh-5 fsJcFt">
+                        <span class="CoverReviewCard__UserName-sc-1kgiguh-6 biuXID">${feed.memberNickname}</span>
+                    </div>
+                </div>
+                <p class="CoverReviewCard__ProductTitle-sc-1kgiguh-7 jtBQUX"></p>
+                <span class="SpanLineClamp-my36n9-0 CoverReviewCard__ReviewContent-sc-1kgiguh-8 gsjveC">${feed.feedContent}</span>
+            </div>
+        </div>
+    </div>
+</div>
+`;
+
+
+});
+
+slickTrack.innerHTML = text;
+
+text = `
+<a class="ReviewSection__StyledLink-h5kv09-2 PIawM" href="/proposal/reviewlist?planId=${planDetail.plan.id}">${planDetail.feedList.length-6}개 후기 더보기<img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' viewBox='0 0 12 12'%3E %3Cpath fill='%230075EF' fill-rule='evenodd' d='M3.97 1.72c.293-.293.767-.293 1.06 0L9.31 6l-4.28 4.28c-.293.293-.767.293-1.06 0-.293-.293-.293-.767 0-1.06L7.19 6 3.97 2.78c-.293-.293-.293-.767 0-1.06z' clip-rule='evenodd'/%3E %3C/svg%3E" alt="arrow-blue"></a>
+`;
+moreFeeds.innerHTML = text;
 
 text = `
 <header class="Article__Header-sc-1mmkltm-0 fCwkht">
@@ -41,7 +147,7 @@ schedules.forEach((schedule, i) => {
     <article>
         <header class="Article__Header-sc-1mmkltm-0 fCwkht">
             <hgroup>
-                <h2 class="Article__Title-sc-1mmkltm-1 bZNoYF">${i+1}일차 계획</h2>
+                <h2 class="Article__Title-sc-1mmkltm-1 bZNoYF">${i + 1}일차 계획</h2>
             </hgroup>
         </header>
         <dl class="InfoSection__InfoContainer-yf02u4-0 dbbJUL">
@@ -55,7 +161,7 @@ scheduleWrap.innerHTML = text;
 
 text = ``;
 const includes = planDetail.plan.includeContents;
-includes.forEach((include)=>{
+includes.forEach((include) => {
     text += `
     <span type="Round" class="Tag__RoundTag-sxb61j-1 jXxsiv">${include.includeContent}</span>
     `;
@@ -64,7 +170,7 @@ includeWrap.innerHTML = text;
 
 text = ``;
 const excludes = planDetail.plan.excludeContents;
-excludes.forEach((exclude)=>{
+excludes.forEach((exclude) => {
     text += `
     <span type="Round" class="Tag__RoundTag-sxb61j-1 eMLPLA">${exclude.excludeContent}</span>
     `;
@@ -90,7 +196,7 @@ text = ``;
 
 const buttonForm = document.querySelector(".form");
 
-if(planDetail.member == null) {
+if (planDetail.member == null) {
     text = `
     <label class="blind" for="comment">로그인 후 글을 남겨주세요.</label>
     <span class="writeForm" style="height: 80px;">
@@ -105,8 +211,7 @@ if(planDetail.member == null) {
     </div>
     `;
     buttonForm.innerHTML = text;
-}
-else{
+} else {
     document.querySelector(".replyWrap").className = "replyWrap subscription login";
     text = `
     <label class="blind" for="comment">로그인 후 글을 남겨주세요.</label>
@@ -126,8 +231,8 @@ else{
 
 const joinWrap = document.querySelector(".join-wrap");
 
-if(loginMember == null){
-    text=`
+if (loginMember == null) {
+    text = `
     <div class="FloatingActionBar__FloatingButtonWrapper-a3gyda-0 dIeHJQ">
         <a href="/login/login" class="Button-bqxlp0-0 BUemN Button__StyledSubmitButton-sc-1dkzbac-0 eIJDxV join-button" width="100%" height="56px" color="white" font-size="16px">
             <div class="DefaultButton__ActionLabel-sc-4mlqfg-0 eaCxDu join-button">참여하기</div>
@@ -140,8 +245,8 @@ if(loginMember == null){
     </div>
     `;
     joinWrap.innerHTML = text;
-} else if(loginMember.id == planDetail.plan.memberId){
-    text=`
+} else if (loginMember.id == planDetail.plan.memberId) {
+    text = `
     <div class="FloatingActionBar__FloatingButtonWrapper-a3gyda-0 dIeHJQ">
         <button type="button" class="Button-bqxlp0-0 BUemN Button__StyledSubmitButton-sc-1dkzbac-0 eIJDxV join-button" width="100%" height="56px" color="white" font-size="16px">
             <div class="DefaultButton__ActionLabel-sc-4mlqfg-0 eaCxDu join-button">참여하기</div>
@@ -155,7 +260,7 @@ if(loginMember == null){
     `;
     joinWrap.innerHTML = text;
 } else {
-    text=`
+    text = `
     <div class="FloatingActionBar__FloatingButtonWrapper-a3gyda-0 dIeHJQ">
         <a href="/proposal/pay?planId=${planDetail.plan.id}" class="Button-bqxlp0-0 BUemN Button__StyledSubmitButton-sc-1dkzbac-0 eIJDxV join-button" width="100%" height="56px" color="white" font-size="16px">
             <div class="DefaultButton__ActionLabel-sc-4mlqfg-0 eaCxDu join-button">참여하기</div>
@@ -175,8 +280,8 @@ const readLayOut = (() => {
     const showList = (questionListData) => {
         const questionWrap = document.querySelector("#question-wrap");
         let text = ``;
-        questionListData.questionList.forEach((question, i)=>{
-            if(planDetail.member == null) {
+        questionListData.questionList.forEach((question, i) => {
+            if (planDetail.member == null) {
                 text += `
            <li id="${question.id}">
     <div class="profile">
@@ -221,7 +326,7 @@ const readLayOut = (() => {
         </ul>
     </div></li>
     `;
-            }else {
+            } else {
                 text += `
            <li id="${question.id}">
     <div class="profile">
@@ -290,7 +395,7 @@ const readLayOut = (() => {
     };
     return {
         showList: showList,
-        getAnswerList:getAnswerList
+        getAnswerList: getAnswerList
     }
 })();
 
