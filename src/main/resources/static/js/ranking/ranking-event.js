@@ -1,5 +1,12 @@
 // 25.03.22 조승찬 작성
 
+// 가격에 콤마 넣기
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".plan-price").forEach( e => {
+        const planPrice = parseInt(e.textContent.trim(),10);
+        e.textContent = planPrice.toLocaleString();
+    });
+});
 //  찜 설정 해지
 document.querySelectorAll(".dXNbSn").forEach((button) => {
     button.addEventListener("click", function (event) {
@@ -8,7 +15,7 @@ document.querySelectorAll(".dXNbSn").forEach((button) => {
 
         const img = this.querySelector("img");
         if (img) {
-            if(!document.querySelector("#main-header").querySelector(".jfHerU")) {
+            if(!document.querySelector("#main-header").querySelector(".jfHerU")) {  // 로그인 했을 때만 처리 가능
                 const result = confirm("로그인 하시겠습니까 ?");
                 if (result){
                     window.location.href="/login/login";
