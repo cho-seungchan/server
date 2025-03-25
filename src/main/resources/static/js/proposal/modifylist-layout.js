@@ -1,7 +1,7 @@
 const planLayout = (() => {
 
     const showList = async (planListData) => {
-        console.log(planListData);
+        console.log(planListData)
         const listWrap = document.querySelector(".list-wrap");
         const buttonWrap = document.querySelector("#button-wrap");
         const leftButtons = document.querySelector(".left-button-wrap");
@@ -110,9 +110,15 @@ const planLayout = (() => {
 
         // 가져온 목록 for문으로 분리
         planListData.planList.forEach((plan) => {
+            console.log(plan.planFilePath)
             // 가져온 날짜 정보 담아주기
             const startDate = new Date(plan.planStartDate);
             const endDate = new Date(plan.planEndDate);
+            const encodedFilePath = plan.planFilePath && plan.planFileName
+                ? encodeURIComponent(`${plan.planFilePath}/${plan.planFileName}`)
+                : null;
+
+            const defaultImage = "/images/proposal/noImage.png";
 
             // ?월 ?일로 날짜 변환
             const formatStartDate = `${startDate.getMonth() + 1}월 ${startDate.getDate()}일`;
@@ -157,10 +163,9 @@ const planLayout = (() => {
                                                                         "
                                                                     >
                                                                         <img
-                                                                            alt="매거진 커버 이미지"
                                                                             class="Image__StyledImage-v97gyx-1 VUNpu"
                                                                             width="160"
-                                                                            src="https://res.cloudinary.com/frientrip/image/upload/c_fill,f_auto,g_center,h_240,q_auto,w_200/thm_%EC%9D%B4%EB%B2%88%EC%A3%BC%EB%A7%90%EB%AD%90%ED%95%98%EC%A7%80%20(13)_d1a9b6efdfcb34b9d97243819cefc83f4f656f479bdc1686ba582b3c4368848c"
+                                                                            src="${encodedFilePath ? `/files/display?path=${encodedFilePath}` : defaultImage}"
                                                                         />
                                                                     </div>
                                                                 </div>
@@ -228,9 +233,6 @@ const planLayout = (() => {
             `;
         }
         buttonWrap.innerHTML = text;
-
-
-
     }
 
     return {showList: showList}

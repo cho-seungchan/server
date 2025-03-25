@@ -293,38 +293,7 @@ function collectTexts(tagClassName) {
 // // textarea에 글자 입력시 입력된 글자 수 보여주기
 
 // 서버에 올리지 않고 화면에 보이도록 처리
-const fileParentDiv = document.querySelector(".ImageList-sc-9v1mt2-0.hGJMVS");
-const fileInput = document.querySelector(".InputImageReview__Wrapper-sc-1oapt4s-0.ipbuZD input");
 
-fileInput.addEventListener("change", (e) => {
-    const files = e.target.files;
-
-    Array.from(files).forEach((file) => {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            const fileDiv = document.createElement("div");
-            fileDiv.className = "ImageList__ImageWrapper-sc-9v1mt2-1 kZTsQf";
-            fileDiv.innerHTML = `<div class="Image__Wrapper-v97gyx-0 gDuKGF"><div class="Ratio " style="display: block;">
-                    <div class="Ratio-ratio " style="height: 0px; position: relative; width: 100%; padding-top: 100%;">
-                    <div class="Ratio-content " style="height: 100%; left: 0px; position: absolute; top: 0px; width: 100%;">
-                    <img src="${e.target.result}" alt="후기 이미지" class="Image__DefaultImage-v97gyx-3 hVNKgp"></div></div></div></div>
-                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'%3E %3Cg fill='none' fill-rule='nonzero'%3E %3Cpath fill='%23FFF' fill-opacity='0' d='M0 0h18v18H0z'/%3E %3Cg stroke='%23FFF' stroke-linecap='square'%3E %3Cpath d='M11.828 6.172l-5.656 5.656M11.828 11.828L6.172 6.172'/%3E %3C/g%3E %3C/g%3E %3C/svg%3E" class="ImageList__IconDelete-sc-9v1mt2-2 benIbu">`;
-
-            fileParentDiv.appendChild(fileDiv);
-        };
-        // 파일 읽기 시작 (중요)
-        reader.readAsDataURL(file);
-    });
-});
-// 서버에 올리지 않고 화면에 보이도록 처리
-
-// 선택파일의 이미지(x)를 눌렀을 때 전체 dev 삭제 :: 동적으로 생성된 요소일 때는 부모 요소에 위임
-fileParentDiv.addEventListener("click", (e) => {
-    if (e.target.classList.contains("ImageList__IconDelete-sc-9v1mt2-2")) {
-        e.target.closest(".ImageList__ImageWrapper-sc-9v1mt2-1").remove();
-    }
-});
-// 선택파일의 이미지(x)를 눌렀을 때 전체 dev 삭제 :: 동적으로 생성된 요소일 때는 부모 요소에 위임
 
 // 모이는 장소 :: 카카오맵 처리하기
 // 외부 스크립트 추가. 지도 맵 동적 생성
@@ -396,73 +365,7 @@ document.querySelector(".gcqwwh.gather").addEventListener("keyup", (e) => {
 
 // 모이는 장소 :: 카카오맵 처리하기
 //
-// 등록 하기
-const button = document.querySelector(".saveButton");
 
-button.addEventListener("click", () => {
-    // 태그에 들어 온 텍스트 모으기 => 서버로 보내기 위해
-    let tagClassName, texts;
-    tagClassName = `.Tag__RoundTag-sxb61j-1.jXxsiv`;
-
-
-    texts = collectTexts(tagClassName);
-
-    tagClassName = `.Tag__RoundTag-sxb61j-1.eMLPLA`;
-
-    texts = collectTexts(tagClassName);
-
-    tagClassName = `.Tag__RoundTag-sxb61j-1.eISlhn`;
-
-    texts = collectTexts(tagClassName);
-
-    let max = parseInt(document.querySelector(".gcqwwh.max").value, 10);
-    let min = parseInt(document.querySelector(".gcqwwh.min").value, 10);
-    if (max < min) {
-        // alert(`모집 인원("${max}") 이 최소 출발 인원("${min})"보다 적습니다.`);
-        let message = `모집 인원(${max} 명) 이 최소 출발 인원(${min} 명)보다 적습니다.`;
-        showAlertModal(message);
-        return;
-    }
-    // 배열로 받은 것들을 단일객체화하여 input태그에 속성 부여 후 form태그에 appendChild로 생성
-    includes.forEach((include, i) => {
-        const input = document.createElement("input");
-        input.type = "text";
-        input.name=`includeContents[${i}].includeContent`;
-        input.value = include;
-        document['write-form'].appendChild(input);
-    })
-    excludes.forEach((exclude, i)=>{
-        const input = document.createElement("input");
-        input.type = "text";
-        input.name = `excludeContents[${i}].excludeContent`;
-        input.value = exclude;
-        document['write-form'].appendChild(input);
-    })
-    prepares.forEach((prepare, i) => {
-        const input = document.createElement("input");
-        input.type = "text";
-        input.name = `prepareContents[${i}].prepareContent`
-        input.value = prepare;
-        document['write-form'].appendChild(input);
-    })
-    const textareas = document.querySelectorAll("textarea[data-index]")
-
-    textareas.forEach((textarea) => {
-        const index = textarea.getAttribute('data-index'); // data-index 값
-        const value = textarea.value; // 입력된 텍스트
-        schedules.push(value);
-    })
-
-    schedules.forEach((schedule, i) => {
-        const input = document.createElement("input");
-        input.type = "text";
-        input.name = `scheduleContents[${i}].scheduleContent`
-        input.value = schedule;
-        document['write-form'].appendChild(input);
-    })
-
-    document['write-form'].submit();
-});
 
 // 모달 열기 함수
 function showAlertModal(message) {

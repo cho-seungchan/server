@@ -423,3 +423,41 @@ h2 {
     text-decoration: none;
     cursor: pointer;
 }
+
+
+.uploadFile {
+    position: relative;
+    display: inline-block;
+    width: 150px;
+    height: 150px;
+    margin: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.file-cancel {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    z-index: 10;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    display: flex
+;
+    justify-content: center;
+    align-items: center;
+}
+
+.uploadFile .image-files {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    vertical-align: middle;
+}

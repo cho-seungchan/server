@@ -44,6 +44,7 @@ public class FileController {
     @PostMapping("upload/multi")
     @ResponseBody
     public ResponseEntity<Map<String, Object>> uploadFiles(@RequestParam("files") List<MultipartFile> files) {
+        log.info("들어옴");
 
         List<FileVO> thumbnails = new ArrayList<>();
         files.forEach( file -> {
