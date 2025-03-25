@@ -127,7 +127,6 @@ public class PlanService {
         planDTO.setPrepareContents(writePrepareDAO.findByPlanId(id));
 
         planDetailDTO.setPlan(planDAO.findById(id).get());
-        planDetailDTO.setFeeds(feedDTOList);
 
         return planDetailDTO;
     }

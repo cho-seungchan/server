@@ -1,22 +1,21 @@
 package com.app.pickcourse.domain.dto;
 
-import com.app.pickcourse.domain.vo.MemberVO;
+import com.app.pickcourse.util.Pagination;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Component
 @Getter
-@Setter
 @ToString
+@Setter
 @NoArgsConstructor
-public class PlanDetailDTO {
-    private MemberVO member;
-    private PlanDTO plan;
+public class PlanByFeedListDTO {
     private List<FeedListDTO> feedList;
+    private Pagination pagination;
 }

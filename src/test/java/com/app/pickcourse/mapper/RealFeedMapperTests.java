@@ -2,10 +2,12 @@ package com.app.pickcourse.mapper;
 
 import com.app.pickcourse.domain.dto.FeedDTO;
 import com.app.pickcourse.domain.dto.FeedListDTO;
+import com.app.pickcourse.domain.dto.PlanByFeedListDTO;
 import com.app.pickcourse.domain.dto.ReviewDTO;
 import com.app.pickcourse.domain.vo.FeedVO;
 import com.app.pickcourse.domain.vo.MemberVO;
 import com.app.pickcourse.domain.vo.PlanVO;
+import com.app.pickcourse.util.Pagination;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,8 @@ public class RealFeedMapperTests {
     private RealFeedMapper mapper;
     @Autowired
     private FeedMapper feedMapper;
+    @Autowired
+    private RealFeedMapper realFeedMapper;
 
     @Test
     public void postFeedWrite(){
@@ -58,5 +62,30 @@ public class RealFeedMapperTests {
         Optional<ReviewDTO> reviewDTO = mapper.getReviewModify(46l);
         ReviewDTO review = reviewDTO.orElseThrow(() -> new RuntimeException("ReviewDTO not found"));
         log.info("reviewDTO:{}",review);
+    }
+
+    @Test
+    public void testSelectFeedListByPlanId() {
+        log.info(mapper.selectFeedListByPlanId(127l).toString());
+    }
+
+    @Test
+    public void testSelectFeedCount () {
+        int count = realFeedMapper.selectFeedCount(127L);
+
+        log.info("count {}" ,count);
+    }
+
+    @Test
+    public void testSelectPaginationByPlanId() {
+        Pagination pagination = new Pagination();
+
+        pagination.setPage(1);
+        pagination.create(realFeedMapper.selectFeedCount(127L));
+
+       List<FeedListDTO> feeds = realFeedMapper.selectPaginationByPlanId(pagination, 127L);
+
+        feeds.forEach((feed)->log.info("feed:{}",feed));
+
     }
 }
