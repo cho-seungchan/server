@@ -31,6 +31,8 @@ public class RankingController {
         Long memberId = null;
         if (member != null) {  // 찜 여부를 가져올 id
             memberId = member.getId();
+        } else { // 로그인 안하고 찜 버튼 눌렀을 때, 로그인하고 돌아올 현재 url path 보관
+            session.setAttribute("redirectAfterLogin", request.getRequestURI());
         }
 
         RankingContainerDTO rankings = rankingService.getRanking(memberId);

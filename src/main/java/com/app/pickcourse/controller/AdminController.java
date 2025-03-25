@@ -252,7 +252,6 @@ public class AdminController {
     @ResponseBody
     public void putCourseDetail(@SessionAttribute(name = "admin", required = false) AdminVO admin,
                                 @RequestBody CourseDTO courseDTO) {
-//        log.info("putCourseDetail"+courseDTO.toString());
         adminService.putCourseDetail(courseDTO);
     }
 
@@ -261,7 +260,6 @@ public class AdminController {
     @ResponseBody
     public void deleteCourseDetail(@SessionAttribute(name = "admin", required = false) AdminVO admin,
                                    @PathVariable Long id){
-        log.info("deleteCourseDetail  "+id);
         adminService.deleteCourseDetail(id);
     }
 
@@ -276,9 +274,6 @@ public class AdminController {
         response.put("report", list);
         response.put("pagination", pagination);
         response.put("search", search);
-
-        log.info("pagination "+pagination.toString()+"search "+search.toString());
-        list.forEach(System.out::println);
 
         return ResponseEntity.ok(response);
     }
