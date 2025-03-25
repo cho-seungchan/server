@@ -65,7 +65,6 @@ class="WhatIsActionSheet__ImageBanner-sc-10e5q0f-4 kYigqi"></div>
 // 이미지가 여러개 일 때 좌우 클릭
     const leftButton1 = document.querySelectorAll(".slick-arrow.slick-prev");
     const rightButton1 = document.querySelectorAll(".slick-arrow.slick-next");
-    let numberOfImages = 6; // 서버에서 받아와야 할 값
 
     leftButton1.forEach((button) => {
         button.addEventListener("click", (e) => {
@@ -101,6 +100,8 @@ class="WhatIsActionSheet__ImageBanner-sc-10e5q0f-4 kYigqi"></div>
 
     rightButton1.forEach((button) => {
         button.addEventListener("click", (e) => {
+            // 현재 피드의 총 파일 수
+            const numberOfImages = parseInt(e.target.closest(".cyQYNE").querySelector(".numberOfImages").textContent.trim(),10);
             // 부모 찾기
             const group = e.target.closest(".cyQYNE");
             // 움직일 판 찾기
@@ -110,7 +111,7 @@ class="WhatIsActionSheet__ImageBanner-sc-10e5q0f-4 kYigqi"></div>
             // 오른쪽으로 더 갈 곳이 있는지 확인하기 위해 현재 인덱스 찾기
             const currentActive = group.querySelector(".slick-active.slick-current");
             let currentIndex = parseInt(currentActive.getAttribute("data-index"), 10);
-            if (currentIndex < numberOfImages - 1) {
+            if (currentIndex < numberOfImages -1) {
                 // 액티브 인덱스 해제하기
                 currentActive.classList.remove("slick-active", "slick-current");
                 currentActive.setAttribute("aria-hidden", "true");
@@ -354,21 +355,53 @@ class="WhatIsActionSheet__ImageBanner-sc-10e5q0f-4 kYigqi"></div>
     });
 
 //     25.03.20 조승찬 신고 모달처리로 변경
-// 신고 모달창 처리
+// 작성 당사자이면 수정/삭제, 아니면 신고 모달창 처리
     document.querySelectorAll(".FvtMb").forEach((kebab) => {
         kebab.addEventListener("click", (e) => {
-            document.querySelector("#modal-root").style.display = "flex";
 
-            // 모달창에서 수정/삭제 클릭시 서버에 전달하기 위한 id와 피드타입을 모달창 요소에 저장 25.03.20 조승찬 시작
-            const id = e.target.closest(".jVywpa").querySelector(".server-using-id").textContent.trim();
-            const feedType = e.target.closest(".jVywpa").querySelector(".server-using-feedType").textContent.trim();
-            document.querySelector("#modal-root .server-using-id").textContent = id;
-            document.querySelector("#modal-root .server-using-feedType").textContent = feedType;
-            // 모달창에서 수정/삭제 클릭시 서버에 전달하기 위한 id와 피드타입을 모달창 요소에 저장 25.03.20 조승찬 끝
 
-            document.querySelector(".eCzJv").addEventListener("click", () => {
-                document.querySelector("#modal-root").style.display = "none";
-            });
+            if(!document.querySelector("#main-header").querySelector(".jfHerU")) {  // 로그인 했을 때만 가능
+                const result = confirm("로그인 하시겠습니까 ?");
+                if (result){
+                    window.location.href="/login/login";
+                }
+                return;
+            }
+
+            const memberId = parseInt(e.target.closest(".FvtMb").querySelector("#member-id").textContent.trim(), 10); // 작성자
+            const loginId = parseInt(document.querySelector("#login-id").textContent.trim(),10);
+
+            if (loginId == memberId) {
+
+                document.querySelector("#modal-my-root").style.display = "flex";
+
+                // 모달창에서 수정/삭제 클릭시 서버에 전달하기 위한 id와 피드타입을 모달창 요소에 저장 25.03.20 조승찬 시작
+                const id = e.target.closest(".jVywpa").querySelector(".server-using-id").textContent.trim();
+                const feedType = e.target.closest(".jVywpa").querySelector(".server-using-feedType").textContent.trim();
+                document.querySelector("#modal-my-root .server-using-id").textContent = id;
+                document.querySelector("#modal-my-root .server-using-feedType").textContent = feedType;
+                // 모달창에서 수정/삭제 클릭시 서버에 전달하기 위한 id와 피드타입을 모달창 요소에 저장 25.03.20 조승찬 끝
+
+                document.querySelector(".my-root-background").addEventListener("click", () => {
+                    document.querySelector("#modal-my-root").style.display = "none";
+                });
+
+            } else {
+
+                document.querySelector("#modal-root").style.display = "flex";
+
+                // 모달창에서 신고 클릭시 서버에 전달하기 위한 id와 피드타입을 모달창 요소에 저장 25.03.20 조승찬 시작
+                const id = e.target.closest(".jVywpa").querySelector(".server-using-id").textContent.trim();
+                const feedType = e.target.closest(".jVywpa").querySelector(".server-using-feedType").textContent.trim();
+                document.querySelector("#modal-root .server-using-id").textContent = id;
+                document.querySelector("#modal-root .server-using-feedType").textContent = feedType;
+                // 모달창에서 신고 클릭시 서버에 전달하기 위한 id와 피드타입을 모달창 요소에 저장 25.03.20 조승찬 끝
+
+                document.querySelector(".root-background").addEventListener("click", () => {
+                    document.querySelector("#modal-root").style.display = "none";
+                });
+
+            }
         });
     });
 
@@ -426,6 +459,92 @@ class="WhatIsActionSheet__ImageBanner-sc-10e5q0f-4 kYigqi"></div>
         input.setAttribute("name", "listType");
         input.setAttribute("value", "REAL");
         form.appendChild(input);
+
+        // 폼 제출
+        document.body.appendChild(form); // 폼을 body에 추가
+        form.submit(); // 폼 제출
+        document.body.removeChild(form); // 제출 후 폼 삭제
+
+    })
+
+
+// 모달창의 수정, 삭제 버튼 클릭시
+// 수정 버튼 클릭시
+    document.querySelector(".cUlkXY.Update").addEventListener("click", e => {
+        // 수정할 피드아이디, 피드타입 가져오기
+        const id = document.querySelector("#modal-my-root .server-using-id").textContent.trim();
+        const feedType = document.querySelector("#modal-my-root .server-using-feedType").textContent.trim();
+
+        // 폼 요소를 동적으로 생성
+        const form = document.createElement("form");
+        form.setAttribute("method", "GET");
+        if ( feedType == 'REAL') {
+            form.setAttribute("action", "/feeds/real-modify");
+
+            // 파라미터를 추가하기 위해 숨겨진 input 요소 추가
+            const input = document.createElement("input");
+            input.setAttribute("type", "hidden");
+            input.setAttribute("name", "id");
+            input.setAttribute("value", id);
+            form.appendChild(input);
+        } else {
+            form.setAttribute("action", "/feeds/feed-modify");
+
+            // 파라미터를 추가하기 위해 숨겨진 input 요소 추가
+            let input = document.createElement("input");
+            input.setAttribute("type", "hidden");
+            input.setAttribute("name", "id");
+            input.setAttribute("value", id);
+            form.appendChild(input);
+
+            input = document.createElement("input");
+            input.setAttribute("type", "hidden");
+            input.setAttribute("name", "feedType");
+            input.setAttribute("value", feedType);
+            form.appendChild(input);
+        }
+
+        // 폼 제출
+        document.body.appendChild(form); // 폼을 body에 추가
+        form.submit(); // 폼 제출
+        document.body.removeChild(form); // 제출 후 폼 삭제
+
+    })
+
+// 삭제 버튼 클릭시
+    document.querySelector(".cUlkXY.Delete").addEventListener("click", e => {
+        // 수정할 피드아이디, 피드타입 가져오기
+        const id = document.querySelector("#modal-my-root .server-using-id").textContent.trim();
+        const feedType = document.querySelector("#modal-my-root .server-using-feedType").textContent.trim();
+
+        // 폼 요소를 동적으로 생성
+        const form = document.createElement("form");
+        form.setAttribute("method", "POST");
+        if ( feedType == 'REAL') {
+            form.setAttribute("action", "/feeds/real-delete");
+
+            // 파라미터를 추가하기 위해 숨겨진 input 요소 추가
+            const input = document.createElement("input");
+            input.setAttribute("type", "hidden");
+            input.setAttribute("name", "id");
+            input.setAttribute("value", id);
+            form.appendChild(input);
+        } else {
+            form.setAttribute("action", "/feeds/feed-delete");
+
+            // 파라미터를 추가하기 위해 숨겨진 input 요소 추가
+            let input = document.createElement("input");
+            input.setAttribute("type", "hidden");
+            input.setAttribute("name", "id");
+            input.setAttribute("value", id);
+            form.appendChild(input);
+
+            input = document.createElement("input");
+            input.setAttribute("type", "hidden");
+            input.setAttribute("name", "feedType");
+            input.setAttribute("value", feedType);
+            form.appendChild(input);
+        }
 
         // 폼 제출
         document.body.appendChild(form); // 폼을 body에 추가
