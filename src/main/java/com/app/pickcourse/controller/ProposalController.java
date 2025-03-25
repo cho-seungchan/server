@@ -35,10 +35,6 @@ public class ProposalController {
     public String getEco(Model model) {
         return "/proposal/eco";
     }
-//    @GetMapping("/eco")
-//    public String getEco(Model model) {
-//        return "/proposal/eco";
-//    }
 
     @GetMapping("/list")
     public String getList(Model model) {
@@ -103,7 +99,8 @@ public class ProposalController {
     @PutMapping("/updatePoint")
     public void update(@RequestBody MemberDTO memberDTO) {
         log.info(memberDTO.toString());
-        memberService.updatePoint(memberDTO); }
+        memberService.updatePoint(memberDTO);
+    }
 
     @PostMapping("/insertParticipant")
     public void insertParticipant(@RequestBody ParticipantDTO participantDTO) {
@@ -115,10 +112,6 @@ public class ProposalController {
 
     
     @GetMapping("/read")
-
-    public String getRead(Model model, Long id) {
-//        MemberDTO loginUser = (MemberDTO) session.getAttribute("member");
-
     public String getRead(Model model, @RequestParam Long id) {
 
         MemberDTO loginUser = (MemberDTO) session.getAttribute("member");
@@ -179,8 +172,6 @@ public class ProposalController {
     public String getVeiwList(Model model, Long courseId) {
         MemberDTO loginUser = (MemberDTO) session.getAttribute("member");
 
-
-        CourseSelectDTO course = courseService.findCourseById(16L);
         CourseSelectDTO course = courseService.findCourseById(81L);
         log.info(course.toString());
 
