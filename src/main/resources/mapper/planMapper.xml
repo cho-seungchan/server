@@ -9,10 +9,10 @@
         </selectKey>
         INSERT INTO TBL_PLAN
         (ID, PLAN_NAME, PLAN_START_DATE, PLAN_END_DATE, PLAN_DEADLINE, PLAN_MAX_PERSONNEL, PLAN_MIN_PERSONNEL, PLAN_PRICE, PLAN_START_ADDRESS,
-         PLAN_CONTENT, MEMBER_ID, COURSE_ID)
+         PLAN_CONTENT, MEMBER_ID, COURSE_ID, PLAN_FILE_PATH, PLAN_FILE_SIZE, PLAN_FILE_NAME)
         VALUES
             (#{id}, #{planName}, #{planStartDate}, #{planEndDate}, #{planDeadline}, #{planMaxPersonnel}, #{planMinPersonnel}, #{planPrice}, #{planStartAddress}
-            , #{planContent},#{memberId}, #{courseId})
+            , #{planContent},#{memberId}, #{courseId}, #{planFilePath}, #{planFileSize}, #{planFileName})
     </insert>
 
     <select id="selectAll" resultType="planVO">
@@ -72,15 +72,15 @@
 
     <select id="selectByMemberId" resultType="planDTO">
         SELECT ID, MEMBER_NICKNAME, PLAN_NAME, PLAN_START_DATE, 'MM/DD', PLAN_END_DATE, 'MM/DD', PLAN_DEADLINE, PLAN_MAX_PERSONNEL,
-        PLAN_MIN_PERSONNEL, PLAN_PRICE, MEMBER_ID, COURSE_ID
+        PLAN_MIN_PERSONNEL, PLAN_PRICE, MEMBER_ID, COURSE_ID, PLAN_FILE_PATH, PLAN_FILE_SIZE, PLAN_FILE_NAME
         FROM
         (
             SELECT ROWNUM R , ID, MEMBER_NICKNAME, PLAN_NAME, PLAN_START_DATE, PLAN_END_DATE, PLAN_DEADLINE, PLAN_MAX_PERSONNEL,
-            PLAN_MIN_PERSONNEL, PLAN_PRICE, MEMBER_ID, COURSE_ID
+            PLAN_MIN_PERSONNEL, PLAN_PRICE, MEMBER_ID, COURSE_ID, PLAN_FILE_PATH, PLAN_FILE_SIZE, PLAN_FILE_NAME
             FROM
                 (
                     SELECT M.MEMBER_NICKNAME, P.ID, P.PLAN_NAME, P.PLAN_START_DATE, P.PLAN_END_DATE, P.PLAN_DEADLINE,
-                    P.PLAN_MAX_PERSONNEL, P.PLAN_MIN_PERSONNEL, P.PLAN_PRICE, P.MEMBER_ID, P.COURSE_ID
+                    P.PLAN_MAX_PERSONNEL, P.PLAN_MIN_PERSONNEL, P.PLAN_PRICE, P.MEMBER_ID, P.COURSE_ID, P.PLAN_FILE_PATH, P.PLAN_FILE_SIZE, P.PLAN_FILE_NAME
                     FROM TBL_MEMBER M JOIN TBL_PLAN P
                     ON M.ID = P.MEMBER_ID
                     WHERE MEMBER_ID = #{memberId}

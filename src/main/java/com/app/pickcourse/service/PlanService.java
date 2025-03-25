@@ -31,6 +31,7 @@ public class PlanService {
     private final FeedDAO feedDAO;
     private final QuestionDAO questionDAO;
     private final ParticipantDAO participantDAO;
+    private final FileDAO fileDAO;
 
 
     //    여행계획작성
@@ -60,6 +61,7 @@ public class PlanService {
         participant.setMemberId(planVO.getMemberId());
         participant.setPlanId(planVO.getId());
         participantDAO.save(participant.toVO());
+
 
     }
 

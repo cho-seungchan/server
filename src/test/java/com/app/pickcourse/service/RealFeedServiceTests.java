@@ -54,10 +54,7 @@ public class RealFeedServiceTests {
 
         pagination.create(realFeedDAO.findFeedCountByPlanId(127L));
 
-        planByFeedListDTO.setFeedList(realFeedDAO.findPaginationByPlanId(pagination, 127L));
 
-        planByFeedListDTO.getFeedList().forEach((feed)->{
-            log.info(feed.toString());
-        });
+        log.info(realFeedService.getFeedPagination(pagination,127L).toString());
     }
 }

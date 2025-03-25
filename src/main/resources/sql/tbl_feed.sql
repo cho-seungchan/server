@@ -32,3 +32,36 @@ FROM     TBL_FEED f
                       ON       f.ID = r.ID
 
 WHERE    r.PLAN_ID = ${planId}
+
+SELECT ID, FEEDTYPE, FEEDCONTENT, CREATEDDATE, UPDATEDDATE, MEMBERID, MEMBERNICKNAME, MEMBERFILEPATH,
+       MEMBERFILENAME, PLANID, FILE_PATH, FILE_NAME
+FROM
+    (SELECT ROWNUM R, ID, FEEDTYPE, FEEDCONTENT, CREATEDDATE, UPDATEDDATE, MEMBERID, MEMBERNICKNAME, MEMBERFILEPATH,
+            MEMBERFILENAME, PLANID, FILE_PATH, FILE_NAME
+     FROM
+         (SELECT
+              f.ID AS id,
+              'REAL' AS feedType,
+              f.FEED_CONTENT AS feedContent,
+              TO_CHAR(f.CREATED_DATE, 'YYYY-MM-DD') AS createdDate,
+              TO_CHAR(f.UPDATED_DATE, 'YYYY-MM-DD') AS updatedDate,
+              m.ID AS memberId,
+              m.MEMBER_NICKNAME AS memberNickname,
+              m.MEMBER_FILE_PATH AS memberFilePath,
+              m.MEMBER_FILE_NAME AS memberFileName,
+              rf.PLAN_ID AS planId,
+              FF.FILE_PATH, FF.FILE_NAME
+          FROM
+              TBL_FEED f
+                  JOIN
+              TBL_REAL_FEED rf ON f.ID = rf.ID
+                  JOIN
+              TBL_MEMBER m ON  rf.MEMBER_ID = m.ID
+                  JOIN
+              TBL_REAL_FILE RFF ON F.ID = RFF.FEED_ID
+                  JOIN TBL_FILE FF ON RFF.ID = FF.ID
+          WHERE PLAN_ID = 127
+          ORDER BY ID DESC)
+     WHERE ROWNUM <= ${pagination.endRow}
+    )
+WHERE R >= ${pagination.startRow};

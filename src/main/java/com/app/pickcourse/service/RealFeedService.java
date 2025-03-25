@@ -60,6 +60,11 @@ public List<FeedListDTO> getRealFeedList(Long planId) {
         planByFeedListDTO.setPagination(pagination);
         planByFeedListDTO.setFeedList(realFeedDAO.findPaginationByPlanId(pagination, planId));
 
+        planByFeedListDTO.getFeedList().forEach((feed) -> {
+            feed.setTags(tagDAO.getFeedModify(feed.getId()));
+            feed.setFiles(realFileDAO.getRealModify(feed.getId()));
+        });
+
         return planByFeedListDTO;
     }
 }
