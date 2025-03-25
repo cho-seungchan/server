@@ -1,6 +1,7 @@
 package com.app.pickcourse.mapper;
 
 import com.app.pickcourse.domain.dto.ParticipantDTO;
+import com.app.pickcourse.domain.dto.RecentCourseDTO;
 import com.app.pickcourse.domain.vo.ParticipantVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -18,6 +19,7 @@ public interface ParticipantMapper {
 
     public int getVolunteerCourseParticipationCount(@Param("memberId") Long memberId);
 
+    public RecentCourseDTO getRecentCourse(@Param("memberId") Long memberId);
 
-
+    public List<RecentCourseDTO> getMyCourses(Long memberId);
 }

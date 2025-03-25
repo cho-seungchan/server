@@ -1,6 +1,7 @@
 const planLayout = (() => {
 
     const showList = async (planListData) => {
+        console.log(planListData);
         const listWrap = document.querySelector(".list-wrap");
         const buttonWrap = document.querySelector("#button-wrap");
         const leftButtons = document.querySelector(".left-button-wrap");

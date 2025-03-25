@@ -9,8 +9,10 @@ import org.springframework.stereotype.Component;
 @Getter
 @Setter
 @ToString
-public class RecentCourse {
+public class RecentCourseDTO {
+    private Long courseId;
     private String courseType;
     private String courseName;
     private String courseFilePath;
+    private String courseFileName;
 }

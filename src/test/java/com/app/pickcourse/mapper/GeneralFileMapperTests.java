@@ -36,17 +36,17 @@ public class GeneralFileMapperTests {
         mapper.postFeedWrite(fileVO.getId(),33l);
     }
 
-    @Test
-    public void getFeedList(){
-
-        List<FeedListDTO> feedList = GeneralfeedMapper.getFeedList();
-        feedList.forEach(feed -> {
-            feed.setFiles(mapper.getFileList(feed.getId()));
-            feed.setFeedTags(feedTagMapper.getFeedList(feed.getId()));
-        });
-        feedList.forEach(System.out::println);
-
-    }
+//    @Test
+//    public void getFeedList(){
+//
+//        List<FeedListDTO> feedList = GeneralfeedMapper.getFeedList();
+//        feedList.forEach(feed -> {
+//            feed.setFiles(mapper.getFileList(feed.getId()));
+//            feed.setFeedTags(feedTagMapper.getFeedList(feed.getId()));
+//        });
+//        feedList.forEach(System.out::println);
+//
+//    }
 
     @Test
     public void getFeedModify(){

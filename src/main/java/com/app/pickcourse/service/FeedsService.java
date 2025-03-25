@@ -406,5 +406,7 @@ public class FeedsService {
     public MemberFileDTO getMemberFileInfo(Long id) {
         return memberDAO.getMemberFileInfo(id);
     }
+
+
 }
 

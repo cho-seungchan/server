@@ -7,6 +7,7 @@ let maxInt = parseInt(inputField.max, 10);
 let oneAmount;
 let discountAmount;
 let paymentAmount;
+let discountPrice = "";
 
 document.querySelectorAll(".hcNdoZ img").forEach((button, index) => {
     button.addEventListener("click", (e) => {
@@ -119,6 +120,9 @@ priceInput.addEventListener("input", (event) => {
     }
 
     document.querySelector(".peakcourseAmount").textContent = NumberWithCommas(paymentAmount - intValue);
+    console.log(intValue)
+    discountAmount = intValue;
+    console.log(discountAmount)
     document.querySelector(".pointspan").textContent = NumberWithCommas((paymentAmount - intValue) / 100);
 });
 // 할인 금액 입력시 천단위마다 , 찍히게. 결제금액에서 차감해서 치커스금액 산출

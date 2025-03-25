@@ -18,5 +18,5 @@ import java.util.Optional;
 public class PlanDetailDTO {
     private MemberVO member;
     private PlanDTO plan;
-    private List<FeedDTO> feeds;
+    private List<FeedListDTO> feedList;
 }
