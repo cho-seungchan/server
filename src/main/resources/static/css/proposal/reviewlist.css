@@ -298,18 +298,15 @@ button:disabled {
     margin-left: 10px;
 }
 .hBVRcD {
-    display: flex;
-    -webkit-box-pack: center;
+    display: flex
+;
+    align-items: center;
     justify-content: center;
-    -webkit-box-flex: 0;
-    flex: 0 0 auto;
-    width: 100%;
-    padding: 30px 0px;
-    background-color: white;
+    margin-top: 10px;
 }
+
 .gIsDDT {
     display: flex;
-    margin-right: 10px;
 }
 
 .ldipRM {
@@ -618,3 +615,92 @@ html [type="button"],
 #lightboxBackdrop > div button[class^="arrow_"] svg {
     fill: #fff;
 }
+
+.status-none {
+    width: 40px;
+    height: 40px;
+    line-height: normal;
+    padding: 0px;
+    background-color: white;
+    text-align: center;
+    cursor: not-allowed;
+    border-radius: 50%;
+    font-size: 18px;
+    display: flex
+;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    outline: none;
+}
+
+#button-wrap {
+    display: flex
+;
+    align-items: center;
+    justify-content: center;
+}
+
+.thisButton {
+    width: 40px;
+    height: 40px;
+    line-height: normal;
+    padding: 0px;
+    background-color: white;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 50%;
+    color: rgb(51, 151, 255);
+    font-size: 18px;
+    font-weight: bold;
+    display: flex
+;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    outline: none;
+}
+
+.anotherButton {
+    width: 40px;
+    height: 40px;
+    line-height: normal;
+    padding: 0px;
+    background-color: white;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 50%;
+    color: black;
+    font-size: 18px;
+    font-weight: normal;
+    display: flex
+;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    outline: none;
+}
+
+.status-on {
+    width: 40px;
+    height: 40px;
+    line-height: normal;
+    padding: 0px;
+    background-color: white;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 50%;
+    font-size: 18px;
+    display: flex
+;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    outline: none;
+    color: black;
+}
+

@@ -29,6 +29,8 @@ public class ProposalController {
     private final PayService payService;
     private final MemberService memberService;
     private final RealFeedService realFeedService;
+    private final WishService wishService;
+
 
 //    25.03.25 봉사코스 상세 조회
     @GetMapping("/eco")
@@ -94,7 +96,10 @@ public class ProposalController {
 
     @PostMapping("/addKakaoPay")
     public void addKakaoPay(@RequestBody PayDTO payDTO) {
+        log.info("들어옴1");
+
         log.info(payDTO.toString());
+
         payService.addPay(payDTO);
     }
 
@@ -111,19 +116,27 @@ public class ProposalController {
         participantService.insertParticipant(participantDTO);
     }
 
+    
     @GetMapping("/read")
     public String getRead(Model model, @RequestParam Long id) {
+
         MemberDTO loginUser = (MemberDTO) session.getAttribute("member");
 
-        if(loginUser == null) {
-            return "redirect:/login/login";
-        }
-
         PlanDetailDTO planDetailDTO = planService.getPlanDetailById(id);
-
-        planDetailDTO.setMember(loginUser.toVO());
         planDetailDTO.setFeedList(realFeedService.getRealFeedList(id));
 
+        // 로그인한 사용자라면 사용자 정보를 추가
+        if (loginUser != null) {
+            planDetailDTO.setMember(loginUser.toVO());
+            boolean isWished = wishService.isWished(loginUser.getId(), id);
+            model.addAttribute("isWished", isWished);
+        } else {
+            // 로그인하지 않았다면 기본값으로 설정
+            model.addAttribute("isWished", false);
+        }
+
+        int wishCount = wishService.getWishCountByPlanId(id);
+        model.addAttribute("wishCount", wishCount);
         model.addAttribute("planDetailDTO", planDetailDTO);
 
         return "/proposal/read";
@@ -156,6 +169,7 @@ public class ProposalController {
         MemberDTO loginUser = (MemberDTO) session.getAttribute("member");
 
 
+        CourseSelectDTO course = courseService.findCourseById(16L);
         CourseSelectDTO course = courseService.findCourseById(81L);
         log.info(course.toString());
 

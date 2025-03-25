@@ -1,6 +1,7 @@
 package com.app.pickcourse.mapper;
 
 import com.app.pickcourse.domain.dto.PlanDTO;
+import com.app.pickcourse.domain.dto.RecruitPlanDTO;
 import com.app.pickcourse.domain.vo.PlanVO;
 import com.app.pickcourse.util.Pagination;
 import org.apache.ibatis.annotations.Mapper;
@@ -43,5 +44,14 @@ public interface PlanMapper {
 
 //    코스ID로 전체조회
     public List<PlanDTO> selectByCourseId(Long courseId);
+
+    List<RecruitPlanDTO> selectMyRecruitPlans(@Param("memberId") Long memberId,
+                                              @Param("offset") int offset,
+                                              @Param("limit") int limit);
+
+    List<RecruitPlanDTO> selectMyRecruitPlansWithLimit(@Param("memberId") Long memberId,
+                                                       @Param("offset") int offset,
+                                                       @Param("limit") int limit);
+
 
 }

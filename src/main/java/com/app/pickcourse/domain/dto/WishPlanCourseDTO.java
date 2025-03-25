@@ -1,7 +1,9 @@
 package com.app.pickcourse.domain.dto;
 
-
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -9,11 +11,10 @@ import org.springframework.stereotype.Component;
 @Getter
 @Setter
 @ToString
-public class RecentCourseDTO {
-    private Long courseId;
+public class WishPlanCourseDTO {
+    private Long memberId;
     private Long planId;
-    private String courseType;
-    private String courseName;
+    private String planName;
     private String courseFilePath;
     private String courseFileName;
 }

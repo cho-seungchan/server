@@ -169,23 +169,6 @@ fileInput.addEventListener("change", (e) => {
        formData.append("files", file);
     });
     console.log(allFiles);
-    // const files = e.target.files;
-    //
-    // // 서버로 보낼 데이타 형태로 변경
-    // const formData = new FormData();
-    // Array.from(files).forEach((file) => {
-    //     formData.append("files", file);
-    // });
-    // // FormData 내용 출력
-    // console.log("--- FormData 내용 출력 ---");
-    // for (let [key, value] of formData.entries()) {
-    //     console.log(`${key}:`, value);
-    //     if (value instanceof File) {
-    //         console.log(`\t파일명: ${value.name}`);
-    //         console.log(`\t파일 크기: ${value.size} bytes`);
-    //         console.log(`\t파일 타입: ${value.type}`);
-    //     }
-    // }
 
     // 서버로 전송하여 path와 썸네일 생성
     inputFileUpload(formData);
