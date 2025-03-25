@@ -12,7 +12,6 @@ import java.util.List;
 public class CourseSelectDTO {
     @EqualsAndHashCode.Include
     private Long      id;
-
     private String    courseType;
     private Character courseIsVolunteer;
     private String    courseName;

@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/proposal")
 @RequiredArgsConstructor
@@ -26,6 +28,7 @@ public class ProposalController {
     private final ParticipantService participantService;
     private final PayService payService;
     private final MemberService memberService;
+    private final RealFeedService realFeedService;
 
     @GetMapping("/eco")
     public String getEco(Model model) {
@@ -106,8 +109,13 @@ public class ProposalController {
     public String getRead(Model model, @RequestParam Long id) {
         MemberDTO loginUser = (MemberDTO) session.getAttribute("member");
 
+        if(loginUser == null) {
+            return "redirect:/login/login";
+        }
+
         PlanDetailDTO planDetailDTO = planService.getPlanDetailById(id);
         planDetailDTO.setMember(loginUser.toVO());
+        planDetailDTO.setFeedList(realFeedService.getRealFeedList(id));
 
         model.addAttribute("planDetailDTO", planDetailDTO);
 
@@ -115,8 +123,20 @@ public class ProposalController {
     }
 
     @GetMapping("/reviewlist")
-    public String getReviewList(Model model) {
+    public String getReviewList(Model model, Long planId) {
+        FeedListByPlanIdDTO feedListByPlanIdDTO = new FeedListByPlanIdDTO();
+
+        feedListByPlanIdDTO.setPlanId(planId);
+        feedListByPlanIdDTO.setFeedLists(realFeedService.getRealFeedList(planId));
+        model.addAttribute("lists", feedListByPlanIdDTO);
+
         return "/proposal/reviewlist";
+    }
+
+    @GetMapping("/reviewlist/{planId}")
+    @ResponseBody
+    public PlanByFeedListDTO getReviewList(Pagination pagination, @PathVariable Long planId) {
+        return realFeedService.getFeedPagination(pagination, planId);
     }
 
     @GetMapping("/reviewread")

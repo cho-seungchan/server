@@ -1,10 +1,8 @@
 package com.app.pickcourse.mapper;
 
-import com.app.pickcourse.domain.dto.FeedListDTO;
-import com.app.pickcourse.domain.dto.RealFeedDTO;
-import com.app.pickcourse.domain.dto.RealDTO;
-import com.app.pickcourse.domain.dto.ReviewDTO;
+import com.app.pickcourse.domain.dto.*;
 import com.app.pickcourse.domain.vo.FeedVO;
+import com.app.pickcourse.util.Pagination;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -31,4 +29,12 @@ public interface RealFeedMapper {
 
     List<FeedListDTO> getMyFeedList(Long memberId);
 
+//    플랜ID로 후기목록 조회
+    public List<FeedListDTO> selectFeedListByPlanId(Long planId);
+
+//    피드갯수 플랜ID로 조회
+    public int selectFeedCount(Long planId);
+
+//    플랜ID 페이지네이션
+    public List<FeedListDTO> selectPaginationByPlanId(Pagination pagination, Long planId);
 }

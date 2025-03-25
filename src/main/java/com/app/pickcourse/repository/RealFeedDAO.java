@@ -7,6 +7,7 @@ import com.app.pickcourse.domain.dto.RealDTO;
 import com.app.pickcourse.domain.vo.FeedVO;
 import com.app.pickcourse.mapper.GeneralFeedMapper;
 import com.app.pickcourse.mapper.RealFeedMapper;
+import com.app.pickcourse.util.Pagination;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -41,5 +42,20 @@ public class RealFeedDAO {
 
     public List<FeedListDTO> getMyFeedList(Long memberId) {
         return realFeedMapper.getMyFeedList(memberId);
+    }
+
+//   플랜ID로 후기 조회
+    public List<FeedListDTO> findFeedListByPlanId(Long planId) {
+        return realFeedMapper.selectFeedListByPlanId(planId);
+    }
+
+//    카운트
+    public int findFeedCountByPlanId(Long planId) {
+        return realFeedMapper.selectFeedCount(planId);
+    }
+
+//    페이지네이션
+    public List<FeedListDTO> findPaginationByPlanId(Pagination pagination, Long planId) {
+        return realFeedMapper.selectPaginationByPlanId(pagination, planId);
     }
 }

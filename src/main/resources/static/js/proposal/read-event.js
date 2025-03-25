@@ -121,3 +121,42 @@ joinWrap.addEventListener("click", (e) => {
     }
 })
 
+// 후기의 버튼 클릭시 이미지 3개식 이동 732px, 디스플레이 768px
+
+let leftReviewEnd = 0; // 화면 왼쪽 끝
+let rightReviewEnd = 976;
+console.log(slickTrack)
+const totalLength = slickTrack.children;
+console.log(totalLength);
+let maxReviewRightEnd =totalLength.length * 244;
+console.log(maxReviewRightEnd);
+
+document.querySelector(".slick-next").addEventListener("click", (e) => {
+    rightReviewEnd += 732;
+    leftReviewEnd += 732;
+    if (rightReviewEnd > maxReviewRightEnd) {
+        // maxRightEnd 보다 오른쪽으로 못 가도록 막음
+        leftReviewEnd -= rightReviewEnd - maxReviewRightEnd;
+        rightReviewEnd = maxReviewRightEnd;
+
+        document.querySelector(".slick-next").classList.add("slick-disabled");
+    }
+    document.querySelector(".slick-track").style.transform = `translate3d(${768 - rightReviewEnd}px, 0, 0)`;
+    document.querySelector(".slick-prev").classList.remove("slick-disabled");
+});
+
+document.querySelector(".slick-prev").addEventListener("click", (e) => {
+    leftReviewEnd -= 732;
+    rightReviewEnd -= 732;
+    if (leftReviewEnd < 0) {
+        // 0 보다 오른쪽으로 못 가도록 막음
+        rightReviewEnd -= leftReviewEnd;
+        leftReviewEnd = 0;
+
+        document.querySelector(".slick-prev").classList.add("slick-disabled");
+    }
+    document.querySelector(".slick-track").style.transform = `translate3d(${leftReviewEnd}px, 0, 0)`;
+    document.querySelector(".slick-next").classList.remove("slick-disabled");
+});
+// 후기의 버튼 클릭시 이미지 3개식 이동 732px, 디스플레이 768px
+
