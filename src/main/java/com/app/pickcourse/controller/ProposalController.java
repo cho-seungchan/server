@@ -31,14 +31,17 @@ public class ProposalController {
     private final RealFeedService realFeedService;
     private final WishService wishService;
 
+
+//    25.03.25 봉사코스 상세 조회
     @GetMapping("/eco")
-    public String getEco(Model model) {
+    public String getEco(@RequestParam Long id, Model model) {
+
+        EcoDetailDTO ecoDetail = planService.getEco(id);
+
+        model.addAttribute("ecoDetail", ecoDetail);
+
         return "/proposal/eco";
     }
-//    @GetMapping("/eco")
-//    public String getEco(Model model) {
-//        return "/proposal/eco";
-//    }
 
     @GetMapping("/list")
     public String getList(Model model) {
@@ -115,26 +118,12 @@ public class ProposalController {
 
     
     @GetMapping("/read")
-
-    public String getRead(Model model, Long id) {
-//        MemberDTO loginUser = (MemberDTO) session.getAttribute("member");
-
     public String getRead(Model model, @RequestParam Long id) {
 
         MemberDTO loginUser = (MemberDTO) session.getAttribute("member");
 
-
-        if(loginUser == null) {
-            return "redirect:/login/login";
-        }
-
         PlanDetailDTO planDetailDTO = planService.getPlanDetailById(id);
-
-//        planDetailDTO.setMember(loginUser.toVO());
-
-        planDetailDTO.setMember(loginUser.toVO());
         planDetailDTO.setFeedList(realFeedService.getRealFeedList(id));
-
 
         // 로그인한 사용자라면 사용자 정보를 추가
         if (loginUser != null) {

@@ -20,6 +20,7 @@ public class CourseDTO {
     private String            courseFileSize;
     private String            courseFileName;
     private Long              adminId;
+    private String            adminName;
     private String            createdDate;
     private String            updatedDate;
     private Long              volunteerId;
