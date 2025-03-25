@@ -334,17 +334,29 @@ function addParticipants(participants, pagination) {
             </div>
         `;
 
-        // 파일이 존재 할 때만 이미지 태그 추가
+        // 파일이 존재 할 때 프로필 이미지 태그 추가
+        let imgElement;
         if (participant.memberFilePath && participant.memberFileName) {
             const imageUrl = `/files/display?path=${encodeURIComponent(participant.memberFilePath)}/${encodeURIComponent(participant.memberFileName)}`;
 
             // <img> 태그 생성
-            const imgElement = document.createElement("img");
+            imgElement = document.createElement("img");
             imgElement.className = "Image__StyledImage-v97gyx-1 hPRDQO";
             imgElement.width = 36;
             imgElement.height = 36;
             imgElement.src = imageUrl;
             imgElement.alt = "서버에서 불러온 이미지";
+        } else {
+
+            // <img> 태그 생성
+            imgElement = document.createElement("img");
+            imgElement.className = "Image__StyledImage-v97gyx-1 hPRDQO";
+            imgElement.width = 36;
+            imgElement.height = 36;
+            imgElement.src = "/images/common/favicon1.ico";
+            imgElement.alt = "서버에서 불러온 이미지";
+        }
+
 
             // `.Image__Wrapper-v97gyx-0.gDuKGF` 내부에 이미지 추가
             const imageWrapper = participantAddLine.querySelector(".Image__Wrapper-v97gyx-0.gDuKGF");
@@ -357,7 +369,7 @@ function addParticipants(participants, pagination) {
             // if (ratioContent) {
             //     ratioContent.appendChild(imgElement.cloneNode()); // 클론해서 추가
             // }
-        }
+        // }
 
         document.querySelector(".participantList-container").appendChild(participantAddLine); // 새로 생성된 리스트 추가
         participantAddLine.scrollIntoView({ behavior: "smooth", block: "center" }); // 추가된 행들이 처지지 않게 위치 잡아주기

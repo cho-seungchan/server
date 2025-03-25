@@ -1073,7 +1073,6 @@ form[name="deleteForm"] button:hover {
 
 .dSDVFj {
     display: flex;
-    padding: 15px 0px;
 }
 .gDuKGF {
     min-height: 1px;
@@ -1096,3 +1095,16 @@ form[name="deleteForm"] button:hover {
      border-radius: 36px;
      object-fit: cover;
  }
+.participant-container {
+    display: flex;
+}
+.nickname{
+    position: absolute;
+    margin-left: 10px;
+    font-size: 24px;
+}
+.createdDate {
+    position: absolute;
+    margin-left: 290px;
+    font-size: 14px;
+}
