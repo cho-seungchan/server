@@ -93,7 +93,10 @@ public class ProposalController {
 
     @PostMapping("/addKakaoPay")
     public void addKakaoPay(@RequestBody PayDTO payDTO) {
+        log.info("들어옴1");
+
         log.info(payDTO.toString());
+
         payService.addPay(payDTO);
     }
 
@@ -137,7 +140,7 @@ public class ProposalController {
         MemberDTO loginUser = (MemberDTO) session.getAttribute("member");
 
 
-        CourseSelectDTO course = courseService.findCourseById(51L);
+        CourseSelectDTO course = courseService.findCourseById(16L);
         model.addAttribute("course", course);
         model.addAttribute("loginMember", loginUser);
 

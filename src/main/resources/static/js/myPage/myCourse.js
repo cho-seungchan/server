@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         : "/images/default-course.jpg";
 
                     const courseTypeLabel = course.courseType + " 코스";
-                    const courseId = course.courseId;
+                    const courseId = course.courseType;
 
                     const template = `
                     <div class="Banner__ImageSliderWrapper-dlocnb-2 hWqRHN">
@@ -59,3 +59,5 @@ document.addEventListener("DOMContentLoaded", function () {
         .catch(() => {
         });
 });
+
+

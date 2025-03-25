@@ -42,11 +42,15 @@ public class MyPageController {
     private final HttpServletRequest request;
     private final MyFeedService myFeedService;
     private final MyReplyService myReplyService;
+    private final PayService payService;
+    private final PlanService planService;
+    private final WishService wishService;
 
     @GetMapping("changePassword")
     public String getChangePassword(){
         MemberDTO member = (MemberDTO) session.getAttribute("member");
         if (member == null) {
+            session.setAttribute("redirectAfterLogin", request.getRequestURI());
             return "redirect:/login/login";
         }
         return "my-page/changePassword";
@@ -58,6 +62,7 @@ public class MyPageController {
                                  RedirectAttributes redirectAttributes) {
         MemberDTO member = (MemberDTO) session.getAttribute("member");
         if (member == null) {
+            session.setAttribute("redirectAfterLogin", request.getRequestURI());
             return "redirect:/login/login";
         }
 
@@ -81,14 +86,14 @@ public class MyPageController {
     }
 
 
-    @GetMapping("heart")
-    public void getHeart(){}
+
 
     @GetMapping("/messageList_Send")
     public String goToSendListPage(@SessionAttribute(name = "member", required = false) MemberDTO member) {
 //        MemberDTO member = (MemberDTO) session.getAttribute("member");
 
         if (member == null) {
+            session.setAttribute("redirectAfterLogin", request.getRequestURI());
             return "redirect:/login/login";
         }
 
@@ -100,6 +105,7 @@ public class MyPageController {
     public SendPaginationDTO getSendMessages(Pagination pagination, @SessionAttribute(name = "member", required = false) MemberDTO member, HttpServletResponse response)  throws IOException {
 //        MemberDTO member = (MemberDTO) session.getAttribute("member");
         if (member == null) {
+            session.setAttribute("redirectAfterLogin", request.getRequestURI());
             response.sendRedirect("/login/login");
             return null;
         }
@@ -117,6 +123,7 @@ public class MyPageController {
 //        MemberDTO member = (MemberDTO) session.getAttribute("member");
 
         if (member == null) {
+            session.setAttribute("redirectAfterLogin", request.getRequestURI());
             return "redirect:/login/login";
         }
 
@@ -128,6 +135,7 @@ public class MyPageController {
     public ReceivePaginationDTO getReceivedMessages(Pagination pagination, @SessionAttribute(name = "member", required = false) MemberDTO member)  throws IOException {
 //        MemberDTO member = (MemberDTO) session.getAttribute("member");
         if (member == null) {
+            session.setAttribute("redirectAfterLogin", request.getRequestURI());
             response.sendRedirect("/login/login");
             return null;
         }
@@ -143,10 +151,6 @@ public class MyPageController {
         return ResponseEntity.ok(updatedStatus);
     }
 
-//    @PostMapping("/readMessage")
-//    public String markAsRead(@RequestParam Long id) {
-//        return messageService.updateToChecked(id);
-//    }
 
     @PostMapping("/deleteReceiveMessage")
     @ResponseBody
@@ -154,6 +158,7 @@ public class MyPageController {
         MemberDTO member = (MemberDTO) session.getAttribute("member");
 
         if (member == null) {
+            session.setAttribute("redirectAfterLogin", request.getRequestURI());
             return false;
         }
         return messageService.deleteReceiveMessageById(id);
@@ -165,6 +170,7 @@ public class MyPageController {
         MemberDTO member = (MemberDTO) session.getAttribute("member");
 
         if (member == null) {
+            session.setAttribute("redirectAfterLogin", request.getRequestURI());
             return false;
         }
         return messageService.deleteSendMessageById(id);
@@ -232,6 +238,16 @@ public class MyPageController {
         return "redirect:/my-page/messageList_Send";
     }
 
+    @GetMapping("/payContents")
+    @ResponseBody
+    public List<MyPayListDTO> getMyPaymentList(@SessionAttribute(name = "member", required = false) MemberDTO member) {
+        if (member == null) {
+            return Collections.emptyList();
+        }
+
+        Long memberId = member.getId();
+        return payService.getMyPayList(memberId);
+    }
 
 
     @GetMapping("myCourse")
@@ -298,15 +314,22 @@ public class MyPageController {
     @GetMapping("myReply")
     public void getMyReply(){}
     @GetMapping("payContent")
-    public void getPayContent(){}
-    @GetMapping("recruit")
-    public void getRecuit(){}
+    public String getPayContent(){
+        MemberDTO memberDTO = (MemberDTO) session.getAttribute("member");
+
+        if (memberDTO == null) {
+            session.setAttribute("redirectAfterLogin", request.getRequestURI());
+            return "redirect:/login/login";
+        }
+        return "my-page/payContent";
+    }
 
     @GetMapping("userQuit")
     public String getUserQuitForm(){
         MemberDTO memberDTO = (MemberDTO) session.getAttribute("member");
 
         if (memberDTO == null) {
+            session.setAttribute("redirectAfterLogin", request.getRequestURI());
             return "redirect:/login/login";
         }
         return "my-page/userQuit";
@@ -318,6 +341,7 @@ public class MyPageController {
 
 
         if (memberDTO == null) {
+            session.setAttribute("redirectAfterLogin", request.getRequestURI());
             return "redirect:/login/login";
         }
 
@@ -410,6 +434,69 @@ public class MyPageController {
 
         List<RecentCourseDTO> myCourses = participantService.getMyCourses(member.getId());
         return ResponseEntity.ok(myCourses);
+    }
+
+    @GetMapping("/heart")
+    public String getHeart(@SessionAttribute(name = "member", required = false) MemberDTO member,
+                           HttpServletRequest request) {
+
+        if (member == null) {
+            session.setAttribute("redirectAfterLogin", request.getRequestURI());
+            return "redirect:/login/login";
+        }
+
+        return "/my-page/heart";
+    }
+
+    @GetMapping("/wishList")
+    @ResponseBody
+    public WishPaginationDTO getWishList(Pagination pagination, @SessionAttribute(name = "member", required = false) MemberDTO member) throws IOException {
+
+        if (member == null) {
+            session.setAttribute("redirectAfterLogin", request.getRequestURI());
+            response.sendRedirect("/login/login");
+            return null;
+        }
+
+        return wishService.getWishList(member.getId(), pagination);
+    }
+
+
+
+    @GetMapping("/recruit")
+    public String getMyRecruitPlans(@SessionAttribute(name = "member", required = false) MemberDTO member, Model model,
+                                    @RequestParam(name = "offset", defaultValue = "0") int offset,
+                                    @RequestParam(name = "limit", defaultValue = "5") int limit) {
+
+        if (member == null) {
+            session.setAttribute("redirectAfterLogin", request.getRequestURI());
+            return "redirect:/login/login";
+        }
+
+        Long memberId = member.getId();
+
+        List<RecruitPlanDTO> recruitPlans = planService.getMyRecruitPlans(memberId, offset, limit);
+        model.addAttribute("recruitPlans", recruitPlans);
+        return "/my-page/recruit";
+    }
+
+    @GetMapping("/recruit/load")
+    @ResponseBody
+    public List<RecruitPlanDTO> loadMoreRecruitPlans(@SessionAttribute(name = "member", required = false) MemberDTO member,
+                                                     @RequestParam(name = "offset") int offset,
+                                                     @RequestParam(name = "limit") int limit) {
+        if (member == null) {
+            return Collections.emptyList();
+        }
+
+        return planService.getMyRecruitPlans(member.getId(), offset, limit);
+    }
+
+
+    @GetMapping("/recruit/{planId}/applicants")
+    @ResponseBody
+    public List<ApplicantDTO> getApplicants(@PathVariable("planId") Long planId) {
+        return participantService.getApplicants(planId);
     }
 
 

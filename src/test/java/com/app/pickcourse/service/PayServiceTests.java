@@ -20,7 +20,7 @@ public class PayServiceTests {
         payDTO.setPayPrice(10000);
         payDTO.setPayMethod("카카오페이");
         payDTO.setMemberId(1L);
-        payDTO.setPlanId(128L);
+        payDTO.setPlanId(22L);
 
         log.info(payDTO.toString());
 

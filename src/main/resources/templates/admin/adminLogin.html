@@ -64,6 +64,10 @@
                                     class="LoginRegister__LoginRegisterForm-gtp545-0 fjvnva"
                             >
                                 <div>
+                                    <!-- 에러 메시지 -->
+                                    <div th:if="${error}" class="Form__Description-sc-1quypp7-2 bViOzS">
+                                        <p th:text="${error}"></p>
+                                    </div>
                                     <!-- 이메일 형식이 올바르지 않을때 input class에 inputError를 추가해주고 iRBMai를 삭제한다-->
                                     <input
                                         th:field="*{adminAccount}" required

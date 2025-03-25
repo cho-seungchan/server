@@ -42,5 +42,6 @@
         <typeAlias type="com.app.pickcourse.domain.vo.ParticipantVO" alias="participantVO"/>
         <typeAlias type="com.app.pickcourse.domain.dto.ParticipantDTO" alias="participantDTO"/>
         <typeAlias type="com.app.pickcourse.domain.dto.RecentCourseDTO" alias="recentCourseDTO"/>
+        <typeAlias type="com.app.pickcourse.domain.dto.MyPayListDTO" alias="myPayListDTO"/>
     </typeAliases>
 </configuration>
