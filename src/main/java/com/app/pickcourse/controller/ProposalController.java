@@ -168,8 +168,6 @@ public class ProposalController {
     public String getVeiwList(Model model, Long courseId) {
         MemberDTO loginUser = (MemberDTO) session.getAttribute("member");
 
-
-        CourseSelectDTO course = courseService.findCourseById(16L);
         CourseSelectDTO course = courseService.findCourseById(81L);
         log.info(course.toString());
 

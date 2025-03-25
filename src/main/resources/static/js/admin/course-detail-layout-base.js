@@ -47,6 +47,9 @@ function createCourseDetail() {
                                         <div class="DurationOfTourContainer" >
 <!--                                        봉사코스 일 경우 시작일, 종료일, 마감일 생성-->
                                         </div>
+                                        <div class="MaxMinPersonnel" >
+<!--                                        봉사코스 일 경우 최대,최소 인원 생성 -->
+                                        </div>
                                         <div class="DurationOfTourContainer1 SocialRecruiteTagsContainer__SocialRecruiteTagsWrapper-sc-2762su-0 bmexYY second" >
                                             <div class="bmexYYinput" >
 <!--                                           봉사코스 일 경우 포함 불포함 준비물 생성-->

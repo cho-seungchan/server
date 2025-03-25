@@ -6,12 +6,16 @@
             (ID,
              VOLUNTEER_START_DATE,
              VOLUNTEER_END_DATE,
-             VOLUNTEER_DEADLINE)
+             VOLUNTEER_DEADLINE,
+             VOLUNTEER_MAX_PERSONNEL,
+             VOLUNTEER_MIN_PERSONNEL)
         VALUES
             (#{id},
              TO_DATE(#{volunteerStartDate}, 'YYYY-MM-DD'),
              TO_DATE(#{volunteerEndDate}, 'YYYY-MM-DD'),
-             TO_DATE(#{volunteerDeadline}, 'YYYY-MM-DD'))
+             TO_DATE(#{volunteerDeadline}, 'YYYY-MM-DD'),
+             #{volunteerMaxPersonnel},
+             #{volunteerMinPersonnel})
     </insert>
 
     <update id="putCourseDetail">
@@ -19,6 +23,8 @@
         SET VOLUNTEER_START_DATE        =   TO_DATE(#{volunteerStartDate}, 'YYYY-MM-DD'),
             VOLUNTEER_END_DATE          =   TO_DATE(#{volunteerEndDate}, 'YYYY-MM-DD'),
             VOLUNTEER_DEADLINE          =   TO_DATE(#{volunteerDeadline}, 'YYYY-MM-DD'),
+            VOLUNTEER_MAX_PERSONNEL     =   #{volunteerMaxPersonnel},
+            VOLUNTEER_MIN_PERSONNEL     =   #{volunteerMinPersonnel},
             UPDATED_DATE                =   SYSDATE
         WHERE ID                 =   #{id}
     </update>

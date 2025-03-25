@@ -53,7 +53,9 @@
             V.ID AS VOLUNTEER_ID,
             V.VOLUNTEER_START_DATE,
             V.VOLUNTEER_END_DATE,
-            V.VOLUNTEER_DEADLINE
+            V.VOLUNTEER_DEADLINE,
+            V.VOLUNTEER_MAX_PERSONNEL,
+            V.VOLUNTEER_Min_PERSONNEL
         FROM TBL_COURSE C
             LEFT OUTER JOIN TBL_VOLUNTEER V
                 ON   C.ID = V.ID
@@ -82,7 +84,9 @@
             V.ID AS VOLUNTEER_ID,
             V.VOLUNTEER_START_DATE,
             V.VOLUNTEER_END_DATE,
-            V.VOLUNTEER_DEADLINE
+            V.VOLUNTEER_DEADLINE,
+            V.VOLUNTEER_MAX_PERSONNEL,
+            V.VOLUNTEER_Min_PERSONNEL
         FROM TBL_COURSE C
                  LEFT OUTER JOIN TBL_VOLUNTEER V
                                  ON   C.ID = V.ID

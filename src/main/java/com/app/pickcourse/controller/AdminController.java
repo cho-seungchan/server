@@ -57,7 +57,6 @@ public class AdminController {
         List<MemberVO> members = adminService.getMemberList(isAct, pagination, search);
         model.addAttribute("members", members);
 
-        log.info("회원 목록 "+isAct+" "+pagination.toString()+" "+search.toString());
         return "/admin/member-list";
     }
 
@@ -128,7 +127,6 @@ public class AdminController {
         model.addAttribute("admins", admins);
         model.addAttribute("admin", new AdminVO());
 
-        log.info(pagination.toString());
         return "/admin/manage-admin-list";
     }
 
@@ -199,7 +197,6 @@ public class AdminController {
                                                              Pagination pagination, Search search) {
 
         List<CourseListDTO> list = adminService.getCourseList(pagination,search);
-        list.forEach(System.out::println);
 
         Map<String, Object> response = new HashMap<String, Object>();
         response.put("courses", list);
@@ -214,9 +211,6 @@ public class AdminController {
     public ResponseEntity<String> patchCourseList(@SessionAttribute(name = "admin", required = false) AdminVO admin,
                                                   @RequestBody Map<String, String> reqData) {
 
-        // 받은 데이터 확인 (디버깅용)
-        System.out.println("Course Request: " + reqData.get("courseId")+" "+reqData.get("courseType"));
-
         adminService.patchCourseList(reqData.get("courseId"),reqData.get("courseType").trim());
         // 처리 결과 반환
         return ResponseEntity.ok("Course list fetched successfully!");
@@ -229,7 +223,6 @@ public class AdminController {
                                                                @PathVariable("id") Long id) {
 
         CourseDTO courseDTO = adminService.getCourseDetail(id);
-        System.out.println(courseDTO.toString());
         Map<String,Object> response = new HashMap<String, Object>();
         response.put("course", courseDTO);
         return ResponseEntity.ok(response);
@@ -241,7 +234,6 @@ public class AdminController {
     public ResponseEntity<Map<String, Object>> getCourseTypeDetail(@SessionAttribute(name = "admin", required = false) AdminVO admin,
                                                                    @PathVariable("courseType") String courseType) {
         CourseDTO courseDTO = adminService.getCourseTypeDetail(courseType);
-        System.out.println(courseDTO.toString());
         Map<String,Object> response = new HashMap<String, Object>();
         response.put("course", courseDTO);
         return ResponseEntity.ok(response);
@@ -289,7 +281,6 @@ public class AdminController {
         Map<String,Object> response = new HashMap<>();
         response.put("reply", reply);
 
-        log.info(reply.toString());
 
         return ResponseEntity.ok(response);
     };
@@ -300,11 +291,8 @@ public class AdminController {
     public ResponseEntity<Map<String, Object>> getNoticeList(@SessionAttribute(name = "admin", required = false) AdminVO admin,
                                                              Pagination pagination, Search search) {
 
-        log.info(" getNoticeList 들어옴 ");
 
         List<NoticeListDTO> list = adminService.getNoticeList(pagination, search);
-
-        list.forEach(System.out::println);
 
         Map<String,Object> response = new HashMap<>();
         response.put("notice", list);
@@ -349,7 +337,6 @@ public class AdminController {
     @DeleteMapping("/notice-detail/{id}")
     @ResponseBody
     public void deleteNoticeDetail(@PathVariable Long id) {
-        log.info("deleteNoticeDetail  "+id);
 
         adminService.deleteNoticeDetail(id);
     }

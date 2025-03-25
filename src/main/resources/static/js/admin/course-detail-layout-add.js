@@ -176,6 +176,13 @@ function addCourseDetail(course, page, type, keyWord) {
         }
     }
 
+    // 최대 최소 모집 인원 정보 생성
+    document.querySelector(".MaxMinPersonnel").innerHTML = `
+        <input type="text" name="volunteerMaxPersonnel" placeholder="최대 모집 인원" class="SocialRecruiteTagsContainer__SocialRecruiteTagsInput-sc-2762su-1 gcqwwh max-personnel"
+         value = "${course.volunteerMaxPersonnel}"/>
+        <input type="text" name="volunteerMinPersonnel" placeholder="최소 출발 인원" class="SocialRecruiteTagsContainer__SocialRecruiteTagsInput-sc-2762su-1 gcqwwh min-personnel" 
+         value = "${course.volunteerMinPersonnel}"/>                                                                        
+    `
     // 기타 정보 생성
     document.querySelector(".NumberOfPerson").innerHTML = `
         <input placeholder="총 거리" class="SocialRecruiteTagsContainer__SocialRecruiteTagsInput-sc-2762su-1 gcqwwh max" 
