@@ -31,6 +31,7 @@ public class PlanService {
     private final FeedDAO feedDAO;
     private final QuestionDAO questionDAO;
     private final ParticipantDAO participantDAO;
+    private final CourseDAO courseDAO;
 
 
     //    여행계획작성
@@ -181,6 +182,13 @@ public class PlanService {
         planDAO.delete(planId);
     }
 
+    public EcoDetailDTO getEco(Long id) {
+        // 여행 계획 데이타 가져오기
+        EcoDetailDTO ecoDetail = new EcoDetailDTO();
+
+        // 후기데이타 가져오기
+        return ecoDetail;
+    }
 }
 
 

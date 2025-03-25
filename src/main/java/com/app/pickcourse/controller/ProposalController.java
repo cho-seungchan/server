@@ -30,10 +30,16 @@ public class ProposalController {
     private final MemberService memberService;
     private final RealFeedService realFeedService;
 
-//    @GetMapping("/eco")
-//    public String getEco(Model model) {
-//        return "/proposal/eco";
-//    }
+//    25.03.25 봉사코스 상세 조회
+    @GetMapping("/eco")
+    public String getEco(@RequestParam Long id, Model model) {
+
+        EcoDetailDTO ecoDetail = planService.getEco(id);
+
+        model.addAttribute("ecoDetail", ecoDetail);
+
+        return "/proposal/eco";
+    }
 
     @GetMapping("/list")
     public String getList(Model model) {
@@ -106,13 +112,8 @@ public class ProposalController {
     }
 
     @GetMapping("/read")
-
-    public String getRead(Model model, Long id) {
-//        MemberDTO loginUser = (MemberDTO) session.getAttribute("member");
-
     public String getRead(Model model, @RequestParam Long id) {
         MemberDTO loginUser = (MemberDTO) session.getAttribute("member");
-
 
         if(loginUser == null) {
             return "redirect:/login/login";
@@ -120,11 +121,8 @@ public class ProposalController {
 
         PlanDetailDTO planDetailDTO = planService.getPlanDetailById(id);
 
-//        planDetailDTO.setMember(loginUser.toVO());
-
         planDetailDTO.setMember(loginUser.toVO());
         planDetailDTO.setFeedList(realFeedService.getRealFeedList(id));
-
 
         model.addAttribute("planDetailDTO", planDetailDTO);
 
