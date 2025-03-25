@@ -12,13 +12,14 @@ import java.util.Map;
 @Mapper
 public interface WishMapper {
 //    찜한목록에 추가
-    public void insert(WishVO wishVO);
+    public void insertWish(WishVO wishVO);
 
 //    찜한 목록
     public WishVO selectByMemberId(Long memberId);
 
 //    삭제
-    public void delete(Long memberId);
+    public void deleteWishByMemberIdAndPlanId(@Param("memberId") Long memberId,
+                                                  @Param("planId") Long planId);
 
     int getTotalWishCount(Long memberId);
 
@@ -28,5 +29,9 @@ public interface WishMapper {
     List<WishPlanCourseDTO> selectWishList(@Param("memberId") Long memberId, @Param("pagination") Pagination pagination);
 
     int selectWishTotal(Long memberId);
+
+    int isWished(@Param("memberId") Long memberId, @Param("planId") Long planId);
+
+    int countWishByPlanId(Long planId);
 
 }

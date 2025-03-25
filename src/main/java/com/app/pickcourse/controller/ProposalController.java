@@ -34,6 +34,7 @@ public class ProposalController {
     private final ParticipantService participantService;
     private final PayService payService;
     private final MemberService memberService;
+    private final WishService wishService;
 
     @GetMapping("/eco")
     public String getEco(Model model) {
@@ -112,14 +113,26 @@ public class ProposalController {
 
         participantService.insertParticipant(participantDTO);
     }
-
+    
     @GetMapping("/read")
     public String getRead(Model model, @RequestParam Long id) {
+
         MemberDTO loginUser = (MemberDTO) session.getAttribute("member");
 
         PlanDetailDTO planDetailDTO = planService.getPlanDetailById(id);
-        planDetailDTO.setMember(loginUser.toVO());
 
+        // 로그인한 사용자라면 사용자 정보를 추가
+        if (loginUser != null) {
+            planDetailDTO.setMember(loginUser.toVO());
+            boolean isWished = wishService.isWished(loginUser.getId(), id);
+            model.addAttribute("isWished", isWished);
+        } else {
+            // 로그인하지 않았다면 기본값으로 설정
+            model.addAttribute("isWished", false);
+        }
+
+        int wishCount = wishService.getWishCountByPlanId(id);
+        model.addAttribute("wishCount", wishCount);
         model.addAttribute("planDetailDTO", planDetailDTO);
 
         return "/proposal/read";

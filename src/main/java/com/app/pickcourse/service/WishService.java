@@ -2,6 +2,7 @@ package com.app.pickcourse.service;
 
 import com.app.pickcourse.domain.dto.WishPaginationDTO;
 import com.app.pickcourse.domain.dto.WishPlanCourseDTO;
+import com.app.pickcourse.domain.vo.WishVO;
 import com.app.pickcourse.repository.WishDAO;
 import com.app.pickcourse.util.Pagination;
 import lombok.RequiredArgsConstructor;
@@ -40,5 +41,24 @@ public class WishService {
         dto.setWishList(list);
 
         return dto;
+    }
+
+    public void removeWish(Long memberId, Long planId) {
+        wishDAO.deleteWish(memberId, planId);
+    }
+
+    public void addWish(Long memberId, Long planId) {
+        WishVO wishVO = new WishVO();
+        wishVO.setMemberId(memberId);
+        wishVO.setPlanId(planId);
+        wishDAO.insertWish(wishVO);
+    }
+
+    public boolean isWished(Long memberId, Long planId) {
+        return wishDAO.isWished(memberId, planId);
+    }
+
+    public int getWishCountByPlanId(Long planId) {
+        return wishDAO.countWishByPlanId(planId);
     }
 }

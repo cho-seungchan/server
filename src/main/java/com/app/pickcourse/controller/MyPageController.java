@@ -3,6 +3,7 @@ package com.app.pickcourse.controller;
 
 import com.app.pickcourse.domain.dto.*;
 import com.app.pickcourse.domain.vo.MemberVO;
+import com.app.pickcourse.domain.vo.WishVO;
 import com.app.pickcourse.repository.*;
 import com.app.pickcourse.service.*;
 import com.app.pickcourse.util.Pagination;
@@ -438,11 +439,14 @@ public class MyPageController {
 
     @GetMapping("/heart")
     public String getHeart(@SessionAttribute(name = "member", required = false) MemberDTO member,
-                           HttpServletRequest request) {
+                           HttpServletRequest request, Model model) {
 
         if (member == null) {
             session.setAttribute("redirectAfterLogin", request.getRequestURI());
             return "redirect:/login/login";
+        } else {
+            Long memberId = member.getId();
+            model.addAttribute("memberId", memberId);
         }
 
         return "/my-page/heart";
@@ -532,7 +536,16 @@ public class MyPageController {
         return ResponseEntity.ok(result);
     }
 
+    @PostMapping("/deleteHeart")
+    public ResponseEntity<String> deleteWish(@RequestBody WishVO wishVO) {
+        wishService.removeWish(wishVO.getMemberId(), wishVO.getPlanId());
+        return ResponseEntity.ok("찜 삭제 완료");
+    }
 
-
+    @PostMapping("/insertHeart")
+    public ResponseEntity<String> addWish(@RequestBody WishVO wishVO) {
+        wishService.addWish(wishVO.getMemberId(), wishVO.getPlanId());
+        return ResponseEntity.ok("찜 추가 완료");
+    }
 
 }

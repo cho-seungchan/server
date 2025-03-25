@@ -1,314 +1,4 @@
-// document.querySelectorAll(".heartButton").forEach((button) => {
-//     button.addEventListener("click", function (event) {
-//         // 부모의 이벤트를 막아주는 메소드
-//         event.preventDefault();
-//         event.stopPropagation();
-//
-//         const img = this.querySelector("img");
-//         if (img) {
-//             img.src = img.src.includes("red.svg")
-//                 ? "/images/main/white.svg"
-//                 : "/images/main/red.svg";
-//         }
-//     });
-// });
-//
-//
-// document.addEventListener("DOMContentLoaded", function () {
-//     const pageWrap = document.getElementById("pageWrap");
-//
-//     // if (!pageWrap || typeof pagination === "undefined") return;
-//
-//     let html = "";
-//
-//     // << 첫 페이지 버튼
-//     if(pagination.page === 1) {
-//         html += `
-//             <button width="40px" height="40px" font-size="18px" class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 iItkLq"  data-action="firstPage" id="${1}" disabled="">
-//                 <img
-//                                            //// src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath fill='%23FFF' fill-opacity='0' fill-rule='nonzero' d='M0 0h40v40H0z'/%3E %3Cpath stroke='%23DDD' stroke-width='1.5' d='M16 16l4 4-4 4M21 16l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E"
-//                                             class="PaginationButtonGroup__Icon-x0iffd-2 jVxRns" disabled=""
-//
-//                 />
-//             </button>
-//             `;
-//     } else {
-//         html += `
-//                 <button width="40px" height="40px" font-size="18px" class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 iItkLq" data-action="firstPage" id="${1}">
-//                 <img
-//                                            ///// src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Crect width='40' height='40' fill='%23FFF' fill-opacity='0' fill-rule='nonzero' rx='20'/%3E %3Cg stroke='%23000' stroke-width='1.5'%3E %3Cpath d='M16 16l4 4-4 4M21 16l4 4-4 4'/%3E %3C/g%3E %3C/g%3E %3C/svg%3E"
-//                                             class="PaginationButtonGroup__Icon-x0iffd-2 jVxRns"
-//
-//                 />
-//                 </button>
-//
-//                 `;
-//
-//
-//     }
-//
-//
-// // 이전 페이지 버튼 추가
-//     if (pagination.page !== 1) {
-//         html += `
-//         <button width="40px" height="40px" font-size="18px" class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 iItkLq" data-action="prevPage" id="${pagination.page - 1}">
-//             <img
-//                                           ////  src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath d='M18 0H0v18h18z'/%3E %3Cpath stroke='%23000' stroke-width='1.5' d='M7 5l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E"
-//                                             class="PaginationButtonGroup__Icon-x0iffd-2 jVxRns"
-//                                              />
-//
-//         </button>
-//     `;
-//     } else {
-//         html += `
-//                 <button width="40px" height="40px" font-size="18px" class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 iItkLq" data-action="prevPage" id="${pagination.page - 1}" disabled="">
-//                                         <img
-//                                             src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath fill='none' d='M0 0h40v40H0z'/%3E %3Cpath stroke='%23DDD' stroke-width='1.5' d='M18 16l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E"
-//                                             class="PaginationButtonGroup__Icon-x0iffd-2 jVxRns" disabled=""
-//                                         />
-//                                     </button>
-//
-//
-//         </button>
-//     `;
-//     }
-//
-// // 페이지 번호 버튼들 추가
-//     for (let i = pagination.startPage; i <= pagination.endPage; i++) {
-//         if (pagination.page === i) {
-//             html += `
-//             <button data-target="div${i}" width="40px" height="40px" color="#3397ff" font-size="18px" font-weight="bold" class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 emphasis buttonAll thisButton" id="${i}">
-//                 ${i}
-//             </button>
-//         `;
-//         } else {
-//             html += `
-//             <button data-target="div${i}" width="40px" height="40px" color="black" font-size="18px" font-weight="normal" class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 emphasis buttonAll anotherButton" id="${i}">
-//                 ${i}
-//             </button>
-//         `;
-//         }
-//     }
-//
-// // 다음 페이지 버튼 추가
-//     if (pagination.page !== pagination.realEnd) {
-//         html += `
-//         <button width="40px" height="40px" font-size="18px" class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 garfld" data-action="nextPage" id="${pagination.page + 1}">
-//             <img
-//                                             src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath d='M18 0H0v18h18z'/%3E %3Cpath stroke='%23000' stroke-width='1.5' d='M7 5l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E"
-//                                             class="PaginationButtonGroup__Icon-x0iffd-2 dQqQMu"
-//                                             />
-//         </button>
-//     `;
-//     } else {
-//         html += `
-//                         <button width="40px" height="40px" font-size="18px" class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 garfld" data-action="nextPage" id="${pagination.page + 1}" disabled="">
-//             <img
-//                                             src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath fill='none' d='M0 0h40v40H0z'/%3E %3Cpath stroke='%23DDD' stroke-width='1.5' d='M18 16l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E"
-//                                             class="PaginationButtonGroup__Icon-x0iffd-2 dQqQMu" disabled=""
-//                                         />
-//
-//         </button>
-//                 `;
-//     }
-//
-//     if(pagination.page === pagination.realEnd) {
-//         html += `
-//             <button width="40px" height="40px" font-size="18px" class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 garfld" data-action="lastPage" id="${pagination.realEnd}" disabled>
-//             <img
-//                                             src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath fill='%23FFF' fill-opacity='0' fill-rule='nonzero' d='M0 0h40v40H0z'/%3E %3Cpath stroke='%23DDD' stroke-width='1.5' d='M16 16l4 4-4 4M21 16l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E"
-//                                             class="PaginationButtonGroup__Icon-x0iffd-2 dQqQMu" disabled=""
-//                                             />
-//             </button>
-//
-//             `;
-//     } else {
-//         html += `
-//         <button width="40px" height="40px" font-size="18px" class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 garfld" data-action="lastPage" id="${pagination.realEnd}" >
-//             <img
-//                                             src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Crect width='40' height='40' fill='%23FFF' fill-opacity='0' fill-rule='nonzero' rx='20'/%3E %3Cg stroke='%23000' stroke-width='1.5'%3E %3Cpath d='M16 16l4 4-4 4M21 16l4 4-4 4'/%3E %3C/g%3E %3C/g%3E %3C/svg%3E"
-//                                             class="PaginationButtonGroup__Icon-x0iffd-2 dQqQMu"
-//                                             />
-//         </button>
-//
-//
-//     `;
-//     }
-//     pageWrap.innerHTML = html;
-//
-//     const buttons = document.querySelectorAll(".page-button");
-//     buttons.forEach(button => {
-//         button.addEventListener("click", function () {
-//             const page = this.dataset.page;
-//             window.location.href = `/my-page/heart?page=${page}`;
-//         });
-//     });
-// });
-//
-// const pageWrap = document.getElementById("page-wrap");
-//
-// pageWrap.addEventListener("click", (e) => {
-//     let targetButton = e.target;
-//
-//     if (targetButton.tagName.toLowerCase() === "img") {
-//         targetButton = targetButton.closest("button");
-//     }
-//
-//     if (targetButton && targetButton.classList.contains("Button-bqxlp0-0")) {
-//         const page = targetButton.id;
-//
-//         messageService.getReceiveList(messageLayout.showList, page);
-//     }
-// });
-//
 
-
-// document.addEventListener("DOMContentLoaded", function () {
-//     const pageWrap = document.getElementById("pageWrap");
-//
-//     if (!pageWrap || typeof pagination === "undefined") return;
-//
-//     let html = "";
-//
-//     // << 첫 페이지 버튼
-//     if(pagination.page === 1) {
-//         html += `
-//             <button width="40px" height="40px" font-size="18px" class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 iItkLq page-button"  data-action="firstPage" id="${1}" disabled="">
-//                 <img
-//                                             src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath fill='%23FFF' fill-opacity='0' fill-rule='nonzero' d='M0 0h40v40H0z'/%3E %3Cpath stroke='%23DDD' stroke-width='1.5' d='M16 16l4 4-4 4M21 16l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E"
-//                                             class="PaginationButtonGroup__Icon-x0iffd-2 jVxRns" disabled=""
-//
-//                 />
-//             </button>
-//             `;
-//     } else {
-//         html += `
-//                 <button width="40px" height="40px" font-size="18px" class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 iItkLq page-button" data-action="firstPage" id="${1}">
-//                 <img
-//                                             src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Crect width='40' height='40' fill='%23FFF' fill-opacity='0' fill-rule='nonzero' rx='20'/%3E %3Cg stroke='%23000' stroke-width='1.5'%3E %3Cpath d='M16 16l4 4-4 4M21 16l4 4-4 4'/%3E %3C/g%3E %3C/g%3E %3C/svg%3E"
-//                                             class="PaginationButtonGroup__Icon-x0iffd-2 jVxRns"
-//
-//                 />
-//                 </button>
-//
-//                 `;
-//
-//
-//     }
-//
-//
-// // 이전 페이지 버튼 추가
-//     if (pagination.page !== 1) {
-//         html += `
-//         <button width="40px" height="40px" font-size="18px" class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 iItkLq page-button" data-action="prevPage" id="${pagination.page - 1}">
-//             <img
-//                                             src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath d='M18 0H0v18h18z'/%3E %3Cpath stroke='%23000' stroke-width='1.5' d='M7 5l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E"
-//                                             class="PaginationButtonGroup__Icon-x0iffd-2 jVxRns"
-//                                              />
-//
-//         </button>
-//     `;
-//     } else {
-//         html += `
-//                 <button width="40px" height="40px" font-size="18px" class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 iItkLq page-button" data-action="prevPage" id="${pagination.page - 1}" disabled="">
-//                                         <img
-//                                             src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath fill='none' d='M0 0h40v40H0z'/%3E %3Cpath stroke='%23DDD' stroke-width='1.5' d='M18 16l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E"
-//                                             class="PaginationButtonGroup__Icon-x0iffd-2 jVxRns" disabled=""
-//                                         />
-//                                     </button>
-//
-//
-//         </button>
-//     `;
-//     }
-//
-// // 페이지 번호 버튼들 추가
-//     for (let i = pagination.startPage; i <= pagination.endPage; i++) {
-//         if (pagination.page === i) {
-//             html += `
-//             <button data-target="div${i}" width="40px" height="40px" color="#3397ff" font-size="18px" font-weight="bold" class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 emphasis buttonAll thisButton page-button" id="${i}">
-//                 ${i}
-//             </button>
-//         `;
-//         } else {
-//             html += `
-//             <button data-target="div${i}" width="40px" height="40px" color="black" font-size="18px" font-weight="normal" class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 emphasis buttonAll anotherButton page-button" id="${i}">
-//                 ${i}
-//             </button>
-//         `;
-//         }
-//     }
-//
-// // 다음 페이지 버튼 추가
-//     if (pagination.page !== pagination.realEnd) {
-//         html += `
-//         <button width="40px" height="40px" font-size="18px" class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 garfld page-button" data-action="nextPage" id="${pagination.page + 1}">
-//             <img
-//                                             src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath d='M18 0H0v18h18z'/%3E %3Cpath stroke='%23000' stroke-width='1.5' d='M7 5l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E"
-//                                             class="PaginationButtonGroup__Icon-x0iffd-2 dQqQMu"
-//                                             />
-//         </button>
-//     `;
-//     } else {
-//         html += `
-//                         <button width="40px" height="40px" font-size="18px" class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 garfld page-button" data-action="nextPage" id="${pagination.page + 1}" disabled="">
-//             <img
-//                                             src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath fill='none' d='M0 0h40v40H0z'/%3E %3Cpath stroke='%23DDD' stroke-width='1.5' d='M18 16l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E"
-//                                             class="PaginationButtonGroup__Icon-x0iffd-2 dQqQMu" disabled=""
-//                                         />
-//
-//         </button>
-//                 `;
-//     }
-//
-//     if(pagination.page === pagination.realEnd) {
-//         html += `
-//             <button width="40px" height="40px" font-size="18px" class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 garfld page-button" data-action="lastPage" id="${pagination.realEnd}" disabled>
-//             <img
-//                                             src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Cpath fill='%23FFF' fill-opacity='0' fill-rule='nonzero' d='M0 0h40v40H0z'/%3E %3Cpath stroke='%23DDD' stroke-width='1.5' d='M16 16l4 4-4 4M21 16l4 4-4 4'/%3E %3C/g%3E %3C/svg%3E"
-//                                             class="PaginationButtonGroup__Icon-x0iffd-2 dQqQMu" disabled=""
-//                                             />
-//             </button>
-//
-//             `;
-//     } else {
-//         html += `
-//         <button width="40px" height="40px" font-size="18px" class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 garfld page-button" data-action="lastPage" id="${pagination.realEnd}" >
-//             <img
-//                                             src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E %3Cg fill='none' fill-rule='evenodd'%3E %3Crect width='40' height='40' fill='%23FFF' fill-opacity='0' fill-rule='nonzero' rx='20'/%3E %3Cg stroke='%23000' stroke-width='1.5'%3E %3Cpath d='M16 16l4 4-4 4M21 16l4 4-4 4'/%3E %3C/g%3E %3C/g%3E %3C/svg%3E"
-//                                             class="PaginationButtonGroup__Icon-x0iffd-2 dQqQMu"
-//                                             />
-//         </button>
-//
-//
-//     `;
-//     }
-//     pageWrap.innerHTML = html;
-//
-//     // 페이지 이동 이벤트
-//     document.querySelectorAll(".page-button").forEach(button => {
-//         button.addEventListener("click", function () {
-//             const page = this.id;
-//             window.location.href = `/my-page/heart?page=${page}`;
-//         });
-//     });
-//
-//     // 하트 버튼 토글
-//     document.querySelectorAll(".heartButton").forEach(button => {
-//         button.addEventListener("click", function (event) {
-//             event.preventDefault();
-//             event.stopPropagation();
-//
-//             const img = this.querySelector("img");
-//             if (img) {
-//                 img.src = img.src.includes("red.svg")
-//                     ? "/images/main/white.svg"
-//                     : "/images/main/red.svg";
-//             }
-//         });
-//     });
-// });
-//
 document.addEventListener("DOMContentLoaded", function () {
     const pageWrap = document.getElementById("pageWrap");
     const bannerWrapper = document.querySelector(".Banner__Wrapper-dlocnb-0");
@@ -319,7 +9,6 @@ document.addEventListener("DOMContentLoaded", function () {
         fetch(`/my-page/wishList?page=${page}`)
             .then(response => response.json())
             .then(data => {
-                console.log("pagination debug", data.pagination);
                 if (!data || !data.wishList || data.wishList.length === 0) {
                     bannerWrapper.innerHTML = `<p>찜한 코스가 없습니다.</p>`;
                     pageWrap.innerHTML = "";
@@ -357,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         <div class="slick-track">
                             <div class="slick-slide slick-active slick-current" style="width: 768px;">
                                 <div>
-                                    <a class="withLink__StyledLink-zuberk-0 lQqkn" href="#">
+                                    <a class="withLink__StyledLink-zuberk-0 lQqkn" href="/proposal/read?id=${wish.planId}">
                                         <div class="Image__Wrapper-v97gyx-0 gDuKGF">
                                             <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1;">
                                                 <div class="Ratio" style="display: block;">
@@ -367,7 +56,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                                             <div class="commentCource">${wish.planName}</div>
                                                         </div>
                                                         <div class="heartWrap">
-                                                            <button class="heartButton">
+                                                            <button class="heartButton" data-plan-id="${wish.planId}" data-member-id="${wish.memberId}">
                                                                 <img src="/images/main/red.svg" alt="찜하기" />
                                                             </button>
                                                         </div>
@@ -449,13 +138,13 @@ function renderPagination(pagination) {
     for (let i = pagination.startPage; i <= pagination.endPage; i++) {
         if (pagination.page === i) {
             html += `
-            <button data-target="div${i}" width="40px" height="40px" color="#3397ff" font-size="18px" font-weight="bold" class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 emphasis buttonAll thisButton" id="${i}">
+            <button data-target="div${i}" width="40px" height="40px" color="#3397ff" font-size="18px" font-weight="bold" class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 emphasis buttonAll thisButton page-button" id="${i}">
                 ${i}
             </button>
         `;
         } else {
             html += `
-            <button data-target="div${i}" width="40px" height="40px" color="black" font-size="18px" font-weight="normal" class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 emphasis buttonAll anotherButton" id="${i}">
+            <button data-target="div${i}" width="40px" height="40px" color="black" font-size="18px" font-weight="normal" class="Button-bqxlp0-0 ButtonPage__StyledButton-k07u44-0 emphasis buttonAll anotherButton page-button" id="${i}">
                 ${i}
             </button>
         `;
@@ -511,11 +200,14 @@ function renderPagination(pagination) {
 
     document.querySelectorAll(".page-button").forEach(button => {
         button.addEventListener("click", function () {
-            const page = this.id;
-            fetchHeartList(page); // or whatever your reload function is
+            const page = parseInt(this.id);
+            if (!isNaN(page)) {
+                fetchHeartList(page);
+            }
         });
     });
 }
+
     function addHeartEvent() {
         document.querySelectorAll(".heartButton").forEach(button => {
             button.addEventListener("click", function (event) {
@@ -523,10 +215,38 @@ function renderPagination(pagination) {
                 event.stopPropagation();
 
                 const img = this.querySelector("img");
-                if (img) {
-                    img.src = img.src.includes("red.svg")
-                        ? "/images/main/white.svg"
-                        : "/images/main/red.svg";
+                const planId = this.dataset.planId;
+                const memberId = document.getElementById("memberId").value;
+
+                if (img && img.src.includes("red.svg")) {
+                    img.src = "/images/main/white.svg";
+
+                    fetch('/my-page/deleteHeart', {
+
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ memberId, planId })
+                    })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error("찜 삭제 실패");
+                            }
+                            return response.text();
+                        })
+                        .then(msg => {
+                            console.log("삭제 성공:", msg);
+
+                            const courseCard = this.closest(".Banner__ImageSliderWrapper-dlocnb-2");
+                            if (courseCard) courseCard.remove();
+                        })
+                        .catch(err => {
+                            console.error("삭제 중 에러:", err);
+                        });
+                } else {
+                    // 추후 찜 추가 기능 넣을 자리
+                    img.src = "/images/main/red.svg";
                 }
             });
         });

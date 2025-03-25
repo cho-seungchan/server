@@ -111,13 +111,24 @@ answerButton.addEventListener("click", async (e) => {
         }
 })
 
+// joinWrap.addEventListener("click", (e) => {
+//     console.log(e.target.tagName);
+//     if(e.target.classList.contains("join-button")){
+//         if(loginMember.id == planDetail.plan.memberId){
+//         alert("작성자는 참여할 수 없습니다.")
+//         return;
+//         }
+//     }
+// })
+
 joinWrap.addEventListener("click", (e) => {
-    console.log(e.target.tagName);
-    if(e.target.classList.contains("join-button")){
+    const joinBtn = e.target.closest(".join-button");
+
+    if (joinBtn) {
         if(loginMember.id == planDetail.plan.memberId){
-        alert("작성자는 참여할 수 없습니다.")
-        return;
+            alert("작성자는 참여할 수 없습니다.");
+            e.preventDefault(); // 링크 이동 막기
+            return;
         }
     }
-})
-
+});
