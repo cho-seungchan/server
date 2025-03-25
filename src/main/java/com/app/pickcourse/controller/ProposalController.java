@@ -34,10 +34,10 @@ public class ProposalController {
     private final AnswerService answerService;
     private final CourseService courseService;
 
-    @GetMapping("/eco")
-    public String getEco(Model model) {
-        return "/proposal/eco";
-    }
+//    @GetMapping("/eco")
+//    public String getEco(Model model) {
+//        return "/proposal/eco";
+//    }
 
     @GetMapping("/list")
     public String getList(Model model) {
@@ -92,10 +92,10 @@ public class ProposalController {
 
     @GetMapping("/read")
     public String getRead(Model model, Long id) {
-        MemberDTO loginUser = (MemberDTO) session.getAttribute("member");
+//        MemberDTO loginUser = (MemberDTO) session.getAttribute("member");
 
         PlanDetailDTO planDetailDTO = planService.getPlanDetailById(id);
-        planDetailDTO.setMember(loginUser.toVO());
+//        planDetailDTO.setMember(loginUser.toVO());
 
         model.addAttribute("planDetailDTO", planDetailDTO);
 
