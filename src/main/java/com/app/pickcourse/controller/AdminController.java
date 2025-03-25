@@ -8,6 +8,8 @@ import com.app.pickcourse.domain.vo.MemberVO;
 import com.app.pickcourse.domain.vo.NoticeVO;
 import com.app.pickcourse.service.AdminService;
 import com.app.pickcourse.util.Pagination;
+import com.app.pickcourse.util.PaginationOnePage;
+import com.app.pickcourse.util.PaginationParticipants;
 import com.app.pickcourse.util.Search;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -340,6 +342,23 @@ public class AdminController {
     public void deleteNoticeDetail(@PathVariable Long id) {
 
         adminService.deleteNoticeDetail(id);
+    }
+
+    // 25.03.25 봉사코스 참여자 명단 조회
+    @GetMapping("/participants-list")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> getParticipantsList
+            (@SessionAttribute(name = "admin", required = false) AdminVO admin,
+             @RequestParam Long courseId, PaginationParticipants pagination) {
+
+        List<VolunteerParticipantDTO> participants = adminService.getParticipantsList(courseId, pagination);
+        participants.forEach(System.out::println);
+        log.info(pagination.toString());
+
+        Map<String,Object> response = new HashMap<>();
+        response.put("participants", participants);
+        response.put("pagination", pagination);
+        return ResponseEntity.ok(response);
     }
 
 //   Admin Login

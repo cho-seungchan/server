@@ -7,6 +7,7 @@ import com.app.pickcourse.domain.vo.NoticeVO;
 import com.app.pickcourse.exception.DuplicateException;
 import com.app.pickcourse.repository.*;
 import com.app.pickcourse.util.Pagination;
+import com.app.pickcourse.util.PaginationParticipants;
 import com.app.pickcourse.util.Search;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -39,6 +40,7 @@ public class AdminService {
     private final FeedDAO feedDAO;
     private final ReplyDAO replyDAO;
     private final NoticeDAO noticeDAO;
+    private final VolunteerParticipantDAO volunteerParticipantDAO;
 
     // 관리자 목록 조회
     public List<AdminVO> getManageAdminList(Pagination pagination, Search search) {
@@ -306,5 +308,10 @@ public class AdminService {
     // Admin 로그인 (Service)
     public Optional<AdminVO> adminLogin(AdminVO adminVO) {
         return adminDAO.findByAdminAccountAndPassword(adminVO);
+    }
+
+    public List<VolunteerParticipantDTO> getParticipantsList(Long courseId, PaginationParticipants pagination) {
+        pagination.create(volunteerParticipantDAO.getCountAll(courseId));
+        return volunteerParticipantDAO.getParticipantsList(courseId, pagination);
     }
 }

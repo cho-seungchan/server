@@ -21,6 +21,8 @@ function addCourseDetail(course, page, type, keyWord) {
 
     // 봉사 코스일 경우
     if (course.courseIsVolunteer == `Y`) {
+        // 참여자를 볼 수 있는 버튼 보이기
+        document.querySelector(".participant-button").classList.remove('hidden');
         // 시작일, 종료일, 모집 마감일 생성
         const formatStartDate = course.volunteerStartDate.split(" ")[0];
         const formatEndDate = course.volunteerEndDate.split(" ")[0];
@@ -303,3 +305,70 @@ function createThumbnail(file) {
 
 }
 // 25.03.22 조승찬 추가 끝
+
+// 봉사코스 참여자 명단 제공 25.03.25 조승찬 추가 시작
+function addParticipants(participants, pagination) {
+    participants.forEach( participant => {
+        const participantAddLine = document.createElement("div");
+        participantAddLine.className = "CurrentIndex__Wrapper-lgen36-0 dSDVFj";
+        participantAddLine.innerHTML = ``;
+        participantAddLine.innerHTML = `
+                <div class="Image__Wrapper-v97gyx-0 gDuKGF">
+<!--                    <img class="Image__StyledImageLoader-v97gyx-2 bUFcfh" width="36" height="36" src="https://res.cloudinary.com/frientrip/image/upload/c_fill,f_auto,g_center,q_auto/ios_image_391885_20230825111921027_79e3016429b8c2ed57ec60c14e00ba3680af64a25fa7349505f5db3a078839a2"/>-->
+                    <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block" >
+                        <div class="Ratio" style="display: block" >
+                            <div class="Ratio-ratio" style=" height: 0px; position: relative; width: 100%; padding-top: 100%; " >
+                                <div class="Ratio-content" style=" height: 100%; left: 0px; position: absolute; top: 0px; width: 100%; " >
+<!--                                    <img class="Image__StyledImage-v97gyx-1 hPRDQO" width="36" height="36" src="https://res.cloudinary.com/frientrip/image/upload/c_fill,f_auto,g_center,q_auto/ios_image_391885_20230825111921027_79e3016429b8c2ed57ec60c14e00ba3680af64a25fa7349505f5db3a078839a2"/> -->
+<!--                                    <img class="Image__StyledImage-v97gyx-1 hPRDQO" width="36" height="36" src="/images/feeds/reply.png"> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="CurrentIndex__Container-lgen36-2 participant-container">
+                <div class="participantIdDiv" style="display: none;">${participant.id}</div>
+                <div class="CurrentIndex__Name-lgen36-3 nickname">${participant.memberNickname}</div>
+                <div class="ActionMenu__Time-s8lvsh-1 createdDate">${participant.createdDate}</p>
+            </div>
+        `;
+
+        // 파일이 존재 할 때만 이미지 태그 추가
+        if (participant.memberFilePath && participant.memberFileName) {
+            const imageUrl = `/files/display?path=${encodeURIComponent(participant.memberFilePath)}/${encodeURIComponent(participant.memberFileName)}`;
+
+            // <img> 태그 생성
+            const imgElement = document.createElement("img");
+            imgElement.className = "Image__StyledImage-v97gyx-1 hPRDQO";
+            imgElement.width = 36;
+            imgElement.height = 36;
+            imgElement.src = imageUrl;
+            imgElement.alt = "서버에서 불러온 이미지";
+
+            // `.Image__Wrapper-v97gyx-0.gDuKGF` 내부에 이미지 추가
+            const imageWrapper = participantAddLine.querySelector(".Image__Wrapper-v97gyx-0.gDuKGF");
+            if (imageWrapper) {
+                imageWrapper.prepend(imgElement); // 가장 위에 추가
+            }
+
+            // `.Ratio-content` 내부에도 추가
+            // const ratioContent = participantAddLine.querySelector(".Ratio-content");
+            // if (ratioContent) {
+            //     ratioContent.appendChild(imgElement.cloneNode()); // 클론해서 추가
+            // }
+        }
+
+        document.querySelector(".participantList-container").appendChild(participantAddLine); // 새로 생성된 리스트 추가
+        participantAddLine.scrollIntoView({ behavior: "smooth", block: "center" }); // 추가된 행들이 처지지 않게 위치 잡아주기
+    })
+
+    document.querySelector("footer").innerHTML = ``; // 기존의 더보기 삭제
+    if (pagination.next) {  // 다음 페이지가 존재하면 더보기 추가
+        document.querySelector("footer").innerHTML = `
+        <button class="moreParticipantList" value="${pagination.page + 1}">더보기</button>
+    `;
+    }
+}
+// 봉사코스 참여자 명단 제공 25.03.25 조승찬 추가 시작
+

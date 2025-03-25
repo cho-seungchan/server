@@ -162,6 +162,21 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         // 2025.03.22 조승찬 추가 끝
 
+        // 25.03.25 봉사코스 참여자 조회 추가 조승찬 시작
+        if (e.target.classList.contains("participant-button")){
+            const courseId = document.querySelector(".courseId").value;
+            fetchParticipants(courseId, 1); // 코스아이디와 시작 페이지 번호를 가지고 함수 호출
+            console.log("봉사코스 참가자 보여주자 ");
+
+        }
+
+        // 더보기 버튼 클릭시
+        if (e.target.className == "moreParticipantList") {
+            const courseId = document.querySelector(".courseId").value;
+            const page = e.target.value; // 다음 조회할 페이지 설정
+            fetchParticipants(courseId, page); // 코스아이디와 페이지 번호를 가지고 함수 호출
+        }
+        // 25.03.25 봉사코스 참여자 조회 추가 조승찬 시작
     });
 
     // 25.03.22 조승찬 추가 시작
