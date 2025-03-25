@@ -181,6 +181,13 @@ public class PlanService {
         planDAO.delete(planId);
     }
 
+    public List<RecruitPlanDTO> getMyRecruitPlans(Long memberId, int offset, int limit) {
+        return planDAO.findMyRecruitPlans(memberId, offset, limit);
+    }
+
+    public List<RecruitPlanDTO> getMyRecruitPlansWithLimit(Long memberId, int offset, int limit) {
+        return planDAO.findByMemberIdWithLimit(memberId, offset, limit);
+    }
 }
 
 

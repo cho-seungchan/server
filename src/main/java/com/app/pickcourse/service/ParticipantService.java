@@ -1,5 +1,6 @@
 package com.app.pickcourse.service;
 
+import com.app.pickcourse.domain.dto.ApplicantDTO;
 import com.app.pickcourse.domain.dto.RecentCourseDTO;
 import com.app.pickcourse.domain.dto.ParticipantDTO;
 import com.app.pickcourse.domain.vo.ParticipantVO;
@@ -43,4 +44,7 @@ public class ParticipantService {
         participantDAO.save(participantVO);
     }
 
+    public List<ApplicantDTO> getApplicants(Long planId) {
+        return participantDAO.findApplicantsByPlanId(planId);
+    }
 }

@@ -12,5 +12,5 @@ public class WishVO {
     private String createdDate;
     private String updatedDate;
     private Long memberId;
-    private Long courseId;
+    private Long planId;
 }

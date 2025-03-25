@@ -50,8 +50,9 @@
     </select>
 
 
-    <select id="getMyCourses" parameterType="java.lang.Long" resultType="com.app.pickcourse.domain.dto.RecentCourseDTO">
+    <select id="getMyCourses" parameterType="java.lang.Long" resultType="recentCourseDTO">
         SELECT C.ID AS COURSE_ID,
+               PL.ID AS PLAN_ID,
                C.COURSE_TYPE AS COURSE_TYPE,
                C.COURSE_NAME AS COURSE_NAME,
                C.COURSE_FILE_PATH AS COURSE_FILE_PATH,
@@ -60,9 +61,29 @@
                  JOIN TBL_PLAN PL ON P.PLAN_ID = PL.ID
                  JOIN TBL_COURSE C ON PL.COURSE_ID = C.ID
         WHERE P.MEMBER_ID = #{memberId}
-        ORDER BY PL.PLAN_END_DATE DESC
+        ORDER BY C.ID DESC
     </select>
 
+    <select id="selectApplicantList" parameterType="Long" resultType="com.app.pickcourse.domain.dto.ApplicantDTO">
+        SELECT
+            PL.CREATED_DATE AS CREATED_DATE,
+            C.COURSE_FILE_PATH AS COURSE_FILE_PATH,
+            C.COURSE_FILE_NAME AS COURSE_FILE_NAME,
+            PL.PLAN_NAME AS PLAN_NAME,
+            M.MEMBER_EMAIL AS MEMBER_EMAIL,
+            M.MEMBER_NICKNAME AS MEMBER_NICKNAME,
+            (
+                SELECT COUNT(*)
+                FROM TBL_PARTICIPANT
+                WHERE PLAN_ID = PL.ID
+            ) AS PARTICIPANT_COUNT
+        FROM TBL_PARTICIPANT PT
+                 JOIN TBL_MEMBER M ON PT.MEMBER_ID = M.ID
+                 JOIN TBL_PLAN PL ON PT.PLAN_ID = PL.ID
+                 JOIN TBL_COURSE C ON PL.COURSE_ID = C.ID
+        WHERE PL.ID = #{planId}
+        ORDER BY PL.ID DESC
+    </select>
 
 
 </mapper>
