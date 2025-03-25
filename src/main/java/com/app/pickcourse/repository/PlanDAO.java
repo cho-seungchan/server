@@ -1,6 +1,7 @@
 package com.app.pickcourse.repository;
 
 import com.app.pickcourse.domain.dto.PlanDTO;
+import com.app.pickcourse.domain.dto.RecruitPlanDTO;
 import com.app.pickcourse.domain.dto.TourListDTO;
 import com.app.pickcourse.domain.vo.PlanVO;
 import com.app.pickcourse.mapper.PlanMapper;
@@ -61,5 +62,12 @@ public class PlanDAO {
         return planMapper.selectAllById(memberId);
     }
 
+    public List<RecruitPlanDTO> findMyRecruitPlans(Long memberId, int offset, int limit) {
+        return planMapper.selectMyRecruitPlans(memberId, offset, limit);
+    }
+
+    public List<RecruitPlanDTO> findByMemberIdWithLimit(Long memberId, int offset, int limit) {
+        return planMapper.selectMyRecruitPlansWithLimit(memberId, offset, limit);
+    }
 
 }

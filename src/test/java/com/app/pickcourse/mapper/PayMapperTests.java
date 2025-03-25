@@ -19,7 +19,7 @@ public class PayMapperTests {
         payVO.setPayPrice(10000);
         payVO.setPayMethod("카카오페이");
         payVO.setMemberId(1L);
-        payVO.setPlanId(128L);
+        payVO.setPlanId(22L);
 
         payMapper.insertKakaoPay(payVO);
     }

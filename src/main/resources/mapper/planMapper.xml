@@ -160,4 +160,63 @@
                CREATED_DATE, UPDATED_DATE
         FROM TBL_PLAN WHERE COURSE_ID = #{courseId}
     </select>
+
+    <select id="selectMyRecruitPlans" parameterType="map" resultType="com.app.pickcourse.domain.dto.RecruitPlanDTO">
+<![CDATA[    SELECT * FROM (
+                SELECT PLAN_ID, PLAN_NAME, CREATED_DATE, MAX_PERSONNEL, PARTICIPANT_COUNT,
+                       FILE_PATH, FILE_NAME, ROWNUM rnum
+                       FROM (
+                    SELECT
+                            PL.ID AS PLAN_ID,
+                            PL.PLAN_NAME AS PLAN_NAME,
+                            TO_CHAR(PL.CREATED_DATE, 'YYYY-MM-DD') AS CREATED_DATE,
+                            PL.PLAN_MAX_PERSONNEL AS MAX_PERSONNEL,
+                                (
+                                    SELECT COUNT(*) FROM TBL_PARTICIPANT PT
+                                    WHERE PT.PLAN_ID = PL.ID
+                                ) AS PARTICIPANT_COUNT,
+                            C.COURSE_FILE_PATH AS FILE_PATH,
+                            C.COURSE_FILE_NAME AS FILE_NAME
+                            FROM TBL_PLAN PL
+                            JOIN TBL_COURSE C ON PL.COURSE_ID = C.ID
+                        WHERE PL.MEMBER_ID = #{memberId}
+                        ORDER BY PL.CREATED_DATE DESC
+                )
+                WHERE ROWNUM <= #{offset} + #{limit}
+                )
+             WHERE rnum > #{offset}
+        ]]></select>
+
+    <select id="selectMyRecruitPlansWithLimit"
+            parameterType="map"
+            resultType="com.app.pickcourse.domain.dto.RecruitPlanDTO">
+    <![CDATA[
+        SELECT *
+        FROM (
+                 SELECT inner_query.*, ROWNUM rnum
+                 FROM (
+                          SELECT
+                              PL.ID AS PLAN_ID,
+                              PL.PLAN_NAME,
+                              PL.CREATED_DATE AS PLAN_CREATED_DATE,
+                              C.COURSE_FILE_PATH,
+                              C.COURSE_FILE_NAME,
+                              C.COURSE_TYPE,
+                              (
+                                  SELECT COUNT(*)
+                                  FROM TBL_PARTICIPANT P
+                                  WHERE P.PLAN_ID = PL.ID
+                              ) AS PARTICIPANT_COUNT
+                          FROM TBL_PLAN PL
+                                   JOIN TBL_COURSE C ON PL.COURSE_ID = C.ID
+                          WHERE PL.MEMBER_ID = #{memberId}
+                          ORDER BY PL.ID DESC
+                      ) inner_query
+                 WHERE ROWNUM <= #{offset} + #{limit}
+             )
+        WHERE rnum > #{offset}
+        ]]>
+</select>
+
+
 </mapper>

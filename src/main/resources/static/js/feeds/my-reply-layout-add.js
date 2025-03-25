@@ -23,7 +23,7 @@ function addReplyListAndPage(replys, pagination) {
             </div>
             <div class="CurrentIndex__Container-lgen36-2 lcexfU">
                 <div class="replyIdDiv" style="display: none;" >${reply.id}</div>
-                <div class="feedIdDiv" style="display: none;" >${reply.feedId}</div>  // 댓글 작성한 피드를 보기 위한 아이디
+                <div class="feedIdDiv" style="display: none;" >${reply.feedId}</div>
                 <div class="CurrentIndex__Name-lgen36-3 bRPQMl" >${reply.memberNickname}</div>
                 <p class="CurrentIndex__Contents-lgen36-4 cDlmAG" >${reply.replyContent}</p>
                 <section class="ActionMenu__Section-s8lvsh-0 gzpaSl">

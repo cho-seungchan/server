@@ -362,23 +362,22 @@ public class AdminController {
     }
 
     @PostMapping("adminLogin")
-    public String adminLogin(@ModelAttribute AdminVO adminVO) {
+    public String adminLogin(@ModelAttribute AdminVO adminVO, RedirectAttributes redirectAttributes) {
 
         adminVO.setAdminAccount(adminVO.getAdminAccount());
         adminVO.setAdminPassword(adminVO.getAdminPassword());
 
         Optional<AdminVO> optionalAdmin = adminService.adminLogin(adminVO);
 
-        if (optionalAdmin.isEmpty()) {
+        if (optionalAdmin.isEmpty() ||
+                optionalAdmin.get().getAdminPassword() == null ||
+                !optionalAdmin.get().getAdminPassword().equals(adminVO.getAdminPassword())) {
+
+            redirectAttributes.addFlashAttribute("error", "아이디 또는 비밀번호가 올바르지 않습니다.");
             return "redirect:/admin/adminLogin";
         }
 
         AdminVO admin = optionalAdmin.get();
-
-        if (admin.getAdminPassword() == null ||
-                !admin.getAdminPassword().equals(adminVO.getAdminPassword())) {
-            return "redirect:/admin/adminLogin";
-        }
 
         session.setAttribute("admin", admin);
 

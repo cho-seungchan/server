@@ -1,5 +1,6 @@
 package com.app.pickcourse.repository;
 
+import com.app.pickcourse.domain.dto.ApplicantDTO;
 import com.app.pickcourse.domain.dto.ParticipantDTO;
 import com.app.pickcourse.domain.dto.RecentCourseDTO;
 import com.app.pickcourse.domain.vo.ParticipantVO;
@@ -41,4 +42,7 @@ public class ParticipantDAO {
         return participantMapper.getMyCourses(memberId);
     }
 
+    public List<ApplicantDTO> findApplicantsByPlanId(Long planId) {
+        return participantMapper.selectApplicantList(planId);
+    }
 }

@@ -39,6 +39,12 @@
                             <form action="" method="post" th:object="${planDetailDTO}" name="read-form">
                             <div class="Center__Wrapper-sc-19p29je-0 hcLOFI">
                                 <h3 th:text="*{plan.planName}"></h3>
+
+                                <!-- 찜 버튼 -->
+                                <button class="Button-bqxlp0-0 ButtonWish__StyledButton-sc-7k8l60-0 eZGjgL enp_mobon_cart" width="32px" height="32px">
+                                    <img src="/images/main/white.svg" alt="찜하기">
+                                    <span class="SaveActionButton__Count-sc-18l2t54-1 hxJYoP wish-count" th:text="${wishCount}">0</span>
+                                </button>
                             </div>
                             <div class="RepresentativePictureOfTour">
                                 <p><img src="/images/main/namwon.jpg" alt=""></p>
@@ -202,6 +208,16 @@
     const planDetail = [[${planDetailDTO}]];
     const loginMember = [[${session.member}]];
 </script>
+<script th:inline="javascript">
+    const planId = [[${planDetailDTO?.plan?.id}]];
+    const memberId = [[${session.member?.id}]];
+</script>
+<script th:inline="javascript">
+    const isWished = [[${isWished}]];
+    const wishCount = [[${wishCount}]];
+</script>
+
+
 <script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=dca5cc5ce3946cf9a7295748f1aa7d12&libraries=services"></script>
 <script src="/js/proposal/read-layout.js"></script>
 <script src="/js/proposal/read.js"></script>
