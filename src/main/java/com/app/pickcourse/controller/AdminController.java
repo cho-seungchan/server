@@ -244,6 +244,7 @@ public class AdminController {
     @ResponseBody
     public void putCourseDetail(@SessionAttribute(name = "admin", required = false) AdminVO admin,
                                 @RequestBody CourseDTO courseDTO) {
+        log.info(courseDTO.toString());
         adminService.putCourseDetail(courseDTO);
     }
 

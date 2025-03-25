@@ -87,6 +87,27 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // 2025.03.13 조승찬 추가 시작 :: 수정 클릭시 update 함수 삭제 클릭시 delete 함수 호출
         if (e.target.closest(".updateCourseDtail")){
+
+            // 봉사코스일 경우  최대모집인원 최소모집인원 체크
+            if (document.querySelector(".gcqwwh.max-personnel").value != null &&
+                document.querySelector(".gcqwwh.min-personnel").value != null){
+                const max = parseInt(document.querySelector(".gcqwwh.max-personnel").value, 10);
+                const min = parseInt(document.querySelector(".gcqwwh.min-personnel").value, 10);
+                if ( max == 0 ){
+                    alert(" 최대 모집 인원을 입력하세요 ")
+                    return;
+                }
+                if ( min == 0 ){
+                    alert(" 최소 출발 인원을 입력하세요 ")
+                    return;
+                }
+                if ( max < min ) {
+                    console.log("최대최소 인원 " +document.querySelector(".gcqwwh.max-personnel").value+" "+document.querySelector(".gcqwwh.min-personnel").value)
+                    alert(" 최소 출발 인원이 최대 모집 인원보다 많습니다.")
+                    return;
+                }
+            }
+
             // 전송할 데이타 json 형태로 변경
             const sendData = {
                 id:  document.querySelector(".courseId").value,
@@ -107,6 +128,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 volunteerStartDate: document.querySelector(".gcqwwh.startdate").value,
                 volunteerEndDate:   document.querySelector(".gcqwwh.enddate").value,
                 volunteerDeadline:  document.querySelector(".gcqwwh.deadline").value,
+                volunteerMaxPersonnel: document.querySelector(".gcqwwh.max-personnel").value,
+                volunteerMinPersonnel: document.querySelector(".gcqwwh.min-personnel").value,
                 paths:  tourSpots.map(spot => {
                     return {
                         pathName : spot.title,
