@@ -176,15 +176,16 @@ function addCourseDetail(course, page, type, keyWord) {
             );
 
         }
+
+        // 최대 최소 모집 인원 정보 생성
+        document.querySelector(".MaxMinPersonnel").innerHTML = `
+        <input type="text" name="volunteerMaxPersonnel" placeholder="최대 모집 인원" class="SocialRecruiteTagsContainer__SocialRecruiteTagsInput-sc-2762su-1 gcqwwh max-personnel"
+         value = "${course.volunteerMaxPersonnel}" value="0"/>
+        <input type="text" name="volunteerMinPersonnel" placeholder="최소 출발 인원" class="SocialRecruiteTagsContainer__SocialRecruiteTagsInput-sc-2762su-1 gcqwwh min-personnel" 
+         value = "${course.volunteerMinPersonnel}" value="0"/>                                                                        
+        `
     }
 
-    // 최대 최소 모집 인원 정보 생성
-    document.querySelector(".MaxMinPersonnel").innerHTML = `
-        <input type="text" name="volunteerMaxPersonnel" placeholder="최대 모집 인원" class="SocialRecruiteTagsContainer__SocialRecruiteTagsInput-sc-2762su-1 gcqwwh max-personnel"
-         value = "${course.volunteerMaxPersonnel}"/>
-        <input type="text" name="volunteerMinPersonnel" placeholder="최소 출발 인원" class="SocialRecruiteTagsContainer__SocialRecruiteTagsInput-sc-2762su-1 gcqwwh min-personnel" 
-         value = "${course.volunteerMinPersonnel}"/>                                                                        
-    `
     // 기타 정보 생성
     document.querySelector(".NumberOfPerson").innerHTML = `
         <input placeholder="총 거리" class="SocialRecruiteTagsContainer__SocialRecruiteTagsInput-sc-2762su-1 gcqwwh max" 
@@ -273,16 +274,18 @@ function addCourseDetail(course, page, type, keyWord) {
     // 25.03.12  조승찬 추가 시작 :: 맵 추가
 
     // 25.03.22 조승찬 추가 시작 :: 파일 추가
-    let text = ``;
-    // 서버로 전달할 정보 세팅
-    // file-name 가 dataset에서는 카멜표기법(fileName)으로 변경됨
-    text += `<li  class="uploadFile"     
+    if (course.courseFileName != null && course.courseFileName != '') {
+        let text = ``;
+        // 서버로 전달할 정보 세팅
+        // file-name 가 dataset에서는 카멜표기법(fileName)으로 변경됨
+        text += `<li  class="uploadFile"     
 					data-file-name="${course.courseFileName}" data-file-path="${course.courseFilePath}" data-file-size="${course.courseFileSize}" >`;
-    text += `<img src="/images/cancel.jpg" class="file-cancel" alt="calcel"">`;
-    const encodedFilePath = encodeURIComponent(`${course.courseFilePath}/${course.courseFileName}`);   // 이미지 파일이 아닌경우 별도의 이미지 파일 제공
-    text += `<img src="/files/display?path=${encodedFilePath}" class="image-files" alt="thumbnail">&nbsp;&nbsp;`;                             // 이미지 파일 여부 확인 할 별도 필드도 마련되어야 함
-    text += `</li>`;
-    document.querySelector(".ImageList-sc-9v1mt2-0.hGJMVS").innerHTML = text;
+        text += `<img src="/images/cancel.jpg" class="file-cancel" alt="calcel"">`;
+        const encodedFilePath = encodeURIComponent(`${course.courseFilePath}/${course.courseFileName}`);   // 이미지 파일이 아닌경우 별도의 이미지 파일 제공
+        text += `<img src="/files/display?path=${encodedFilePath}" class="image-files" alt="thumbnail">&nbsp;&nbsp;`;                             // 이미지 파일 여부 확인 할 별도 필드도 마련되어야 함
+        text += `</li>`;
+        document.querySelector(".ImageList-sc-9v1mt2-0.hGJMVS").innerHTML = text;
+    }
     // 25.03.22 조승찬 추가 끝 :: 파일 추가
 
 };

@@ -760,6 +760,12 @@ function handleSaveClick() {
                 return; // hidden 또는 file input은 필수 입력 체크에서 제외
             }
 
+            if (!document.querySelector("#volunteerBox").checked &&
+                (input.classList.contains("max-personnel") ||
+                 input.classList.contains("min-personnel") )) {
+                return;
+            }
+
             if (input.value.trim() === "") {
                 let fieldName =
                     input.placeholder || input.className || "입력 항목";
@@ -887,23 +893,26 @@ document.addEventListener("DOMContentLoaded", function () { // HTML이 로드된
         })
 
         // 파일 정보 생성  25.03.21 조승찬 시작
-        const inputFileName = document.createElement("input");
-        inputFileName.type = "hidden";
-        inputFileName.name = `courseFileName`;
-        inputFileName.value = document.querySelector(".ImageList-sc-9v1mt2-0.hGJMVS").querySelector(".uploadFile").dataset.fileName;
-        document['addCourse-form'].appendChild(inputFileName);
+        if (document.querySelector(".ImageList-sc-9v1mt2-0.hGJMVS").querySelector(".uploadFile")){
 
-        const inputFilePath = document.createElement("input");
-        inputFilePath.type = "hidden";
-        inputFilePath.name = `courseFilePath`;
-        inputFilePath.value = document.querySelector(".ImageList-sc-9v1mt2-0.hGJMVS").querySelector(".uploadFile").dataset.filePath;
-        document['addCourse-form'].appendChild(inputFilePath);
+            const inputFileName = document.createElement("input");
+            inputFileName.type = "hidden";
+            inputFileName.name = `courseFileName`;
+            inputFileName.value = document.querySelector(".ImageList-sc-9v1mt2-0.hGJMVS").querySelector(".uploadFile").dataset.fileName;
+            document['addCourse-form'].appendChild(inputFileName);
 
-        const inputFileSize = document.createElement("input");
-        inputFileSize.type = "hidden";
-        inputFileSize.name = `courseFileSize`;
-        inputFileSize.value = document.querySelector(".ImageList-sc-9v1mt2-0.hGJMVS").querySelector(".uploadFile").dataset.fileSize;
-        document['addCourse-form'].appendChild(inputFileSize);
+            const inputFilePath = document.createElement("input");
+            inputFilePath.type = "hidden";
+            inputFilePath.name = `courseFilePath`;
+            inputFilePath.value = document.querySelector(".ImageList-sc-9v1mt2-0.hGJMVS").querySelector(".uploadFile").dataset.filePath;
+            document['addCourse-form'].appendChild(inputFilePath);
+
+            const inputFileSize = document.createElement("input");
+            inputFileSize.type = "hidden";
+            inputFileSize.name = `courseFileSize`;
+            inputFileSize.value = document.querySelector(".ImageList-sc-9v1mt2-0.hGJMVS").querySelector(".uploadFile").dataset.fileSize;
+            document['addCourse-form'].appendChild(inputFileSize);
+        }
         // 파일 정보 생성  25.03.21 조승찬 끝
 
         document['addCourse-form'].submit();

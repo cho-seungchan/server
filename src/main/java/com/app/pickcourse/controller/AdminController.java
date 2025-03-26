@@ -181,7 +181,7 @@ public class AdminController {
     @PostMapping("/add-course")
     public String postAddCourse(@SessionAttribute(name = "admin", required = false) AdminVO admin,
                                 CourseDTO courseDTO, Model model) {
-
+        log.info("여기로 들오안오나 ");
         if (admin == null) {
             return "redirect:adminLogin";
         }
