@@ -205,7 +205,9 @@ public class AdminService {
     public void putCourseDetail(CourseDTO courseDTO) {
 
         courseDAO.putCourseDetail(courseDTO.toCourseVO());
-        volunteerDAO.putCourseDetail(courseDTO.toVolunteerVO());
+        if (courseDTO.getVolunteerStartDate() != null && courseDTO.getVolunteerStartDate() != "") {
+            volunteerDAO.putCourseDetail(courseDTO.toVolunteerVO());
+        }
         pathDAO.deleteCourseDetail(courseDTO.getId());
         if (courseDTO.getPaths() != null){
             courseDTO.getPaths().forEach(path -> {

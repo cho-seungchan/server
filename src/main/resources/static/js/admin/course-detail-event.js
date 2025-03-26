@@ -89,8 +89,8 @@ document.addEventListener("DOMContentLoaded", function () {
         if (e.target.closest(".updateCourseDtail")){
 
             // 봉사코스일 경우  최대모집인원 최소모집인원 체크
-            if (document.querySelector(".gcqwwh.max-personnel").value != null &&
-                document.querySelector(".gcqwwh.min-personnel").value != null){
+            if (document.querySelector(".gcqwwh.max-personnel") &&
+                document.querySelector(".gcqwwh.min-personnel")){
                 const max = parseInt(document.querySelector(".gcqwwh.max-personnel").value, 10);
                 const min = parseInt(document.querySelector(".gcqwwh.min-personnel").value, 10);
                 if ( max == 0 ){
@@ -108,6 +108,22 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             }
 
+            let filePath = '', fileName = '', fileSize = '';
+            if (document.querySelector(".ImageList-sc-9v1mt2-0.hGJMVS").querySelector(".uploadFile")){
+                filePath = document.querySelector(".ImageList-sc-9v1mt2-0.hGJMVS").querySelector(".uploadFile").dataset.filePath;
+                fileName = document.querySelector(".ImageList-sc-9v1mt2-0.hGJMVS").querySelector(".uploadFile").dataset.fileName;
+                fileSize = document.querySelector(".ImageList-sc-9v1mt2-0.hGJMVS").querySelector(".uploadFile").dataset.fileSize;
+            }
+
+            let startdate, enddate, deadline, maxPersonnel, minPersonnel;
+            if (document.querySelector(".gcqwwh.startdate")) {
+                startdate = document.querySelector(".gcqwwh.startdate").value
+                enddate = document.querySelector(".gcqwwh.enddate").value
+                deadline = document.querySelector(".gcqwwh.deadline").value
+                maxPersonnel = document.querySelector(".gcqwwh.max-personnel").value;
+                minPersonnel = document.querySelector(".gcqwwh.min-personnel").value;
+            }
+
             // 전송할 데이타 json 형태로 변경
             const sendData = {
                 id:  document.querySelector(".courseId").value,
@@ -118,18 +134,18 @@ document.addEventListener("DOMContentLoaded", function () {
                 courseSchedule: document.querySelector(".gcqwwh.min").value,
                 courseTheme: document.querySelector(".gcqwwh.cost").value,
                 courseContent: document.querySelector(".Textarea_textarea__MWJjO").value,
-                courseFilePath: document.querySelector(".ImageList-sc-9v1mt2-0.hGJMVS").querySelector(".uploadFile").dataset.filePath,
-                courseFileSize: document.querySelector(".ImageList-sc-9v1mt2-0.hGJMVS").querySelector(".uploadFile").dataset.fileSize,
-                courseFileName: document.querySelector(".ImageList-sc-9v1mt2-0.hGJMVS").querySelector(".uploadFile").dataset.fileName,
+                courseFilePath: filePath,
+                courseFileSize: fileSize,
+                courseFileName: fileName,
                 // adminId: ,
                 // createdDate: ,
                 // updatedDate: ,
                 // volunteerId: ,
-                volunteerStartDate: document.querySelector(".gcqwwh.startdate").value,
-                volunteerEndDate:   document.querySelector(".gcqwwh.enddate").value,
-                volunteerDeadline:  document.querySelector(".gcqwwh.deadline").value,
-                volunteerMaxPersonnel: document.querySelector(".gcqwwh.max-personnel").value,
-                volunteerMinPersonnel: document.querySelector(".gcqwwh.min-personnel").value,
+                volunteerStartDate: startdate,
+                volunteerEndDate:   enddate,
+                volunteerDeadline:  deadline,
+                volunteerMaxPersonnel: maxPersonnel,
+                volunteerMinPersonnel: minPersonnel,
                 paths:  tourSpots.map(spot => {
                     return {
                         pathName : spot.title,
