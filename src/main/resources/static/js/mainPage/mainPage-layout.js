@@ -2,6 +2,7 @@ const bannerWrap = document.querySelector(".banner-wrap");
 const userWrap = document.querySelector(".userWrap");
 const imgWrap = document.querySelector(".img-wrap");
 const rankingWrap = document.querySelector(".ranking-wrap");
+const volunteerWrap = document.querySelector(".volunteer-wrap");
 console.log(mainDTO)
 
 
@@ -118,6 +119,110 @@ mainDTO.courses.forEach((course, i) => {
     `;
 })
 bannerWrap.innerHTML = text;
+
+text = ``;
+
+if(mainDTO.volunteer.courseType === "봉사 코스"){
+    const encodedFilePath = mainDTO.volunteer.courseFilePath && mainDTO.volunteer.courseFileName
+        ? encodeURIComponent(`${mainDTO.volunteer.courseFilePath}/${mainDTO.volunteer.courseFileName}`)
+        : null;
+    const defaultImage = "/images/proposal/noImage.png";
+    text = `
+        <div
+                class="ImageSlider__SliderWrapper-sc-1obm2ug-0 hHiTXT"
+        >
+            <div
+                    class="slick-slider ImageSlider__StyledSlider-sc-1obm2ug-1 cOsMnB slick-initialized"
+            >
+                <div class="slick-list">
+                    <div
+                            class="slick-track"
+                            style="
+                                        opacity: 1;
+                                        transform: translate3d(
+                                            0px,
+                                            0px,
+                                            0px
+                                        );
+                                        width: 768px;
+                                    "
+                    >
+                        <div
+                                data-index="0"
+                                class="slick-slide slick-active slick-current"
+                                tabindex="-1"
+                                aria-hidden="false"
+                                style="
+                                            outline: none;
+                                            width: 768px;
+                                        "
+                        >
+                            <div>
+                                <a
+                                        class="withLink__StyledLink-zuberk-0 lQqkn"
+                                        href="/proposal/eco?id=${mainDTO.volunteer.id}"
+                                >
+                                    <div
+                                            class="Image__Wrapper-v97gyx-0 gDuKGF"
+                                    >
+                                        <div
+                                                class="Fade__Wrapper-sc-1s0ipfq-0 koasSX"
+                                                style="
+                                                            opacity: 1;
+                                                            display: block;
+                                                        "
+                                        >
+                                            <div
+                                                    class="Ratio"
+                                                    style="
+                                                                display: block;
+                                                            "
+                                            >
+                                                <div
+                                                        class="Ratio-ratio"
+                                                        style="
+                                                                    height: 0px;
+                                                                    position: relative;
+                                                                    width: 100%;
+                                                                    padding-top: 30%;
+                                                                "
+                                                >
+                                                    <div
+                                                            class="Ratio-content"
+                                                            style="
+                                                                        height: 80%;
+                                                                        left: 0px;
+                                                                        position: absolute;
+                                                                        top: 0px;
+                                                                        width: 100%;
+                                                                    "
+                                                    >
+                                                        <img
+                                                                alt=" 이미지"
+                                                                class="Image__StyledImage-v97gyx-1 VUNpz"
+                                                                width="768"
+                                                                src="${encodedFilePath ? `files/display?path=${encodedFilePath}` : defaultImage}"
+                                                        />
+                                                    </div>
+                                                    <div
+                                                            class="heartWrap"
+                                                    >
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div
+                                    >
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+    volunteerWrap.innerHTML = text;
+}
 
 text = ``;
 

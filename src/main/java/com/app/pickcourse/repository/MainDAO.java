@@ -32,4 +32,8 @@ public class MainDAO {
     public Integer findCount(String type){
         return mainMapper.selectCount(type);
     }
+
+    public MainCourseDTO findVolunteer(){
+        return mainMapper.selectVolunteer();
+    }
 }

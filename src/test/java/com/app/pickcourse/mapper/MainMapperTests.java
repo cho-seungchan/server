@@ -36,4 +36,9 @@ public class MainMapperTests {
     public void testSelectCount() {
         log.info("result = {}", mainMapper.selectCount("D 코스"));
     }
+
+    @Test
+    public void testSelectVolunteer() {
+        log.info("result = {}", mainMapper.selectVolunteer());
+    }
 }

@@ -225,7 +225,6 @@ img {
     border-radius: 0px;
     width: 100%;
     height: 100%;
-    object-fit: cover;    
 }
 
 .slick-slide img {
@@ -547,7 +546,7 @@ hr {
 }
 
 .lastCource {
-    margin-top: -50px;
+    /*margin-top: -50px;*/
     display: flex
 ;
     -webkit-box-pack: justify;

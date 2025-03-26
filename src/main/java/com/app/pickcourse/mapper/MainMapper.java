@@ -20,4 +20,7 @@ public interface MainMapper {
 
 //    카운팅
     public Integer selectCount(String type);
+
+//    봉사코스조회
+    public MainCourseDTO selectVolunteer();
 }
