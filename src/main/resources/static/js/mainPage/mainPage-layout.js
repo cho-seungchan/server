@@ -90,7 +90,7 @@ mainDTO.courses.forEach((course, i) => {
                                                                     alt=" 이미지"
                                                                     class="추천코스Image__StyledImage-v97gyx-1 VUNpz"
                                                                     width="768"
-                                                                    src="${encodedFilePath? `/files/display?path${encodedFilePath}` : defaultImage}"
+                                                                    src="${encodedFilePath? `/files/display?path=${encodedFilePath}` : defaultImage}"
                                                             />
                                                             <div
                                                                     class="commentCource"
