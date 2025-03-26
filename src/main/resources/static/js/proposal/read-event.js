@@ -108,6 +108,17 @@ answerButton.addEventListener("click", async (e) => {
     }
 })
 
+
+// joinWrap.addEventListener("click", (e) => {
+//     console.log(e.target.tagName);
+//     if(e.target.classList.contains("join-button")){
+//         if(loginMember.id == planDetail.plan.memberId){
+//         alert("작성자는 참여할 수 없습니다.")
+//         return;
+//         }
+//     }
+// })
+
 joinWrap.addEventListener("click", (e) => {
     const joinBtn = e.target.closest(".join-button");
 
@@ -118,6 +129,7 @@ joinWrap.addEventListener("click", (e) => {
             return;
         }
     }
+
 })
 
 // 후기의 버튼 클릭시 이미지 3개식 이동 732px, 디스플레이 768px
@@ -154,4 +166,3 @@ document.querySelector(".slick-prev").addEventListener("click", (e) => {
     document.querySelector(".slick-track").style.transform = `translate3d(${leftReviewEnd}px, 0, 0)`;
     document.querySelector(".slick-next").classList.remove("slick-disabled");
 });
-

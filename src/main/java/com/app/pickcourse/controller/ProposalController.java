@@ -136,7 +136,8 @@ public class ProposalController {
     @PutMapping("/updatePoint")
     public void update(@RequestBody MemberDTO memberDTO) {
         log.info(memberDTO.toString());
-        memberService.updatePoint(memberDTO); }
+        memberService.updatePoint(memberDTO);
+    }
 
     @PostMapping("/insertParticipant")
     public void insertParticipant(@RequestBody ParticipantDTO participantDTO) {
@@ -168,6 +169,7 @@ public class ProposalController {
         int wishCount = wishService.getWishCountByPlanId(id);
         model.addAttribute("wishCount", wishCount);
         model.addAttribute("planDetailDTO", planDetailDTO);
+        log.info("planDetailDTO={}",planDetailDTO);
 
         return "/proposal/read";
     }
@@ -198,8 +200,8 @@ public class ProposalController {
     public String getVeiwList(Model model, @RequestParam Long courseId) {
         MemberDTO loginUser = (MemberDTO) session.getAttribute("member");
 
-
         CourseSelectDTO course = courseService.findCourseById(courseId);
+
         log.info(course.toString());
 
         model.addAttribute("course", course);

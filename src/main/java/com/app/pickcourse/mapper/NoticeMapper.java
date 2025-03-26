@@ -30,4 +30,9 @@ public interface NoticeMapper {
     // 공지사항 삭제
     void deleteNoticeDetail(Long id);
 
+    List<NoticeListDTO> selectNoticeList(@Param("pagination") Pagination pagination);
+
+    int selectTotalNoticeCount();
+
+    NoticeVO selectNoticeById(Long id);
 }

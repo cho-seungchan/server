@@ -38,11 +38,13 @@ document.addEventListener("DOMContentLoaded", () => {
                                                     <div class="sc-g8964r-0 oRzGt"></div>
                                                     <div class="sc-9cwg9-1 gLgexz">
                                                         <div class="sc-9cwg9-2 cNiGzR">
+                                                        <a href="/proposal/read?id=${plan.planId}">
                                                             <div class="sc-9cwg9-3 eEDOvs">
                                                                 <img loading="lazy" width="100%" height="100%"
                                                                     src="/files/display?path=${plan.filePath}/${plan.fileName}"
                                                                         alt="코스 이미지" />
                                                             </div>
+                                                            </a>
                                                             <div class="sc-9cwg9-5 bmwSdh">
                                                                 <div class="sc-9cwg9-6 jBCCpd">
                                                                     <div class="sc-fxyxvg-0 igPkOG"></div>

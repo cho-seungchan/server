@@ -332,3 +332,10 @@ width: 100%;
     position: relative;
     align-items: center;
 }
+
+.mainProfile {
+    border-radius: 100%;
+    width: 80px;
+    height: 80px;
+    margin-right: 2%;
+}

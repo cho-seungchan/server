@@ -12,8 +12,8 @@ document.addEventListener("DOMContentLoaded", function () {
                         ? `/files/display?path=${encodeURIComponent(course.courseFilePath + '/' + course.courseFileName)}`
                         : "/images/default-course.jpg";
 
-                    const courseTypeLabel = course.courseType + " 코스";
-                    const courseId = course.courseType;
+                    const courseTypeLabel = course.courseType;
+                    const courseId = course.courseId;
 
                     const template = `
                     <div class="Banner__ImageSliderWrapper-dlocnb-2 hWqRHN">

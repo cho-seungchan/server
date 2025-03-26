@@ -253,7 +253,7 @@ img:disabled{
 }
 
 .showList>span {
-    white-space: nowrap;
+    white-space: pre-wrap;
 }
 
 .showList *{
@@ -389,3 +389,4 @@ b, strong {
     background-color: #f0f0f0;
     color: #888;
 }
+

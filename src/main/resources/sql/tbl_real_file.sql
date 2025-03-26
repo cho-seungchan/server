@@ -3,9 +3,9 @@ CREATE TABLE TBL_REAL_FILE(
                               ID NUMBER CONSTRAINT PK_REAL_FILE PRIMARY KEY,
                               FEED_ID NUMBER NOT NULL,
                               CONSTRAINT FK_REAL_FILE_FILE FOREIGN KEY(ID)
-                                  REFERENCES TBL_FILE(ID) ON DELETE CASCADE ,
+                              REFERENCES TBL_FILE(ID) ON DELETE CASCADE ,
                               CONSTRAINT FK_REAL_FILE_REAL_FEED FOREIGN KEY(FEED_ID)
-                                  REFERENCES TBL_REAL_FEED(ID) ON DELETE CASCADE
+                              REFERENCES TBL_REAL_FEED(ID) ON DELETE CASCADE
 );
 
 COMMENT ON TABLE TBL_REAL_FILE IS '실제 피드 파일 테이블';

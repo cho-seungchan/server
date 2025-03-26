@@ -4,7 +4,7 @@ CREATE TABLE TBL_VOLUNTEER_SCHEDULE(
                                        SCHEDULE_CONTENT VARCHAR2(2000) NOT NULL,
                                        VOLUNTEER_ID NUMBER NOT NULL,
                                        CONSTRAINT FK_VOLUNTEER_SCHEDULE FOREIGN KEY(VOLUNTEER_ID)
-                                           REFERENCES TBL_VOLUNTEER(ID) ON DELETE CASCADE
+                                       REFERENCES TBL_VOLUNTEER(ID) ON DELETE CASCADE
 );
 COMMENT ON TABLE TBL_VOLUNTEER_SCHEDULE IS '자원봉사 일정 테이블로, 자원봉사자의 일정 세부 정보를 포함합니다.';
 COMMENT ON COLUMN TBL_VOLUNTEER_SCHEDULE.ID IS '자원봉사 일정 테이블의 기본 키입니다.';
