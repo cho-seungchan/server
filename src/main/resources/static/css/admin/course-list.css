@@ -1050,3 +1050,61 @@ form[name="deleteForm"] button:hover {
 }
 
 /*25.03.15 조승찬 추가  끝*/
+
+/*25.03.25 조승찬 추가 시작*/
+/*봉사코스 참여자 조회 관련*/
+
+.participant-button:hover{
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+.Main-container {
+    display: flex;
+}
+.Main-container {
+    display: flex;
+}
+.Participants-Display-zone {
+    margin-left: 50px;
+    max-width: 500px;
+}
+
+.dSDVFj {
+    display: flex;
+}
+.gDuKGF {
+    min-height: 1px;
+}
+.koasSX {
+    width: auto;
+    height: auto;
+    transition: opacity 200ms ease-in-out;
+    display: none;
+    opacity: 0;
+    min-width: 0px;
+    min-height: 1px;
+}
+.hPRDQO {
+     width: 36px;
+     height: 36px;
+     margin-right: 10px;
+     overflow: hidden;
+     display: initial;
+     border-radius: 36px;
+     object-fit: cover;
+ }
+.participant-container {
+    display: flex;
+}
+.nickname{
+    position: absolute;
+    margin-left: 10px;
+    font-size: 24px;
+}
+.createdDate {
+    position: absolute;
+    margin-left: 290px;
+    font-size: 14px;
+}

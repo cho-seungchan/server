@@ -87,6 +87,27 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // 2025.03.13 조승찬 추가 시작 :: 수정 클릭시 update 함수 삭제 클릭시 delete 함수 호출
         if (e.target.closest(".updateCourseDtail")){
+
+            // 봉사코스일 경우  최대모집인원 최소모집인원 체크
+            if (document.querySelector(".gcqwwh.max-personnel").value != null &&
+                document.querySelector(".gcqwwh.min-personnel").value != null){
+                const max = parseInt(document.querySelector(".gcqwwh.max-personnel").value, 10);
+                const min = parseInt(document.querySelector(".gcqwwh.min-personnel").value, 10);
+                if ( max == 0 ){
+                    alert(" 최대 모집 인원을 입력하세요 ")
+                    return;
+                }
+                if ( min == 0 ){
+                    alert(" 최소 출발 인원을 입력하세요 ")
+                    return;
+                }
+                if ( max < min ) {
+                    console.log("최대최소 인원 " +document.querySelector(".gcqwwh.max-personnel").value+" "+document.querySelector(".gcqwwh.min-personnel").value)
+                    alert(" 최소 출발 인원이 최대 모집 인원보다 많습니다.")
+                    return;
+                }
+            }
+
             // 전송할 데이타 json 형태로 변경
             const sendData = {
                 id:  document.querySelector(".courseId").value,
@@ -107,6 +128,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 volunteerStartDate: document.querySelector(".gcqwwh.startdate").value,
                 volunteerEndDate:   document.querySelector(".gcqwwh.enddate").value,
                 volunteerDeadline:  document.querySelector(".gcqwwh.deadline").value,
+                volunteerMaxPersonnel: document.querySelector(".gcqwwh.max-personnel").value,
+                volunteerMinPersonnel: document.querySelector(".gcqwwh.min-personnel").value,
                 paths:  tourSpots.map(spot => {
                     return {
                         pathName : spot.title,
@@ -139,6 +162,21 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         // 2025.03.22 조승찬 추가 끝
 
+        // 25.03.25 봉사코스 참여자 조회 추가 조승찬 시작
+        if (e.target.classList.contains("participant-button")){
+            const courseId = document.querySelector(".courseId").value;
+            fetchParticipants(courseId, 1); // 코스아이디와 시작 페이지 번호를 가지고 함수 호출
+            console.log("봉사코스 참가자 보여주자 ");
+
+        }
+
+        // 더보기 버튼 클릭시
+        if (e.target.className == "moreParticipantList") {
+            const courseId = document.querySelector(".courseId").value;
+            const page = e.target.value; // 다음 조회할 페이지 설정
+            fetchParticipants(courseId, page); // 코스아이디와 페이지 번호를 가지고 함수 호출
+        }
+        // 25.03.25 봉사코스 참여자 조회 추가 조승찬 시작
     });
 
     // 25.03.22 조승찬 추가 시작

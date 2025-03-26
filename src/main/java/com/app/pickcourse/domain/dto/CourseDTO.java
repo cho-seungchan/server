@@ -27,6 +27,9 @@ public class CourseDTO {
     private String            volunteerStartDate;
     private String            volunteerEndDate;
     private String            volunteerDeadline;
+    private int               volunteerMaxPersonnel;
+    private int               volunteerMinPersonnel;
+    private int               volunteerParticipants;    // 총 참여자 수
     List<PathVO>              paths;
     List<String>              excludeContents;
     List<String>              includeContents;
@@ -56,6 +59,8 @@ public class CourseDTO {
         volunteerVO.setVolunteerStartDate(volunteerStartDate);
         volunteerVO.setVolunteerEndDate(volunteerEndDate);
         volunteerVO.setVolunteerDeadline(volunteerDeadline);
+        volunteerVO.setVolunteerMaxPersonnel(volunteerMaxPersonnel);
+        volunteerVO.setVolunteerMinPersonnel(volunteerMinPersonnel);
         return volunteerVO;
     }
 }

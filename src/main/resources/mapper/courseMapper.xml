@@ -53,7 +53,9 @@
             V.ID AS VOLUNTEER_ID,
             V.VOLUNTEER_START_DATE,
             V.VOLUNTEER_END_DATE,
-            V.VOLUNTEER_DEADLINE
+            V.VOLUNTEER_DEADLINE,
+            V.VOLUNTEER_MAX_PERSONNEL,
+            V.VOLUNTEER_Min_PERSONNEL
         FROM TBL_COURSE C
             LEFT OUTER JOIN TBL_VOLUNTEER V
                 ON   C.ID = V.ID
@@ -82,13 +84,55 @@
             V.ID AS VOLUNTEER_ID,
             V.VOLUNTEER_START_DATE,
             V.VOLUNTEER_END_DATE,
-            V.VOLUNTEER_DEADLINE
+            V.VOLUNTEER_DEADLINE,
+            V.VOLUNTEER_MAX_PERSONNEL,
+            V.VOLUNTEER_Min_PERSONNEL
         FROM TBL_COURSE C
                  LEFT OUTER JOIN TBL_VOLUNTEER V
                                  ON   C.ID = V.ID
                  LEFT OUTER JOIN TBL_ADMIN A
                                  ON C.ADMIN_ID = A.ID
         WHERE C.COURSE_TYPE = #{courseType}
+    </select>
+
+    <select id="getEco" resultType="courseDTO">
+        SELECT
+            c.ID AS id,
+            c.COURSE_TYPE AS courseType,
+            c.COURSE_IS_VOLUNTEER AS courseIsVolunteer,
+            c.COURSE_NAME AS courseName,
+            c.COURSE_DISTANCE AS courseDistance,
+            c.COURSE_SCHEDULE AS courseSchedule,
+            c.COURSE_THEME AS courseTheme,
+            c.COURSE_CONTENT AS courseContent,
+            c.COURSE_FILE_PATH AS courseFilePath,
+            c.COURSE_FILE_SIZE AS courseFileSize,
+            c.COURSE_FILE_NAME AS courseFileName,
+            c.ADMIN_ID AS adminId,
+            a.ADMIN_NAME AS adminName,
+            TO_CHAR(c.CREATED_DATE, 'YYYY-MM-DD') AS createdDate,
+            TO_CHAR(c.UPDATED_DATE, 'YYYY-MM-DD') AS updatedDate,
+            v.ID AS volunteerId,
+            TO_CHAR(v.VOLUNTEER_START_DATE, 'YYYY-MM-DD') AS volunteerStartDate,
+            TO_CHAR(v.VOLUNTEER_END_DATE, 'YYYY-MM-DD') AS volunteerEndDate,
+            TO_CHAR(v.VOLUNTEER_DEADLINE, 'YYYY-MM-DD') AS volunteerDeadline,
+            v.VOLUNTEER_MAX_PERSONNEL AS volunteerMaxPersonnel,
+            v.VOLUNTEER_MIN_PERSONNEL AS volunteerMinPersonnel,
+            COUNT(vp.ID) AS volunteerParticipants
+        FROM
+            TBL_COURSE c
+                LEFT JOIN TBL_ADMIN a ON c.ADMIN_ID = a.ID
+                LEFT JOIN TBL_VOLUNTEER v ON c.ID = v.ID
+                LEFT JOIN TBL_VOLUNTEER_PARTICIPANT vp ON c.ID = vp.COURSE_ID
+        WHERE  c.ID  =  #{id}
+        GROUP BY
+            c.ID, c.COURSE_TYPE, c.COURSE_IS_VOLUNTEER, c.COURSE_NAME, c.COURSE_DISTANCE,
+            c.COURSE_SCHEDULE, c.COURSE_THEME, c.COURSE_CONTENT, c.COURSE_FILE_PATH,
+            c.COURSE_FILE_SIZE, c.COURSE_FILE_NAME, c.ADMIN_ID, a.ADMIN_NAME, c.CREATED_DATE,
+            c.UPDATED_DATE, v.ID, v.VOLUNTEER_START_DATE, v.VOLUNTEER_END_DATE, v.VOLUNTEER_DEADLINE,
+            v.VOLUNTEER_MAX_PERSONNEL, v.VOLUNTEER_MIN_PERSONNEL
+        ORDER BY
+            c.ID
     </select>
 
     <sql id="search">
