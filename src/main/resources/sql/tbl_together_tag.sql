@@ -4,7 +4,7 @@ CREATE TABLE TBL_TOGETHER_TAG(
                                  TAG_CONTENT VARCHAR2(2000) NOT NULL,
                                  FEED_ID NUMBER NOT NULL,
                                  CONSTRAINT FK_TOGETHER_TAG_FEED FOREIGN KEY(FEED_ID)
-                                     REFERENCES TBL_FEED(ID) ON DELETE CASCADE
+                                 REFERENCES TBL_FEED(ID) ON DELETE CASCADE
 );
 COMMENT ON TABLE TBL_TOGETHER_TAG IS '함께하는 피드 태그 테이블';
 COMMENT ON COLUMN TBL_TOGETHER_TAG.ID IS '함께하는 피드 태그의 고유 ID';

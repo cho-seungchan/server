@@ -70,6 +70,11 @@ document.addEventListener("click", function (e) {
                     : "/images/main/white.svg";
             });
 
+            document.querySelectorAll(".enp_mobon_cart .wish-count").forEach(span => {
+                let count = parseInt(span.textContent);
+                span.textContent = window.isWished ? count + 1 : count - 1;
+            });
+
             // 메시지 표시
             messageDiv.textContent = window.isWished
                 ? "추천 여행을 찜했습니다."

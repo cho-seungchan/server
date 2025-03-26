@@ -139,6 +139,7 @@ public class ProposalController {
         int wishCount = wishService.getWishCountByPlanId(id);
         model.addAttribute("wishCount", wishCount);
         model.addAttribute("planDetailDTO", planDetailDTO);
+        log.info("planDetailDTO={}",planDetailDTO);
 
         return "/proposal/read";
     }
@@ -169,7 +170,8 @@ public class ProposalController {
     public String getVeiwList(Model model, Long courseId) {
         MemberDTO loginUser = (MemberDTO) session.getAttribute("member");
 
-        CourseSelectDTO course = courseService.findCourseById(81L);
+//        CourseSelectDTO course = courseService.findCourseById(81L);
+        CourseSelectDTO course = courseService.findCourseById(22L);
         log.info(course.toString());
 
         model.addAttribute("course", course);

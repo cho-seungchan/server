@@ -4,11 +4,11 @@ CREATE TABLE TBL_TOGETHER_REPLY(
                                    MEMBER_ID NUMBER NOT NULL,
                                    FEED_ID NUMBER NOT NULL,
                                    CONSTRAINT FK_TOGETHER_REPLY_REPLY FOREIGN KEY(ID)
-                                       REFERENCES TBL_REPLY(ID) ON DELETE CASCADE,
+                                   REFERENCES TBL_REPLY(ID) ON DELETE CASCADE,
                                    CONSTRAINT FK_TOGETHER_REPLY_MEMBER FOREIGN KEY(MEMBER_ID)
-                                       REFERENCES TBL_MEMBER(ID) ON DELETE CASCADE,
+                                   REFERENCES TBL_MEMBER(ID) ON DELETE CASCADE,
                                    CONSTRAINT FK_TOGETHE_REPLY_TOGETHE_FEED FOREIGN KEY(FEED_ID)
-                                       REFERENCES TBL_TOGETHER_FEED(ID) ON DELETE CASCADE
+                                   REFERENCES TBL_TOGETHER_FEED(ID) ON DELETE CASCADE
 );
 
 COMMENT ON TABLE TBL_TOGETHER_REPLY IS '함께하는 피드 댓글 테이블';

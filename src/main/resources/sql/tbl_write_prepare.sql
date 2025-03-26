@@ -4,9 +4,5 @@ CREATE TABLE TBL_WRITE_PREPARE (
                                    PREPARE_CONTENT VARCHAR2(1000) DEFAULT '',
                                    PLAN_ID NUMBER NOT NULL,
                                    CONSTRAINT FK_PREPARE_PLAN FOREIGN KEY (PLAN_ID)
-                                       REFERENCES TBL_PLAN(ID) ON DELETE CASCADE
+                                   REFERENCES TBL_PLAN(ID) ON DELETE CASCADE
 );
-
-SELECT * FROM TBL_WRITE_PREPARE;
-DROP TABLE TBL_WRITE_PREPARE;
-DROP SEQUENCE SEQ_WRITE_PREPARE;

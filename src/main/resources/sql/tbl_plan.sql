@@ -22,44 +22,6 @@ create table TBL_PLAN
         constraint FK_PLAN_COURSE
             references TBL_COURSE
                 on delete cascade,
-    CREATED_DATE       DATE default SYSDATE,
-    UPDATED_DATE       DATE default SYSDATE
+    CREATED_DATE DATE default SYSDATE,
+    UPDATED_DATE DATE default SYSDATE
 );
-
-SELECT * FROM TBL_PLAN
-ORDER BY ID DESC;
-
-SELECT * FROM TBL_WRITE_INCLUDE
-ORDER BY ID DESC ;
-
-SELECT * FROM TBL_SCHEDULE
-ORDER BY ID DESC ;
-
-SELECT ID, FEEDTYPE, FEEDCONTENT, CREATEDDATE, UPDATEDDATE, MEMBERID, MEMBERNICKNAME, MEMBERFILEPATH,
-       MEMBERFILENAME, PLANID
-FROM
-    (SELECT ROWNUM R, ID, FEEDTYPE, FEEDCONTENT, CREATEDDATE, UPDATEDDATE, MEMBERID, MEMBERNICKNAME, MEMBERFILEPATH,
-            MEMBERFILENAME, PLANID
-     FROM
-         (SELECT
-              f.ID AS id,
-              'REAL' AS feedType,
-              f.FEED_CONTENT AS feedContent,
-              TO_CHAR(f.CREATED_DATE, 'YYYY-MM-DD') AS createdDate,
-              TO_CHAR(f.UPDATED_DATE, 'YYYY-MM-DD') AS updatedDate,
-              m.ID AS memberId,
-              m.MEMBER_NICKNAME AS memberNickname,
-              m.MEMBER_FILE_PATH AS memberFilePath,
-              m.MEMBER_FILE_NAME AS memberFileName,
-              rf.PLAN_ID AS planId
-          FROM
-              TBL_FEED f
-                  JOIN
-              TBL_REAL_FEED rf ON f.ID = rf.ID
-                  JOIN
-              TBL_MEMBER m ON  rf.MEMBER_ID = m.ID
-          WHERE PLAN_ID = 127
-          ORDER BY ID DESC)
-     WHERE ROWNUM <= ${pagination.endRow}
-    )
-WHERE R >= ${pagination.startRow}

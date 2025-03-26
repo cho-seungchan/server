@@ -38,4 +38,16 @@ public class NoticeDAO {
     public void postNoticeDetail(NoticeVO notice) {
         noticeMapper.postNoticeDetail(notice);
     }
+
+    public List<NoticeListDTO> getList(Pagination pagination) {
+        return noticeMapper.selectNoticeList(pagination);
+    }
+
+    public int getTotalCount() {
+        return noticeMapper.selectTotalNoticeCount();
+    }
+
+    public NoticeVO getDetail(Long id) {
+        return noticeMapper.selectNoticeById(id);
+    }
 }

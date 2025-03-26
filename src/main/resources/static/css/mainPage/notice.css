@@ -346,3 +346,9 @@ p, label {
 .eNIHag>button:hover, .gIsDDT>button:hover {
     background-color: rgb(238, 238, 238);
 }
+
+.notice-content {
+    white-space: pre-wrap;
+    font-size: 15px;
+    line-height: 1.6;
+}
