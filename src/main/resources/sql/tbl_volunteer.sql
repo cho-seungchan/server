@@ -1,5 +1,5 @@
 CREATE TABLE TBL_VOLUNTEER(
-                              ID NUMBER CONSTRAINT PK__VOLUNTEER PRIMARY KEY,
+                              ID NUMBER CONSTRAINT PK_VOLUNTEER PRIMARY KEY,
                               VOLUNTEER_START_DATE DATE NOT NULL,
                               VOLUNTEER_END_DATE DATE NOT NULL,
                               VOLUNTEER_DEADLINE DATE NOT NULL,
