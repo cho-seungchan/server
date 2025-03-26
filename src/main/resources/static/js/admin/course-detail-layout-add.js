@@ -21,6 +21,8 @@ function addCourseDetail(course, page, type, keyWord) {
 
     // 봉사 코스일 경우
     if (course.courseIsVolunteer == `Y`) {
+        // 참여자를 보여주기 위해 부모요소에 display :: flex 설정
+        document.querySelector('.Main-container').style.display = 'flex';
         // 참여자를 볼 수 있는 버튼 보이기
         document.querySelector(".participant-button").classList.remove('hidden');
         // 시작일, 종료일, 모집 마감일 생성
@@ -184,7 +186,11 @@ function addCourseDetail(course, page, type, keyWord) {
         <input type="text" name="volunteerMinPersonnel" placeholder="최소 출발 인원" class="SocialRecruiteTagsContainer__SocialRecruiteTagsInput-sc-2762su-1 gcqwwh min-personnel" 
          value = "${course.volunteerMinPersonnel}" value="0"/>                                                                        
         `
+    } else {
+        // 참여자를 보여주기 위해 부모요소에 display :: flex 설정한거 해제
+        document.querySelector('.Main-container').style.display = '';
     }
+
 
     // 기타 정보 생성
     document.querySelector(".NumberOfPerson").innerHTML = `
