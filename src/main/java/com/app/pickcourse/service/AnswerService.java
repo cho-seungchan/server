@@ -23,8 +23,8 @@ public class AnswerService {
         answerDAO.saveAnswer(answerVO);
     }
 
-    public AnswerDTO getAnswerList(Long questionId) {
-        return answerDAO.findAllAnswer(questionId);
+    public AnswerDTO getAnswerList(Long planId,Long questionId) {
+        return answerDAO.findAllAnswer(planId,questionId);
     }
 
 }

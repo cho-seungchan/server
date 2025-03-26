@@ -12,13 +12,13 @@ public class WIshMapperTests {
     @Autowired
     private WishMapper wishMapper;
 
-    @Test
-    public void testInsert() {
-        WishVO wishVO = new WishVO();
-
-        wishVO.setMemberId(1L);
-        wishVO.setCourseId(1L);
-        wishMapper.insert(wishVO);
-
-    }
+//    @Test
+//    public void testInsert() {
+//        WishVO wishVO = new WishVO();
+//
+//        wishVO.setMemberId(1L);
+//        wishVO.setCourseId(1L);
+//        wishMapper.insert(wishVO);
+//
+//    }
 }

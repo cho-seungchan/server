@@ -16,7 +16,9 @@ public class CourseServiceTests {
     public void findCourseByIdTest() {
         CourseSelectDTO course = new CourseSelectDTO();
         course = courseService.findCourseById(46L);
-        log.info(course.toString());
-
+        course.getPlans().forEach(plan -> {
+            plan.getFeedList().forEach(feed -> {log.info(feed.toString());});
+        });
     }
+
 }
