@@ -23,30 +23,30 @@ public class KakaoController {
     private final MemberService memberService;
 
     @GetMapping("/kakao/login")
-    public RedirectView login(String code){
+    public String login(String code) {
         String token = kakaoService.getKakaoAccessToken(code);
-        Optional<MemberDTO> foundInfo = kakaoService.getKakaoInfo(token);
-        log.info("foundInfo:{}", foundInfo);
-        log.info("token:{}", token);
-        MemberDTO memberDTO = foundInfo.orElseThrow(() -> {
-            throw new RuntimeException();
-        });
+        Optional<MemberDTO> kakaoInfo = kakaoService.getKakaoInfo(token);
+
+        log.info("kakaoInfo: {}", kakaoInfo);
+
+        MemberDTO memberDTO = kakaoInfo.orElseThrow(() -> new RuntimeException("카카오 사용자 정보 조회 실패"));
 
         Optional<MemberDTO> foundMember = memberService.getMember(memberDTO.getMemberEmail());
-        if(!foundMember.isPresent()){
+
+        if (!foundMember.isPresent()) {
             memberService.kakaoJoin(memberDTO);
+            foundMember = memberService.getMember(memberDTO.getMemberEmail());
         }
 
-
         session.setAttribute("memberStatus", "kakao");
-        session.setAttribute("member", memberDTO);
+        session.setAttribute("member", foundMember.get());
 
         String redirectUrl = (String) session.getAttribute("redirectAfterLogin");
         if (redirectUrl != null) {
             session.removeAttribute("redirectAfterLogin");
-            return new RedirectView(redirectUrl);
+            return "redirect:" + redirectUrl;
         }
 
-        return new RedirectView("/");
+        return "redirect:/";
     }
 }
