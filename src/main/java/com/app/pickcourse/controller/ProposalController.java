@@ -2,18 +2,23 @@ package com.app.pickcourse.controller;
 
 import com.app.pickcourse.domain.dto.*;
 import com.app.pickcourse.repository.QuestionDAO;
+import com.app.pickcourse.repository.VolunteerParticipantDAO;
 import com.app.pickcourse.service.*;
 import com.app.pickcourse.util.Pagination;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/proposal")
@@ -30,17 +35,42 @@ public class ProposalController {
     private final MemberService memberService;
     private final RealFeedService realFeedService;
     private final WishService wishService;
+    private final HttpServletRequest request;
 
 
-//    25.03.25 봉사코스 상세 조회
+    //    25.03.26 봉사코스 상세 조회   조승찬
     @GetMapping("/eco")
-    public String getEco(@RequestParam Long id, Model model) {
+    public String getEco(@SessionAttribute(name = "member", required = false) MemberDTO member,
+                         @RequestParam Long id, Model model) {
 
-        EcoDetailDTO ecoDetail = planService.getEco(id);
+        Long memberId = null;
+        if (member != null) {
+            memberId = member.getId();
+        }
 
-        model.addAttribute("ecoDetail", ecoDetail);
+        // 로그인 후 또는 참가신청 처리 후 돌아올, 현재 url path 보관.
+        String redirectURI = request.getRequestURI() + "?id=" + id;
+        session.setAttribute("redirectAfterLogin", redirectURI);
+
+        CourseDTO course = courseService.getEco(id);
+
+        model.addAttribute("course", course);
+        model.addAttribute("memberId", memberId);
 
         return "/proposal/eco";
+    }
+
+    //    25.03.26 참가자 처리   조승찬
+    @PostMapping("/eco/participant")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> postEcoparticipant(@RequestParam Long courseId, @RequestParam Long memberId) {
+        String message = null;
+        message = courseService.postEcoparticipant(courseId, memberId);
+
+        Map<String, Object> reponse = new HashMap<>();
+        reponse.put("message", message);
+        log.debug("참가자 처리 메세지 :: "+message);
+        return ResponseEntity.ok(reponse);
     }
 
     @GetMapping("/list")
@@ -167,11 +197,11 @@ public class ProposalController {
     }
 
     @GetMapping("/viewlist")
-    public String getVeiwList(Model model, Long courseId) {
+    public String getVeiwList(Model model, @RequestParam Long courseId) {
         MemberDTO loginUser = (MemberDTO) session.getAttribute("member");
 
-//        CourseSelectDTO course = courseService.findCourseById(81L);
-        CourseSelectDTO course = courseService.findCourseById(22L);
+        CourseSelectDTO course = courseService.findCourseById(courseId);
+
         log.info(course.toString());
 
         model.addAttribute("course", course);
@@ -238,10 +268,11 @@ public class ProposalController {
         answerService.answerAdd(answerDTO);
     }
 
-    @GetMapping("/getAnswerLists/{questionId}")
+    @GetMapping("/getAnswerLists/{planId}/{questionId}")
     @ResponseBody
-    public AnswerDTO getAnswerLists(@PathVariable Long questionId) {
-        return answerService.getAnswerList(questionId);
+    public AnswerDTO getAnswerLists(@PathVariable Long planId,@PathVariable Long questionId) {
+        log.info("check");
+        return answerService.getAnswerList(planId, questionId);
     }
 
     @PostMapping("/modifyUpdate")

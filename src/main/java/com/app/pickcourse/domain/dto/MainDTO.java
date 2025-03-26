@@ -1,6 +1,6 @@
 package com.app.pickcourse.domain.dto;
 
-import com.app.pickcourse.domain.vo.MemberVO;
+import com.app.pickcourse.domain.vo.CourseVO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,11 +10,9 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-@Getter
-@Setter
-@ToString
+@Getter@Setter@ToString
 @NoArgsConstructor
-public class EcoDetailDTO {
-    private CourseDTO course;
-    private List<FeedDTO> feeds;
+public class MainDTO {
+    private List<MainCourseDTO> courses;
+    private List<MainFeedListDTO> feeds;
 }

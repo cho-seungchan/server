@@ -914,7 +914,8 @@ ul, ol, li {
 }
 .DurationOfTourContainer,
 .NumberOfPerson,
-.EtcOfTour {
+.EtcOfTour,
+.MaxMinPersonnel{
     display: flex;
     gap: 20px;
     align-items: baseline;

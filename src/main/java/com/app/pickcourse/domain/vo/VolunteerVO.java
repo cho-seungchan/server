@@ -12,6 +12,8 @@ public class VolunteerVO {
     private String volunteerStartDate;
     private String volunteerEndDate;
     private String volunteerDeadline;
+    private int    volunteerMaxPersonnel;
+    private int    volunteerMinPersonnel;
     private String createdDate;
     private String updatedDate;
 }

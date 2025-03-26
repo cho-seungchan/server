@@ -17,6 +17,7 @@
         SELECT SCHEDULE_CONTENT
         FROM TBL_VOLUNTEER_SCHEDULE
         WHERE VOLUNTEER_ID =  #{volunteerId}
+        ORDER BY ID DESC
     </select>
 
     <delete id="deleteCourseDetail">

@@ -2,16 +2,13 @@ const buttonWrap = document.querySelector(".form")
 const answerButton = document.querySelector("#question-wrap");
 
 
-
-
-
-buttonWrap.addEventListener("keyup", (e)=>{
-    if(e.target.classList.contains("comment"))
+buttonWrap.addEventListener("keyup", (e) => {
+    if (e.target.classList.contains("comment"))
         e.target.nextElementSibling.textContent = `${e.target.value.length} / 1200 (추천 글자수: 30자 이내)`;
 });
 
 buttonWrap.addEventListener("click", async (e) => {
-    if(e.target.classList.contains("insertButton")) {
+    if (e.target.classList.contains("insertButton")) {
         findPlanId = planDetail.plan.id;
         const questionContent = document.querySelector(".comment");
         await readService.writeQuestion({
@@ -26,7 +23,6 @@ buttonWrap.addEventListener("click", async (e) => {
 });
 
 
-
 const moreQuestion = document.querySelector(".btn_more");
 const questionWrap = document.querySelector("#question-wrap");
 
@@ -36,6 +32,7 @@ moreQuestion.addEventListener("click", (e) => {
 
 questionWrap.addEventListener("click", async (e) => {
     if (e.target.classList.contains("btn2")) {
+        findPlanId = planDetail.plan.id;
         const questionItem = e.target.closest("li");
         const questionId = questionItem.id; // <li id="questionId"> 구조이므로 id 속성 사용
         const replyBox = questionItem.querySelector(".replyBox");
@@ -50,10 +47,10 @@ questionWrap.addEventListener("click", async (e) => {
         replyBox.style.display = "block";
 
         // 답변 목록 가져오기
-        await readService.getAnswerList(targetId, (answerListData) => {
+        await readService.getAnswerList(findPlanId,targetId, (answerListData) => {
 
             let answerHTML = "";
-                answerHTML += `
+            answerHTML += `
                     <li>
                         <div class="txt_reply">
                             <p>${answerListData.answerContent}</p>
@@ -63,8 +60,6 @@ questionWrap.addEventListener("click", async (e) => {
                         </div>
                     </li>
                 `;
-
-            // 답변 목록 업데이트
             replyBox.querySelector("ul").innerHTML = answerHTML;
         });
     }
@@ -72,26 +67,30 @@ questionWrap.addEventListener("click", async (e) => {
 
 
 questionWrap.addEventListener("keyup", (e) => {
-    if(e.target.classList.contains("coment")){
+    if (e.target.classList.contains("coment")) {
         e.target.nextElementSibling.textContent = `${e.target.value.length} / 1200 (추천 글자수: 30자 이내)`;
     }
 })
 
 answerButton.addEventListener("click", async (e) => {
-    if(e.target.classList.contains("insertAnswerButton")){
+    if (e.target.classList.contains("insertAnswerButton")) {
         findPlanId = planDetail.plan.id;
         answerId = planDetail.plan.memberId;
         targetQuestionId = e.target.getAttribute("data-index")
 
         const answerContent = e.target.parentElement.previousElementSibling.querySelector(".answer-comment");
-        readService.writeAnswer({
+        await readService.writeAnswer({
             memberId: answerId,
             planId: findPlanId,
             questionId: targetQuestionId,
-            answerContent: answerContent.value});
+            answerContent: answerContent.value
+        });
         answerContent.value = "";
 
-        readService.getAnswerList((answerListData) => {
+        await readService.getAnswerList(findPlanId, targetQuestionId, (answerListData) => {
+            const replyBox = e.target.closest(".replyBox");
+            console.log("1"+replyBox)
+
             let text = "";
             text += `
                     <li>
@@ -103,29 +102,28 @@ answerButton.addEventListener("click", async (e) => {
                         </div>
                     </li>
                 `;
-
-            // 답변 목록 업데이트
-        });
+            console.log("2"+replyBox.querySelector("ul"));
             replyBox.querySelector("ul").innerHTML = text;
-            return;
-        }
-})
-
-joinWrap.addEventListener("click", (e) => {
-    console.log(e.target.tagName);
-    if(e.target.classList.contains("join-button")){
-        if(loginMember.id == planDetail.plan.memberId){
-        alert("작성자는 참여할 수 없습니다.")
-        return;
-        }
+        });
     }
 })
+
+
+// joinWrap.addEventListener("click", (e) => {
+//     console.log(e.target.tagName);
+//     if(e.target.classList.contains("join-button")){
+//         if(loginMember.id == planDetail.plan.memberId){
+//         alert("작성자는 참여할 수 없습니다.")
+//         return;
+//         }
+//     }
+// })
 
 joinWrap.addEventListener("click", (e) => {
     const joinBtn = e.target.closest(".join-button");
 
     if (joinBtn) {
-        if(loginMember.id == planDetail.plan.memberId){
+        if (loginMember.id == planDetail.plan.memberId) {
             alert("작성자는 참여할 수 없습니다.");
             e.preventDefault(); // 링크 이동 막기
             return;
@@ -138,11 +136,8 @@ joinWrap.addEventListener("click", (e) => {
 
 let leftReviewEnd = 0; // 화면 왼쪽 끝
 let rightReviewEnd = 976;
-console.log(slickTrack)
 const totalLength = slickTrack.children;
-console.log(totalLength);
-let maxReviewRightEnd =totalLength.length * 244;
-console.log(maxReviewRightEnd);
+let maxReviewRightEnd = totalLength.length * 244;
 
 document.querySelector(".slick-next").addEventListener("click", (e) => {
     rightReviewEnd += 732;
@@ -171,7 +166,3 @@ document.querySelector(".slick-prev").addEventListener("click", (e) => {
     document.querySelector(".slick-track").style.transform = `translate3d(${leftReviewEnd}px, 0, 0)`;
     document.querySelector(".slick-next").classList.remove("slick-disabled");
 });
-// 후기의 버튼 클릭시 이미지 3개식 이동 732px, 디스플레이 768px
-
-
-

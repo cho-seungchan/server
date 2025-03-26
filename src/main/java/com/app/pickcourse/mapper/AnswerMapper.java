@@ -12,5 +12,5 @@ public interface AnswerMapper {
     public void insertAnswer(AnswerVO answerVO);
 
 //    전체조회
-    public AnswerDTO selectAnswer(Long questionId);
+    public AnswerDTO selectAnswer(Long planId, Long questionId);
 }

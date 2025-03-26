@@ -58,4 +58,9 @@ public class CourseDAO {
     public Optional<CourseSelectDTO> findCourseViewById(Long id) {
         return courseMapper.selectCourseViewById(id);
     }
+
+    // 봉사코스 정보 가져오기
+    public CourseDTO getEco(Long id) {
+        return courseMapper.getEco(id);
+    }
 }
