@@ -1,3 +1,4 @@
+/*
 const clickList = document.querySelectorAll("ul>li");
 const div = document.createElement("div");
 
@@ -24,3 +25,4 @@ clickList.forEach((list) => {
         div.classList.add("createComment");
     });
 });
+*/

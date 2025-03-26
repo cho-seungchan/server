@@ -292,3 +292,8 @@ input {
     padding: 0px 20px;
     min-height: 1px;
 }
+.pickersText {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
