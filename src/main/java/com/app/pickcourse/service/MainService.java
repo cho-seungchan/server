@@ -24,6 +24,7 @@ public class MainService {
         MainDTO mainDTO = new MainDTO();
         mainDTO.setCourses(mainDAO.findByCourseType());
         mainDTO.setFeeds(mainDAO.findFeeds());
+        mainDTO.setVolunteer(mainDAO.findVolunteer());
 
         mainDTO.getFeeds().forEach(feed -> {
             feed.setTags(tagDAO.getFeedModify(feed.getId()));

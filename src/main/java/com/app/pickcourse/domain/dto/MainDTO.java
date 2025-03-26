@@ -15,4 +15,5 @@ import java.util.List;
 public class MainDTO {
     private List<MainCourseDTO> courses;
     private List<MainFeedListDTO> feeds;
+    private MainCourseDTO volunteer;
 }
