@@ -1,5 +1,6 @@
 package com.app.pickcourse.mapper;
 
+import com.app.pickcourse.domain.dto.CourseDTO;
 import com.app.pickcourse.domain.dto.PlanDTO;
 import com.app.pickcourse.domain.dto.RecruitPlanDTO;
 import com.app.pickcourse.domain.vo.PlanVO;
@@ -52,6 +53,5 @@ public interface PlanMapper {
     List<RecruitPlanDTO> selectMyRecruitPlansWithLimit(@Param("memberId") Long memberId,
                                                        @Param("offset") int offset,
                                                        @Param("limit") int limit);
-
 
 }

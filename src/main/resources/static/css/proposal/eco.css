@@ -885,7 +885,6 @@ a {
     color: #666;
 }
 .schedule_info {
-    padding: 40px 150px 40px;
     border-top: 1px solid #e6e6e6;
     border-bottom: 1px solid #e6e6e6;
 }
@@ -2216,4 +2215,10 @@ textarea {
     height: 0px;
     clear: both;
     visibility: hidden;
+}
+.representitive-img > img{
+    width: 770px;
+    height: 320px;
+    object-fit: cover;
+    vertical-align: middle;
 }

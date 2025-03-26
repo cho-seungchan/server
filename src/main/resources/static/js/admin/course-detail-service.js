@@ -71,3 +71,17 @@ function inputFileUpload(formData){
         });
 }
 // 25.03.22 조승찬 추가 끝
+
+//25.03.25 봉사코스 참가자 명단 조회 추가 조승찬 추가 시작
+function fetchParticipants(courseId, page){
+    return fetch(`/admin/participants-list?courseId=${courseId}&page=${page}`)
+        .then(response => response.json())
+        .then(data => {
+            addParticipants(data.participants, data.pagination); // 코스목록 추가
+        })
+        .catch(error => {
+            console.error("참여자 데이타를 가져오는 중 오류", error);
+            throw error;
+        });
+}
+//25.03.25 봉사코스 참가자 명단 조회 추가 조승찬 추가 끝.

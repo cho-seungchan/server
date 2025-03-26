@@ -266,6 +266,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const durationContainer1 = document.querySelector(
         ".DurationOfTourContainer1"
     );
+    const MaxMinPersonnel = document.querySelector(".MaxMinPersonnel");
 
     if (!volunteerBox || !durationContainer || !durationContainer1) {
         console.error("요소를 찾을 수 없습니다. 클래스명을 확인하세요.");
@@ -277,9 +278,11 @@ document.addEventListener("DOMContentLoaded", function () {
         if (this.checked) {
             durationContainer.classList.remove("hidden");
             durationContainer1.classList.remove("hidden");
+            MaxMinPersonnel.classList.remove("hidden");
         } else {
             durationContainer.classList.add("hidden");
             durationContainer1.classList.add("hidden");
+            MaxMinPersonnel.classList.add("hidden");
         }
     });
 });
@@ -816,6 +819,25 @@ document.addEventListener("DOMContentLoaded", function () { // HTML이 로드된
 
 // 저장 버튼 클릭시
     document.querySelector(".Button_children__NzZlO").addEventListener("click", (button) => {
+
+        // 봉사코스일 경우  최대모집인원 최소모집인원 체크
+        if (document.querySelector("#volunteerBox").checked){
+            const max = parseInt(document.querySelector(".gcqwwh.max-personnel").value, 10);
+            const min = parseInt(document.querySelector(".gcqwwh.min-personnel").value, 10);
+            if ( max == 0 ){
+                alert(" 최대 모집 인원을 입력하세요 ")
+                return;
+            }
+            if ( min == 0 ){
+                alert(" 최소 출발 인원을 입력하세요 ")
+                return;
+            }
+            if ( max < min ) {
+                console.log("최대최소 인원 " +document.querySelector(".gcqwwh.max-personnel").value+" "+document.querySelector(".gcqwwh.min-personnel").value)
+                alert(" 최소 출발 인원이 최대 모집 인원보다 많습니다.")
+                return;
+            }
+        }
 
         // 포함사항 입력
         document.querySelectorAll(".includeContent").forEach((e,i) => {

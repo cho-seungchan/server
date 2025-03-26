@@ -184,14 +184,6 @@ public class PlanService {
         planDAO.delete(planId);
     }
 
-
-    public EcoDetailDTO getEco(Long id) {
-        // 여행 계획 데이타 가져오기
-        EcoDetailDTO ecoDetail = new EcoDetailDTO();
-
-        // 후기데이타 가져오기
-        return ecoDetail;
-    }
     public List<RecruitPlanDTO> getMyRecruitPlans(Long memberId, int offset, int limit) {
         return planDAO.findMyRecruitPlans(memberId, offset, limit);
     }

@@ -8,6 +8,8 @@ import com.app.pickcourse.domain.vo.MemberVO;
 import com.app.pickcourse.domain.vo.NoticeVO;
 import com.app.pickcourse.service.AdminService;
 import com.app.pickcourse.util.Pagination;
+import com.app.pickcourse.util.PaginationOnePage;
+import com.app.pickcourse.util.PaginationParticipants;
 import com.app.pickcourse.util.Search;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -57,7 +59,6 @@ public class AdminController {
         List<MemberVO> members = adminService.getMemberList(isAct, pagination, search);
         model.addAttribute("members", members);
 
-        log.info("회원 목록 "+isAct+" "+pagination.toString()+" "+search.toString());
         return "/admin/member-list";
     }
 
@@ -128,7 +129,6 @@ public class AdminController {
         model.addAttribute("admins", admins);
         model.addAttribute("admin", new AdminVO());
 
-        log.info(pagination.toString());
         return "/admin/manage-admin-list";
     }
 
@@ -199,7 +199,6 @@ public class AdminController {
                                                              Pagination pagination, Search search) {
 
         List<CourseListDTO> list = adminService.getCourseList(pagination,search);
-        list.forEach(System.out::println);
 
         Map<String, Object> response = new HashMap<String, Object>();
         response.put("courses", list);
@@ -214,9 +213,6 @@ public class AdminController {
     public ResponseEntity<String> patchCourseList(@SessionAttribute(name = "admin", required = false) AdminVO admin,
                                                   @RequestBody Map<String, String> reqData) {
 
-        // 받은 데이터 확인 (디버깅용)
-        System.out.println("Course Request: " + reqData.get("courseId")+" "+reqData.get("courseType"));
-
         adminService.patchCourseList(reqData.get("courseId"),reqData.get("courseType").trim());
         // 처리 결과 반환
         return ResponseEntity.ok("Course list fetched successfully!");
@@ -229,7 +225,6 @@ public class AdminController {
                                                                @PathVariable("id") Long id) {
 
         CourseDTO courseDTO = adminService.getCourseDetail(id);
-        System.out.println(courseDTO.toString());
         Map<String,Object> response = new HashMap<String, Object>();
         response.put("course", courseDTO);
         return ResponseEntity.ok(response);
@@ -241,7 +236,6 @@ public class AdminController {
     public ResponseEntity<Map<String, Object>> getCourseTypeDetail(@SessionAttribute(name = "admin", required = false) AdminVO admin,
                                                                    @PathVariable("courseType") String courseType) {
         CourseDTO courseDTO = adminService.getCourseTypeDetail(courseType);
-        System.out.println(courseDTO.toString());
         Map<String,Object> response = new HashMap<String, Object>();
         response.put("course", courseDTO);
         return ResponseEntity.ok(response);
@@ -252,6 +246,7 @@ public class AdminController {
     @ResponseBody
     public void putCourseDetail(@SessionAttribute(name = "admin", required = false) AdminVO admin,
                                 @RequestBody CourseDTO courseDTO) {
+        log.info(courseDTO.toString());
         adminService.putCourseDetail(courseDTO);
     }
 
@@ -289,7 +284,6 @@ public class AdminController {
         Map<String,Object> response = new HashMap<>();
         response.put("reply", reply);
 
-        log.info(reply.toString());
 
         return ResponseEntity.ok(response);
     };
@@ -300,11 +294,8 @@ public class AdminController {
     public ResponseEntity<Map<String, Object>> getNoticeList(@SessionAttribute(name = "admin", required = false) AdminVO admin,
                                                              Pagination pagination, Search search) {
 
-        log.info(" getNoticeList 들어옴 ");
 
         List<NoticeListDTO> list = adminService.getNoticeList(pagination, search);
-
-        list.forEach(System.out::println);
 
         Map<String,Object> response = new HashMap<>();
         response.put("notice", list);
@@ -349,9 +340,25 @@ public class AdminController {
     @DeleteMapping("/notice-detail/{id}")
     @ResponseBody
     public void deleteNoticeDetail(@PathVariable Long id) {
-        log.info("deleteNoticeDetail  "+id);
 
         adminService.deleteNoticeDetail(id);
+    }
+
+    // 25.03.25 봉사코스 참여자 명단 조회
+    @GetMapping("/participants-list")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> getParticipantsList
+            (@SessionAttribute(name = "admin", required = false) AdminVO admin,
+             @RequestParam Long courseId, PaginationParticipants pagination) {
+
+        List<VolunteerParticipantDTO> participants = adminService.getParticipantsList(courseId, pagination);
+        participants.forEach(System.out::println);
+        log.info(pagination.toString());
+
+        Map<String,Object> response = new HashMap<>();
+        response.put("participants", participants);
+        response.put("pagination", pagination);
+        return ResponseEntity.ok(response);
     }
 
 //   Admin Login
