@@ -1060,12 +1060,10 @@ form[name="deleteForm"] button:hover {
     font-size: 16px;
     transition: all 0.3s ease;
 }
-.Main-container {
-    display: flex;
-}
-.Main-container {
-    display: flex;
-}
+/*다른 화면에 영향을 주므로 봉사코스 일 때 스크립트에서 지정*/
+/*.Main-container {*/
+/*    display: flex;*/
+/*}*/
 .Participants-Display-zone {
     margin-left: 50px;
     max-width: 500px;
