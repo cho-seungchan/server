@@ -165,12 +165,10 @@ public class ProposalController {
     }
 
     @GetMapping("/viewlist")
-    public String getVeiwList(Model model, Long courseId) {
+    public String getVeiwList(Model model, @RequestParam Long courseId) {
         MemberDTO loginUser = (MemberDTO) session.getAttribute("member");
 
-
-        CourseSelectDTO course = courseService.findCourseById(16L);
-        CourseSelectDTO course = courseService.findCourseById(81L);
+        CourseSelectDTO course = courseService.findCourseById(courseId);
         log.info(course.toString());
 
         model.addAttribute("course", course);
@@ -237,10 +235,11 @@ public class ProposalController {
         answerService.answerAdd(answerDTO);
     }
 
-    @GetMapping("/getAnswerLists/{questionId}")
+    @GetMapping("/getAnswerLists/{planId}/{questionId}")
     @ResponseBody
-    public AnswerDTO getAnswerLists(@PathVariable Long questionId) {
-        return answerService.getAnswerList(questionId);
+    public AnswerDTO getAnswerLists(@PathVariable Long planId,@PathVariable Long questionId) {
+        log.info("check");
+        return answerService.getAnswerList(planId, questionId);
     }
 
     @PostMapping("/modifyUpdate")

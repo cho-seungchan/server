@@ -4,7 +4,7 @@ CREATE TABLE TBL_FEED_TAG(
                              FEED_TAG_CONTENT VARCHAR2(2000) NOT NULL,
                              FEED_ID NUMBER NOT NULL,
                              CONSTRAINT FK_FEED_TAG_FEED FOREIGN KEY(FEED_ID)
-                                 REFERENCES TBL_FEED(ID) ON DELETE CASCADE
+                                REFERENCES TBL_FEED(ID) ON DELETE CASCADE
 );
 COMMENT ON TABLE TBL_FEED_TAG IS '피드 태그 테이블';
 COMMENT ON COLUMN TBL_FEED_TAG.ID IS '피드 태그의 고유 ID';

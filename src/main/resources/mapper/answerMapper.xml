@@ -12,6 +12,6 @@
         FROM TBL_MEMBER M
                  JOIN TBL_ANSWER A
                       ON M.ID = A.MEMBER_ID
-        WHERE A.QUESTION_ID = #{questionId}
+        WHERE A.QUESTION_ID = #{questionId} AND PLAN_ID = #{planId}
     </select>
 </mapper>

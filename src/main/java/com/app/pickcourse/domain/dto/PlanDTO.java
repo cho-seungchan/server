@@ -43,6 +43,7 @@ public class PlanDTO {
     private List<Long> deleteSchedules;
     private String memberNickname;
     private int memberAge;
+    private List<FeedListDTO> feedList;
 
     public PlanVO toVO() {
         PlanVO planVO = new PlanVO();
