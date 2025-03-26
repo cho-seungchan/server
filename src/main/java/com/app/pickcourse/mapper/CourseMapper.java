@@ -43,4 +43,7 @@ public interface CourseMapper {
 
 //    회원에게 보여질 코스조회
     public Optional<CourseSelectDTO> selectCourseViewById(Long id);
+
+    // 봉사코스 정보 가져오기
+    CourseDTO getEco(Long id);
 }

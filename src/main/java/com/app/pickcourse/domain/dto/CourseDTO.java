@@ -29,6 +29,7 @@ public class CourseDTO {
     private String            volunteerDeadline;
     private int               volunteerMaxPersonnel;
     private int               volunteerMinPersonnel;
+    private int               volunteerParticipants;    // 총 참여자 수
     List<PathVO>              paths;
     List<String>              excludeContents;
     List<String>              includeContents;

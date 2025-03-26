@@ -40,4 +40,21 @@
         ]]>
     </select>
 
+    <select id="checkDuplicate" resultType="_int">
+        SELECT COUNT(*)
+        FROM   TBL_VOLUNTEER_PARTICIPANT
+        WHERE  COURSE_ID   =   #{courseId}
+        AND    MEMBER_ID   =   #{memberId}
+    </select>
+
+    <insert id="postEcoparticipant">
+        INSERT INTO TBL_VOLUNTEER_PARTICIPANT
+            (ID,
+             MEMBER_ID,
+             COURSE_ID)
+        VALUES
+            (SEQ_VOLUNTEER_PARTICIPANT.nextval,
+             #{memberId},
+             #{courseId})
+    </insert>
 </mapper>

@@ -25,4 +25,12 @@ public class VolunteerParticipantDAO {
     public int getCountAll(Long courseId) {
         return volunteerParticipantMapper.getCountAll(courseId);
     }
+
+    public int checkDuplicate(Long courseId, Long memberId) {
+        return volunteerParticipantMapper.checkDuplicate(courseId, memberId);
+    }
+
+    public void postEcoparticipant(Long courseId, Long memberId) {
+        volunteerParticipantMapper.postEcoparticipant(courseId, memberId);
+    }
 }

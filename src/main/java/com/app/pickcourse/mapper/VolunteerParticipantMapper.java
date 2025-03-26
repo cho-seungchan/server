@@ -17,4 +17,8 @@ public interface VolunteerParticipantMapper {
     List<VolunteerParticipantDTO> getParticipantsList(@Param("courseId") Long courseId, @Param("pagination") PaginationParticipants pagination);
 
     int getCountAll(Long courseId);
+
+    int checkDuplicate(@Param("courseId")Long courseId, @Param("memberId") Long memberId);
+
+    void postEcoparticipant(@Param("courseId") Long courseId, @Param("memberId") Long memberId);
 }
