@@ -449,7 +449,7 @@ public class MyPageController {
             model.addAttribute("memberId", memberId);
         }
 
-        return "/my-page/heart";
+        return "my-page/heart";
     }
 
     @GetMapping("/wishList")
@@ -481,7 +481,7 @@ public class MyPageController {
 
         List<RecruitPlanDTO> recruitPlans = planService.getMyRecruitPlans(memberId, offset, limit);
         model.addAttribute("recruitPlans", recruitPlans);
-        return "/my-page/recruit";
+        return "my-page/recruit";
     }
 
     @GetMapping("/recruit/load")

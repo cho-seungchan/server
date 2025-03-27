@@ -29,14 +29,14 @@ public class MemberController {
     @GetMapping("join_email")
     public String getJoinEmail(Model model) {
         model.addAttribute("memberDTO", new MemberDTO());
-        return "/join/join_email";
+        return "join/join_email";
     }
 
     @PostMapping("join_email")
     public String join(@ModelAttribute MemberDTO memberDTO, HttpSession session, Model model) {
         if (memberService.getMember(memberDTO.getMemberEmail()).isPresent()) {
             model.addAttribute("errorMessage", "중복된 이메일입니다.");
-            return "/join/join_email";
+            return "join/join_email";
         }
 
         session.setAttribute("signupEmail", memberDTO.getMemberEmail());
@@ -59,7 +59,7 @@ public class MemberController {
         memberDTO.setMemberPassword(password);
 
         model.addAttribute("memberDTO", memberDTO);
-        return "/join/join_check";
+        return "join/join_check";
     }
 
     @PostMapping("join_check")
