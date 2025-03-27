@@ -23,7 +23,7 @@ public class MainPageController {
 
     @GetMapping("")
     public String noticePage() {
-        return "/main-page/notice";
+        return "main-page/notice";
     }
 
     @GetMapping("/notices")

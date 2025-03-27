@@ -19,7 +19,7 @@
 
             <!-- Header will be dynamically inserted here -->
             <div id="header-placeholder"></div>
-            <header th:replace="/all/header.html :: #main-header"></header>
+            <header th:replace="~{all/header.html :: #main-header}"></header>
 
             <div class="CurrentIndex__Wrapper-sc-1w06nn3-0 iaElYN">
 
@@ -325,7 +325,7 @@
     </div>
     <div id="dnd-root"></div>
 
-    <footer th:replace="/all/footer.html :: #main-footer"></footer>
+    <footer th:replace="~{all/footer.html :: #main-footer}"></footer>
 </body>    
 <script src="/js/feeds/my-feed-list.js"></script>
 <script src="/js/all/footer.js"></script>

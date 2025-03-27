@@ -20,7 +20,7 @@
             <div class="App__AppWrapper-nc5ti6-0 idXWQn">
                 <!-- Header will be dynamically inserted here -->
                 <div id="header-placeholder"></div>
-                <header th:replace="/all/header.html :: #main-header"></header>
+                <header th:replace="~{all/header.html :: #main-header}"></header>
 
                 <div class="ProductDetailPage__Wrapper-sc-126q1k2-0 CijWU">
                     <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block">
@@ -331,7 +331,7 @@
         </div>
 
         <div id="dnd-root"></div>
-        <footer th:replace="/all/footer.html :: #main-footer"></footer>
+        <footer th:replace="~{all/footer.html :: #main-footer}"></footer>
     </body>
 <!-- 서버로 부터 받아온 데이타를 직접 사용할 수 있도록 선언 25.03.26 -->
     <script th:inline="javaScript">
@@ -342,4 +342,5 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="/js/proposal/eco-event.js"></script>
     <script src="/js/proposal/eco-service.js"></script>
+    <script src="/js/all/footer.js"></script>
 </html>
