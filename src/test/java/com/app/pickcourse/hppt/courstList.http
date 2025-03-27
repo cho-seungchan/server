@@ -1,5 +1,5 @@
-#GET http://localhost:10000/admin/course-list?page=1&type=&keyWord=
+#GET http://52.78.155.144:10000/admin/course-list?page=1&type=&keyWord=
 #Accept: application/json
 
-#GET http://localhost:10000/admin/course-detail/3
-GET http://localhost:10000/admin/course-type-detail/3
+#GET http://52.78.155.144:10000/admin/course-detail/3
+GET http://52.78.155.144:10000/admin/course-type-detail/3
