@@ -27,7 +27,7 @@
             <div class="App__AppWrapper-nc5ti6-0 idXWQn">
                 <!-- Header will be dynamically inserted here -->
                 <div id="header-placeholder"></div>
-                <header th:replace="/all/header.html :: #main-header"></header>
+                <header th:replace="~{all/header.html :: #main-header}"></header>
 
                 <div
                     class="PageWrapper-sc-1w87j10-0 CurrentIndex__Wrapper-iqrmxf-0 dfXezx"
@@ -185,7 +185,7 @@
         <div id="modal-root"></div>
         <div id="dnd-root"></div>
         <div class="reply-report-modal-body"></div>
-        <footer th:replace="/all/footer.html :: #main-footer"></footer>
+        <footer th:replace="~{all/footer.html :: #main-footer}"></footer>
     </body>
 
 <!--    <script src="/js/feeds/reply.js"></script>-->

@@ -20,7 +20,7 @@
             <div class="App__AppWrapper-nc5ti6-0 idXWQn">
                 <!-- Header will be dynamically inserted here -->
                 <div id="header-placeholder"></div>
-                <header th:replace="/all/header.html :: #main-header"></header>
+                <header th:replace="~{all/header.html :: #main-header}"></header>
 
                 <div class="ProductDetailPage__Wrapper-sc-126q1k2-0 CijWU">
                     <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="opacity: 1; display: block">
@@ -91,7 +91,7 @@
 
         <div id="modal-root"></div>
         <div id="dnd-root"></div>
-        <footer th:replace="/all/footer.html :: #main-footer"></footer>
+        <footer th:replace="~{all/footer.html :: #main-footer}"></footer>
     </body>
 </html>
 <!-- 더버기 레스크 컨트롤러 추가를 위한 추가 25.03.21 조승찬 -->

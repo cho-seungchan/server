@@ -57,7 +57,7 @@ public class ProposalController {
         model.addAttribute("course", course);
         model.addAttribute("memberId", memberId);
 
-        return "/proposal/eco";
+        return "proposal/eco";
     }
 
     //    25.03.26 참가자 처리   조승찬
@@ -75,12 +75,12 @@ public class ProposalController {
 
     @GetMapping("/list")
     public String getList(Model model) {
-        return "/proposal/list";
+        return "proposal/list";
     }
 
     @GetMapping("/mobile")
     public String getMobile(Model model) {
-        return "/proposal/mobile";
+        return "proposal/mobile";
     }
 
     @GetMapping("/modify")
@@ -95,7 +95,7 @@ public class ProposalController {
             model.addAttribute("planDTO", planDTO);
             model.addAttribute("loginMember", loginMember);
 
-            return "/proposal/modify";
+            return "proposal/modify";
         }
     }
 
@@ -105,7 +105,7 @@ public class ProposalController {
         if (loginUser == null) {
             return "redirect:/login/login";
         }else {
-        return "/proposal/modifylist";
+        return "proposal/modifylist";
         }
     }
 
@@ -121,7 +121,7 @@ public class ProposalController {
 
         model.addAttribute("planDTO", planDTO);
 
-        return "/proposal/pay";
+        return "proposal/pay";
     }
 
     @PostMapping("/addKakaoPay")
@@ -171,7 +171,7 @@ public class ProposalController {
         model.addAttribute("planDetailDTO", planDetailDTO);
         log.info("planDetailDTO={}",planDetailDTO);
 
-        return "/proposal/read";
+        return "proposal/read";
     }
 
     @GetMapping("/reviewlist")
@@ -182,7 +182,7 @@ public class ProposalController {
         feedListByPlanIdDTO.setFeedLists(realFeedService.getRealFeedList(planId));
         model.addAttribute("lists", feedListByPlanIdDTO);
 
-        return "/proposal/reviewlist";
+        return "proposal/reviewlist";
     }
 
     @GetMapping("/reviewlist/{planId}")
@@ -193,7 +193,7 @@ public class ProposalController {
 
     @GetMapping("/reviewread")
     public String getReviewRead(Model model) {
-        return "/proposal/reviewread";
+        return "proposal/reviewread";
     }
 
     @GetMapping("/viewlist")
@@ -207,7 +207,7 @@ public class ProposalController {
         model.addAttribute("course", course);
         model.addAttribute("loginMember", loginUser);
 
-        return "/proposal/viewlist";
+        return "proposal/viewlist";
     }
     @PostMapping("/viewlist")
     public RedirectView check(Long courseId, RedirectAttributes redirectAttributes) {
@@ -227,7 +227,7 @@ public class ProposalController {
             return "redirect:/login/login";
         }
         planDTO.setCourseId(courseId);
-        return "/proposal/write";
+        return "proposal/write";
     }
 
     @PostMapping("/write")

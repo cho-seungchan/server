@@ -16,7 +16,7 @@
         <title>추천 여행 상세 조회</title>
     </head>
     <body class="fontLoaded" th:object="${course}">
-    <header th:replace="/all/header.html :: #main-header"></header>
+    <header th:replace="~{all/header.html :: #main-header}"></header>
         <div id="app">
             <div class="App__AppWrapper-nc5ti6-0 idXWQn">
                 <!-- Header will be dynamically inserted here -->
@@ -186,7 +186,7 @@
             </div>
         </div>
         <div id="dnd-root"></div>
-    <footer th:replace="/all/footer.html :: #main-footer"></footer>
+    <footer th:replace="~{all/footer.html :: #main-footer}"></footer>
     </body>
     <script th:inline="javaScript">
         const course = [[${course}]]
