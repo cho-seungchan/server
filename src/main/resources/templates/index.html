@@ -45,7 +45,7 @@
         <title>메인페이지</title>
     </head>
     <body class="fontLoaded" th:object="${mainDTO}">
-    <header th:replace="/all/header.html :: #main-header"></header>
+    <header th:replace="~{all/header.html :: #main-header}"></header>
     <div id="app">
         <div class="App__AppWrapper-nc5ti6-0 idXWQn">
             <div class="HomePage__Wrapper-jao9qf-0 hErPle">
@@ -616,7 +616,7 @@
     </div>
     <div id="modal-root"></div>
     <div id="dnd-root"></div>
-    <footer th:replace="/all/footer.html :: #main-footer"></footer>
+    <footer th:replace="~{all/footer.html :: #main-footer}"></footer>
     </body>
     <script src="/js/util.js"></script>
     <script th:inline="javascript">

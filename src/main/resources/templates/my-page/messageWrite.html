@@ -47,7 +47,7 @@
                 <title>쪽지 쓰기</title>
             </head>
             <body class="fontLoaded">
-            <header th:replace="/all/header.html :: #main-header"></header>
+            <header th:replace="~{all/header.html :: #main-header}"></header>
             <form action="/my-page/messageWrite" method="post" th:object="${sendMessageDTO}" enctype="multipart/form-data">
                 <div id="app">
                     <div class="App__AppWrapper-nc5ti6-0 idXWQn">
@@ -169,7 +169,7 @@
             </form>
                 <div id="modal-root"></div>
                 <div id="dnd-root"></div>
-            <footer th:replace="/all/footer.html :: #main-footer"></footer>
+            <footer th:replace="~{all/footer.html :: #main-footer}"></footer>
             </body>
             <script src="/js/myPage/messageWrite.js"></script>
             <script src="/js/all/footer.js"></script>

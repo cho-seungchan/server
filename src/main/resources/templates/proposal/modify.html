@@ -16,7 +16,7 @@
         <title>여행 계획 수정</title>
     </head>
     <body class="fontLoaded">
-    <header th:replace="/all/header.html :: #main-header"></header>
+    <header th:replace="~{all/header.html :: #main-header}"></header>
         <div id="app">
             <div class="App__AppWrapper-nc5ti6-0 idXWQn">
                 <!-- Header will be dynamically inserted here -->
@@ -156,7 +156,7 @@
             </div>
         </div>
         <div id="dnd-root"></div>
-    <footer th:replace="/all/footer.html :: #main-footer"></footer>
+    <footer th:replace="~{all/footer.html :: #main-footer}"></footer>
     </body>
     <script th:inline="javascript">
         const plan = [[${planDTO}]]
