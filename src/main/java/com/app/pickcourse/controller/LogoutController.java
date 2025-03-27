@@ -31,7 +31,7 @@ public class LogoutController {
             log.info("카카오 사용자 로그아웃 완료");
 
             String kakaoLogoutUrl = "https://kauth.kakao.com/oauth/logout?"
-                    + "client_id=" + "1f0eec6d921e399c7940b9689a7896e3"
+                    + "client_id=" + "fae1d8d22225221e075546a8f1f4ac4d"
                     + "&logout_redirect_uri=" + "http://localhost:10000/login/login";
 
             return "redirect:" + kakaoLogoutUrl;
