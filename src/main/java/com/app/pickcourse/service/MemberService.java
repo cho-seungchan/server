@@ -98,7 +98,7 @@ public class MemberService {
                 return null;
             }
             String todayPath = getPath();
-            String rootPath = "C:/upload/" + todayPath;
+            String rootPath = "/upload/" + todayPath;
             String fileName = null;
             UUID uuid = UUID.randomUUID();
 

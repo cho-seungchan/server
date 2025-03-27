@@ -42,7 +42,7 @@ public class MessageService {
     // 메세지 보내기
     public void sendMessage(SendMessageDTO sendMessageDTO, MultipartFile file){
         String todayPath = getPath();
-        String rootPath = "C:/upload/" + todayPath;
+        String rootPath = "/upload/" + todayPath;
 
         // 디버깅 ==
         System.out.println("메시지 전송 시작");
