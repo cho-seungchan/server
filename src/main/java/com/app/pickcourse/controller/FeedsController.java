@@ -50,7 +50,7 @@ public class FeedsController {
         model.addAttribute("replyAction", new ReplyActionDTO()); // 입력될 댓글을 받아올 객체
         model.addAttribute("memberFile", memberFileDTO);
         model.addAttribute("pagination", pagination);
-        return "/feeds/reply-list";
+        return "feeds/reply-list";
     }
 
     // 댓글 목록 추가 조회 레스트컨트롤러 방식:: 25.03.16 조승찬
@@ -125,7 +125,7 @@ public class FeedsController {
         model.addAttribute("memberFile", memberFileDTO);
         model.addAttribute("pagination", pagination);
 
-        return "/feeds/my-reply-list";
+        return "feeds/my-reply-list";
     }
 
     // 나의 댓글 목록 추가 조회 레스트컨트롤러 방식:: 25.03.17 조승찬
@@ -165,7 +165,7 @@ public class FeedsController {
 
         FeedDTO feedDTO = new FeedDTO();
         model.addAttribute("feedDTO", feedDTO);
-        return "/feeds/feed-write";
+        return "feeds/feed-write";
     }
 
     // 피드 작성 25.03.18 조승찬
@@ -201,7 +201,7 @@ public class FeedsController {
         feedDTO.setFeedType(feedType);
         model.addAttribute("feedDTO", feedDTO);
 
-        return "/feeds/feed-modify";
+        return "feeds/feed-modify";
     }
 
     // 피드 수정 25.03.19 조승찬
@@ -263,7 +263,7 @@ public class FeedsController {
         realDTO.setPlanId(planId);
         model.addAttribute("realDTO", realDTO);
 
-        return "/feeds/real-write";
+        return "feeds/real-write";
     }
 
     // 리얼 후기 작성 25.03.18 조승찬
@@ -293,7 +293,7 @@ public class FeedsController {
         realDTO.setId(id);
         model.addAttribute("realDTO", realDTO);
 
-        return "/feeds/real-modify";
+        return "feeds/real-modify";
     }
 
     // 리얼 후기 수정 25.03.19 조승찬
@@ -366,7 +366,7 @@ public class FeedsController {
         model.addAttribute("feedListDTO", feedListDTO);
         model.addAttribute("listType", listType);
         model.addAttribute("loginId", memberId);  // 케밥버튼 클릭시 로그인회원과 작성자가 같은지 확인해서 모달창을 띄움
-        return "/feeds/feed-list";
+        return "feeds/feed-list";
     }
 
     // 나의 피드 리스트 25.03.20 조승찬
@@ -385,7 +385,7 @@ public class FeedsController {
         List<FeedListDTO> feedListDTO = feedsService.getMyFeedList(member.getId(), listType);
         model.addAttribute("feedListDTO", feedListDTO);
         model.addAttribute("listType", listType);
-        return "/feeds/my-feed-list";
+        return "feeds/my-feed-list";
     }
 
     // 나의 여행 목록 25.03.21 조승찬
@@ -401,7 +401,7 @@ public class FeedsController {
         model.addAttribute("tourListDTO", tourListDTO);
         model.addAttribute("pagination", pagination);
 
-        return "/feeds/tour-list";
+        return "feeds/tour-list";
     }
 
 
@@ -422,7 +422,7 @@ public class FeedsController {
 
     @GetMapping("/review-list")
     public String getReviewList(Model model) {
-        return "/feeds/reviewlist";
+        return "feeds/reviewlist";
     }
 
 }

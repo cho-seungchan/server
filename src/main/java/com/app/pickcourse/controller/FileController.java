@@ -62,7 +62,7 @@ public class FileController {
     public byte[] display(String path) throws IOException{
         byte[] file = null;
         try {
-            file = FileCopyUtils.copyToByteArray(new File("C:/upload/" + path));
+            file = FileCopyUtils.copyToByteArray(new File("/upload/" + path));
         }catch (NoSuchFileException e){
             throw new RuntimeException();
         }
@@ -71,7 +71,7 @@ public class FileController {
 
     @GetMapping("download")
     public ResponseEntity<Resource> download(String path) throws IOException{
-        Resource resource = new FileSystemResource("C:/upload/" + path);
+        Resource resource = new FileSystemResource("/upload/" + path);
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Disposition", "attachment; filename=" + new String(("한동석짱_" + path.split("_")[1]).getBytes("UTF-8"), "ISO-8859-1"));
         return new ResponseEntity<Resource>(resource, headers, HttpStatus.OK);

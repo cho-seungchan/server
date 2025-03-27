@@ -43,7 +43,7 @@ public class AdminController {
             return "redirect:adminLogin";
         }
 
-        return "/admin/admin";
+        return "admin/admin";
     }
 
     // 회원 관리 목록 조회 25.03.03 조승찬
@@ -59,7 +59,7 @@ public class AdminController {
         List<MemberVO> members = adminService.getMemberList(isAct, pagination, search);
         model.addAttribute("members", members);
 
-        return "/admin/member-list";
+        return "admin/member-list";
     }
 
     // 회원 정지 25.03.03 조승찬
@@ -129,7 +129,7 @@ public class AdminController {
         model.addAttribute("admins", admins);
         model.addAttribute("admin", new AdminVO());
 
-        return "/admin/manage-admin-list";
+        return "admin/manage-admin-list";
     }
 
     // 관리자 관리 화면 :: 등록 25.03.03 조승찬
@@ -175,7 +175,7 @@ public class AdminController {
             return "redirect:adminLogin";
         }
 
-        return "/admin/add-course";}
+        return "admin/add-course";}
 
     // 신규 코스 작성  25.03.07 조승찬
     @PostMapping("/add-course")

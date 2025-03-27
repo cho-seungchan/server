@@ -40,7 +40,7 @@ public class RankingController {
         rankings.getWeekRanking().forEach(System.out::println);
         model.addAttribute("rankings", rankings);
 
-        return "/ranking/ranking";
+        return "ranking/ranking";
     }
 
     @PostMapping("/wish")
