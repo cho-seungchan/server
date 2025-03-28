@@ -63,6 +63,7 @@ public class FileController {
         byte[] file = null;
         try {
             file = FileCopyUtils.copyToByteArray(new File("/upload/" + path));
+            log.info(file.toString());
         }catch (NoSuchFileException e){
             throw new RuntimeException();
         }
