@@ -41,22 +41,33 @@ public class PlanService {
 
         planDAO.save(planVO);
 
-        planDTO.getExcludeContents().forEach( exclude -> {
-                    exclude.setPlanId(planVO.getId());
-                    writeExcludeDAO.save(exclude.toVO());
-                });
-        planDTO.getIncludeContents().forEach(include -> {
-            include.setPlanId(planVO.getId());
-            writeIncludeDAO.save(include.toVO());
-                });
-        planDTO.getPrepareContents().forEach(prepare -> {
-            prepare.setPlanId(planVO.getId());
-            writePrepareDAO.save(prepare.toVO());
-                });
-        planDTO.getScheduleContents().forEach(schedule -> {
-            schedule.setPlanId(planVO.getId());
-            scheduleDAO.save(schedule.toVO());
+        if(planDTO.getExcludeContents() != null) {
+            planDTO.getExcludeContents().forEach( exclude -> {
+                exclude.setPlanId(planVO.getId());
+                writeExcludeDAO.save(exclude.toVO());
             });
+        }
+
+        if(planDTO.getIncludeContents() != null) {
+            planDTO.getIncludeContents().forEach(include -> {
+                include.setPlanId(planVO.getId());
+                writeIncludeDAO.save(include.toVO());
+            });
+        }
+
+        if(planDTO.getPrepareContents() != null) {
+            planDTO.getPrepareContents().forEach(prepare -> {
+                prepare.setPlanId(planVO.getId());
+                writePrepareDAO.save(prepare.toVO());
+            });
+        }
+
+        if(planDTO.getScheduleContents() != null) {
+            planDTO.getScheduleContents().forEach(schedule -> {
+                schedule.setPlanId(planVO.getId());
+                scheduleDAO.save(schedule.toVO());
+            });
+        }
 
         ParticipantDTO participant = new ParticipantDTO();
         participant.setMemberId(planVO.getMemberId());
@@ -66,7 +77,7 @@ public class PlanService {
 
     }
 
-//    나의 계획 목록
+    //    나의 계획 목록
     public MyPLanListDTO getMyPlanList(@Param("pagination") Pagination pagination,
                                        @Param("memberId") Long id) {
         MyPLanListDTO planListDTO = new MyPLanListDTO();
@@ -84,10 +95,10 @@ public class PlanService {
         return planListDTO;
     }
 
-//    목록 갯수
+    //    목록 갯수
     public int getTotal(Long memberId) { return planDAO.findTotal(memberId); }
 
-//    여행 상세 조회
+    //    여행 상세 조회
     public Optional<PlanDTO> getPlanById(Long id) {
         PlanDTO planDTO = new PlanDTO();
         MemberDTO memberVO = new MemberDTO();
@@ -107,7 +118,7 @@ public class PlanService {
         return Optional.ofNullable(foundPlan.orElse(new PlanDTO()));
     }
 
-//    상세조회
+    //    상세조회
     public PlanDetailDTO getPlanDetailById(Long id) {
         PlanDetailDTO planDetailDTO = new PlanDetailDTO();
         List<ScheduleDTO> scheduleDTO = new ArrayList<>();
@@ -134,13 +145,13 @@ public class PlanService {
         return planDetailDTO;
     }
 
-//    질문 작성
+    //    질문 작성
     public void writeQuestion(QuestionDTO questionDTO) {
         QuestionVO questionVO = questionDTO.toVO();
         questionDAO.saveQuestion(questionVO);
     }
 
-//    planId의 질문 조회
+    //    planId의 질문 조회
     public QuestionListDTO findQuestionLists(Long planId) {
         QuestionListDTO questionListDTO = new QuestionListDTO();
 
@@ -148,7 +159,7 @@ public class PlanService {
 
         return questionListDTO;
     }
-// 계획수정
+    // 계획수정
     public void updatePlan(PlanDTO planDTO) {
         planDAO.setPlan(planDTO);
 
@@ -179,7 +190,7 @@ public class PlanService {
             scheduleDAO.save(schedule.toVO());
         });
     }
-//    삭제
+    //    삭제
     public void deletePlan(Long planId) {
         planDAO.delete(planId);
     }

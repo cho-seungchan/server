@@ -61,7 +61,7 @@
                  JOIN TBL_PLAN PL ON P.PLAN_ID = PL.ID
                  JOIN TBL_COURSE C ON PL.COURSE_ID = C.ID
         WHERE P.MEMBER_ID = #{memberId}
-        ORDER BY C.ID DESC
+        ORDER BY PL.ID DESC
     </select>
 
     <select id="selectApplicantList" parameterType="Long" resultType="com.app.pickcourse.domain.dto.ApplicantDTO">

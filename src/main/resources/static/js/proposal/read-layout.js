@@ -47,7 +47,6 @@ if (planDetail.feedList.length > 0) {
     <div>
         <div class="CoverReviewCard__Wrapper-sc-1kgiguh-0 ihDCaS">
             <div class="CoverReviewCard__ImageSection-sc-1kgiguh-1 eSCFvY">
-                <a href="/products/174811/reviews">
                     <div class="Image__Wrapper-v97gyx-0 gDuKGF">
                         <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="
                                                                                         opacity: 1;
@@ -76,7 +75,6 @@ if (planDetail.feedList.length > 0) {
                             </div>
                         </div>
                     </div>
-                </a>
             </div>
             <div class="CoverReviewCard__InfoSection-sc-1kgiguh-2 ggRfTm">
                 <div class="CoverReviewCard__UserProfileSection-sc-1kgiguh-3 gvMYvX">
@@ -254,9 +252,8 @@ if (planDetail.member == null) {
     </span>
     <div class="fileRegbtn_wrap">
         <span class="fileRegbtn">
-            <input type="file" class="fileUp" "fileUp" multiple="" onchange="fileChange(this)" disabled="disabled">
-            <label for="fileUp" class="btn_fileUp">파일찾기</label>
            <a href="/login/login" class="btn_apply ContentComment">로그인</a>
+        </span>
     </div>
     `;
     buttonForm.innerHTML = text;
@@ -270,9 +267,8 @@ if (planDetail.member == null) {
     </span>
     <div class="fileRegbtn_wrap">
         <span class="fileRegbtn">
-            <input type="file" class="fileUp" "fileUp" multiple="" onchange="fileChange(this)">
-            <label for="fileUp" class="btn_fileUp">파일찾기</label>
             <button class="btn_apply ContentComment insertButton">등록</button>
+        </span>
     </div>
     `;
     buttonForm.innerHTML = text;
@@ -363,8 +359,6 @@ const readLayOut = (() => {
                             </span>
                             <div class="btn">
                                 <span class="fileRegbtn">
-                                    <input type="file" class="fileUp" id="fileUpb940dab6-e56b-4103-b120-a1f4c83c5e25" name="fileUpb940dab6-e56b-4103-b120-a1f4c83c5e25" onchange="fileChange(this)" disabled="disabled">
-                                        <label for="fileUpb940dab6-e56b-4103-b120-a1f4c83c5e25" class="btn_fileUp">파일찾기</label>
                                 </span>
                                 <a href="/login/login" class="btn_apply ContentComment" listener="true">로그인</a>
                             </div>
@@ -408,8 +402,6 @@ const readLayOut = (() => {
                             </span>
                             <div class="btn">
                                 <span class="fileRegbtn">
-                                    <input type="file" class="fileUp" id="fileUpb940dab6-e56b-4103-b120-a1f4c83c5e25" name="fileUpb940dab6-e56b-4103-b120-a1f4c83c5e25" onchange="fileChange(this)" disabled="disabled">
-                                        <label for="fileUpb940dab6-e56b-4103-b120-a1f4c83c5e25" class="btn_fileUp">파일찾기</label>
                                 </span>
                                                 <button type="button" class="btn_apply ContentComment insertAnswerButton" data-index="${question.id}">등록</button>
 

@@ -158,7 +158,7 @@
     <update id="update">
         UPDATE TBL_MEMBER
         SET MEMBER_NICKNAME = #{memberNickname},
-            MEMBER_BIRTH = #{memberBirth},
+            MEMBER_BIRTH = TO_DATE(#{memberBirth}, 'YYYY.MM.DD'),
             MEMBER_GENDER = #{memberGender},
             UPDATED_DATE = SYSDATE
         WHERE ID = #{id}
