@@ -21,6 +21,11 @@ document.querySelector(".ImageList-sc-9v1mt2-0.hGJMVS").addEventListener("click"
 const button = document.querySelector(".saveButton");
 
 button.addEventListener("click", () => {
+    if(document.querySelector(".uploadFile") == null){
+        alert("사진을 한장 이상 선택해주세요😊")
+        return;
+    }
+
     // 태그에 들어 온 텍스트 모으기 => 서버로 보내기 위해
     let tagClassName, texts;
     tagClassName = `.Tag__RoundTag-sxb61j-1.jXxsiv`;

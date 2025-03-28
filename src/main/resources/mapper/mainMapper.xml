@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.app.pickcourse.mapper.MainMapper">
     <select id="selectByCourseType" resultType="mainCourseDTO">
-        SELECT * FROM TBL_COURSE WHERE COURSE_TYPE IS NOT NULL AND COURSE_TYPE != '봉사 코스'
+        SELECT * FROM TBL_COURSE WHERE COURSE_TYPE IS NOT NULL AND COURSE_TYPE != '봉사 코스' ORDER BY COURSE_TYPE ASC
     </select>
 
     <select id="selectFeeds" resultType="mainFeedListDTO">

@@ -207,7 +207,11 @@ public class MyPageController {
             @RequestParam("file") MultipartFile file,
             RedirectAttributes redirectAttributes
     ) {
-        log.info("파일 이름: {}", file.getOriginalFilename());
+        if (file == null || file.isEmpty()) {
+            log.warn("파일이 비어있습니다.");
+        } else {
+            log.info("파일 이름: {}", file.getOriginalFilename());
+        }
 
         MemberDTO member = (MemberDTO) session.getAttribute("member");
 
