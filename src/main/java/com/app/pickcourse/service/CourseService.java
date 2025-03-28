@@ -28,6 +28,7 @@ public class CourseService {
     private final VolunteerPrepareDAO volunteerPrepareDAO;
     private final VolunteerScheduleDAO volunteerScheduleDAO;
     private final VolunteerParticipantDAO volunteerParticipantDAO;
+    private final ParticipantDAO participantDAO;
 
     //    추천코스 조회
     public CourseSelectDTO findCourseById(Long courseId) {
@@ -46,7 +47,9 @@ public class CourseService {
                     fileList = realFileDAO.getRealModify(feed.getId());
                     feed.setFiles(fileList);
             });
+            plan.setParticipants(participantDAO.findByPlanId(plan.getId()));
         });
+
 
         return course;
     }

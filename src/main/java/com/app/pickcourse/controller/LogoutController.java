@@ -32,7 +32,7 @@ public class LogoutController {
 
             String kakaoLogoutUrl = "https://kauth.kakao.com/oauth/logout?"
                     + "client_id=" + "1f0eec6d921e399c7940b9689a7896e3"
-                    + "&logout_redirect_uri=" + "http://localhost:10000/login/login";
+                    + "&logout_redirect_uri=" + "http://43.203.69.19:10000/login/login";
 
             return "redirect:" + kakaoLogoutUrl;
         } else {

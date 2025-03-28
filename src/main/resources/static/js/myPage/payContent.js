@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 wrapper.innerHTML = `
                     <div class="Placeholder__Wrapper-jvh9ey-0 kVYyVO">
                         <div class="Placeholder__Wrapper-von7t2-0 gjaxFh">
-                            <img src="/images/no-data.svg" alt="아직 결제내역이 없어요!" width="56px" height="56px" />
+                            <img src="/images/nonpay.jpg" alt="아직 결제내역이 없어요!" width="56px" height="56px" style="border-radius:100%"/>
                             <div class="Placeholder__Title-von7t2-1 dqGjWH">아직 결제내역이 없어요!</div>
                             <div class="Placeholder__SubTitle-von7t2-2 gSjDbY">지금 바로 플랜을 시작해보세요.</div>
                             <div class="Placeholder__ButtonWrapper-von7t2-3 hCwBUo">
