@@ -54,11 +54,7 @@ public class EmailService {
         body.append("본 메일은 비밀번호 변경을 위해<br />발송되는 메일입니다.");
         body.append("비밀번호를 변경하려면<br />‘비밀번호 변경‘ 버튼을 클릭해주세요.");
         body.append("</p>");
-<<<<<<< HEAD
         body.append("<a href=\"http://52.78.155.144:10000/login/confirm?code=" + code + "\" style=\"text-decoration-line: none; display: block; color: #fff; background: #383838; cursor: pointer; padding: 10px 60px; margin: 80px auto; text-align: center; font-size: 18px;\" rel=\"noreferrer noopener\">");
-=======
-        body.append("<a href=\"http://43.203.69.19:10000/login/confirm?code=" + code + "\" style=\"text-decoration-line: none; display: block; color: #fff; background: #383838; cursor: pointer; padding: 10px 60px; margin: 80px auto; text-align: center; font-size: 18px;\" rel=\"noreferrer noopener\">");
->>>>>>> 97bd2e0d62ccb8b62c296b00aa6aa5612d326a10
         body.append("비밀번호 변경");
         body.append("</a>");
         body.append("<div>");
