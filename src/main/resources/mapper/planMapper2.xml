@@ -45,8 +45,8 @@
                             M.MEMBER_NICKNAME
                         FROM TBL_MEMBER M
                                  JOIN TBL_PARTICIPANT PT ON PT.MEMBER_ID = M.ID
-                                 JOIN TBL_PLAN P ON M.ID = P.MEMBER_ID
-                        WHERE P.MEMBER_ID = #{memberId}
+                                 JOIN TBL_PLAN P ON P.ID = PT.PLAN_ID
+                        WHERE PT.MEMBER_ID = #{memberId}
                         GROUP BY
                             P.ID,
                             P.PLAN_NAME,
@@ -69,8 +69,9 @@
 
     <select id="getCountAllByMemberId" resultType="_int">
             SELECT COUNT(*)
-            FROM   TBL_PLAN
-            WHERE  MEMBER_ID = #{memberId}
+            FROM   TBL_PLAN P
+                       JOIN TBL_PARTICIPANT PT ON P.ID = PT.PLAN_ID
+            WHERE  PT.MEMBER_ID = #{memberId}
     </select>
 
 </mapper>

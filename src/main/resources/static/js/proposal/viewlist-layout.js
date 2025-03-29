@@ -187,7 +187,6 @@ if (feedLists.length > 0) {
             <div>
                 <div class="CoverReviewCard__Wrapper-sc-1kgiguh-0 ihDCaS">
                 <div class="CoverReviewCard__ImageSection-sc-1kgiguh-1 eSCFvY">
-                <a href="/products/174811/reviews">
                     <div class="Image__Wrapper-v97gyx-0 gDuKGF">
                         <div class="Fade__Wrapper-sc-1s0ipfq-0 koasSX" style="
                                                                                         opacity: 1;
@@ -216,7 +215,6 @@ if (feedLists.length > 0) {
                             </div>
                         </div>
                     </div>
-                </a>
             </div>
             <div class="CoverReviewCard__InfoSection-sc-1kgiguh-2 ggRfTm">
                 <div class="CoverReviewCard__UserProfileSection-sc-1kgiguh-3 gvMYvX">
@@ -306,6 +304,8 @@ if (feedLists.length > 3) {
     slickInitialized.append(rightArrow);
 }
 
+text = ``;
+
 course.plans.forEach((plan) => {
     const formatPrice = plan.planPrice.toLocaleString()
     const encodedFilePath = plan.planFilePath && plan.planFileName
@@ -358,7 +358,7 @@ course.plans.forEach((plan) => {
                         <span>${plan.planName}</span><br />
                         <span>일정 : ${plan.planStartDate} ~ ${plan.planEndDate}</span><br />
                         <span>비용 : ${formatPrice}원</span><br />
-                        <span>참가 : 3/${plan.planMaxPersonnel}(참여/목표)</span><br />
+                        <span>참가 : ${plan.participants.length}/${plan.planMaxPersonnel}(참여/목표)</span><br />
                     </div>
                     <div class="MagazineListPage__CatchPhrase-hh1ck3-5 dfnTnv">
                         캡틴 : ${plan.memberNickname}
