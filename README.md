@@ -38,15 +38,15 @@ pickCourse
    
 5-1 프론트엔드
    
+![image](https://github.com/user-attachments/assets/bcc26b9d-299d-4a68-83d4-1cd39e3995c7)
 ![image](https://github.com/user-attachments/assets/8479aff2-a5b1-4161-927e-efa9f5bc6e12)
 ![image](https://github.com/user-attachments/assets/40f0ab23-f6d3-485b-8d5b-6b518a1449ba)
-![image](https://github.com/user-attachments/assets/bcc26b9d-299d-4a68-83d4-1cd39e3995c7)
 
 
 5-2 백엔드
 
-![image](https://github.com/user-attachments/assets/fcae5c63-a7ae-48c4-ba42-f62d855a454a)
 ![image](https://github.com/user-attachments/assets/c1ef0d00-e7fe-4740-a4c0-1ee876fecf96)
+![image](https://github.com/user-attachments/assets/fcae5c63-a7ae-48c4-ba42-f62d855a454a)
 
 
 
